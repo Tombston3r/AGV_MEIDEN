@@ -1,0 +1,130 @@
+/* Supervision AGV — feuille de style unique, servie depuis LittleFS.
+   Contrainte : lisible sur un écran d'atelier, à distance, sans dépendance
+   externe (le poste n'a pas d'accès Internet). */
+
+:root {
+  --bg: #12151a;
+  --panel: #1c212b;
+  --text: #e8edf4;
+  --muted: #93a1b4;
+  --ok: #3fb950;
+  --warn: #d29922;
+  --alarm: #f85149;
+  --accent: #58a6ff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 1.5rem;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  border-bottom: 1px solid #2b3240;
+  padding-bottom: 1rem;
+}
+
+h1 { font-size: 1.5rem; margin: 0; }
+h2 { font-size: 0.95rem; margin: 0 0 0.5rem; color: var(--muted); font-weight: 600; }
+
+.safety {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  border-left: 4px solid var(--warn);
+  background: #241f14;
+  font-size: 0.9rem;
+}
+
+.badge {
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.badge.ok { background: #12331c; color: var(--ok); }
+.badge.warn { background: #332b12; color: var(--warn); }
+.badge.alarm { background: #33161a; color: var(--alarm); }
+.badge.unknown { background: #262c36; color: var(--muted); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.tile {
+  background: var(--panel);
+  border: 1px solid #2b3240;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.value { font-size: 2rem; font-weight: 700; margin: 0; font-variant-numeric: tabular-nums; }
+.value.alarm { color: var(--alarm); }
+.hint { color: var(--muted); font-size: 0.8rem; margin: 0.25rem 0 0; }
+
+section { margin: 2rem 0; }
+
+form {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+label { display: flex; flex-direction: column; font-size: 0.85rem; color: var(--muted); gap: 0.25rem; }
+
+input[type="number"] {
+  width: 7rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #2b3240;
+  background: var(--panel);
+  color: var(--text);
+  font-size: 1rem;
+}
+
+button {
+  padding: 0.55rem 1.1rem;
+  border: 0;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #06121f;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+button.danger { background: var(--alarm); color: #1a0708; }
+button:hover { filter: brightness(1.1); }
+
+.feedback { min-height: 1.4rem; font-size: 0.9rem; margin: 0; }
+.feedback.ok { color: var(--ok); }
+.feedback.alarm { color: var(--alarm); }
+
+.warning {
+  padding: 0.75rem 1rem;
+  border-left: 4px solid var(--warn);
+  background: #241f14;
+  font-size: 0.9rem;
+}
+.hidden { display: none; }
+
+table { border-collapse: collapse; width: 100%; max-width: 520px; }
+th, td { text-align: left; padding: 0.4rem 0.75rem; border-bottom: 1px solid #2b3240; }
+th { color: var(--muted); font-weight: 500; }
+td { font-variant-numeric: tabular-nums; }
+
+a { color: var(--accent); }
+footer { margin-top: 2rem; color: var(--muted); font-size: 0.85rem; }

@@ -1,0 +1,22 @@
+# Artefacts de build
+build/
+.pio/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# En-tête généré depuis profiles/*.yaml — reconstruit à chaque build.
+firmware/common/config/generated_profile.h
+
+# Secrets : la clé AES ne doit JAMAIS être versionnée (voir tools/provision_key.py).
+*.key
+nvs_*.csv
+nvs_*.bin
+
+# Réglages locaux de l'outillage (propres au poste, pas au projet)
+.claude/settings.local.json
+
+# Fichiers temporaires KiCad
+*.lck
+_autosave-*

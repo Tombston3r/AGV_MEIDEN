@@ -1,0 +1,33 @@
+# Service du poste fixe AGV (UniPi E413).
+#
+# ⚠ §12.9 : ce service suppose un runtime Linux avec Python 3.11. Si la
+# référence commandée tourne sous Mervis, ce fichier est SANS OBJET — il faut
+# alors passer par le backend Modbus depuis un autre hôte. Vérifier AVANT
+# déploiement (voir docs/questions_ouvertes.md).
+
+[Unit]
+Description=Poste fixe AGV MEIDEN
+Documentation=file:///opt/agv/docs/procedures_essai.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=agv
+Group=agv
+WorkingDirectory=/opt/agv
+ExecStart=/opt/agv/venv/bin/python -m agv_poste --config /etc/agv/poste.toml
+Restart=always
+RestartSec=5
+# Le poste est un organe de commande : un redémarrage ne doit jamais relancer
+# une course. L'idempotence côté AGV s'en charge, la persistance ici est nulle
+# par construction.
+StateDirectory=agv
+RuntimeDirectory=agv
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

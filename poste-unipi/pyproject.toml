@@ -1,0 +1,33 @@
+[project]
+name = "agv-poste"
+version = "0.1.0"
+description = "Poste fixe AGV MEIDEN — variante UniPi E413 (architecture 2)"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+mqtt = ["paho-mqtt>=2.0"]
+sms = ["pyserial>=3.5"]
+evok = ["requests>=2.31"]
+modbus = ["pymodbus>=3.6"]
+dev = ["ruff>=0.5", "mypy>=1.10", "pytest>=8.0"]
+
+[project.scripts]
+agv-poste = "agv_poste.__main__:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unreachable = true
+ignore_missing_imports = true

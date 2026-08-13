@@ -1,0 +1,27 @@
+# Configuration du poste fixe UniPi E413.
+node_id = 2
+ack_timeout_s = 30.0     # SMS : latence non bornée, générosité obligatoire
+max_command_age_s = 15   # §8.1 — une commande plus vieille n'est jamais exécutée
+ordered_transport = false  # true seulement en MQTT (TCP garantit l'ordre)
+
+[io]
+# §12.9 — À TRANCHER : "evok" (Linux+Evok), "modbus" (Mervis), "simulated".
+kind = "simulated"
+
+[transport]
+# "mqtt" recommandé si le cellulaire est imposé ; "sms" pour comparaison seule.
+kind = "loopback"
+# host = "mqtt.example.lan"
+# port = 8883
+# agv_id = "1"
+# ca_certs = "/etc/agv/ca.pem"
+
+[[buttons]]
+channel = "1_01"
+station = 1
+speed = 4
+
+[[buttons]]
+channel = "1_02"
+station = 2
+speed = 4
