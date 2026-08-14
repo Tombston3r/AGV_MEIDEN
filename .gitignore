@@ -7,7 +7,8 @@ __pycache__/
 venv/
 
 # En-tête généré depuis profiles/*.yaml — reconstruit à chaque build.
-firmware/common/config/generated_profile.h
+# Motif non ancré : il y a un dossier par architecture sous CarteComm/.
+**/config/generated_profile.h
 
 # Secrets : la clé AES ne doit JAMAIS être versionnée (voir tools/provision_key.py).
 *.key

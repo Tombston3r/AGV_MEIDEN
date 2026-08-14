@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AGV MEIDEN — supervision</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>AGV MEIDEN — supervision</h1>
+  <p id="link-state" class="badge unknown">liaison inconnue</p>
+</header>
+
+<!-- Rappel permanent : cette page n'est pas un organe de sécurité (§3.1). -->
+<p class="safety">
+  Organe de commande — <strong>pas</strong> un organe de sécurité. L'arrêt d'urgence,
+  les bumpers et le scrutateur laser restent dans une chaîne indépendante (ISO 3691-4).
+</p>
+
+<section class="grid">
+  <article class="tile">
+    <h2>Station courante</h2>
+    <p class="value" id="station">—</p>
+    <p class="hint">décodée sur Y23…Y34</p>
+  </article>
+  <article class="tile">
+    <h2>Vitesse courante</h2>
+    <p class="value" id="speed">—</p>
+    <p class="hint">Y11…Y14</p>
+  </article>
+  <article class="tile">
+    <h2>État</h2>
+    <p class="value" id="motion">—</p>
+    <p class="hint">Y05 / Y10</p>
+  </article>
+  <article class="tile">
+    <h2>Défaut</h2>
+    <p class="value" id="fault">—</p>
+    <p class="hint">Y03 / Y21</p>
+  </article>
+  <article class="tile">
+    <h2>Fraîcheur de liaison</h2>
+    <p class="value" id="freshness">—</p>
+    <p class="hint">âge de la dernière télémétrie</p>
+  </article>
+  <article class="tile">
+    <h2>Niveau réseau</h2>
+    <p class="value" id="rssi">—</p>
+    <p class="hint">RSRP du modem — mesure obligatoire en tous points (Archi_2 §7)</p>
+  </article>
+</section>
+
+<section>
+  <h2>Appeler l'AGV</h2>
+  <form id="goto-form">
+    <label>Station <input type="number" id="goto-station" min="0" max="1023" value="1" required></label>
+    <label>Vitesse <input type="number" id="goto-speed" min="0" max="15" value="4"></label>
+    <button type="submit">Envoyer</button>
+  </form>
+  <form id="stop-form">
+    <label><input type="checkbox" id="stop-purge"> vider la file</label>
+    <button type="submit" class="danger">Arrêt au point d'arrêt suivant</button>
+  </form>
+  <p id="command-feedback" class="feedback"></p>
+</section>
+
+<section>
+  <h2>Appairage d'un bouton EnOcean</h2>
+  <form id="pair-form">
+    <label>Station <input type="number" id="pair-station" min="0" max="1023" value="1" required></label>
+    <label>Vitesse <input type="number" id="pair-speed" min="0" max="15" value="4"></label>
+    <button type="submit">Ouvrir le mode appairage</button>
+  </form>
+  <p id="pair-feedback" class="feedback"></p>
+  <p id="feedback-warning" class="warning hidden">
+    Récepteur TCM 515 en réception seule : aucun accusé n'est renvoyé vers le bouton.
+    Un retour opérateur exige un TCM 310 ou un voyant déporté câblé (point ouvert §12.8).
+  </p>
+</section>
+
+<section>
+  <h2>Compteurs</h2>
+  <table id="counters">
+    <tbody>
+      <tr><th>Commandes émises</th><td id="c-sent">—</td></tr>
+      <tr><th>Commandes refusées</th><td id="c-refused">—</td></tr>
+      <tr><th>ACK reçus</th><td id="c-acks">—</td></tr>
+      <tr><th>NACK reçus</th><td id="c-nacks">—</td></tr>
+      <tr><th>Appuis EnOcean</th><td id="c-enocean">—</td></tr>
+      <tr><th>Boutons non appairés</th><td id="c-unpaired">—</td></tr>
+      <tr><th>Émissions refusées</th><td id="c-duty">—</td></tr>
+      <tr><th>Niveau réseau</th><td id="c-rssi">—</td></tr>
+    </tbody>
+  </table>
+  <p><a href="/agvdump">Diagnostic complet — /agvdump (format atelier)</a></p>
+</section>
+
+<footer>
+  <p>Profil actif : <span id="profile">—</span></p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
