@@ -1,0 +1,21 @@
+# Poste fixe AGV MEIDEN — architecture Wi-Fi.
+agv_id = "1"
+dedup_window_ms = 100      # PTM 210 : 3 sous-télégrammes par appui
+pairing_timeout_s = 60
+state_stale_s = 5.0        # l'AGV publie son état toutes les secondes
+pairings_path = "/var/lib/agv/pairings.json"
+
+[enocean]
+port = "/dev/ttyS0"        # TCM 515 — PROVISOIRE, dépend du câblage UniPi
+baud = 57600
+
+[mqtt]
+host = "127.0.0.1"         # Mosquitto tourne sur ce même UniPi
+port = 8883
+qos = 1
+tls = true
+ca_certs = "/etc/agv/ca.pem"
+username = "poste"
+password = ""              # PROVISOIRE — à provisionner hors dépôt
+client_id = "poste-1"
+keepalive_s = 30

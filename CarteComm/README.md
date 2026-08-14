@@ -8,10 +8,16 @@ Chaque architecture vit dans **son propre dossier, complet et autonome** : il
 contient son firmware, son simulateur, ses tests, ses outils, sa documentation
 et son matériel. Un dossier peut donc être zippé et transmis seul.
 
-| Dossier | Architecture | Statut | Autonome ? |
-|---|---|---|---|
-| [`SMS_EnOcean/`](SMS_EnOcean/) | Boutons EnOcean sans pile au poste + liaison cellulaire (SMS ou LTE-M/MQTT) vers l'AGV | Étudiée à la demande du client | ✅ oui — 112 tests verts |
-| [`LoRa/`](LoRa/) | LoRa P2P 868 MHz (A1 / A3) | Sources extraites, **pas encore un projet complet** | ❌ pas encore |
+| Dossier | Architecture | Matériel AGV | Statut | Autonome ? |
+|---|---|---|---|---|
+| [`Wifi/`](Wifi/) | Boutons EnOcean → poste UniPi → **Wi-Fi d'entreprise / MQTT** → carte V5.0.1 | **Carte conservée**, deux firmwares réécrits | Spécifiée en détail | ✅ oui — 101 tests C++ + 17 Python |
+| [`SMS_EnOcean/`](SMS_EnOcean/) | Boutons EnOcean au poste + liaison cellulaire (SMS ou LTE-M/MQTT) | Nouvelle carte | Étudiée à la demande du client | ✅ oui — 112 tests |
+| [`LoRa/`](LoRa/) | LoRa P2P 868 MHz | Nouvelle carte | Sources extraites, **pas encore un projet complet** | ❌ pas encore |
+
+L'architecture `Wifi/` se distingue des deux autres sur un point décisif : elle
+**ne change aucun matériel**. Le coût se déplace entièrement vers le logiciel et
+vers la négociation avec le service informatique du client — qui devient le
+chemin critique du projet.
 
 ## Ce qui est commun aux deux
 
@@ -33,6 +39,11 @@ prix de la zippabilité indépendante, et il faut le savoir :
 > reportée dans chaque dossier d'architecture.** Un correctif appliqué à un seul
 > dossier crée une divergence silencieuse.
 
-En pratique, le dossier `SMS_EnOcean/` fait aujourd'hui référence : c'est lui
-qui contient le cœur à jour et les 112 tests. Un nouveau dossier d'architecture
-se crée en copiant son arborescence puis en remplaçant la couche transport.
+En pratique, `SMS_EnOcean/` et `Wifi/` portent chacun une copie à jour du cœur.
+Un nouveau dossier d'architecture se crée en copiant l'arborescence de l'un
+d'eux, puis en remplaçant la couche de liaison.
+
+⚠️ `Wifi/` a fait diverger le cœur sur un point : le séquenceur y tourne sur
+l'ATmega, ce qui a imposé d'en retirer toute dépendance à `snprintf` et aux
+transports. Les corrections de séquenceur restent portables entre les deux
+dossiers ; les ajouts de dépendances, non.

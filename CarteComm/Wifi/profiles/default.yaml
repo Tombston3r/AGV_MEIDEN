@@ -1,0 +1,165 @@
+# Profil de l'architecture Wi-Fi — SOURCE DE VÉRITÉ UNIQUE
+#
+# Carte AIO AGV Control V5.0.1 CONSERVÉE : ESP32 (client Wi-Fi + MQTT) et
+# ATmega2560 (séquenceur X/Y + file de courses) sur la même carte, reliés par
+# une liaison série et une ligne de heartbeat matérielle.
+#
+# Converti en en-tête C++ par tools/genconfig.py :
+#   python3 tools/genconfig.py profiles/default.yaml \
+#           firmware/common/config/generated_profile.h
+#
+# RÈGLE ABSOLUE (brief §3.2) : aucune de ces valeurs ne doit apparaître en dur
+# dans le code. Toute valeur marquée PROVISOIRE attend un relevé.
+
+profile_name: wifi
+
+bus:
+  # §12.3 — logique de l'automate PNP ou NPN, non tranchée (planif. 0.4).
+  x_active_high: true          # PROVISOIRE §12.3
+  y_active_high: true          # PROVISOIRE §12.3
+
+  # §12.4 — stabilisation du bus X avant le front montant de X93.
+  t_setup_us: 200              # PROVISOIRE §12.4
+  t_strobe_us: 500             # PROVISOIRE §12.4
+  t_hold_us: 100               # PROVISOIRE §12.4
+
+  # §12.1 — amplitude réelle des lignes Y inconnue (6 V ou 24 V).
+  y_debounce_us: 2000          # PROVISOIRE §12.1
+
+  # Sur cette carte, l'ATmega2560 pose le bus directement par ses ports :
+  # PORTx = valeur, < 1 µs, strictement simultané. C'est la propriété que la
+  # carte d'origine avait gratuitement et qu'il ne faut surtout pas perdre.
+  driver_variant: avr_port
+  mcp_ab_skew_us: 0            # sans objet ici, conservé pour la compatibilité
+  i2c_freq_hz: 400000
+  spi_freq_hz: 8000000
+
+timeouts:
+  # §12.5 — à relever à l'analyseur logique (planif. 0.4), pas à deviner.
+  y22_write_ack_ms: 300        # PROVISOIRE §12.5
+  y05_start_ack_ms: 1500       # PROVISOIRE §12.5
+  y10_arrival_ms: 120000       # PROVISOIRE §12.5
+  write_max_tries: 3           # PROVISOIRE §12.5
+  start_max_tries: 3           # PROVISOIRE §12.5
+  stop_max_tries: 3            # PROVISOIRE §12.5
+
+safety:
+  # Chien de garde applicatif côté ESP32 : absence de trame MQTT valide.
+  link_watchdog_s: 30
+  # Péremption des commandes (planification §2 : 30 s).
+  max_command_age_s: 30
+  safe_stop_at_next_station: true
+
+# --- Heartbeat matériel ESP32 -> ATmega (planification §2, NON NÉGOCIABLE) ---
+# Si le heartbeat disparaît plus de `timeout_ms`, l'ATmega termine le mouvement
+# en cours, s'arrête à la station suivante et refuse toute nouvelle commande
+# jusqu'au retour de la liaison. C'est le seul repli qui ne dépend pas du Wi-Fi.
+heartbeat:
+  period_ms: 500
+  timeout_ms: 2000
+
+# --- Liaison série ESP32 <-> ATmega2560 (planification §2.4) -----------------
+link:
+  baud: 115200
+  # Le MEGA répond sous ce délai, sinon l'ESP32 compte une désynchronisation.
+  reply_timeout_ms: 50
+  # Cadence d'interrogation de l'état du MEGA par l'ESP32.
+  state_poll_ms: 200
+
+queue:
+  max_courses: 5
+  course_validity_min: 30
+  # La file vit en RAM sur l'ATmega, comme sur la carte d'origine
+  # (planification §2.3). La persistance EEPROM est disponible et désactivée
+  # par défaut : à activer si le client veut survivre aux coupures (§4.5).
+  persist_to_nvs: false
+
+protocol:
+  version: 1
+  node_id: 1
+  replay_window: 16
+  aes_enabled: false           # le chiffrement est assuré par MQTT/TLS
+
+# --- Wi-Fi : CLIENT du réseau d'entreprise, pas point d'accès ---------------
+wifi:
+  ssid: "USINE-OT"             # PROVISOIRE — à fournir par le service informatique
+  password: ""                 # PROVISOIRE — WPA2-PSK, ou 802.1X (planif. 0.1)
+  # IP statique : élimine le délai DHCP au handover (planification §1.4).
+  use_static_ip: true
+  static_ip: "10.20.30.41"     # PROVISOIRE — réservation à obtenir
+  gateway: "10.20.30.1"        # PROVISOIRE
+  netmask: "255.255.255.0"     # PROVISOIRE
+  reconnect_backoff_ms: 1000
+  reconnect_backoff_max_ms: 15000
+  # Seuil d'alerte : sous ce niveau, la couverture n'est plus tenable en
+  # mouvement (à confirmer par le relevé 0.2).
+  rssi_warn_dbm: -75
+
+mqtt:
+  host: "10.20.30.10"          # PROVISOIRE — Mosquitto sur l'UniPi
+  port: 8883
+  qos: 1
+  keepalive_s: 30
+  client_id: "agv-1"
+  agv_id: "1"
+  username: "agv1"             # PROVISOIRE
+  password: ""                 # PROVISOIRE
+  tls: true
+  # Publication d'état toutes les secondes (planification §2).
+  state_period_ms: 1000
+
+maintenance:
+  # Wi-Fi de maintenance : point d'accès temporaire, à la demande (planif. 2.8).
+  wifi_enabled_at_boot: false
+  wifi_window_s: 600
+  wifi_ssid: "AGV-MAINT"
+
+# §12.2 — brochage des SUB-D 25 NON TRANCHÉ (CN61/62/63 vs CN62/63/64).
+# Position de chaque signal dans le mot bus. Voir docs/subd25_atmega.md pour la
+# correspondance avec les ports de l'ATmega et les broches des SUB-D.
+pinmap:
+  x:
+    X82: 0
+    X83: 1
+    X84: 2
+    X85: 3
+    X86: 4
+    X87: 5
+    X90: 6
+    X91: 7
+    X92: 8
+    X93: 9
+    X94: 10
+    X95: 11
+    X96: 12
+    X97: 13
+    XA0: 14
+    XA1: 15
+    XA2: 16
+    XA3: 17
+    XA4: 18
+    XA5: 19
+    XA6: 20
+    XA7: 21
+  y:
+    Y03: 0
+    Y05: 1
+    Y10: 2
+    Y11: 3
+    Y12: 4
+    Y13: 5
+    Y14: 6
+    Y15: 7
+    Y20: 8
+    Y21: 9
+    Y22: 10
+    Y23: 11
+    Y24: 12
+    Y25: 13
+    Y26: 14
+    Y27: 15
+    Y30: 16
+    Y31: 17
+    Y32: 18
+    Y33: 19
+    Y34: 20
