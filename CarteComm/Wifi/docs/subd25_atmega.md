@@ -18,26 +18,48 @@ Les broches 1 et 14 de chaque SUB-D sont les masses (0 V).
 
 ---
 
-## ⚠️ AVERTISSEMENT ÉLECTRIQUE — À LEVER AVANT LE PREMIER BRANCHEMENT
+## ⚠️ AVERTISSEMENT ÉLECTRIQUE — CÔTÉ SORTIES
 
-Les 21 entrées Y arrivent **directement sur des broches de l'ATmega**, sans
-optocoupleur ni diviseur dans le relevé fourni. Or l'amplitude réelle des lignes
-Y n'est **pas connue** (§12.1) : le brief évoque un rail LM7806 à 6 V ou du
-24 V.
+**Le rail 6 V (LM7806) est sur l'étage de SORTIE**, pas sur les entrées.
+Autrement dit : les entrées de l'automate sont dimensionnées pour du 6 V, alors
+que l'ATmega ne sort que du 5 V.
 
-- Un ATmega2560 alimenté en 5 V accepte au maximum **V_CC + 0,5 V** sur une
-  entrée.
-- **6 V détruit lentement l'entrée. 24 V la détruit immédiatement**, et
-  probablement le microcontrôleur avec.
+Deux conséquences, dans cet ordre d'importance.
 
-**Mesurer l'amplitude sur `Y05` avant de connecter la nappe d'entrées.** Si elle
-dépasse 5 V, il faut interposer des optocoupleurs ou des diviseurs — c'est du
-matériel à ajouter, pas un paramètre logiciel.
+### 1. Ne pas sortir de niveau haut tant que la topologie n'est pas connue
 
-L'alimentation est traitée à part : les fils 24 et 25 de la nappe d'entrée
-portent **RP24B (24 V)** vers un convertisseur **24 V → 9 V** qui alimente le
-MEGA. Ce point-là est cohérent ; ce sont les 21 lignes de signal qui restent à
-qualifier.
+Si les entrées de l'automate sont **tirées à 6 V** et que la carte d'origine ne
+faisait que **tirer à la masse** (montage classique en collecteur ouvert), alors
+une sortie 5 V poussée contre ce tirage fait **remonter du courant dans la diode
+de protection** de la broche du microcontrôleur. C'est un défaut sournois : ça
+« marche » au banc et ça dégrade la broche en service.
+
+Le firmware part donc en **collecteur ouvert** (`bus.x_open_drain: true`) : la
+broche tire à la masse ou se met en haute impédance, elle ne sort **jamais** de
+niveau haut. C'est le seul mode sûr sans mesure préalable, et il est vérifié par
+trois tests dédiés.
+
+**À mesurer** : présence et valeur du tirage sur une entrée d'automate,
+automate sous tension, carte débranchée. S'il n'y a pas de tirage à 6 V, on peut
+repasser en sortie poussée (`x_open_drain: false`) — c'est un simple paramètre.
+
+### 2. Marge de niveau haut
+
+Si l'automate attend un niveau haut actif à 6 V et qu'on lui présente 5 V, il
+faut vérifier que son seuil est franchi. En collecteur ouvert la question ne se
+pose pas (c'est l'automate qui fournit son propre 6 V) ; en sortie poussée, si.
+
+### Et les entrées Y ?
+
+Leur amplitude reste à confirmer (§12.1), mais elle n'est **pas** celle du rail
+6 V de sortie. Le relevé les amène directement sur des broches d'ATmega : une
+mesure sur `Y05` avant branchement reste la précaution normale, sans en faire un
+point bloquant.
+
+### Alimentation
+
+Les fils 24 et 25 de la nappe d'entrée portent **RP24B (24 V)** vers un
+convertisseur **24 V → 9 V** qui alimente le MEGA. Ce point est cohérent.
 
 ---
 

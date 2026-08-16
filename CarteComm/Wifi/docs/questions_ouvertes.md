@@ -18,7 +18,8 @@
 | 12.9 | Runtime de l'UniPi E413 commandé | aucun backend par défaut ; l'UniPi porte AUSSI le broker | `poste-unipi/` | ☐ |
 | 12.10 | Variante d'interface bus | **tranché** : carte conservée, ports de l'ATmega | `bus/avr_port_bus.h` | ✅ |
 | W1 | Câblage ATmega ↔ SUB-D 25 | **RELEVÉ** : 11 ports, 3 mixtes (PA, PB, PG) | `firmware/mega/src/board_ports.h` | ✅ |
-| **W1b** | **Amplitude des lignes Y vs entrées 5 V du MEGA** | **aucune protection dans le relevé** | matériel | ☐ **BLOQUANT** |
+| **W1b** | **Topologie de l'étage de sortie X (rail 6 V)** : entrées automate tirées à 6 V ? | `x_open_drain: true` (mode sûr) | `profiles/*.yaml` | ☐ |
+| W1d | Amplitude des lignes Y (précaution, plus le rail 6 V) | à mesurer sur `Y05` | matériel | ☐ |
 | W1c | Pull-ups internes sur les Y (collecteur ouvert ?) | `y_pullups: false` | `profiles/*.yaml` | ☐ |
 | W2 | UART reliant l'ESP32 à l'ATmega | `Serial1` / `UART1` supposés | `board_ports.h`, `board_pins.h` | ☐ |
 | W3 | Ligne de heartbeat matérielle dédiée | aucune identifiée ; heartbeat par trame série | `board_ports.h` | ☐ |
@@ -29,17 +30,23 @@
 
 ## Questions à poser au client / à l'atelier
 
-### Électrique — LE POINT LE PLUS URGENT
+### Électrique — à lever avant le premier branchement
 
-0. **Quelle tension sortent réellement les lignes Y de l'automate ?** Le relevé
-   de câblage les amène **directement sur des broches de l'ATmega**, sans
-   optocoupleur ni diviseur. Une entrée d'ATmega2560 en 5 V accepte au maximum
-   V_CC + 0,5 V : **6 V la dégrade, 24 V la détruit**. Mesurer sur `Y05` AVANT
-   de brancher la nappe d'entrées. Si > 5 V, il faut ajouter du matériel
-   (optocoupleurs ou diviseurs), pas changer un paramètre.
-0b. **Les sorties de l'automate sont-elles à collecteur ouvert ou poussées ?**
-   Collecteur ouvert → pull-up indispensable (`bus.y_pullups: true`) ; sorties
+0. **Les entrées de l'automate sont-elles tirées à 6 V ?** Le rail LM7806 est
+   sur l'étage de SORTIE : l'automate attend du 6 V là où l'ATmega ne sort que
+   5 V. Si ses entrées sont tirées à 6 V et que la carte d'origine se contentait
+   de tirer à la masse, une sortie poussée 5 V ferait remonter du courant dans
+   la diode de protection de la broche. Le firmware part donc en **collecteur
+   ouvert** (`bus.x_open_drain: true`) : mode sûr sans mesure. Mesurer le
+   tirage sur une entrée d'automate (sous tension, carte débranchée) permet de
+   repasser en sortie poussée si c'est inutile.
+0b. **Le seuil de niveau haut de l'automate est-il franchi à 5 V ?** Sans objet
+   en collecteur ouvert, à vérifier en sortie poussée.
+0c. **Les sorties de l'automate (lignes Y) sont-elles à collecteur ouvert ou
+   poussées ?** Collecteur ouvert → `bus.y_pullups: true` indispensable ;
    poussées → pull-up nuisible. Non devinable.
+0d. Amplitude des lignes Y : précaution normale avant de brancher la nappe
+   d'entrées, sans rapport avec le rail 6 V de sortie.
 
 ### Chronogrammes (bloquant pour la mise en service)
 1. Quelle est l'amplitude mesurée sur `Y05` à l'oscilloscope, machine en marche ?

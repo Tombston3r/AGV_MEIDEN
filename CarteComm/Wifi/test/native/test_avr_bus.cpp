@@ -75,13 +75,20 @@ struct AvrBench {
 
   AvrPortBus make() { return AvrPortBus(profile, map, critical, clock); }
 
-  // Relit le mot X logique tel qu'il est réellement posé sur les registres.
+  // Relit le niveau ÉLECTRIQUE réellement présent sur les 22 sorties.
+  //
+  // En sortie poussée, il est dans PORTx. En collecteur ouvert, la broche ne
+  // sort jamais de niveau haut : DDR à 1 tire à la masse (niveau 0), DDR à 0
+  // relâche et c'est le tirage 6 V de l'automate qui fait le niveau 1.
   uint32_t posed_word() const {
     uint32_t w = 0;
     for (size_t i = 0; i < 22; ++i) {
       const BitLocation& loc = map.x[i];
       if (loc.port >= map.port_count) continue;  // ligne non câblée
-      if ((port[loc.port].out >> loc.bit) & 1u) w |= (1u << i);
+      const bool level = profile.bus.x_open_drain
+                             ? (((port[loc.port].dir >> loc.bit) & 1u) == 0u)
+                             : (((port[loc.port].out >> loc.bit) & 1u) != 0u);
+      if (level) w |= (1u << i);
     }
     return w;
   }
@@ -114,6 +121,7 @@ TEST(avr_les_ports_mixtes_ne_voient_pas_leur_direction_ecrasee) {
   // PORTB deux sorties et trois entrées ; PORTG deux sorties et Y24.
   // Un `DDRA = 0xFF` mettrait D23 en sortie face à l'automate : conflit franc.
   AvrBench b;
+  b.profile.bus.x_open_drain = false;  // étage poussé : DDR fixe pour les X
   AvrPortBus bus = b.make();
   CHECK(bus.begin());
 
@@ -134,6 +142,7 @@ TEST(avr_bits_etrangers_d_un_port_mixte_sont_preserves) {
   // D13 (PORTB bit 7) et les bits libres n'appartiennent pas au bus : les
   // écraser serait un effet de bord invisible sur une carte partagée.
   AvrBench b;
+  b.profile.bus.x_open_drain = false;
   AvrPortBus bus = b.make();
   bus.begin();
   b.port[kB].out |= 0x80u;  // usage étranger au bus
@@ -188,16 +197,20 @@ TEST(avr_adresse_10_bits_correctement_eclatee_sur_quatre_ports) {
   bus.writeX(word);
 
   CHECK_EQ(decode_field(b.posed_word(), layout.x_station_bits, kStationBits), 682u);
-  // Vérification côté registres : XA7 (bit 21) = PORTA bit 2 doit être actif.
-  CHECK(((b.port[kA].out >> 2) & 1u) == 1u);
-  // X96 (bit 12) = PORTG bit 2 doit être inactif (682 est pair).
-  CHECK(((b.port[kG].out >> 2) & 1u) == 0u);
+
+  // Vérification côté registres, en collecteur ouvert (mode par défaut) :
+  // XA7 (bit 21) = PORTA bit 2 doit être RELÂCHÉ (DDR à 0) pour laisser le
+  // tirage 6 V faire le niveau haut.
+  CHECK_EQ(b.port[kA].dir & (1u << 2), 0u);
+  // X96 (bit 12) = PORTG bit 2 doit être TIRÉ À LA MASSE (682 est pair).
+  CHECK(((b.port[kG].dir >> 2) & 1u) == 1u);
 }
 
 TEST(avr_polarite_inverse_pose_l_etat_de_repos_a_un) {
   // §12.3 : en logique NPN le repos est électriquement haut. Poser 0 au
   // démarrage activerait les 22 sorties.
   AvrBench b;
+  b.profile.bus.x_open_drain = false;
   b.profile.bus.x_active_high = false;
   AvrPortBus bus = b.make();
   CHECK(bus.begin());
@@ -222,6 +235,65 @@ TEST(avr_lecture_reassemble_les_21_entrees_eparses) {
   CHECK_EQ(decode_position(read, layout), 341u);
 }
 
+// --- Étage de sortie en collecteur ouvert (rail 6 V de l'automate) ---------
+
+TEST(avr_collecteur_ouvert_ne_sort_jamais_de_niveau_haut) {
+  // C'est la protection : une sortie 5 V poussée contre un tirage 6 V ferait
+  // remonter du courant dans la diode de protection du microcontrôleur.
+  // En collecteur ouvert, les registres de données des X restent à 0 quoi
+  // qu'il arrive — la broche tire à la masse ou se met en haute impédance.
+  AvrBench b;
+  b.profile.bus.x_open_drain = true;
+  AvrPortBus bus = b.make();
+  bus.begin();
+
+  bus.writeX(0x3FFFFFu);
+  for (size_t i = 0; i < 22; ++i) {
+    const BitLocation& loc = b.map.x[i];
+    CHECK_EQ(b.port[loc.port].out & (1u << loc.bit), 0u);
+  }
+  bus.writeX(0u);
+  for (size_t i = 0; i < 22; ++i) {
+    const BitLocation& loc = b.map.x[i];
+    CHECK_EQ(b.port[loc.port].out & (1u << loc.bit), 0u);
+  }
+}
+
+TEST(avr_collecteur_ouvert_tire_a_la_masse_ou_relache) {
+  AvrBench b;
+  b.profile.bus.x_open_drain = true;
+  AvrPortBus bus = b.make();
+  bus.begin();
+
+  // Niveau électrique 0 sur X93 -> la broche tire à la masse (DDR à 1).
+  bus.writeX(0u);
+  const BitLocation& strobe = b.map.x[x::X93];
+  CHECK((b.port[strobe.port].dir >> strobe.bit) & 1u);
+
+  // Niveau électrique 1 -> haute impédance, c'est le tirage 6 V qui fait le
+  // niveau haut (DDR à 0).
+  bus.writeX(1u << x::X93);
+  CHECK_EQ(b.port[strobe.port].dir & (1u << strobe.bit), 0u);
+  CHECK_EQ(b.posed_word(), 1u << x::X93);
+}
+
+TEST(avr_collecteur_ouvert_ne_met_jamais_une_entree_en_sortie) {
+  // Le mode collecteur ouvert manipule DDR en permanence : c'est justement le
+  // registre qu'il ne faut pas écraser sur les ports mixtes.
+  AvrBench b;
+  b.profile.bus.x_open_drain = true;
+  AvrPortBus bus = b.make();
+  bus.begin();
+
+  for (uint32_t word : {0u, 0x3FFFFFu, 0x2AAAAAu, 0x155555u}) {
+    bus.writeX(word);
+    for (size_t i = 0; i < 21; ++i) {
+      const BitLocation& loc = b.map.y[i];
+      CHECK_EQ(b.port[loc.port].dir & (1u << loc.bit), 0u);
+    }
+  }
+}
+
 TEST(avr_pull_ups_des_entrees_suivent_le_profil) {
   // §12.1 : sorties automate à collecteur ouvert -> pull-up indispensable ;
   // sorties poussées -> pull-up nuisible. Ce n'est pas devinable.
@@ -236,7 +308,8 @@ TEST(avr_pull_ups_des_entrees_suivent_le_profil) {
   bus_avec.begin();
   // PORTH porte Y10, Y11, Y12, Y26, Y30 : bits 0,3,4,5,6.
   CHECK_EQ(avec.port[kH].out, 0x79u);
-  // Le pull-up ne doit jamais toucher une broche de sortie.
+  // Le pull-up ne doit jamais toucher une broche de sortie. En collecteur
+  // ouvert les données des X sont à 0, donc PORTA ne porte QUE le pull-up Y21.
   CHECK_EQ(avec.port[kA].out & (1u << 1), (1u << 1));
   CHECK_EQ(avec.port[kA].out & ~(1u << 1), 0u);
 }

@@ -26,6 +26,7 @@ void AvrPortBus::compute_masks() {
 
 bool AvrPortBus::begin() {
   compute_masks();
+  // Niveau ÉLECTRIQUE de repos, polarité §12.3 appliquée.
   const uint32_t idle = profile_.bus.x_active_high ? 0u : kXMask;
 
   critical_.enter();
@@ -33,15 +34,23 @@ bool AvrPortBus::begin() {
   // §3.1 : l'état de repos est posé AVANT de passer les broches en sortie.
   // L'ordre inverse produirait une impulsion parasite sur les 22 lignes au
   // démarrage, que l'automate pourrait interpréter comme une commande.
+  //
+  // En collecteur ouvert, les registres de données des sorties X restent à 0 en
+  // permanence : la broche ne sort JAMAIS de niveau haut, et un 0 dans PORTx
+  // désactive aussi le pull-up interne quand la broche est relâchée.
   for (uint8_t p = 0; p < map_.port_count; ++p) {
     if (map_.ports[p].out == nullptr || x_mask_[p] == 0) continue;
     uint8_t value = *map_.ports[p].out;
-    for (size_t i = 0; i < 22; ++i) {
-      const BitLocation& loc = map_.x[i];
-      if (loc.port != p) continue;
-      const uint8_t mask = static_cast<uint8_t>(1u << loc.bit);
-      value = ((idle >> i) & 1u) ? static_cast<uint8_t>(value | mask)
-                                 : static_cast<uint8_t>(value & ~mask);
+    if (profile_.bus.x_open_drain) {
+      value = static_cast<uint8_t>(value & ~x_mask_[p]);
+    } else {
+      for (size_t i = 0; i < 22; ++i) {
+        const BitLocation& loc = map_.x[i];
+        if (loc.port != p) continue;
+        const uint8_t mask = static_cast<uint8_t>(1u << loc.bit);
+        value = ((idle >> i) & 1u) ? static_cast<uint8_t>(value | mask)
+                                   : static_cast<uint8_t>(value & ~mask);
+      }
     }
     *map_.ports[p].out = value;
   }
@@ -52,8 +61,21 @@ bool AvrPortBus::begin() {
   for (uint8_t p = 0; p < map_.port_count; ++p) {
     if (map_.ports[p].dir == nullptr) continue;
     uint8_t dir = *map_.ports[p].dir;
-    dir = static_cast<uint8_t>(dir | x_mask_[p]);   // sorties X
-    dir = static_cast<uint8_t>(dir & ~y_mask_[p]);  // entrées Y
+    if (profile_.bus.x_open_drain) {
+      // Une sortie n'est « active » qu'en tirant à la masse : DDR à 1 pour un
+      // niveau bas, DDR à 0 (haute impédance) pour laisser le tirage 6 V de
+      // l'automate faire le niveau haut.
+      for (size_t i = 0; i < 22; ++i) {
+        const BitLocation& loc = map_.x[i];
+        if (loc.port != p) continue;
+        const uint8_t mask = static_cast<uint8_t>(1u << loc.bit);
+        dir = ((idle >> i) & 1u) ? static_cast<uint8_t>(dir & ~mask)
+                                 : static_cast<uint8_t>(dir | mask);
+      }
+    } else {
+      dir = static_cast<uint8_t>(dir | x_mask_[p]);  // sorties poussées
+    }
+    dir = static_cast<uint8_t>(dir & ~y_mask_[p]);   // entrées Y
     *map_.ports[p].dir = dir;
   }
 
@@ -79,29 +101,40 @@ bool AvrPortBus::begin() {
 bool AvrPortBus::writeX(uint32_t word) {
   const uint64_t started = clock_.now_us();
   const uint32_t masked = word & kXMask;
+  const bool open_drain = profile_.bus.x_open_drain;
 
-  // Les valeurs sont calculées HORS section critique : celle-ci ne contient que
-  // les écritures de registre, pour la garder aussi courte que possible.
+  // En collecteur ouvert c'est le registre de DIRECTION qui porte l'information
+  // (tirer à la masse ou relâcher) ; en sortie poussée, c'est le registre de
+  // données. Un seul registre est touché par port dans les deux cas.
   uint8_t values[kMaxPorts] = {};
   bool touched[kMaxPorts] = {};
   for (uint8_t p = 0; p < map_.port_count; ++p) {
-    if (map_.ports[p].out == nullptr || x_mask_[p] == 0) continue;
+    volatile uint8_t* reg = open_drain ? map_.ports[p].dir : map_.ports[p].out;
+    if (reg == nullptr || x_mask_[p] == 0) continue;
     // Lecture-modification-écriture obligatoire : sur un port mixte, les bits
     // voisins sont des entrées Y (et leur réglage de pull-up).
-    values[p] = static_cast<uint8_t>(*map_.ports[p].out & ~x_mask_[p]);
+    values[p] = static_cast<uint8_t>(*reg & ~x_mask_[p]);
     touched[p] = true;
   }
   for (size_t i = 0; i < 22; ++i) {
     const BitLocation& loc = map_.x[i];
     if (loc.port >= map_.port_count || !touched[loc.port]) continue;
-    if ((masked >> i) & 1u) {
+    // `masked` est le mot ÉLECTRIQUE. En collecteur ouvert, un bit à 0 signifie
+    // « tirer à la masse » donc DDR à 1 : la condition s'inverse.
+    const bool level = ((masked >> i) & 1u) != 0u;
+    if (open_drain ? !level : level) {
       values[loc.port] = static_cast<uint8_t>(values[loc.port] | (1u << loc.bit));
     }
   }
 
   critical_.enter();
   for (uint8_t p = 0; p < map_.port_count; ++p) {
-    if (touched[p]) *map_.ports[p].out = values[p];
+    if (!touched[p]) continue;
+    if (open_drain) {
+      *map_.ports[p].dir = values[p];
+    } else {
+      *map_.ports[p].out = values[p];
+    }
   }
   critical_.leave();
 

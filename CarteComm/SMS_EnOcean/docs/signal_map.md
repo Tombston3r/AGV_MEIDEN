@@ -62,9 +62,10 @@ Ce relevé confirme aussi **l'ordre des bits** : `Station/Marker ×1` … `×512
 `X96`, `X97`, `XA0`…`XA7`, et `Speed ×1` … `×8` sur `X86`, `X87`, `X90`, `X91`.
 `kDefaultLayout` est correct.
 
-⚠️ Le relevé montre les lignes Y arrivant **directement** sur des entrées de
-microcontrôleur 5 V, sans optocoupleur. L'amplitude réelle (§12.1) doit être
-mesurée avant tout branchement — voir l'avertissement du document ci-dessus.
+⚠️ Le rail 6 V (LM7806) de la carte d'origine est sur l'étage de **sortie** :
+les entrées de l'automate sont dimensionnées pour du 6 V. Toute nouvelle carte
+doit donc soit fournir ce niveau, soit attaquer en collecteur ouvert. Voir
+l'avertissement du document ci-dessus.
 
 ## Points non relevés
 
