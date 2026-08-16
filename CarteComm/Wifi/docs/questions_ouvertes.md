@@ -7,16 +7,19 @@
 | # | Point | Valeur provisoire retenue | Où elle vit | Relevé |
 |---|---|---|---|---|
 | 12.1 | Amplitude réelle des lignes Y (6 V rail LM7806 ou 24 V) | `y_debounce_us: 2000` | `profiles/*.yaml` | ☐ |
-| 12.2 | Brochage SUB-D 25 (CN61/62/63 vs CN62/63/64) | table `pinmap` complète | `profiles/*.yaml` → `CFG_PIN_*` | ☐ |
+| 12.2 | Brochage SUB-D 25 | **RELEVÉ** : CN61 à CN64, table complète | `firmware/mega/src/board_ports.h` | ✅ |
 | 12.3 | Logique automate PNP ou NPN | `x_active_high: true`, `y_active_high: true` | `profiles/*.yaml` | ☐ |
 | 12.4 | `t_setup` avant strobe X93 | `t_setup_us: 200` | `profiles/*.yaml` | ☐ |
 | 12.5 | Timeouts Y22 / Y05 / Y10 | 300 ms / 1 500 ms / 120 s | `profiles/*.yaml` | ☐ |
-| 12.6 | Repères T9, T10, T12, T13, T20…T24 ↔ signaux Y | non utilisés par le code | `docs/signal_map.md` | ☐ |
+| 12.6 | Ordre des bits d'adresse et de vitesse | **CONFIRMÉ** par les libellés ×1…×512 du relevé | `bus/bus_signals.h` | ✅ |
+| 12.6b | Repères sérigraphiés T9…T24 ↔ signaux Y | non utilisés par le code | `docs/signal_map.md` | ☐ |
 | 12.7 | Protocole application mobile « AIO AGV Remote » | **abandonné** au profit des boutons EnOcean + IHM web (planif. §1) | — | ✅ |
 | 12.8 | TCM 515 (Rx seul) ou TCM 310 (bidirectionnel) | `enocean.rx_only: true` | `profiles/*.yaml` | ☐ |
 | 12.9 | Runtime de l'UniPi E413 commandé | aucun backend par défaut ; l'UniPi porte AUSSI le broker | `poste-unipi/` | ☐ |
 | 12.10 | Variante d'interface bus | **tranché** : carte conservée, ports de l'ATmega | `bus/avr_port_bus.h` | ✅ |
-| W1 | Câblage ATmega ↔ SUB-D 25 | hypothèse PORTA/PORTC/PORTL, PINK/PINF/PINB | `firmware/mega/src/board_ports.h` | ☐ |
+| W1 | Câblage ATmega ↔ SUB-D 25 | **RELEVÉ** : 11 ports, 3 mixtes (PA, PB, PG) | `firmware/mega/src/board_ports.h` | ✅ |
+| **W1b** | **Amplitude des lignes Y vs entrées 5 V du MEGA** | **aucune protection dans le relevé** | matériel | ☐ **BLOQUANT** |
+| W1c | Pull-ups internes sur les Y (collecteur ouvert ?) | `y_pullups: false` | `profiles/*.yaml` | ☐ |
 | W2 | UART reliant l'ESP32 à l'ATmega | `Serial1` / `UART1` supposés | `board_ports.h`, `board_pins.h` | ☐ |
 | W3 | Ligne de heartbeat matérielle dédiée | aucune identifiée ; heartbeat par trame série | `board_ports.h` | ☐ |
 | W4 | Connecteur ICSP pour flasher l'ATmega | supposé présent | procédure de déploiement | ☐ |
@@ -25,6 +28,18 @@
 | W7 | Mesure de tension batterie accessible à l'ESP32 | supposée absente | télémétrie | ☐ |
 
 ## Questions à poser au client / à l'atelier
+
+### Électrique — LE POINT LE PLUS URGENT
+
+0. **Quelle tension sortent réellement les lignes Y de l'automate ?** Le relevé
+   de câblage les amène **directement sur des broches de l'ATmega**, sans
+   optocoupleur ni diviseur. Une entrée d'ATmega2560 en 5 V accepte au maximum
+   V_CC + 0,5 V : **6 V la dégrade, 24 V la détruit**. Mesurer sur `Y05` AVANT
+   de brancher la nappe d'entrées. Si > 5 V, il faut ajouter du matériel
+   (optocoupleurs ou diviseurs), pas changer un paramètre.
+0b. **Les sorties de l'automate sont-elles à collecteur ouvert ou poussées ?**
+   Collecteur ouvert → pull-up indispensable (`bus.y_pullups: true`) ; sorties
+   poussées → pull-up nuisible. Non devinable.
 
 ### Chronogrammes (bloquant pour la mise en service)
 1. Quelle est l'amplitude mesurée sur `Y05` à l'oscilloscope, machine en marche ?
@@ -36,7 +51,9 @@
    l'arrêt est-il uniquement géré par l'automate ?
 
 ### Câblage
-5. Laquelle des deux tables de câblage fait foi : CN61/62/63 ou CN62/63/64 ?
+5. ~~Laquelle des deux tables de câblage fait foi ?~~ **Tranché** : CN61 à CN64,
+   voir `docs/subd25_atmega.md`. Reste à confirmer par contrôle au multimètre
+   qu'aucune nappe n'est sertie à l'envers (mode découverte du firmware MEGA).
 6. Les repères sérigraphiés T9, T10, T12, T13, T20…T24 correspondent à quels
    signaux Y ? (utile pour les procédures d'atelier, pas pour le code)
 7. Les entrées de l'automate sont-elles PNP ou NPN ?

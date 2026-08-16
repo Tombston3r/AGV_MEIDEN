@@ -1,19 +1,23 @@
-// Pose du bus MEIDEN par les ports de l'ATmega2560 (carte V5.0.1 conservée).
+// Pose du bus MEIDEN par les ports de l'ATmega2560.
 //
-// C'est la propriété que la carte d'origine avait gratuitement et qu'il ne faut
-// surtout pas perdre : `PORTx = valeur` pose 8 lignes en UN cycle, et trois
-// écritures consécutives en section critique posent les 22 sorties de façon
-// strictement simultanée. Aucune interface I²C ou SPI ne sait faire ça.
+// LE CÂBLAGE RÉEL EST RELEVÉ (voir docs/subd25_atmega.md) et il impose la forme
+// de ce driver. Trois faits qu'on ne peut pas contourner :
 //
-// ⚠ CORRESPONDANCE PORT <-> SIGNAL <-> BROCHE SUB-D : PROVISOIRE.
-// Le câblage entre les ports de l'ATmega et les SUB-D 25 est imposé par le PCB
-// de la V5.0.1 et n'est PAS documenté (planification 0.4 et 0.5 : rétro-ingénierie
-// et tentative de lecture des flash existantes). La table ci-dessous est une
-// hypothèse de travail ; elle DOIT être vérifiée par relevé de continuité avant
-// tout branchement sur l'automate.
+//  1. Les 43 signaux sont répartis sur ONZE ports, par bits épars. Il n'existe
+//     aucun `PORTx = valeur` qui poserait un champ complet : la table est
+//     bit à bit, et les écritures sont regroupées par port.
 //
-// Le firmware MEGA embarque un MODE DÉCOUVERTE (voir firmware/mega/src) qui
-// active une ligne à la fois pour permettre ce relevé au multimètre.
+//  2. TROIS PORTS SONT MIXTES — PORTA, PORTB et PORTG portent à la fois des
+//     sorties X et des entrées Y. Écrire un registre de direction complet
+//     (`DDRA = 0xFF`) mettrait en sortie des broches sur lesquelles l'automate
+//     pilote : conflit électrique franc. Toute manipulation de DDR et de PORT
+//     se fait donc EN MASQUE, jamais en octet plein.
+//
+//  3. Les 10 bits d'adresse sont répartis sur 4 ports : leur pose demande 4
+//     écritures consécutives, soit ~0,25 µs à 16 MHz. Ce n'est pas la
+//     simultanéité stricte d'un `PORTA = x`, mais c'est trois ordres de
+//     grandeur sous le `t_setup` attendu — et très loin devant des MCP23017.
+//     Le décalage résiduel est exposé par `port_writes_per_pose()`.
 #pragma once
 
 #include <cstdint>
@@ -26,21 +30,30 @@
 
 namespace agv {
 
-// Un port 8 bits de l'ATmega : registre de données, de direction, et d'entrée.
-// Abstrait pour que la logique soit testable en natif, sans AVR.
+// Registres d'un port 8 bits de l'ATmega. Abstraits pour rester testable en
+// natif : en test ce sont de simples octets, sur cible ce sont PORTx/DDRx/PINx.
 struct PortRegisters {
-  volatile uint8_t* out;   // PORTx
-  volatile uint8_t* dir;   // DDRx
-  volatile uint8_t* in;    // PINx
+  volatile uint8_t* out = nullptr;  // PORTx
+  volatile uint8_t* dir = nullptr;  // DDRx
+  volatile uint8_t* in = nullptr;   // PINx
 };
 
-// Répartition des 22 sorties X et des 21 entrées Y sur les ports.
-//
-//   X : bits 0..7 -> port_x[0], bits 8..15 -> port_x[1], bits 16..21 -> port_x[2]
-//   Y : bits 0..7 -> port_y[0], bits 8..15 -> port_y[1], bits 16..20 -> port_y[2]
-struct AvrBusPorts {
-  PortRegisters port_x[3];
-  PortRegisters port_y[3];
+// Emplacement physique d'un signal : quel port, quel bit.
+struct BitLocation {
+  uint8_t port = 0xFF;  // index dans AvrBusMap::ports ; 0xFF = non câblé
+  uint8_t bit = 0;      // 0..7
+};
+
+constexpr uint8_t kMaxPorts = 12;
+constexpr uint8_t kUnwired = 0xFF;
+
+// Table complète du câblage. Le brochage vit à un seul endroit
+// (firmware/mega/src/board_ports.h) et se corrige sans toucher au code.
+struct AvrBusMap {
+  PortRegisters ports[kMaxPorts];
+  uint8_t port_count = 0;
+  BitLocation x[22];  // index = position dans le mot logique (profiles/pinmap)
+  BitLocation y[21];
 };
 
 // Verrou de section critique. Sur AVR : cli()/sei(). En test : compteur.
@@ -53,9 +66,9 @@ class ICriticalSection {
 
 class AvrPortBus final : public IBusDriver {
  public:
-  AvrPortBus(const HardwareProfile& profile, const AvrBusPorts& ports, ICriticalSection& critical,
+  AvrPortBus(const HardwareProfile& profile, const AvrBusMap& map, ICriticalSection& critical,
              IMicroClock& clock)
-      : profile_(profile), ports_(ports), critical_(critical), clock_(clock),
+      : profile_(profile), map_(map), critical_(critical), clock_(clock),
         debouncer_(profile.bus.y_debounce_us) {}
 
   bool begin() override;
@@ -68,17 +81,26 @@ class AvrPortBus final : public IBusDriver {
   uint64_t now_us() const override { return clock_.now_us(); }
 
   // Mode découverte : active exactement une sortie X, toutes les autres au
-  // repos. Permet de relever la correspondance signal <-> broche SUB-D au
-  // multimètre, sans automate branché.
+  // repos. Sert au contrôle du brochage au multimètre, automate débranché.
   bool drive_single(uint8_t x_bit);
 
+  // Nombre d'écritures de port nécessaires à une pose complète : c'est la
+  // mesure du décalage résiduel entre les premières et les dernières lignes.
+  uint8_t port_writes_per_pose() const { return port_writes_; }
+
  private:
+  void compute_masks();
+
   const HardwareProfile& profile_;
-  AvrBusPorts ports_;
+  AvrBusMap map_;
   ICriticalSection& critical_;
   IMicroClock& clock_;
   YDebouncer debouncer_;
   BusStats stats_{};
+
+  uint8_t x_mask_[kMaxPorts] = {};  // bits de sortie X portés par chaque port
+  uint8_t y_mask_[kMaxPorts] = {};  // bits d'entrée Y portés par chaque port
+  uint8_t port_writes_ = 0;
   uint32_t last_x_ = 0;
 };
 

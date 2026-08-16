@@ -7,11 +7,12 @@
 | # | Point | Valeur provisoire retenue | Où elle vit | Relevé |
 |---|---|---|---|---|
 | 12.1 | Amplitude réelle des lignes Y (6 V rail LM7806 ou 24 V) | `y_debounce_us: 2000` | `profiles/*.yaml` | ☐ |
-| 12.2 | Brochage SUB-D 25 (CN61/62/63 vs CN62/63/64) | table `pinmap` complète | `profiles/*.yaml` → `CFG_PIN_*` | ☐ |
+| 12.2 | Brochage SUB-D 25 | **RELEVÉ** : CN61 à CN64 — voir `Wifi/docs/subd25_atmega.md` | `profiles/*.yaml` → `CFG_PIN_*` | ✅ |
 | 12.3 | Logique automate PNP ou NPN | `x_active_high: true`, `y_active_high: true` | `profiles/*.yaml` | ☐ |
 | 12.4 | `t_setup` avant strobe X93 | `t_setup_us: 200` | `profiles/*.yaml` | ☐ |
 | 12.5 | Timeouts Y22 / Y05 / Y10 | 300 ms / 1 500 ms / 120 s | `profiles/*.yaml` | ☐ |
-| 12.6 | Repères T9, T10, T12, T13, T20…T24 ↔ signaux Y | non utilisés par le code | `docs/signal_map.md` | ☐ |
+| 12.6 | Ordre des bits d'adresse et de vitesse | **CONFIRMÉ** par les libellés ×1…×512 du relevé | `bus/bus_signals.h` | ✅ |
+| 12.6b | Repères sérigraphiés T9…T24 ↔ signaux Y | non utilisés par le code | `docs/signal_map.md` | ☐ |
 | 12.7 | Protocole application mobile « AIO AGV Remote » | non reproduit ; champ `ver` réservé | `proto/frame.h` | ☐ |
 | 12.8 | TCM 515 (Rx seul) ou TCM 310 (bidirectionnel) | `enocean.rx_only: true` | `profiles/*.yaml` | ☐ |
 | — | Numéros MSISDN (pair et technicien d'astreinte) | `+33600000000` | `profiles/*.yaml` | ☐ |
@@ -30,7 +31,7 @@
    l'arrêt est-il uniquement géré par l'automate ?
 
 ### Câblage
-5. Laquelle des deux tables de câblage fait foi : CN61/62/63 ou CN62/63/64 ?
+5. ~~Laquelle des deux tables de câblage fait foi ?~~ **Tranché** : CN61 à CN64.
 6. Les repères sérigraphiés T9, T10, T12, T13, T20…T24 correspondent à quels
    signaux Y ? (utile pour les procédures d'atelier, pas pour le code)
 7. Les entrées de l'automate sont-elles PNP ou NPN ?

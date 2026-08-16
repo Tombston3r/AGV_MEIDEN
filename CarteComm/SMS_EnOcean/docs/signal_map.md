@@ -50,12 +50,24 @@ Convention Meiden/Mitsubishi : les repères sont en **octal**. Après `Y27` vien
 | `Y23`…`Y27` | 11…15 | Position courante | b0…b4 |
 | `Y30`…`Y34` | 16…20 | Position courante | b5…b9 |
 
+## Brochage physique — RELEVÉ
+
+Le câblage signal ↔ broche SUB-D 25 ↔ connecteur AGV est connu : **CN61 à CN64**
+(la divergence CN61/62/63 vs CN62/63/64 est levée). La table complète, avec les
+libellés constructeur, est dans
+[`../../Wifi/docs/subd25_atmega.md`](../../Wifi/docs/subd25_atmega.md) — elle
+décrit le côté AGV, donc elle vaut pour toutes les architectures.
+
+Ce relevé confirme aussi **l'ordre des bits** : `Station/Marker ×1` … `×512` sur
+`X96`, `X97`, `XA0`…`XA7`, et `Speed ×1` … `×8` sur `X86`, `X87`, `X90`, `X91`.
+`kDefaultLayout` est correct.
+
+⚠️ Le relevé montre les lignes Y arrivant **directement** sur des entrées de
+microcontrôleur 5 V, sans optocoupleur. L'amplitude réelle (§12.1) doit être
+mesurée avant tout branchement — voir l'avertissement du document ci-dessus.
+
 ## Points non relevés
 
-- **Ordre des bits d'adresse** (poids faible ou poids fort en tête) :
-  `BusLayout` de `bus/bus_signals.h`, PROVISOIRE §12.6. Un test
-  (`point_12_2_un_brochage_different_fonctionne_sans_toucher_la_logique`) prouve
-  qu'une table inversée fonctionne sans modification de la logique.
 - **Repères sérigraphiés** T9, T10, T12, T13, T20…T24 de la V5.0.1 : la
   correspondance avec les signaux Y n'est pas établie. Le code ne s'en sert pas ;
   seules les procédures d'atelier en ont besoin.

@@ -25,6 +25,11 @@ bus:
 
   # §12.1 — amplitude réelle des lignes Y inconnue (6 V ou 24 V).
   y_debounce_us: 2000          # PROVISOIRE §12.1
+  # Pull-ups internes sur les 21 entrées Y.
+  # Sorties automate à collecteur ouvert -> pull-up INDISPENSABLE.
+  # Sorties poussées (push-pull)         -> pull-up NUISIBLE.
+  # Non devinable : dépend du relevé d'amplitude sur Y05. PROVISOIRE §12.1
+  y_pullups: false
 
   # Sur cette carte, l'ATmega2560 pose le bus directement par ses ports :
   # PORTx = valeur, < 1 µs, strictement simultané. C'est la propriété que la

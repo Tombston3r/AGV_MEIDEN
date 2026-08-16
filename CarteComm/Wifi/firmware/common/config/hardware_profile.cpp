@@ -13,6 +13,7 @@ const HardwareProfile& default_profile() {
           CFG_BUS_T_STROBE_US,
           CFG_BUS_T_HOLD_US,
           CFG_BUS_Y_DEBOUNCE_US,
+          CFG_BUS_Y_PULLUPS,
           CFG_BUS_MCP_AB_SKEW_US,
           static_cast<DriverVariant>(CFG_BUS_DRIVER_VARIANT),
       },

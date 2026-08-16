@@ -180,7 +180,7 @@ L'implémentation LoRa vit dans le dossier d'architecture `CarteComm/LoRa/`.
 |---|---|---|
 | Relevé oscilloscope de la V5.0.1 **avant dépose** | La carte ne sera plus disponible ensuite | `profiles/default.yaml` |
 | Sortie `agvdump` réelle de la V5.0.1 | Recaler le format servi (§12.6) | `app/agvdump.cpp` |
-| Table de câblage SUB-D 25 tranchée | CN61/62/63 vs CN62/63/64 (§12.2) | `profiles/*.yaml`, `pinmap` |
+| ~~Table de câblage SUB-D 25~~ | **RELEVÉE** : CN61 à CN64, voir `Wifi/docs/subd25_atmega.md` | fait |
 | Polarité automate PNP/NPN | Inverse les 22 voies X (§12.3) | `bus.x_active_high` |
 | Variante d'interface bus choisie | §12.10 | `bus.driver_variant` |
 | **Relevé RSRP/RSRQ en tous points du parcours** | Un point sous −110 dBm disqualifie l'architecture (Archi_2 §7.1) | prérequis, aucun paramètre |
@@ -319,7 +319,7 @@ journalctl -u agv-poste -f
 | # | Tâche | Débloqué par |
 |---|---|---|
 | B1 | Renseigner `t_setup_us`, timeouts `Y22`/`Y05`/`Y10` | Relevé oscilloscope V5.0.1 (§12.4, §12.5) |
-| B2 | Figer la table de brochage SUB-D 25 | Arbitrage CN61/62/63 vs CN62/63/64 (§12.2) |
+| ~~B2~~ | ~~Figer la table de brochage SUB-D 25~~ | **FAIT** — relevé client, CN61 à CN64 |
 | B3 | Figer la polarité PNP/NPN | Mesure sur l'automate (§12.3) |
 | B4 | Recaler le format `/agvdump` | Sortie réelle de la V5.0.1 (§12.6, §3.3) |
 | B5 | Choisir la variante d'interface bus | Décision matérielle (§12.10) |
@@ -382,6 +382,7 @@ journalctl -u agv-poste -f
 | Date | Modification | Impact sur ce document |
 |---|---|---|
 | 2026-08-13 | Création du monorepo complet (§14 étapes 1 à 8), 122 tests verts | Document initial |
+| 2026-08-14 | Relevé de câblage SUB-D 25 fourni par le client : §12.2 et §12.6 (ordre des bits) passent à « relevé ». La table côté AGV vaut pour toutes les architectures ; elle est documentée dans `Wifi/docs/subd25_atmega.md`. | `signal_map.md`, `questions_ouvertes.md`, kanban B2 |
 | 2026-08-13 | Réorganisation en un dossier autonome par architecture. Le projet entier passe sous `CarteComm/SMS_EnOcean/` ; les sources LoRa (transport, budget ERC 70-03, SX1276, bouton sur pile, 10 tests) sont extraites vers `CarteComm/LoRa/`. Les deux `main.cpp` passent sur le transport cellulaire. | Périmètre, compteurs (122 → 112 tests), transports, kanban (T3 retiré, T11/T12 ajoutés), déploiement (plus de flash de bouton) |
 
 ### Règle de tenue

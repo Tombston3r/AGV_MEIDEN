@@ -34,7 +34,7 @@
 │  │  • REPLI DE SÉCURITÉ sur perte du     │                        │
 │  │    heartbeat (2 s)                    │                        │
 │  └───────────────┬───────────────────────┘                        │
-│                  │ 43 lignes via optocoupleurs                    │
+│                  │ 43 lignes, 2 nappes SUB-D 25 (⚠ protection ?)  │
 │  ┌───────────────▼───────────────────────┐                        │
 │  │ SUB-D 25 × 2  →  automate MEIDEN      │                        │
 │  └───────────────────────────────────────┘                        │
@@ -57,9 +57,12 @@ de commande de l'AGV. En plaçant le séquenceur et la file sur l'ATmega :
 - l'AGV termine toujours la course engagée, quoi qu'il arrive au réseau ;
 - le comportement en perte de liaison est décidé par un microcontrôleur qui
   n'a ni pile TCP/IP ni horloge réseau — donc très peu de modes de panne ;
-- l'ATmega conserve la propriété temporelle de la carte d'origine :
-  `PORTx = valeur` pose 8 lignes en un cycle, et trois écritures consécutives en
-  section critique posent les 22 sorties de façon strictement simultanée.
+- l'ATmega garde une pose de bus très rapide : le relevé de câblage montre que
+  les 22 sorties occupent 5 ports, donc **5 écritures ≈ 0,3 µs** en section
+  critique. Ce n'est pas la simultanéité stricte d'un `PORTx = valeur` — le
+  câblage ne le permet pas, les champs ne sont pas alignés sur les ports — mais
+  c'est 500 fois plus rapide qu'un expandeur I²C et 800 fois sous le `t_setup`
+  attendu. Détail dans [`subd25_atmega.md`](subd25_atmega.md).
 
 ## Le heartbeat — le seul mécanisme qui ne dépend de rien
 
@@ -100,8 +103,13 @@ moins trois battements : rater un heartbeat isolé ne doit pas immobiliser l'AGV
 Ces points conditionnent le premier flash et sont listés dans
 [`questions_ouvertes.md`](questions_ouvertes.md) :
 
-- **le câblage ATmega ↔ SUB-D 25** — hypothèse dans
-  `firmware/mega/src/board_ports.h`, à confirmer par le mode découverte ;
+- ~~le câblage ATmega ↔ SUB-D 25~~ — **RELEVÉ**, voir
+  [`subd25_atmega.md`](subd25_atmega.md). Reste à contrôler au multimètre
+  qu'aucune nappe n'est sertie à l'envers (mode découverte) ;
+- ⚠️ **l'amplitude des lignes Y face aux entrées 5 V de l'ATmega** : le relevé
+  les amène directement sur les broches, sans optocoupleur. C'est le point
+  bloquant le plus urgent — voir l'avertissement en tête de
+  [`subd25_atmega.md`](subd25_atmega.md) ;
 - **l'UART qui relie l'ESP32 à l'ATmega** — `Serial1` supposé côté MEGA,
   `UART1` côté ESP32 ;
 - **l'existence d'une ligne de heartbeat matérielle dédiée** entre les deux

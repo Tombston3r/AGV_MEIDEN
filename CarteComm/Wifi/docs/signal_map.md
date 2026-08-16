@@ -50,15 +50,26 @@ Convention Meiden/Mitsubishi : les repères sont en **octal**. Après `Y27` vien
 | `Y23`…`Y27` | 11…15 | Position courante | b0…b4 |
 | `Y30`…`Y34` | 16…20 | Position courante | b5…b9 |
 
-## Points non relevés
+## Brochage physique
 
-- **Ordre des bits d'adresse** (poids faible ou poids fort en tête) :
-  `BusLayout` de `bus/bus_signals.h`, PROVISOIRE §12.6. Un test
-  (`point_12_2_un_brochage_different_fonctionne_sans_toucher_la_logique`) prouve
-  qu'une table inversée fonctionne sans modification de la logique.
+La correspondance signal ↔ broche SUB-D ↔ connecteur AGV (CN61 à CN64) est
+**relevée** : voir [`subd25_atmega.md`](subd25_atmega.md).
+
+## Ce qui est désormais tranché
+
+- **Ordre des bits d'adresse et de vitesse** : confirmé par les libellés
+  constructeur du relevé (`Station/Marker ×1` … `×512`, `Speed ×1` … `×8`).
+  `kDefaultLayout` est correct, ce n'est plus une hypothèse.
+- **Connecteurs AGV** : CN61 à CN64. La divergence CN61/62/63 vs CN62/63/64 est
+  levée.
+
+## Points encore non relevés
+
 - **Repères sérigraphiés** T9, T10, T12, T13, T20…T24 de la V5.0.1 : la
   correspondance avec les signaux Y n'est pas établie. Le code ne s'en sert pas ;
   seules les procédures d'atelier en ont besoin.
+- **Amplitude des lignes Y** (§12.1) : conditionne la survie des entrées du
+  microcontrôleur. Voir l'avertissement en tête de `subd25_atmega.md`.
 - **Polarité** : `bus.x_active_high` / `bus.y_active_high`. La logique
   applicative est TOUJOURS en actif haut ; la conversion PNP/NPN n'a lieu qu'au
   contact du matériel (`Sequencer::write_bus` et `sample_inputs`).

@@ -65,6 +65,7 @@ struct BusConfig {
   uint32_t t_strobe_us;    // §12.4 largeur du strobe
   uint32_t t_hold_us;      // §12.4 maintien après strobe
   uint32_t y_debounce_us;  // §12.1 dépend de l'amplitude réelle des Y
+  bool y_pullups;          // §12.1 collecteur ouvert ou sortie poussée ?
   uint32_t mcp_ab_skew_us; // §12.10 décalage GPIOA/GPIOB résiduel
   DriverVariant variant;   // §12.10
 };

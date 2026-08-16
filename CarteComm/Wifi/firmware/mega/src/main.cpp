@@ -109,8 +109,8 @@ void setup() {
   Serial.begin(115200);
   Serial1.begin(profile.link.baud);
 
-  static agv::AvrBusPorts ports = agv::board::bus_ports();
-  static agv::AvrPortBus bus(profile, ports, g_critical, g_clock);
+  static agv::AvrBusMap bus_map = agv::board::bus_map();
+  static agv::AvrPortBus bus(profile, bus_map, g_critical, g_clock);
   static agv::CourseQueue queue(profile.queue, &g_store);
   static agv::Sequencer seq(profile, bus, queue);
   static agv::MegaApp app(profile, seq, queue, g_writer);
@@ -125,7 +125,9 @@ void setup() {
     Serial.println(F("# ECHEC init sequenceur : maintien en etat sur"));
   }
 
-  Serial.println(F("# ATmega2560 AGV MEIDEN - firmware reecrit"));
+  Serial.print(F("# ATmega2560 AGV MEIDEN - firmware reecrit, pose en "));
+  Serial.print(bus.port_writes_per_pose());
+  Serial.println(F(" ecritures de port"));
   Serial.println(F("# 'd' = mode decouverte du brochage SUB-D, 'n' = normal"));
 }
 
