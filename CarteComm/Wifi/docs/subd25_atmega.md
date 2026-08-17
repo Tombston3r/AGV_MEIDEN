@@ -18,48 +18,63 @@ Les broches 1 et 14 de chaque SUB-D sont les masses (0 V).
 
 ---
 
-## ⚠️ AVERTISSEMENT ÉLECTRIQUE — CÔTÉ SORTIES
+## Alimentation — le rôle réel du L7806CV
 
-**Le rail 6 V (LM7806) est sur l'étage de SORTIE**, pas sur les entrées.
-Autrement dit : les entrées de l'automate sont dimensionnées pour du 6 V, alors
-que l'ATmega ne sort que du 5 V.
+Analyse du PCB : les fils 24 et 25 de la nappe d'entrée amènent **RP24B (24 V)**
+depuis **CN64 A6 et B6**. Un **L7806CV** abaisse ce 24 V à **6 V**, qui alimente
+l'**ATmega2560**.
 
-Deux conséquences, dans cet ordre d'importance.
+Le 6 V est donc une **tension d'alimentation**, pas un niveau de signal. Il ne
+dit rien, ni sur l'amplitude des lignes Y, ni sur ce qu'attendent les entrées de
+l'automate.
 
-### 1. Ne pas sortir de niveau haut tant que la topologie n'est pas connue
+### ⚠️ Point à vérifier sur le PCB : où arrive exactement ce 6 V ?
 
-Si les entrées de l'automate sont **tirées à 6 V** et que la carte d'origine ne
-faisait que **tirer à la masse** (montage classique en collecteur ouvert), alors
-une sortie 5 V poussée contre ce tirage fait **remonter du courant dans la diode
-de protection** de la broche du microcontrôleur. C'est un défaut sournois : ça
-« marche » au banc et ça dégrade la broche en service.
+Trois cas, aux conséquences très différentes :
 
-Le firmware part donc en **collecteur ouvert** (`bus.x_open_drain: true`) : la
-broche tire à la masse ou se met en haute impédance, elle ne sort **jamais** de
-niveau haut. C'est le seul mode sûr sans mesure préalable, et il est vérifié par
-trois tests dédiés.
+| Le 6 V arrive sur… | Conséquence |
+|---|---|
+| **V_CC de l'ATmega, directement** | 6,0 V est la **valeur maximale absolue** du datasheet, et la plage recommandée s'arrête à 5,5 V (4,5–5,5 V à 16 MHz). Un L7806 sort typiquement 5,76 à 6,24 V : le microcontrôleur peut donc fonctionner **au-delà de son maximum absolu** |
+| Un second régulateur 5 V | Cas sain, rien à signaler |
+| `Vin` d'une carte Arduino MEGA | 6 V est **sous** le minimum recommandé (7 V) pour le régulateur embarqué : avec ~1,1 V de chute, le rail 5 V peut s'affaisser |
 
-**À mesurer** : présence et valeur du tirage sur une entrée d'automate,
-automate sous tension, carte débranchée. S'il n'y a pas de tirage à 6 V, on peut
-repasser en sortie poussée (`x_open_drain: false`) — c'est un simple paramètre.
+**À mesurer** : la tension réelle sur la broche V_CC de l'ATmega, carte sous
+tension. C'est une mesure de trente secondes qui écarte une question de
+fiabilité à long terme.
 
-### 2. Marge de niveau haut
+### Ce que ça pourrait vouloir dire — hypothèse à confirmer
 
-Si l'automate attend un niveau haut actif à 6 V et qu'on lui présente 5 V, il
-faut vérifier que son seuil est franchi. En collecteur ouvert la question ne se
-pose pas (c'est l'automate qui fournit son propre 6 V) ; en sortie poussée, si.
+Si le 6 V alimente bien directement l'ATmega, c'est peut-être **délibéré** :
+les sorties du microcontrôleur suivent V_CC, donc les lignes X sortiraient
+naturellement du 0–6 V, et les entrées Y toléreraient jusqu'à ~6,5 V. Le
+concepteur d'origine aurait ainsi adapté les niveaux du bus MEIDEN sans étage
+de conversion.
 
-### Et les entrées Y ?
+C'est cohérent, mais ce n'est **pas** établi. Deux mesures le confirment ou
+l'infirment : la tension V_CC, et l'amplitude d'une ligne Y.
 
-Leur amplitude reste à confirmer (§12.1), mais elle n'est **pas** celle du rail
-6 V de sortie. Le relevé les amène directement sur des broches d'ATmega : une
-mesure sur `Y05` avant branchement reste la précaution normale, sans en faire un
-point bloquant.
+---
 
-### Alimentation
+## ⚠️ Niveaux du bus — ce qui reste inconnu
 
-Les fils 24 et 25 de la nappe d'entrée portent **RP24B (24 V)** vers un
-convertisseur **24 V → 9 V** qui alimente le MEGA. Ce point est cohérent.
+Le rôle du L7806 étant élucidé, **plus rien ne renseigne sur les niveaux du
+bus** :
+
+- **amplitude des lignes Y** (§12.1) : toujours inconnue. Le relevé les amène
+  directement sur des broches d'ATmega. Mesurer sur `Y05` avant de brancher la
+  nappe d'entrées — au-delà de V_CC + 0,5 V, l'entrée est détruite ;
+- **topologie des entrées de l'automate** : tirées à une tension quelconque
+  (la carte devrait alors seulement tirer à la masse), ou attendant un courant
+  fourni par la carte ? Non déterminé.
+
+Faute de réponse, le firmware part en **collecteur ouvert**
+(`bus.x_open_drain: true`) : la broche tire à la masse ou passe en haute
+impédance, elle ne sort **jamais** de niveau haut. Ce mode ne peut rien
+détruire — au pire il est inopérant, et le banc le montre immédiatement, alors
+qu'une sortie poussée contre un tirage étranger dégrade la broche en silence.
+
+Trois tests verrouillent ce comportement. Repasser en sortie poussée
+(`x_open_drain: false`) est un simple paramètre, une fois la topologie connue.
 
 ---
 
@@ -102,8 +117,8 @@ Deux points ouverts du brief sont **tranchés** par cette table :
 | 21 | 11 | D10 | **PB4** | `Y32` | CN64 | B2 | position ×128 |
 | 22 | 24 | A9 | **PK1** | `Y33` | CN64 | A2 | position ×256 |
 | 23 | 12 | D12 | **PB6** | `Y34` | CN64 | B3 | position ×512 |
-| 24 | 25 | 24 V → 9 V | — | RP24B | CN64 | A6 | alimentation |
-| 25 | 13 | 24 V → 9 V | — | RP24B | CN64 | B6 | alimentation |
+| 24 | 25 | 24 V → L7806CV → 6 V | — | RP24B | CN64 | A6 | **alimentation de l'ATmega** |
+| 25 | 13 | 24 V → L7806CV → 6 V | — | RP24B | CN64 | B6 | **alimentation de l'ATmega** |
 
 Rappel de numérotation **octale** : après `Y27` vient `Y30`. La plage
 `Y23`…`Y34` compte **10** signaux, pas 12 — et les libellés `×1` à `×512` le

@@ -34,7 +34,7 @@
 │  │  • REPLI DE SÉCURITÉ sur perte du     │                        │
 │  │    heartbeat (2 s)                    │                        │
 │  └───────────────┬───────────────────────┘                        │
-│                  │ 43 lignes, 2 nappes SUB-D 25 (⚠ protection ?)  │
+│                  │ 43 lignes, 2 nappes SUB-D 25 (niveaux ⚠ §12.1) │
 │  ┌───────────────▼───────────────────────┐                        │
 │  │ SUB-D 25 × 2  →  automate MEIDEN      │                        │
 │  └───────────────────────────────────────┘                        │
@@ -106,10 +106,14 @@ Ces points conditionnent le premier flash et sont listés dans
 - ~~le câblage ATmega ↔ SUB-D 25~~ — **RELEVÉ**, voir
   [`subd25_atmega.md`](subd25_atmega.md). Reste à contrôler au multimètre
   qu'aucune nappe n'est sertie à l'envers (mode découverte) ;
-- ⚠️ **l'amplitude des lignes Y face aux entrées 5 V de l'ATmega** : le relevé
-  les amène directement sur les broches, sans optocoupleur. C'est le point
-  bloquant le plus urgent — voir l'avertissement en tête de
+- ⚠️ **les niveaux du bus** : le L7806CV est l'alimentation de l'ATmega
+  (24 V de CN64 A6/B6 abaissés à 6 V), il ne renseigne donc pas sur les
+  signaux. L'amplitude des lignes Y (§12.1) et la topologie des entrées de
+  l'automate restent inconnues — voir
   [`subd25_atmega.md`](subd25_atmega.md) ;
+- ⚠️ **la tension V_CC réelle de l'ATmega** : si le 6 V l'alimente directement,
+  c'est au niveau du **maximum absolu** du datasheet (6,0 V) et hors plage
+  recommandée. Mesure de trente secondes, à faire ;
 - **l'UART qui relie l'ESP32 à l'ATmega** — `Serial1` supposé côté MEGA,
   `UART1` côté ESP32 ;
 - **l'existence d'une ligne de heartbeat matérielle dédiée** entre les deux

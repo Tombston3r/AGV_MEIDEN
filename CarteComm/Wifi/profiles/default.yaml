@@ -30,22 +30,23 @@ bus:
   # Sorties poussées (push-pull)         -> pull-up NUISIBLE.
   y_pullups: false             # PROVISOIRE §12.1
 
-  # --- Étage de sortie X : le rail de la carte d'origine est à 6 V (LM7806) --
-  # Les entrées de l'automate sont donc dimensionnées pour du 6 V, alors que
-  # l'ATmega ne sort que du 5 V. Deux cas, à trancher par la mesure :
+  # --- Étage de sortie X : topologie INCONNUE -------------------------------
+  # Le L7806CV de la carte d'origine est l'ALIMENTATION de l'ATmega (24 V venant
+  # de CN64 A6/B6, abaissé à 6 V) : il ne renseigne pas sur les niveaux du bus.
+  # Rien n'indique donc comment les entrées de l'automate sont câblées.
   #
-  #   x_open_drain = true  : les entrées automate sont tirées à 6 V et la carte
-  #     ne fait que TIRER À LA MASSE. La broche ne sort jamais de niveau haut :
-  #     elle bascule entre « sortie à 0 » et « haute impédance ». C'est le seul
-  #     mode SÛR tant qu'on ignore si l'automate impose un pull-up à 6 V — une
-  #     sortie 5 V poussée contre un tirage 6 V fait remonter du courant dans la
-  #     diode de protection du microcontrôleur.
+  #   x_open_drain = true  : la carte se contente de TIRER À LA MASSE. La broche
+  #     ne sort jamais de niveau haut : elle bascule entre « sortie à 0 » et
+  #     « haute impédance ». Ce mode ne peut RIEN détruire — au pire il est
+  #     inopérant si l'automate attend un courant fourni par la carte, et le
+  #     banc le montre immédiatement.
   #
-  #   x_open_drain = false : sortie poussée classique 0/5 V. N'est acceptable
-  #     que si la mesure confirme l'absence de tirage à 6 V ET que le seuil de
-  #     l'entrée automate est franchi avec 5 V.
+  #   x_open_drain = false : sortie poussée classique. Si l'automate tire ses
+  #     entrées vers une tension quelconque, la sortie poussée fait remonter du
+  #     courant dans la diode de protection du microcontrôleur — défaut sournois
+  #     qui « marche » au banc et dégrade la broche en service.
   #
-  # Par défaut on prend le mode sûr. PROVISOIRE §12.3
+  # Par défaut on prend le mode qui ne peut pas abîmer la carte. PROVISOIRE §12.3
   #
   # ⚠ Appariement avec `x_active_high` : un étage à collecteur ouvert va
   # naturellement avec `x_active_high: false` (la carte ACTIVE en tirant à la

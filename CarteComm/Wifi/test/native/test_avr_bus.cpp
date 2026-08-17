@@ -238,8 +238,8 @@ TEST(avr_lecture_reassemble_les_21_entrees_eparses) {
 // --- Étage de sortie en collecteur ouvert (rail 6 V de l'automate) ---------
 
 TEST(avr_collecteur_ouvert_ne_sort_jamais_de_niveau_haut) {
-  // C'est la protection : une sortie 5 V poussée contre un tirage 6 V ferait
-  // remonter du courant dans la diode de protection du microcontrôleur.
+  // C'est la protection : une sortie poussée contre un tirage côté automate
+  // ferait remonter du courant dans la diode de protection de la broche.
   // En collecteur ouvert, les registres de données des X restent à 0 quoi
   // qu'il arrive — la broche tire à la masse ou se met en haute impédance.
   AvrBench b;
@@ -270,8 +270,8 @@ TEST(avr_collecteur_ouvert_tire_a_la_masse_ou_relache) {
   const BitLocation& strobe = b.map.x[x::X93];
   CHECK((b.port[strobe.port].dir >> strobe.bit) & 1u);
 
-  // Niveau électrique 1 -> haute impédance, c'est le tirage 6 V qui fait le
-  // niveau haut (DDR à 0).
+  // Niveau électrique 1 -> haute impédance, c'est le tirage côté automate qui
+  // fait le niveau haut (DDR à 0).
   bus.writeX(1u << x::X93);
   CHECK_EQ(b.port[strobe.port].dir & (1u << strobe.bit), 0u);
   CHECK_EQ(b.posed_word(), 1u << x::X93);

@@ -66,9 +66,10 @@ struct BusConfig {
   uint32_t t_hold_us;      // §12.4 maintien après strobe
   uint32_t y_debounce_us;  // §12.1 dépend de l'amplitude réelle des Y
   bool y_pullups;          // §12.1 collecteur ouvert ou sortie poussée ?
-  // §12.3 — l'étage de sortie d'origine est sur un rail 6 V (LM7806). En
-  // collecteur ouvert, la broche ne sort jamais de niveau haut : elle tire à
-  // la masse ou se met en haute impédance. Seul mode sûr face à un tirage 6 V.
+  // §12.3 — topologie de l'étage de sortie inconnue. En collecteur ouvert, la
+  // broche ne sort jamais de niveau haut : elle tire à la masse ou se met en
+  // haute impédance. Mode qui ne peut rien détruire, à défaut de savoir si
+  // l'automate tire ses entrées vers une tension quelconque.
   bool x_open_drain;
   uint32_t mcp_ab_skew_us; // §12.10 décalage GPIOA/GPIOB résiduel
   DriverVariant variant;   // §12.10

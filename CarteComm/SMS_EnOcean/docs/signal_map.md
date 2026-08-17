@@ -62,10 +62,12 @@ Ce relevé confirme aussi **l'ordre des bits** : `Station/Marker ×1` … `×512
 `X96`, `X97`, `XA0`…`XA7`, et `Speed ×1` … `×8` sur `X86`, `X87`, `X90`, `X91`.
 `kDefaultLayout` est correct.
 
-⚠️ Le rail 6 V (LM7806) de la carte d'origine est sur l'étage de **sortie** :
-les entrées de l'automate sont dimensionnées pour du 6 V. Toute nouvelle carte
-doit donc soit fournir ce niveau, soit attaquer en collecteur ouvert. Voir
-l'avertissement du document ci-dessus.
+⚠️ **Les niveaux électriques du bus restent inconnus.** Le L7806CV de la carte
+d'origine s'est révélé être l'alimentation du microcontrôleur (24 V venant de
+CN64 A6/B6, abaissés à 6 V) : il ne renseigne donc pas sur les signaux.
+L'amplitude des lignes Y (§12.1) et la topologie des entrées de l'automate sont
+à mesurer avant de dimensionner toute nouvelle carte — voir l'avertissement du
+document ci-dessus.
 
 ## Points non relevés
 

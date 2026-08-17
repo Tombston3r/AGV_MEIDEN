@@ -63,8 +63,8 @@ bool AvrPortBus::begin() {
     uint8_t dir = *map_.ports[p].dir;
     if (profile_.bus.x_open_drain) {
       // Une sortie n'est « active » qu'en tirant à la masse : DDR à 1 pour un
-      // niveau bas, DDR à 0 (haute impédance) pour laisser le tirage 6 V de
-      // l'automate faire le niveau haut.
+      // niveau bas, DDR à 0 (haute impédance) pour laisser un éventuel tirage
+      // côté automate faire le niveau haut.
       for (size_t i = 0; i < 22; ++i) {
         const BitLocation& loc = map_.x[i];
         if (loc.port != p) continue;

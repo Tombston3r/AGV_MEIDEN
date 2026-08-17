@@ -18,8 +18,9 @@
 | 12.9 | Runtime de l'UniPi E413 commandé | aucun backend par défaut ; l'UniPi porte AUSSI le broker | `poste-unipi/` | ☐ |
 | 12.10 | Variante d'interface bus | **tranché** : carte conservée, ports de l'ATmega | `bus/avr_port_bus.h` | ✅ |
 | W1 | Câblage ATmega ↔ SUB-D 25 | **RELEVÉ** : 11 ports, 3 mixtes (PA, PB, PG) | `firmware/mega/src/board_ports.h` | ✅ |
-| **W1b** | **Topologie de l'étage de sortie X (rail 6 V)** : entrées automate tirées à 6 V ? | `x_open_drain: true` (mode sûr) | `profiles/*.yaml` | ☐ |
-| W1d | Amplitude des lignes Y (précaution, plus le rail 6 V) | à mesurer sur `Y05` | matériel | ☐ |
+| **W1b** | **Amplitude des lignes Y** — arrivent directement sur des broches d'ATmega | inconnue | matériel | ☐ **BLOQUANT** |
+| W1d | Topologie des entrées de l'automate (tirées ou attendant un courant ?) | `x_open_drain: true` (mode qui ne détruit rien) | `profiles/*.yaml` | ☐ |
+| W1e | Tension V_CC réelle de l'ATmega (le L7806CV sort 6 V) | non mesurée | matériel | ☐ |
 | W1c | Pull-ups internes sur les Y (collecteur ouvert ?) | `y_pullups: false` | `profiles/*.yaml` | ☐ |
 | W2 | UART reliant l'ESP32 à l'ATmega | `Serial1` / `UART1` supposés | `board_ports.h`, `board_pins.h` | ☐ |
 | W3 | Ligne de heartbeat matérielle dédiée | aucune identifiée ; heartbeat par trame série | `board_ports.h` | ☐ |
@@ -32,21 +33,26 @@
 
 ### Électrique — à lever avant le premier branchement
 
-0. **Les entrées de l'automate sont-elles tirées à 6 V ?** Le rail LM7806 est
-   sur l'étage de SORTIE : l'automate attend du 6 V là où l'ATmega ne sort que
-   5 V. Si ses entrées sont tirées à 6 V et que la carte d'origine se contentait
-   de tirer à la masse, une sortie poussée 5 V ferait remonter du courant dans
-   la diode de protection de la broche. Le firmware part donc en **collecteur
-   ouvert** (`bus.x_open_drain: true`) : mode sûr sans mesure. Mesurer le
-   tirage sur une entrée d'automate (sous tension, carte débranchée) permet de
-   repasser en sortie poussée si c'est inutile.
-0b. **Le seuil de niveau haut de l'automate est-il franchi à 5 V ?** Sans objet
-   en collecteur ouvert, à vérifier en sortie poussée.
-0c. **Les sorties de l'automate (lignes Y) sont-elles à collecteur ouvert ou
+Le L7806CV est l'**alimentation** de l'ATmega : 24 V venant de CN64 A6/B6,
+abaissés à 6 V. Il ne renseigne donc en rien sur les niveaux du bus, qui
+restent entièrement inconnus.
+
+0. **Quelle est l'amplitude réelle des lignes Y ?** Elles arrivent directement
+   sur des broches d'ATmega. Au-delà de V_CC + 0,5 V, l'entrée est détruite.
+   Mesurer sur `Y05` **avant de brancher la nappe d'entrées**. C'est la mesure
+   la plus urgente du projet.
+0b. **Quelle tension arrive réellement sur V_CC de l'ATmega ?** Si le 6 V du
+   L7806CV l'alimente directement, on est au **maximum absolu** du datasheet
+   (6,0 V) et hors plage recommandée (4,5–5,5 V à 16 MHz) — un L7806 sort
+   jusqu'à 6,24 V. Vérifier si le 6 V va sur V_CC, sur un second régulateur, ou
+   sur `Vin` d'une carte Arduino (où 6 V est au contraire trop bas).
+0c. **Les entrées de l'automate sont-elles tirées vers une tension, ou
+   attendent-elles un courant fourni par la carte ?** Le firmware part en
+   collecteur ouvert : il ne peut rien détruire, mais il est inopérant dans le
+   second cas. La mesure tranche, et c'est un simple paramètre.
+0d. **Les sorties de l'automate (lignes Y) sont-elles à collecteur ouvert ou
    poussées ?** Collecteur ouvert → `bus.y_pullups: true` indispensable ;
    poussées → pull-up nuisible. Non devinable.
-0d. Amplitude des lignes Y : précaution normale avant de brancher la nappe
-   d'entrées, sans rapport avec le rail 6 V de sortie.
 
 ### Chronogrammes (bloquant pour la mise en service)
 1. Quelle est l'amplitude mesurée sur `Y05` à l'oscilloscope, machine en marche ?

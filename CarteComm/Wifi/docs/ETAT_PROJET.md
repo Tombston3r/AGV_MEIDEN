@@ -2,8 +2,8 @@
 
 > **Document vivant.** Mis à jour à chaque modification du dossier.
 >
-> Dernière mise à jour : **2026-08-14** — étage de sortie en collecteur ouvert
-> (le rail 6 V est côté sorties, pas entrées).
+> Dernière mise à jour : **2026-08-14** — le L7806CV est l'alimentation de
+> l'ATmega (24 V → 6 V), pas un étage de signal.
 >
 > **Périmètre** : `CarteComm/Wifi/`, projet autonome et zippable. La carte AIO
 > AGV Control V5.0.1 est **conservée** ; ses **deux firmwares sont réécrits**.
@@ -108,9 +108,12 @@ CRC-16/CCITT, resynchronisation automatique, longueur invalide rejetée.
 - **`pytest` absent** : les 17 tests Python ont été rejoués par un harnais
   maison, pas par pytest.
 - **Aucun essai matériel** : ni carte, ni banc, ni AGV, ni relevé réseau.
-- **La topologie de l'étage de sortie n'est pas mesurée** : l'automate attend
-  du 6 V, l'ATmega sort 5 V. Le firmware part en collecteur ouvert, mode sûr par
-  défaut, mais le tirage réel côté automate reste à confirmer (W1b).
+- **Les niveaux du bus sont entièrement inconnus** : le L7806CV s'étant révélé
+  être l'alimentation de l'ATmega, rien ne renseigne sur les signaux.
+  L'amplitude des lignes Y (W1b) est la mesure la plus urgente ; la topologie
+  des entrées de l'automate (W1d) décide du mode de sortie.
+- **La tension V_CC réelle de l'ATmega n'est pas mesurée** (W1e) : 6 V est le
+  maximum absolu du datasheet.
 
 ---
 
@@ -125,7 +128,8 @@ CRC-16/CCITT, resynchronisation automatique, longueur invalide rejetée.
 | 0.1 | **Accord du service informatique** : VLAN OT, IP, pare-feu, 802.1X, notification de changement | Chemin critique du projet, délai hors de votre contrôle. À lancer le jour 1 |
 | 0.2 | **Relevé de couverture Wi-Fi à hauteur d'antenne AGV**, trajet complet, en production | Un relevé fait à 1,50 m avec un portable ne vaut rien |
 | 0.3 | Test de portée EnOcean bouton → poste, à chaque marqueur | Un bouton hors portée échoue **silencieusement** |
-| 0.4a | **Mesurer le tirage des entrées de l'automate** (sous tension, carte débranchée) | Le rail 6 V est côté sorties : décide entre collecteur ouvert et sortie poussée |
+| 0.4a | ⚠️ **Mesurer l'amplitude d'une ligne Y** (`Y05`) et la tension V_CC de l'ATmega | Les Y arrivent directement sur des broches ; au-delà de V_CC + 0,5 V l'entrée est détruite. **Avant tout branchement** |
+| 0.4c | Mesurer le tirage des entrées de l'automate | Décide entre collecteur ouvert et sortie poussée |
 | 0.4b | Chronogramme X/Y, `t_setup`, PNP/NPN | Sans ça, les timings du profil sont des devinettes |
 | 0.5 | Tentative de lecture des flash existantes (`esptool`, `avrdude`/ICSP) | Peut confirmer ou infirmer les hypothèses de câblage |
 | 0.7 | **Décision de bande** : 2,4 GHz, ESP32-C5 bi-bande, ou bridge industriel | La saturation 2,4 GHz est le problème d'origine |
@@ -227,7 +231,9 @@ journalctl -u agv-poste -f
 | # | Tâche | Débloqué par |
 |---|---|---|
 | B1 | Renseigner `t_setup_us` et les timeouts `Y22`/`Y05`/`Y10` | Relevé à l'analyseur logique (0.4, §12.4-12.5) |
-| B2 | Confirmer la topologie de l'étage de sortie (`x_open_drain`) | Mesure du tirage côté automate (W1b) |
+| B2 | ⚠️ **Qualifier l'amplitude des lignes Y** — protection à ajouter si > V_CC | Mesure sur `Y05` (W1b) |
+| B2c | Confirmer la topologie de l'étage de sortie (`x_open_drain`) | Mesure du tirage côté automate (W1d) |
+| B2d | Vérifier la tension V_CC de l'ATmega | 6 V = maximum absolu du datasheet (W1e) |
 | B2b | Trancher les pull-ups internes sur les Y | Sorties automate à collecteur ouvert ou poussées ? (W1c) |
 | B3 | Figer la polarité PNP/NPN | Mesure sur l'automate (§12.3) |
 | B4 | Recaler le format `/agvdump` | Sortie réelle de la V5.0.1 (§12.6, §3.3) |
@@ -282,7 +288,8 @@ journalctl -u agv-poste -f
 
 | Date | Modification | Impact |
 |---|---|---|
-| 2026-08-14 | Correction : **le rail 6 V (LM7806) est sur l'étage de SORTIE**, pas sur les entrées. L'automate attend du 6 V là où l'ATmega sort 5 V. Ajout d'un mode **collecteur ouvert** (`bus.x_open_drain`, actif par défaut) : la broche tire à la masse ou passe en haute impédance, elle ne sort jamais de niveau haut — ce qui évite de remonter du courant dans la diode de protection si l'automate tire ses entrées à 6 V. W1b requalifié : ce n'est plus un risque de destruction des entrées, c'est un choix de topologie de sortie à confirmer par la mesure. | Compteurs (105 → 108 tests), §1.4, §1.8, kanban B2, étape 0.4a |
+| 2026-08-14 | Correction (analyse PCB) : **le L7806CV est l'ALIMENTATION de l'ATmega** — 24 V venant de CN64 A6/B6, abaissés à 6 V. Ce n'est donc ni un étage de sortie, ni un niveau de signal. Conséquence : les niveaux du bus redeviennent entièrement inconnus, l'amplitude des lignes Y (W1b) repasse BLOQUANT, et une question nouvelle apparaît (W1e) — 6 V est le maximum absolu du datasheet de l'ATmega2560, à vérifier sur V_CC. Le mode collecteur ouvert est CONSERVÉ, avec une justification corrigée : il ne peut rien détruire, à défaut de connaître la topologie. Aucun changement de code, uniquement les justifications. | §1.8, kanban B2/B2c/B2d, étapes 0.4a et 0.4c |
+| 2026-08-14 | ~~Correction : le rail 6 V (LM7806) serait sur l'étage de SORTIE~~ — **infirmé le jour même par l'analyse PCB**, voir la ligne ci-dessus. Reste de cette étape : l'ajout du mode collecteur ouvert, qui garde sa valeur., pas sur les entrées. L'automate attend du 6 V là où l'ATmega sort 5 V. Ajout d'un mode **collecteur ouvert** (`bus.x_open_drain`, actif par défaut) : la broche tire à la masse ou passe en haute impédance, elle ne sort jamais de niveau haut — ce qui évite de remonter du courant dans la diode de protection si l'automate tire ses entrées à 6 V. W1b requalifié : ce n'est plus un risque de destruction des entrées, c'est un choix de topologie de sortie à confirmer par la mesure. | Compteurs (105 → 108 tests), §1.4, §1.8, kanban B2, étape 0.4a |
 | 2026-08-14 | Intégration du **relevé de câblage SUB-D 25** fourni par le client. Le driver de bus AVR est réécrit : table bit à bit sur 11 ports au lieu de 3 ports contigus supposés, masquage obligatoire des 3 ports mixtes (PA/PB/PG), pull-ups paramétrables. §12.2, §12.6 et W1 passent à « relevé » ; W1b (amplitude des Y face aux entrées 5 V) devient le point bloquant le plus urgent. | Compteurs (101 → 105 tests), §1.4, §1.8, kanban B2/B2b, étapes 0.4a et 2 |
 | 2026-08-14 | Création du dossier d'architecture Wi-Fi. Cœur métier repris du dossier SMS_EnOcean ; réécriture des deux firmwares de la carte V5.0.1 selon `Planification_Architecture_WiFi_AGV.md` : séquenceur et file déplacés sur l'ATmega, ESP32 en client Wi-Fi/MQTT, heartbeat de repli, protocole inter-MCU, JSON MQTT, driver de bus AVR, poste UniPi EnOcean→MQTT. | Document initial — 101 tests C++, 17 tests Python |
 
