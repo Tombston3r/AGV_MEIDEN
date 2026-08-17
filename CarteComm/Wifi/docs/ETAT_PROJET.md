@@ -2,8 +2,8 @@
 
 > **Document vivant.** Mis à jour à chaque modification du dossier.
 >
-> Dernière mise à jour : **2026-08-14** — le L7806CV est l'alimentation de
-> l'ATmega (24 V → 6 V), pas un étage de signal.
+> Dernière mise à jour : **2026-08-14** — ajout du runbook de déploiement
+> [`../DEPLOY.md`](../DEPLOY.md).
 >
 > **Périmètre** : `CarteComm/Wifi/`, projet autonome et zippable. La carte AIO
 > AGV Control V5.0.1 est **conservée** ; ses **deux firmwares sont réécrits**.
@@ -119,6 +119,10 @@ CRC-16/CCITT, resynchronisation automatique, longueur invalide rejetée.
 
 ## 2. Déploiement en conditions réelles
 
+> 📖 **Procédure opérationnelle détaillée : [`../DEPLOY.md`](../DEPLOY.md)** —
+> checklists, commandes, essais de recette et fiche à viser. Ce qui suit en est
+> le résumé ; en cas d'écart, c'est `DEPLOY.md` qui fait foi.
+>
 > ⚠️ **Ordre non négociable.** Les étapes 0 à 2 conditionnent tout le reste.
 
 ### Étape 0 — Prérequis bloquants (planification §3)
@@ -281,6 +285,7 @@ journalctl -u agv-poste -f
 | Simulateur d'automate | Repris du cœur commun |
 | 101 tests C++ + 17 tests Python | Dont 6 sur le repli heartbeat |
 | Documentation | Architecture de la carte, brochage SUB-D, essais, questions |
+| **Runbook de déploiement** | `DEPLOY.md` : 11 phases, checklists, recette, retour arrière |
 
 ---
 
@@ -288,6 +293,7 @@ journalctl -u agv-poste -f
 
 | Date | Modification | Impact |
 |---|---|---|
+| 2026-08-14 | Ajout de [`../DEPLOY.md`](../DEPLOY.md) : procédure de déploiement en 11 phases, des mesures préalables au procès-verbal de recette. Met en tête les trois points irréversibles ou bloquants — sauvegarde des firmwares d'origine (sans laquelle il n'y a aucun retour arrière), niveaux du bus non mesurés, accord du service informatique. Inclut les commandes de sauvegarde `esptool`/`avrdude`, la configuration durcie de Mosquitto avec ACL par topic, dix essais de dégradation et une fiche de recette à viser. | §2 renvoie au runbook, §3 « Fait », journal |
 | 2026-08-14 | Correction (analyse PCB) : **le L7806CV est l'ALIMENTATION de l'ATmega** — 24 V venant de CN64 A6/B6, abaissés à 6 V. Ce n'est donc ni un étage de sortie, ni un niveau de signal. Conséquence : les niveaux du bus redeviennent entièrement inconnus, l'amplitude des lignes Y (W1b) repasse BLOQUANT, et une question nouvelle apparaît (W1e) — 6 V est le maximum absolu du datasheet de l'ATmega2560, à vérifier sur V_CC. Le mode collecteur ouvert est CONSERVÉ, avec une justification corrigée : il ne peut rien détruire, à défaut de connaître la topologie. Aucun changement de code, uniquement les justifications. | §1.8, kanban B2/B2c/B2d, étapes 0.4a et 0.4c |
 | 2026-08-14 | ~~Correction : le rail 6 V (LM7806) serait sur l'étage de SORTIE~~ — **infirmé le jour même par l'analyse PCB**, voir la ligne ci-dessus. Reste de cette étape : l'ajout du mode collecteur ouvert, qui garde sa valeur., pas sur les entrées. L'automate attend du 6 V là où l'ATmega sort 5 V. Ajout d'un mode **collecteur ouvert** (`bus.x_open_drain`, actif par défaut) : la broche tire à la masse ou passe en haute impédance, elle ne sort jamais de niveau haut — ce qui évite de remonter du courant dans la diode de protection si l'automate tire ses entrées à 6 V. W1b requalifié : ce n'est plus un risque de destruction des entrées, c'est un choix de topologie de sortie à confirmer par la mesure. | Compteurs (105 → 108 tests), §1.4, §1.8, kanban B2, étape 0.4a |
 | 2026-08-14 | Intégration du **relevé de câblage SUB-D 25** fourni par le client. Le driver de bus AVR est réécrit : table bit à bit sur 11 ports au lieu de 3 ports contigus supposés, masquage obligatoire des 3 ports mixtes (PA/PB/PG), pull-ups paramétrables. §12.2, §12.6 et W1 passent à « relevé » ; W1b (amplitude des Y face aux entrées 5 V) devient le point bloquant le plus urgent. | Compteurs (101 → 105 tests), §1.4, §1.8, kanban B2/B2b, étapes 0.4a et 2 |
