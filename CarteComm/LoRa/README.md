@@ -33,6 +33,9 @@
 | `firmware/bouton-lora/src/main.cpp` | Nœud bouton sur pile : sommeil profond, 3 tentatives, LED verte/rouge |
 | `test/native/test_lora.cpp` | 10 tests : temps d'antenne, budget légal, half-duplex, retransmissions |
 | `docs/latence_lora.md` | **Écart latence/SF à arbitrer avec le client** |
+| `docs/Archi_1_LoRa_P2P_homogene.md` | Document de référence de l'architecture 1 : LoRa P2P homogène, boutons sur pile |
+| `docs/Archi_3_Hybride_EnOcean_LoRa.md` | Document de référence de l'architecture 3 : hybride EnOcean + LoRa, **architecture retenue** |
+| `hardware/schema_detail_voies.svg` | Schémas détaillés de la carte LoRa : chaîne d'alimentation, étages d'E/S |
 
 ## Pour en faire un projet complet
 

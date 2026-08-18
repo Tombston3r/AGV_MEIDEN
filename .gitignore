@@ -21,3 +21,12 @@ nvs_*.bin
 # Fichiers temporaires KiCad
 *.lck
 _autosave-*
+
+# Sauvegardes automatiques et verrous KiCad : régénérés en permanence, ils
+# ajoutent des mégaoctets de binaire à chaque ouverture du projet.
+*-backups/
+*.kicad_prl
+~*.lck
+*.kicad_pcb-bak
+*.kicad_sch-bak
+_autosave-*

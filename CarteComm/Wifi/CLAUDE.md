@@ -6,7 +6,7 @@
 > Index des architectures : `../README.md`.
 >
 > Brief complet : `CLAUDE_CODE_BRIEF_AGV_MEIDEN.md`
-> Spécification de cette architecture : `../Planification_Architecture_WiFi_AGV.md`
+> Spécification de cette architecture : `docs/Planification_Architecture_WiFi_AGV.md`
 > Les références `§N` renvoient au brief, les « planification §N » au document
 > d'architecture Wi-Fi.
 >

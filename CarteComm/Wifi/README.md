@@ -53,7 +53,7 @@ Bouton EnOcean PTM 210  ─868 MHz─▶  Poste UniPi (TCM 515 + Mosquitto)
   première mesure au procès-verbal de recette. À dérouler dans l'ordre.
 - **[`docs/ETAT_PROJET.md`](docs/ETAT_PROJET.md) — état, déploiement, kanban.
   Point d'entrée, tenu à jour à chaque modification.**
-- [`../Planification_Architecture_WiFi_AGV.md`](../Planification_Architecture_WiFi_AGV.md) — la spécification suivie
+- [`docs/Planification_Architecture_WiFi_AGV.md`](docs/Planification_Architecture_WiFi_AGV.md) — la spécification suivie
 - [`docs/carte_v5_architecture.md`](docs/carte_v5_architecture.md) — la carte, et pourquoi la mission est sur l'ATmega
 - [`docs/subd25_atmega.md`](docs/subd25_atmega.md) — **brochage SUB-D : relevé obligatoire avant tout branchement**
 - [`docs/chronogrammes.md`](docs/chronogrammes.md) — les quatre phases du séquenceur

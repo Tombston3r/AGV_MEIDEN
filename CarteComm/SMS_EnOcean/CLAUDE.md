@@ -6,7 +6,7 @@
 > seul. Index des architectures : `../README.md`.
 >
 > Brief complet : `CLAUDE_CODE_BRIEF_AGV_MEIDEN.md`
-> Analyse cellulaire : `Archi_2_Cellulaire_SMS_LTE-M.md`
+> Analyse cellulaire : `docs/Archi_2_Cellulaire_SMS_LTE-M.md`
 > Les références `§N` de ce dossier renvoient au brief.
 >
 > ⚠️ **Le cœur métier est dupliqué dans chaque dossier d'architecture.** Toute

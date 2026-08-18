@@ -19,6 +19,21 @@ L'architecture `Wifi/` se distingue des deux autres sur un point décisif : elle
 vers la négociation avec le service informatique du client — qui devient le
 chemin critique du projet.
 
+## Où trouver quoi
+
+Chaque dossier d'architecture suit la même disposition :
+
+| Chemin | Contenu |
+|---|---|
+| `README.md` | ce que fait l'architecture, démarrage rapide |
+| `CLAUDE.md` | règles de contribution et pièges rencontrés |
+| `DEPLOY.md` | procédure de déploiement, quand elle existe |
+| `docs/ETAT_PROJET.md` | **état, déploiement, kanban — tenu à jour à chaque modification** |
+| `docs/Archi_*.md`, `docs/Planification_*.md` | documents de référence de l'architecture |
+| `docs/` | chronogrammes, table des signaux, procédures d'essai, questions ouvertes |
+| `hardware/` | projets KiCad, schémas, photos |
+| `firmware/`, `sim/`, `test/`, `tools/`, `profiles/` | le logiciel |
+
 ## Ce qui est commun aux deux
 
 Le brief du projet est la référence unique et s'applique à toutes les

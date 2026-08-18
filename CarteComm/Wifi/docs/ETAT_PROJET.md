@@ -2,13 +2,14 @@
 
 > **Document vivant.** Mis à jour à chaque modification du dossier.
 >
-> Dernière mise à jour : **2026-08-14** — ajout du runbook de déploiement
-> [`../DEPLOY.md`](../DEPLOY.md).
+> Dernière mise à jour : **2026-08-18** — rangement : le projet KiCad de la
+> carte d'origine et la photo d'assemblage rejoignent `hardware/`, la
+> spécification rejoint `docs/`.
 >
 > **Périmètre** : `CarteComm/Wifi/`, projet autonome et zippable. La carte AIO
 > AGV Control V5.0.1 est **conservée** ; ses **deux firmwares sont réécrits**.
 > Index des architectures : [`../../README.md`](../../README.md).
-> Spécification suivie : [`../Planification_Architecture_WiFi_AGV.md`](../Planification_Architecture_WiFi_AGV.md).
+> Spécification suivie : [`Planification_Architecture_WiFi_AGV.md`](Planification_Architecture_WiFi_AGV.md).
 
 ---
 
@@ -285,6 +286,7 @@ journalctl -u agv-poste -f
 | Simulateur d'automate | Repris du cœur commun |
 | 101 tests C++ + 17 tests Python | Dont 6 sur le repli heartbeat |
 | Documentation | Architecture de la carte, brochage SUB-D, essais, questions |
+| Matériel | Projet KiCad de la carte V5.0.1 et photo d'assemblage dans `hardware/` |
 | **Runbook de déploiement** | `DEPLOY.md` : 11 phases, checklists, recette, retour arrière |
 
 ---
@@ -293,6 +295,7 @@ journalctl -u agv-poste -f
 
 | Date | Modification | Impact |
 |---|---|---|
+| 2026-08-18 | Rangement du dossier : le projet KiCad de la carte d'origine est sous `hardware/AIO_AGV_Control_V5.0.1/`, la photo d'assemblage sous `hardware/photos/`, et `Planification_Architecture_WiFi_AGV.md` rejoint `docs/` pour aligner tous les dossiers d'architecture sur la même disposition. Les sauvegardes automatiques KiCad (35 archives, 3,6 Mo) sortent du suivi Git : elles sont régénérées à chaque ouverture du projet. | Liens, §3 « Fait », journal |
 | 2026-08-14 | Ajout de [`../DEPLOY.md`](../DEPLOY.md) : procédure de déploiement en 11 phases, des mesures préalables au procès-verbal de recette. Met en tête les trois points irréversibles ou bloquants — sauvegarde des firmwares d'origine (sans laquelle il n'y a aucun retour arrière), niveaux du bus non mesurés, accord du service informatique. Inclut les commandes de sauvegarde `esptool`/`avrdude`, la configuration durcie de Mosquitto avec ACL par topic, dix essais de dégradation et une fiche de recette à viser. | §2 renvoie au runbook, §3 « Fait », journal |
 | 2026-08-14 | Correction (analyse PCB) : **le L7806CV est l'ALIMENTATION de l'ATmega** — 24 V venant de CN64 A6/B6, abaissés à 6 V. Ce n'est donc ni un étage de sortie, ni un niveau de signal. Conséquence : les niveaux du bus redeviennent entièrement inconnus, l'amplitude des lignes Y (W1b) repasse BLOQUANT, et une question nouvelle apparaît (W1e) — 6 V est le maximum absolu du datasheet de l'ATmega2560, à vérifier sur V_CC. Le mode collecteur ouvert est CONSERVÉ, avec une justification corrigée : il ne peut rien détruire, à défaut de connaître la topologie. Aucun changement de code, uniquement les justifications. | §1.8, kanban B2/B2c/B2d, étapes 0.4a et 0.4c |
 | 2026-08-14 | ~~Correction : le rail 6 V (LM7806) serait sur l'étage de SORTIE~~ — **infirmé le jour même par l'analyse PCB**, voir la ligne ci-dessus. Reste de cette étape : l'ajout du mode collecteur ouvert, qui garde sa valeur., pas sur les entrées. L'automate attend du 6 V là où l'ATmega sort 5 V. Ajout d'un mode **collecteur ouvert** (`bus.x_open_drain`, actif par défaut) : la broche tire à la masse ou passe en haute impédance, elle ne sort jamais de niveau haut — ce qui évite de remonter du courant dans la diode de protection si l'automate tire ses entrées à 6 V. W1b requalifié : ce n'est plus un risque de destruction des entrées, c'est un choix de topologie de sortie à confirmer par la mesure. | Compteurs (105 → 108 tests), §1.4, §1.8, kanban B2, étape 0.4a |
