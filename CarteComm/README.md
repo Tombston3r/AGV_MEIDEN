@@ -14,6 +14,12 @@ et son matériel. Un dossier peut donc être zippé et transmis seul.
 | [`SMS_EnOcean/`](SMS_EnOcean/) | Boutons EnOcean au poste + liaison cellulaire (SMS ou LTE-M/MQTT) | Nouvelle carte | Étudiée à la demande du client | ✅ oui — 112 tests |
 | [`LoRa/`](LoRa/) | LoRa P2P 868 MHz | Nouvelle carte | Sources extraites, **pas encore un projet complet** | ❌ pas encore |
 
+Chaque dossier porte son propre [`DEPLOY.md`](Wifi/DEPLOY.md) : les procédures
+n'ont presque rien en commun. Le Wi-Fi impose de sauvegarder puis d'écraser les
+firmwares existants ; le cellulaire commence par un relevé de couverture
+éliminatoire et une décision de coût ; le LoRa par un arbitrage portée/latence
+et un budget d'émission réglementaire.
+
 L'architecture `Wifi/` se distingue des deux autres sur un point décisif : elle
 **ne change aucun matériel**. Le coût se déplace entièrement vers le logiciel et
 vers la négociation avec le service informatique du client — qui devient le
@@ -27,7 +33,7 @@ Chaque dossier d'architecture suit la même disposition :
 |---|---|
 | `README.md` | ce que fait l'architecture, démarrage rapide |
 | `CLAUDE.md` | règles de contribution et pièges rencontrés |
-| `DEPLOY.md` | procédure de déploiement, quand elle existe |
+| `DEPLOY.md` | **procédure de déploiement propre à l'architecture** — relevés éliminatoires, mise en service, recette |
 | `docs/ETAT_PROJET.md` | **état, déploiement, kanban — tenu à jour à chaque modification** |
 | `docs/Archi_*.md`, `docs/Planification_*.md` | documents de référence de l'architecture |
 | `docs/` | chronogrammes, table des signaux, procédures d'essai, questions ouvertes |

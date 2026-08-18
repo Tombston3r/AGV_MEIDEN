@@ -66,6 +66,8 @@ mise en service.
 
 ## Documentation
 
+- **[`DEPLOY.md`](DEPLOY.md) — procédure de déploiement complète**, du relevé de
+  couverture éliminatoire au procès-verbal de recette.
 - **[`docs/ETAT_PROJET.md`](docs/ETAT_PROJET.md) — état, déploiement, kanban.
   Point d'entrée, tenu à jour à chaque modification.**
 - [`CLAUDE.md`](CLAUDE.md) — règles de contribution et pièges rencontrés

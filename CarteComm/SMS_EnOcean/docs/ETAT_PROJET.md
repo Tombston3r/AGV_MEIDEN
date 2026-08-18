@@ -373,6 +373,7 @@ journalctl -u agv-poste -f
 | Wi-Fi de maintenance | Désactivé par défaut, fenêtre de 10 min |
 | Outillage | genconfig, flash, rejeu de trames, provisionnement de clé |
 | Documentation | Chronogrammes, signaux, protocole MEGA, essais, questions ouvertes |
+| **Runbook de déploiement** | `DEPLOY.md` : 10 phases, relevés éliminatoires, recette |
 | 112 tests natifs | Dont un par ligne du §12 |
 
 ---
@@ -382,6 +383,7 @@ journalctl -u agv-poste -f
 | Date | Modification | Impact sur ce document |
 |---|---|---|
 | 2026-08-13 | Création du monorepo complet (§14 étapes 1 à 8), 122 tests verts | Document initial |
+| 2026-08-18 | Ajout de [`../DEPLOY.md`](../DEPLOY.md) : procédure de déploiement propre à cette architecture, en 10 phases. Met en tête les quatre décisions préalables — déployer MQTT/LTE-M et non le SMS, faire acter le coût récurrent (~1 500 €/an en SMS contre ~100 € en LTE-M), la couverture cellulaire éliminatoire, et le choix de variante d'interface bus qui conditionne le routage du PCB. | §3 « Fait », journal |
 | 2026-08-18 | Rangement : `Archi_2_Cellulaire_SMS_LTE-M.md` rejoint `docs/`, pour que tous les dossiers d'architecture aient la même disposition (documents de référence dans `docs/`, matériel dans `hardware/`). | Liens, journal |
 | 2026-08-14 | Relevé de câblage SUB-D 25 fourni par le client : §12.2 et §12.6 (ordre des bits) passent à « relevé ». La table côté AGV vaut pour toutes les architectures ; elle est documentée dans `Wifi/docs/subd25_atmega.md`. | `signal_map.md`, `questions_ouvertes.md`, kanban B2 |
 | 2026-08-13 | Réorganisation en un dossier autonome par architecture. Le projet entier passe sous `CarteComm/SMS_EnOcean/` ; les sources LoRa (transport, budget ERC 70-03, SX1276, bouton sur pile, 10 tests) sont extraites vers `CarteComm/LoRa/`. Les deux `main.cpp` passent sur le transport cellulaire. | Périmètre, compteurs (122 → 112 tests), transports, kanban (T3 retiré, T11/T12 ajoutés), déploiement (plus de flash de bouton) |
