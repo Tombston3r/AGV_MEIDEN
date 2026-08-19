@@ -14,6 +14,15 @@ et son matériel. Un dossier peut donc être zippé et transmis seul.
 | [`SMS_EnOcean/`](SMS_EnOcean/) | Boutons EnOcean au poste + liaison cellulaire (SMS ou LTE-M/MQTT) | Nouvelle carte | Étudiée à la demande du client | ✅ oui — 112 tests |
 | [`LoRa/`](LoRa/) | LoRa P2P 868 MHz | Nouvelle carte | Sources extraites, **pas encore un projet complet** | ❌ pas encore |
 
+## Choisir une architecture
+
+📊 **[`COMPARAISON.md`](COMPARAISON.md) — document d'aide à la décision.**
+Les quatre solutions comparées sur quinze critères : coût, latence, portée
+selon la distance, sécurité face à une intrusion, dépendances, réversibilité,
+conformité, pérennité. Contient un arbre de décision, la liste des mesures qui
+peuvent disqualifier chaque solution, et les questions à faire trancher par le
+client.
+
 ## Comparaison des coûts
 
 Base : **2 points d'appel**, prix indicatifs HT 2026. Détail et hypothèses dans
