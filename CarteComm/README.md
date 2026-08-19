@@ -14,6 +14,28 @@ et son matériel. Un dossier peut donc être zippé et transmis seul.
 | [`SMS_EnOcean/`](SMS_EnOcean/) | Boutons EnOcean au poste + liaison cellulaire (SMS ou LTE-M/MQTT) | Nouvelle carte | Étudiée à la demande du client | ✅ oui — 112 tests |
 | [`LoRa/`](LoRa/) | LoRa P2P 868 MHz | Nouvelle carte | Sources extraites, **pas encore un projet complet** | ❌ pas encore |
 
+## Comparaison des coûts
+
+Base : **2 points d'appel**, prix indicatifs HT 2026. Détail et hypothèses dans
+le `BOM.md` de chaque dossier.
+
+| Architecture | Matériel | Récurrent | **10 ans** | Par station de plus |
+|---|---:|---:|---:|---:|
+| [`LoRa/`](LoRa/BOM.md) A1 — LoRa homogène | 267 € | 0 €/an | **~279 €** | +62 € |
+| [`LoRa/`](LoRa/BOM.md) A3 — EnOcean + LoRa | 363 € | 0 €/an | **~363 €** | +46 € |
+| [`Wifi/`](Wifi/BOM.md) — carte conservée | 738 € | 0 €/an | **~738 €** | +50 € |
+| [`SMS_EnOcean/`](SMS_EnOcean/BOM.md) — LTE-M/MQTT | 407 € | 100 €/an | **~1 407 €** | +50 € |
+| [`SMS_EnOcean/`](SMS_EnOcean/BOM.md) — SMS *(déconseillé)* | 625 € | 1 500 €/an | **~15 625 €** | +50 € |
+
+Deux lectures de ce tableau :
+
+- **le récurrent domine tout** dès qu'un opérateur entre dans la boucle. Le SMS
+  coûte 50 fois le LoRa sur dix ans, pour un service inférieur ;
+- **le Wi-Fi n'est pas le moins cher** malgré sa carte AGV gratuite : le poste
+  UniPi à 461 € pèse plus lourd que les 98 € d'une carte LoRa neuve. Son
+  avantage est ailleurs — aucun matériel embarqué à fabriquer, donc aucun délai
+  de PCB, et un retour arrière par simple repose de la carte d'origine.
+
 Chaque dossier porte son propre [`DEPLOY.md`](Wifi/DEPLOY.md) : les procédures
 n'ont presque rien en commun. Le Wi-Fi impose de sauvegarder puis d'écraser les
 firmwares existants ; le cellulaire commence par un relevé de couverture
@@ -34,6 +56,7 @@ Chaque dossier d'architecture suit la même disposition :
 | `README.md` | ce que fait l'architecture, démarrage rapide |
 | `CLAUDE.md` | règles de contribution et pièges rencontrés |
 | `DEPLOY.md` | **procédure de déploiement propre à l'architecture** — relevés éliminatoires, mise en service, recette |
+| `BOM.md` | **nomenclature complète** — matériel, outillage, récurrent, coût sur 10 ans |
 | `docs/ETAT_PROJET.md` | **état, déploiement, kanban — tenu à jour à chaque modification** |
 | `docs/Archi_*.md`, `docs/Planification_*.md` | documents de référence de l'architecture |
 | `docs/` | chronogrammes, table des signaux, procédures d'essai, questions ouvertes |

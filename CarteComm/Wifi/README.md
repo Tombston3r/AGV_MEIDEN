@@ -51,6 +51,8 @@ Bouton EnOcean PTM 210  ─868 MHz─▶  Poste UniPi (TCM 515 + Mosquitto)
 
 - **[`DEPLOY.md`](DEPLOY.md) — procédure de déploiement complète**, de la
   première mesure au procès-verbal de recette. À dérouler dans l'ordre.
+- **[`BOM.md`](BOM.md) — nomenclature complète**, matériel, outillage,
+  récurrent et coût sur 10 ans.
 - **[`docs/ETAT_PROJET.md`](docs/ETAT_PROJET.md) — état, déploiement, kanban.
   Point d'entrée, tenu à jour à chaque modification.**
 - [`docs/Planification_Architecture_WiFi_AGV.md`](docs/Planification_Architecture_WiFi_AGV.md) — la spécification suivie

@@ -20,10 +20,13 @@
 > /tmp/lora_tests
 > ```
 
-## Déploiement
+## Déploiement et nomenclature
 
 [`DEPLOY.md`](DEPLOY.md) donne la procédure complète, à commencer par la phase 0
 qui fait de ce dossier un projet autonome.
+
+[`BOM.md`](BOM.md) chiffre les deux variantes A1 et A3, et montre où leurs
+courbes de coût se croisent — **à 8 stations**.
 
 ## Contenu
 
@@ -38,6 +41,7 @@ qui fait de ce dossier un projet autonome.
 | `firmware/bouton-lora/src/main.cpp` | Nœud bouton sur pile : sommeil profond, 3 tentatives, LED verte/rouge |
 | `test/native/test_lora.cpp` | 10 tests : temps d'antenne, budget légal, half-duplex, retransmissions |
 | `DEPLOY.md` | Procédure de déploiement, A1 et A3 |
+| `BOM.md` | Nomenclature chiffrée des deux variantes |
 | `docs/latence_lora.md` | **Écart latence/SF à arbitrer avec le client** |
 | `docs/Archi_1_LoRa_P2P_homogene.md` | Document de référence de l'architecture 1 : LoRa P2P homogène, boutons sur pile |
 | `docs/Archi_3_Hybride_EnOcean_LoRa.md` | Document de référence de l'architecture 3 : hybride EnOcean + LoRa, **architecture retenue** |

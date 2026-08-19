@@ -373,6 +373,7 @@ journalctl -u agv-poste -f
 | Wi-Fi de maintenance | Désactivé par défaut, fenêtre de 10 min |
 | Outillage | genconfig, flash, rejeu de trames, provisionnement de clé |
 | Documentation | Chronogrammes, signaux, protocole MEGA, essais, questions ouvertes |
+| **Nomenclature chiffrée** | `BOM.md` : matériel, outillage, récurrent, coût sur 10 ans |
 | **Runbook de déploiement** | `DEPLOY.md` : 10 phases, relevés éliminatoires, recette |
 | 112 tests natifs | Dont un par ligne du §12 |
 
@@ -382,6 +383,7 @@ journalctl -u agv-poste -f
 
 | Date | Modification | Impact sur ce document |
 |---|---|---|
+| 2026-08-18 | Ajout de [`../BOM.md`](../BOM.md) : nomenclature complète des deux variantes. Écart de ~14 000 € sur dix ans entre SMS et LTE-M, chiffré poste par poste. Ajoute une option de poste ESP32 à 148 € en regard des 439 € de l'UniPi, et le coût comparé des trois variantes d'interface bus — `shift595` est à la fois la moins chère et la plus rapide. | §3 « Fait », journal |
 | 2026-08-13 | Création du monorepo complet (§14 étapes 1 à 8), 122 tests verts | Document initial |
 | 2026-08-18 | Ajout de [`../DEPLOY.md`](../DEPLOY.md) : procédure de déploiement propre à cette architecture, en 10 phases. Met en tête les quatre décisions préalables — déployer MQTT/LTE-M et non le SMS, faire acter le coût récurrent (~1 500 €/an en SMS contre ~100 € en LTE-M), la couverture cellulaire éliminatoire, et le choix de variante d'interface bus qui conditionne le routage du PCB. | §3 « Fait », journal |
 | 2026-08-18 | Rangement : `Archi_2_Cellulaire_SMS_LTE-M.md` rejoint `docs/`, pour que tous les dossiers d'architecture aient la même disposition (documents de référence dans `docs/`, matériel dans `hardware/`). | Liens, journal |

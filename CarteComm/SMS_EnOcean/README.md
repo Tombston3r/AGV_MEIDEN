@@ -68,6 +68,8 @@ mise en service.
 
 - **[`DEPLOY.md`](DEPLOY.md) — procédure de déploiement complète**, du relevé de
   couverture éliminatoire au procès-verbal de recette.
+- **[`BOM.md`](BOM.md) — nomenclature complète**, matériel, outillage,
+  récurrent et coût sur 10 ans.
 - **[`docs/ETAT_PROJET.md`](docs/ETAT_PROJET.md) — état, déploiement, kanban.
   Point d'entrée, tenu à jour à chaque modification.**
 - [`CLAUDE.md`](CLAUDE.md) — règles de contribution et pièges rencontrés

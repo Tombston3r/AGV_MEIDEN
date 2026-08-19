@@ -287,6 +287,7 @@ journalctl -u agv-poste -f
 | 101 tests C++ + 17 tests Python | Dont 6 sur le repli heartbeat |
 | Documentation | Architecture de la carte, brochage SUB-D, essais, questions |
 | Matériel | Projet KiCad de la carte V5.0.1 et photo d'assemblage dans `hardware/` |
+| **Nomenclature chiffrée** | `BOM.md` : matériel, outillage, récurrent, coût sur 10 ans |
 | **Runbook de déploiement** | `DEPLOY.md` : 11 phases, checklists, recette, retour arrière |
 
 ---
@@ -295,6 +296,7 @@ journalctl -u agv-poste -f
 
 | Date | Modification | Impact |
 |---|---|---|
+| 2026-08-18 | Ajout de [`../BOM.md`](../BOM.md) : nomenclature complète. La carte AGV coûte 0 € — elle est conservée — mais deux postes propres à cette architecture apparaissent : le harnais de raccordement (42 €) et une adaptation de niveaux conservatoire (0 à 45 €) tant que W1b n'est pas mesuré. Total ~738 € sur 10 ans, dont 461 € pour le seul poste UniPi. | §3 « Fait », journal |
 | 2026-08-18 | Rangement du dossier : le projet KiCad de la carte d'origine est sous `hardware/AIO_AGV_Control_V5.0.1/`, la photo d'assemblage sous `hardware/photos/`, et `Planification_Architecture_WiFi_AGV.md` rejoint `docs/` pour aligner tous les dossiers d'architecture sur la même disposition. Les sauvegardes automatiques KiCad (35 archives, 3,6 Mo) sortent du suivi Git : elles sont régénérées à chaque ouverture du projet. | Liens, §3 « Fait », journal |
 | 2026-08-14 | Ajout de [`../DEPLOY.md`](../DEPLOY.md) : procédure de déploiement en 11 phases, des mesures préalables au procès-verbal de recette. Met en tête les trois points irréversibles ou bloquants — sauvegarde des firmwares d'origine (sans laquelle il n'y a aucun retour arrière), niveaux du bus non mesurés, accord du service informatique. Inclut les commandes de sauvegarde `esptool`/`avrdude`, la configuration durcie de Mosquitto avec ACL par topic, dix essais de dégradation et une fiche de recette à viser. | §2 renvoie au runbook, §3 « Fait », journal |
 | 2026-08-14 | Correction (analyse PCB) : **le L7806CV est l'ALIMENTATION de l'ATmega** — 24 V venant de CN64 A6/B6, abaissés à 6 V. Ce n'est donc ni un étage de sortie, ni un niveau de signal. Conséquence : les niveaux du bus redeviennent entièrement inconnus, l'amplitude des lignes Y (W1b) repasse BLOQUANT, et une question nouvelle apparaît (W1e) — 6 V est le maximum absolu du datasheet de l'ATmega2560, à vérifier sur V_CC. Le mode collecteur ouvert est CONSERVÉ, avec une justification corrigée : il ne peut rien détruire, à défaut de connaître la topologie. Aucun changement de code, uniquement les justifications. | §1.8, kanban B2/B2c/B2d, étapes 0.4a et 0.4c |
