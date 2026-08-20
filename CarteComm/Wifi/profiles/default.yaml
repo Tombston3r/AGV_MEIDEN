@@ -30,30 +30,17 @@ bus:
   # Sorties poussées (push-pull)         -> pull-up NUISIBLE.
   y_pullups: false             # PROVISOIRE §12.1
 
-  # --- Étage de sortie X : topologie INCONNUE -------------------------------
-  # Le L7806CV de la carte d'origine est l'ALIMENTATION de l'ATmega (24 V venant
-  # de CN64 A6/B6, abaissé à 6 V) : il ne renseigne pas sur les niveaux du bus.
-  # Rien n'indique donc comment les entrées de l'automate sont câblées.
+  # --- Étage de sortie X : MOSFET IRF520, topologie CONNUE ------------------
+  # Le projet KiCad de la carte (hardware/AIO_AGV_Control_V5.0.1) montre 23
+  # MOSFET N canal IRF520 attaqués par des résistances de grille de 1 kΩ. Le
+  # collecteur ouvert est donc réalisé PAR LE MATÉRIEL : le MOSFET tire la ligne
+  # de l'automate à la masse, il ne sort jamais de niveau haut.
   #
-  #   x_open_drain = true  : la carte se contente de TIRER À LA MASSE. La broche
-  #     ne sort jamais de niveau haut : elle bascule entre « sortie à 0 » et
-  #     « haute impédance ». Ce mode ne peut RIEN détruire — au pire il est
-  #     inopérant si l'automate attend un courant fourni par la carte, et le
-  #     banc le montre immédiatement.
-  #
-  #   x_open_drain = false : sortie poussée classique. Si l'automate tire ses
-  #     entrées vers une tension quelconque, la sortie poussée fait remonter du
-  #     courant dans la diode de protection du microcontrôleur — défaut sournois
-  #     qui « marche » au banc et dégrade la broche en service.
-  #
-  # Par défaut on prend le mode qui ne peut pas abîmer la carte. PROVISOIRE §12.3
-  #
-  # ⚠ Appariement avec `x_active_high` : un étage à collecteur ouvert va
-  # naturellement avec `x_active_high: false` (la carte ACTIVE en tirant à la
-  # masse). La combinaison actuelle (true + true) signifie « activer = relâcher »
-  # — cohérente et gérée par le code, mais probablement pas ce que fait
-  # l'automate. À trancher avec le relevé de polarité.
-  x_open_drain: true
+  # Le microcontrôleur, lui, pilote une GRILLE. Il doit donc être en sortie
+  # poussée. Le mode collecteur ouvert côté microcontrôleur laisserait la grille
+  # FLOTTANTE à l'état actif — un MOSFET à grille flottante peut conduire
+  # partiellement, ce qui est le pire état possible sur un étage de puissance.
+  x_open_drain: false
 
   # Sur cette carte, l'ATmega2560 pose le bus directement par ses ports :
   # PORTx = valeur, < 1 µs, strictement simultané. C'est la propriété que la

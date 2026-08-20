@@ -67,14 +67,29 @@ bus** :
   (la carte devrait alors seulement tirer à la masse), ou attendant un courant
   fourni par la carte ? Non déterminé.
 
-Faute de réponse, le firmware part en **collecteur ouvert**
-(`bus.x_open_drain: true`) : la broche tire à la masse ou passe en haute
-impédance, elle ne sort **jamais** de niveau haut. Ce mode ne peut rien
-détruire — au pire il est inopérant, et le banc le montre immédiatement, alors
-qu'une sortie poussée contre un tirage étranger dégrade la broche en silence.
+### ✅ La topologie de sortie, elle, est connue
 
-Trois tests verrouillent ce comportement. Repasser en sortie poussée
-(`x_open_drain: false`) est un simple paramètre, une fois la topologie connue.
+Le projet KiCad de la carte
+([`../hardware/AIO_AGV_Control_V5.0.1/`](../hardware/AIO_AGV_Control_V5.0.1/))
+montre **23 MOSFET N canal IRF520** en TO-220, attaqués par des résistances de
+grille de 1 kΩ. Le collecteur ouvert est donc réalisé **par le matériel** : le
+MOSFET tire la ligne de l'automate à la masse et ne sort jamais de niveau haut.
+
+Conséquence sur le firmware : le microcontrôleur pilote une **grille**, pas la
+ligne de l'automate. Il doit être en **sortie poussée**
+(`bus.x_open_drain: false`, valeur du profil). Le mode collecteur ouvert côté
+microcontrôleur laisserait la grille **flottante** à l'état actif — un MOSFET à
+grille flottante peut conduire partiellement, ce qui est le pire état possible
+sur un étage de puissance.
+
+L'inversion est faite par le MOSFET : microcontrôleur à l'état haut → MOSFET
+passant → ligne automate tirée à 0 V.
+
+⚠️ **23 MOSFET pour 22 voies X** — `T13` est absent de la numérotation. À
+vérifier au schéma : voie de réserve, ou signal supplémentaire non identifié.
+
+Le mode collecteur ouvert reste implémenté et testé : il redevient le mode sûr
+pour toute carte dépourvue d'étage de sortie.
 
 ---
 

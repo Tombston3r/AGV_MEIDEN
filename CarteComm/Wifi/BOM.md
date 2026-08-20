@@ -38,16 +38,33 @@ la comparaison entre architectures reste donc pertinente en HT, et
 
 ---
 
-### Carte AGV — 0 €
+### Carte AGV — extraite du projet KiCad
 
-**La carte AIO AGV Control V5.0.1 est conservée.** Aucun composant n'est
-ajouté : seuls ses deux firmwares sont réécrits. C'est le seul intérêt
-économique décisif de cette architecture.
+**Nomenclature réelle**, extraite de
+[`hardware/AIO_AGV_Control_V5.0.1/`](hardware/AIO_AGV_Control_V5.0.1/) :
+57 composants placés au PCB. Ce n'est plus une estimation d'étude.
+
+⚠️ Cette carte est **fabriquée**, pas réutilisée : elle reprend le couple
+ATmega2560 + ESP32 de l'originale, sur supports, avec son propre étage de
+sortie. La ligne « carte AGV à 0 € » des versions précédentes de ce
+document était donc fausse.
 
 | Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Carte existante — ESP32-WROOM-32E + ATmega2560 | `AIO AGV Control V5.0.1` | 1 | — | ☐ | ☐ | ☐ | *0,00 €* |
-| **Sous-total** | | | | | | **☐** | ***0,00 €*** |
+| Module MCU — carte Mega2560 Pro sur support | `Clone Mega2560 Pro (A1)` | 1 | Amazon | ☐ | ☐ | ☐ | *21,60 €* |
+| Module Wi-Fi/BT sur support | `ESP32-DEVKITC-32D-F (U1)` | 1 | RS | ☐ | ☐ | ☐ | *14,40 €* |
+| **Étage de sortie** — MOSFET N canal TO-220 | `IRF520 (Vishay, T1–T24)` | 23 | RS | ☐ | ☐ | ☐ | *16,56 €* |
+| Résistances de grille des MOSFET | `1 kΩ THT 0411 (R1–R24)` | 23 | RS | ☐ | ☐ | ☐ | *1,38 €* |
+| Diviseurs de mesure | `4,7 k / 2,2 k / 22 k / 220 k (R30, R31, R40, R41)` | 4 | RS | ☐ | ☐ | ☐ | *0,24 €* |
+| Régulateur 6 V — alimentation de l'ATmega | `L7806CV (LM1)` | 1 | RS | ☐ | ☐ | ☐ | *1,08 €* |
+| Convertisseur DC/DC **isolé** 24 V → 5 V, 5 W | `TDN 5-2411WISM (Traco, TDN1)` | 1 | RS | ☐ | ☐ | ☐ | *30,00 €* |
+| Diode de protection DO-41 | `1N4007 ou équiv. (D1)` | 1 | RS | ☐ | ☐ | ☐ | *0,12 €* |
+| Connecteur SUB-D 25 **mâle** coudé CI (entrées) | `Amphenol DB25P564CTXLF (J1)` | 1 | RS | ☐ | ☐ | ☐ | *7,20 €* |
+| Connecteur SUB-D 25 **femelle** coudé CI (sorties) | `Amphenol DB25S564GTLF (J2)` | 1 | RS | ☐ | ☐ | ☐ | *7,20 €* |
+| Supports et barrettes pour les deux modules | `barrettes tulipe 2,54 mm` | 1 | RS | ☐ | ☐ | ☐ | *3,60 €* |
+| PCB ~150 × 100 mm (série de 5) | `Gerber projet` | 1 | PCB | ☐ | ☐ | ☐ | *18,00 €* |
+| Boîtier, entretoises, presse-étoupes, visserie | `Hammond 1590 ou Fibox` | 1 | RS | ☐ | ☐ | ☐ | *33,60 €* |
+| **Sous-total** | | | | | | **☐** | ***154,98 €*** |
 
 ### Harnais de raccordement
 
@@ -115,6 +132,50 @@ MQTT et interface de supervision.
 
 ---
 
+## Ce que la nomenclature KiCad apprend
+
+L'extraction du projet KiCad ne fait pas que donner des prix : elle renseigne
+deux points qui étaient ouverts.
+
+### 1. L'étage de sortie est à MOSFET — `x_open_drain` doit être `false`
+
+Les 22 voies X passent par **23 IRF520** (MOSFET N canal, TO-220) attaqués par
+des résistances de grille de 1 kΩ. C'est un étage à **collecteur ouvert
+matériel** : le MOSFET tire la ligne de l'automate à la masse, il ne sort jamais
+de niveau haut.
+
+Conséquence directe sur le firmware : le microcontrôleur pilote une **grille**,
+pas la ligne de l'automate. Il doit donc être en **sortie poussée**
+(`bus.x_open_drain: false`). Le mode collecteur ouvert côté microcontrôleur
+laisserait la grille **flottante** à l'état actif — un MOSFET à grille flottante
+peut conduire partiellement, ce qui est le pire état possible sur un étage de
+puissance.
+
+L'inversion est faite par le MOSFET : microcontrôleur à l'état haut → MOSFET
+passant → ligne automate tirée à 0 V.
+
+⚠️ **23 MOSFET pour 22 voies X** (T13 absent de la numérotation). À vérifier au
+schéma : voie de réserve, ou signal supplémentaire non identifié.
+
+### 2. Les 21 entrées Y n'ont aucune protection
+
+La carte ne compte que **quatre résistances** hors étage de sortie — deux
+diviseurs (`R30`/`R31` et `R40`/`R41`), vraisemblablement pour une mesure de
+tension. **Aucun optocoupleur, aucun diviseur sur les 21 lignes `Y`** : elles
+arrivent directement sur les broches du Mega.
+
+Le point bloquant W1b reste donc entier, et il est maintenant confirmé par le
+routage : si l'amplitude des lignes `Y` dépasse V_CC, rien ne protège le
+microcontrôleur.
+
+### 3. L'alimentation est isolée
+
+Le `TDN 5-2411WISM` est un convertisseur **isolé 1,5 kV**, 5 W. C'est le poste
+le plus cher de la carte, et il explique pourquoi la masse de l'AGV et celle de
+la logique sont séparées.
+
+---
+
 ## Adaptation de niveaux — CONDITIONNEL
 
 ⚠️ **Poste chiffré à titre conservatoire, en attente de mesure.**
@@ -136,13 +197,13 @@ semaines de délai, pas seulement un coût.
 
 | Poste | Total TTC relevé | *Repère TTC* | *Repère HT* |
 |---|---:|---:|---:|
-| **Carte AGV (conservée)** | ☐ | *0,00 €* | *0,00 €* |
+| **Carte AGV (nomenclature KiCad)** | ☐ | *154,98 €* | *129,15 €* |
 | Harnais de raccordement | ☐ | *50,40 €* | *42,00 €* |
 | Antenne Wi-Fi déportée | ☐ | *36,00 €* | *30,00 €* |
 | Poste fixe UniPi | ☐ | *553,20 €* | *461,00 €* |
 | 2 boutons EnOcean | ☐ | *120,00 €* | *100,00 €* |
 | Outillage | ☐ | *126,00 €* | *105,00 €* |
-| **TOTAL** | **☐** | ***885,60 €*** | ***738,00 €*** |
+| **TOTAL** | **☐** | ***1 040,58 €*** | ***867,15 €*** |
 
 ### Coût par station supplémentaire
 
@@ -177,7 +238,8 @@ broker.
 |---|---|---|
 | `UniPi E413` | 2 à 6 semaines | **Chemin critique matériel.** Vérifier la référence exacte et le runtime livré (§12.9) avant commande |
 | `PTM 210` / `TCM 515` | 1 à 2 semaines | Peu distribués par RS : prévoir un distributeur EnOcean |
-| Carte AGV | — | **Aucun : elle existe** |
+| PCB + assemblage de la carte AGV | 3 à 5 semaines | **Chemin critique matériel** — la carte est fabriquée, pas réutilisée |
+| `TDN 5-2411WISM` | 1 à 3 semaines | Convertisseur isolé : poste le plus cher de la carte |
 | Adaptation de niveaux | 3 à 5 semaines **si nécessaire** | Conditionnel à la mesure W1b — d'où l'urgence de la faire |
 | Points d'accès Wi-Fi additionnels | variable | À la charge du client, dépend du relevé 0.2 |
 

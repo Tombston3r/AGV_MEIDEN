@@ -2,9 +2,8 @@
 
 > **Document vivant.** Mis à jour à chaque modification du dossier.
 >
-> Dernière mise à jour : **2026-08-18** — rangement : le projet KiCad de la
-> carte d'origine et la photo d'assemblage rejoignent `hardware/`, la
-> spécification rejoint `docs/`.
+> Dernière mise à jour : **2026-08-18** — nomenclature extraite du projet
+> KiCad ; l'étage de sortie à MOSFET impose `x_open_drain: false`.
 >
 > **Périmètre** : `CarteComm/Wifi/`, projet autonome et zippable. La carte AIO
 > AGV Control V5.0.1 est **conservée** ; ses **deux firmwares sont réécrits**.
@@ -19,7 +18,7 @@
 
 | Indicateur | Valeur |
 |---|---|
-| Tests natifs C++ | **108 tests, 536 assertions, 0 échec** |
+| Tests natifs C++ | **109 tests, 537 assertions, 0 échec** |
 | Tests Python (poste UniPi) | **17 tests, 0 échec** (rejoués à la main, `pytest` absent du poste) |
 | Compilation | `-std=c++17 -Wall -Wextra -Werror`, sans avertissement |
 | Matériel nécessaire | **aucun** |
@@ -65,7 +64,7 @@ Vérifié par 6 tests dédiés, dont :
 | Décodage position 10 bits `Y23`…`Y34` et vitesse `Y11`…`Y14` | ✅ |
 | Pose des 22 lignes en **une seule section critique** (5 écritures de port) | ✅ testé |
 | Masquage des ports mixtes PA/PB/PG (DDR et données) | ✅ testé |
-| Étage de sortie **collecteur ouvert** (rail 6 V automate) | ✅ testé |
+| Étage de sortie **poussé** — la broche attaque une grille de MOSFET | ✅ testé |
 | Table de câblage réelle CN61→CN64 | ✅ relevée |
 | Idempotence : même séquence ré-acquittée sans ré-exécution | ✅ |
 | Repli heartbeat | ✅ |
@@ -109,10 +108,10 @@ CRC-16/CCITT, resynchronisation automatique, longueur invalide rejetée.
 - **`pytest` absent** : les 17 tests Python ont été rejoués par un harnais
   maison, pas par pytest.
 - **Aucun essai matériel** : ni carte, ni banc, ni AGV, ni relevé réseau.
-- **Les niveaux du bus sont entièrement inconnus** : le L7806CV s'étant révélé
-  être l'alimentation de l'ATmega, rien ne renseigne sur les signaux.
-  L'amplitude des lignes Y (W1b) est la mesure la plus urgente ; la topologie
-  des entrées de l'automate (W1d) décide du mode de sortie.
+- **L'amplitude des lignes Y reste inconnue** (W1b), et la nomenclature KiCad
+  confirme qu'**aucune protection n'est prévue** : la carte ne compte que quatre
+  résistances hors étage de sortie, deux diviseurs de mesure. Les 21 lignes `Y`
+  arrivent directement sur les broches du Mega. C'est la mesure la plus urgente.
 - **La tension V_CC réelle de l'ATmega n'est pas mesurée** (W1e) : 6 V est le
   maximum absolu du datasheet.
 
@@ -296,6 +295,7 @@ journalctl -u agv-poste -f
 
 | Date | Modification | Impact |
 |---|---|---|
+| 2026-08-18 | Nomenclature de la carte AGV **extraite du projet KiCad** (57 composants placés) au lieu d'être estimée. Deux découvertes : l'étage de sortie est à **23 MOSFET IRF520** avec résistances de grille — le collecteur ouvert est fait par le matériel, donc le microcontrôleur doit être en **sortie poussée** (`x_open_drain: false`, corrigé ; une grille flottante mettrait le MOSFET dans un état indéterminé) — et **aucune protection n'existe sur les 21 entrées Y**, ce qui confirme W1b. La carte est fabriquée et non réutilisée : le total passe de 738 € à 867 € HT. | §1.1 (109 tests), §1.4, §1.8, BOM, comparatif |
 | 2026-08-18 | Ajout de [`../BOM.md`](../BOM.md) : nomenclature complète. La carte AGV coûte 0 € — elle est conservée — mais deux postes propres à cette architecture apparaissent : le harnais de raccordement (42 €) et une adaptation de niveaux conservatoire (0 à 45 €) tant que W1b n'est pas mesuré. Total ~738 € sur 10 ans, dont 461 € pour le seul poste UniPi. | §3 « Fait », journal |
 | 2026-08-18 | Rangement du dossier : le projet KiCad de la carte d'origine est sous `hardware/AIO_AGV_Control_V5.0.1/`, la photo d'assemblage sous `hardware/photos/`, et `Planification_Architecture_WiFi_AGV.md` rejoint `docs/` pour aligner tous les dossiers d'architecture sur la même disposition. Les sauvegardes automatiques KiCad (35 archives, 3,6 Mo) sortent du suivi Git : elles sont régénérées à chaque ouverture du projet. | Liens, §3 « Fait », journal |
 | 2026-08-14 | Ajout de [`../DEPLOY.md`](../DEPLOY.md) : procédure de déploiement en 11 phases, des mesures préalables au procès-verbal de recette. Met en tête les trois points irréversibles ou bloquants — sauvegarde des firmwares d'origine (sans laquelle il n'y a aucun retour arrière), niveaux du bus non mesurés, accord du service informatique. Inclut les commandes de sauvegarde `esptool`/`avrdude`, la configuration durcie de Mosquitto avec ACL par topic, dix essais de dégradation et une fiche de recette à viser. | §2 renvoie au runbook, §3 « Fait », journal |

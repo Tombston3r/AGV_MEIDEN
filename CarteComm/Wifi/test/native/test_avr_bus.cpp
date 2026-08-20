@@ -189,6 +189,7 @@ TEST(avr_adresse_10_bits_correctement_eclatee_sur_quatre_ports) {
   // Station 682 = 0b1010101010 : un bit sur deux, réparti sur PORTA/C/G/L.
   // C'est le test qui attrape une erreur de recopie dans la table de câblage.
   AvrBench b;
+  b.profile.bus.x_open_drain = false;  // étage à MOSFET : la broche pilote une grille
   AvrPortBus bus = b.make();
   bus.begin();
 
@@ -198,12 +199,12 @@ TEST(avr_adresse_10_bits_correctement_eclatee_sur_quatre_ports) {
 
   CHECK_EQ(decode_field(b.posed_word(), layout.x_station_bits, kStationBits), 682u);
 
-  // Vérification côté registres, en collecteur ouvert (mode par défaut) :
-  // XA7 (bit 21) = PORTA bit 2 doit être RELÂCHÉ (DDR à 0) pour laisser le
-  // tirage 6 V faire le niveau haut.
-  CHECK_EQ(b.port[kA].dir & (1u << 2), 0u);
-  // X96 (bit 12) = PORTG bit 2 doit être TIRÉ À LA MASSE (682 est pair).
-  CHECK(((b.port[kG].dir >> 2) & 1u) == 1u);
+  // Vérification côté registres, en sortie poussée — le mode du matériel réel,
+  // où la broche attaque une grille de MOSFET :
+  // XA7 (bit 21) = PORTA bit 2 doit être à 1.
+  CHECK(((b.port[kA].out >> 2) & 1u) == 1u);
+  // X96 (bit 12) = PORTG bit 2 doit être à 0 (682 est pair).
+  CHECK_EQ(b.port[kG].out & (1u << 2), 0u);
 }
 
 TEST(avr_polarite_inverse_pose_l_etat_de_repos_a_un) {
@@ -235,7 +236,18 @@ TEST(avr_lecture_reassemble_les_21_entrees_eparses) {
   CHECK_EQ(decode_position(read, layout), 341u);
 }
 
-// --- Étage de sortie en collecteur ouvert (rail 6 V de l'automate) ---------
+TEST(avr_le_profil_est_en_sortie_poussee_car_l_etage_est_a_mosfet) {
+  // Le projet KiCad montre 23 IRF520 avec résistances de grille : le collecteur
+  // ouvert est fait par le MATÉRIEL. La broche du microcontrôleur attaque une
+  // grille et doit donc être poussée — la laisser flotter mettrait le MOSFET
+  // dans un état indéterminé, le pire cas sur un étage de puissance.
+  CHECK(!default_profile().bus.x_open_drain);
+}
+
+// --- Mode collecteur ouvert côté microcontrôleur ---------------------------
+//
+// Conservé et testé : il reste le mode sûr pour toute carte SANS étage de
+// sortie, où la broche attaquerait directement la ligne de l'automate.
 
 TEST(avr_collecteur_ouvert_ne_sort_jamais_de_niveau_haut) {
   // C'est la protection : une sortie poussée contre un tirage côté automate

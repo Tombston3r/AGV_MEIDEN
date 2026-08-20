@@ -183,9 +183,27 @@ LORA_SECTIONS = [carte, bus595, busmcp, bouton_a1, poste_a3, bouton_a3, outil_lo
 # ===========================================================================
 #  Wi-Fi — carte V5.0.1 conservée
 # ===========================================================================
-w_carte = Section("Carte AGV — 0 €",
-                  "**La carte AIO AGV Control V5.0.1 est conservée.** Aucun composant n'est\najouté : seuls ses deux firmwares sont réécrits. C'est le seul intérêt\néconomique décisif de cette architecture.")
-w_carte.add("Carte existante — ESP32-WROOM-32E + ATmega2560", "AIO AGV Control V5.0.1", 1, "—", 0.00)
+w_carte = Section("Carte AGV — extraite du projet KiCad",
+                  "**Nomenclature réelle**, extraite de\n"
+                  "[`hardware/AIO_AGV_Control_V5.0.1/`](hardware/AIO_AGV_Control_V5.0.1/) :\n"
+                  "57 composants placés au PCB. Ce n'est plus une estimation d'étude.\n\n"
+                  "⚠️ Cette carte est **fabriquée**, pas réutilisée : elle reprend le couple\n"
+                  "ATmega2560 + ESP32 de l'originale, sur supports, avec son propre étage de\n"
+                  "sortie. La ligne « carte AGV à 0 € » des versions précédentes de ce\n"
+                  "document était donc fausse.")
+w_carte.add("Module MCU — carte Mega2560 Pro sur support", "Clone Mega2560 Pro (A1)", 1, "Amazon", 18.00)
+w_carte.add("Module Wi-Fi/BT sur support", "ESP32-DEVKITC-32D-F (U1)", 1, "RS", 12.00)
+w_carte.add("**Étage de sortie** — MOSFET N canal TO-220", "IRF520 (Vishay, T1–T24)", 23, "RS", 0.60)
+w_carte.add("Résistances de grille des MOSFET", "1 kΩ THT 0411 (R1–R24)", 23, "RS", 0.05)
+w_carte.add("Diviseurs de mesure", "4,7 k / 2,2 k / 22 k / 220 k (R30, R31, R40, R41)", 4, "RS", 0.05)
+w_carte.add("Régulateur 6 V — alimentation de l'ATmega", "L7806CV (LM1)", 1, "RS", 0.90)
+w_carte.add("Convertisseur DC/DC **isolé** 24 V → 5 V, 5 W", "TDN 5-2411WISM (Traco, TDN1)", 1, "RS", 25.00)
+w_carte.add("Diode de protection DO-41", "1N4007 ou équiv. (D1)", 1, "RS", 0.10)
+w_carte.add("Connecteur SUB-D 25 **mâle** coudé CI (entrées)", "Amphenol DB25P564CTXLF (J1)", 1, "RS", 6.00)
+w_carte.add("Connecteur SUB-D 25 **femelle** coudé CI (sorties)", "Amphenol DB25S564GTLF (J2)", 1, "RS", 6.00)
+w_carte.add("Supports et barrettes pour les deux modules", "barrettes tulipe 2,54 mm", 1, "RS", 3.00)
+w_carte.add("PCB ~150 × 100 mm (série de 5)", "Gerber projet", 1, "PCB", 15.00)
+w_carte.add("Boîtier, entretoises, presse-étoupes, visserie", "Hammond 1590 ou Fibox", 1, "RS", 28.00)
 
 w_harnais = Section("Harnais de raccordement",
                     "La carte existe, mais son câblage vers l'automate est à refaire.\nDétail : [`docs/subd25_atmega.md`](docs/subd25_atmega.md).")
@@ -395,7 +413,7 @@ print(f"A1 = {a1_ht:.2f} HT / {a1_ht*TVA:.2f} TTC ; A3 = {a3_ht:.2f} HT / {a3_ht
 
 # --- Wi-Fi ------------------------------------------------------------------
 wifi_ht = sum(s.ht for s in WIFI_SECTIONS)
-rw, _ = recap([("Carte AGV (conservée)", w_carte.ht, True),
+rw, _ = recap([("Carte AGV (nomenclature KiCad)", w_carte.ht, True),
                ("Harnais de raccordement", w_harnais.ht, False),
                ("Antenne Wi-Fi déportée", w_antenne.ht, False),
                ("Poste fixe UniPi", w_poste.ht, False),
@@ -403,6 +421,50 @@ rw, _ = recap([("Carte AGV (conservée)", w_carte.ht, True),
                ("Outillage", w_outil.ht, False)])
 
 WIFI_EXTRA = f"""---
+
+## Ce que la nomenclature KiCad apprend
+
+L'extraction du projet KiCad ne fait pas que donner des prix : elle renseigne
+deux points qui étaient ouverts.
+
+### 1. L'étage de sortie est à MOSFET — `x_open_drain` doit être `false`
+
+Les 22 voies X passent par **23 IRF520** (MOSFET N canal, TO-220) attaqués par
+des résistances de grille de 1 kΩ. C'est un étage à **collecteur ouvert
+matériel** : le MOSFET tire la ligne de l'automate à la masse, il ne sort jamais
+de niveau haut.
+
+Conséquence directe sur le firmware : le microcontrôleur pilote une **grille**,
+pas la ligne de l'automate. Il doit donc être en **sortie poussée**
+(`bus.x_open_drain: false`). Le mode collecteur ouvert côté microcontrôleur
+laisserait la grille **flottante** à l'état actif — un MOSFET à grille flottante
+peut conduire partiellement, ce qui est le pire état possible sur un étage de
+puissance.
+
+L'inversion est faite par le MOSFET : microcontrôleur à l'état haut → MOSFET
+passant → ligne automate tirée à 0 V.
+
+⚠️ **23 MOSFET pour 22 voies X** (T13 absent de la numérotation). À vérifier au
+schéma : voie de réserve, ou signal supplémentaire non identifié.
+
+### 2. Les 21 entrées Y n'ont aucune protection
+
+La carte ne compte que **quatre résistances** hors étage de sortie — deux
+diviseurs (`R30`/`R31` et `R40`/`R41`), vraisemblablement pour une mesure de
+tension. **Aucun optocoupleur, aucun diviseur sur les 21 lignes `Y`** : elles
+arrivent directement sur les broches du Mega.
+
+Le point bloquant W1b reste donc entier, et il est maintenant confirmé par le
+routage : si l'amplitude des lignes `Y` dépasse V_CC, rien ne protège le
+microcontrôleur.
+
+### 3. L'alimentation est isolée
+
+Le `TDN 5-2411WISM` est un convertisseur **isolé 1,5 kV**, 5 W. C'est le poste
+le plus cher de la carte, et il explique pourquoi la masse de l'AGV et celle de
+la logique sont séparées.
+
+---
 
 ## Adaptation de niveaux — CONDITIONNEL
 
@@ -455,7 +517,8 @@ broker.
 |---|---|---|
 | `UniPi E413` | 2 à 6 semaines | **Chemin critique matériel.** Vérifier la référence exacte et le runtime livré (§12.9) avant commande |
 | `PTM 210` / `TCM 515` | 1 à 2 semaines | Peu distribués par RS : prévoir un distributeur EnOcean |
-| Carte AGV | — | **Aucun : elle existe** |
+| PCB + assemblage de la carte AGV | 3 à 5 semaines | **Chemin critique matériel** — la carte est fabriquée, pas réutilisée |
+| `TDN 5-2411WISM` | 1 à 3 semaines | Convertisseur isolé : poste le plus cher de la carte |
 | Adaptation de niveaux | 3 à 5 semaines **si nécessaire** | Conditionnel à la mesure W1b — d'où l'urgence de la faire |
 | Points d'accès Wi-Fi additionnels | variable | À la charge du client, dépend du relevé 0.2 |
 

@@ -86,7 +86,7 @@ Notation : `++` très favorable · `+` favorable · `~` acceptable · `−` déf
 
 | Critère | LoRa pur | LoRa + EnOcean | Wi-Fi + EnOcean | SMS | LTE-M/MQTT |
 |---|:---:|:---:|:---:|:---:|:---:|
-| **Coût sur 10 ans** | `++` 293 € | `++` 378 € | `+` 738 € | `−−` 15 625 € | `~` 1 366 € |
+| **Coût sur 10 ans** | `++` 293 € | `++` 378 € | `~` 867 € | `−−` 15 625 € | `~` 1 366 € |
 | **Latence** | `+` ~330 ms | `+` ~380 ms | `++` ~50 ms | `−−` non bornée | `~` 0,5–2 s |
 | **Déterminisme** | `++` borné | `++` borné | `~` handover | `−−` aucun | `−` reconnexion |
 | **Portée / pénétration** | `++` sub-GHz | `+` limité par EnOcean | `−` 2,4 GHz | `~` opérateur | `~` opérateur |
@@ -117,14 +117,16 @@ multiplier par 1,20 pour retrouver leurs totaux.
 |---|---:|---:|---:|---:|
 | LoRa pur (A1) | 281 € | 0 €/an | **293 €** | +62 € |
 | LoRa + EnOcean (A3) | 378 € | 0 €/an | **378 €** | +46 € |
-| Wi-Fi + EnOcean | 738 € | 0 €/an | **738 €** | +50 € |
+| Wi-Fi + EnOcean | 867 € | 0 €/an | **867 €** | +50 € |
 | LTE-M / MQTT | 406 € | 96 €/an | **1 366 €** | +50 € |
 | SMS | 625 € | 1 500 €/an | **15 625 €** | +50 € |
 
 Trois observations qui ne sautent pas aux yeux :
 
-1. **Le Wi-Fi n'est pas le moins cher malgré sa carte AGV à 0 €.** Le poste
-   UniPi à 461 € pèse plus lourd que les 98 € d'une carte LoRa neuve complète.
+1. **La carte AGV du Wi-Fi n'est pas gratuite.** La nomenclature extraite du
+   projet KiCad montre qu'elle est **fabriquée** : Mega2560 Pro, ESP32-DevKitC,
+   23 MOSFET IRF520 et un convertisseur isolé, soit 129 € HT. Ajoutée au poste
+   UniPi à 461 €, la solution devient la plus chère hors cellulaire.
 2. **Le récurrent domine dès qu'un opérateur entre dans la boucle.** Le SMS
    coûte 56 fois le LoRa pur sur dix ans, pour un service inférieur.
 3. **A1 et A3 se croisent à 8 stations** : en dessous A1 est moins chère, au-delà
@@ -423,8 +425,9 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 
 **Points forts**
 
-- **Aucun matériel embarqué à fabriquer** : la carte V5.0.1 est conservée. Pas de
-  PCB, pas de délai de fabrication, pas de dossier RED.
+- **Réutilise les modules existants** — Mega2560 Pro et ESP32-DevKitC sur
+  supports — donc aucun composant exotique et un remplacement immédiat en cas de
+  panne d'un module.
 - **La meilleure latence** : réseau local, ~50 ms hors handover.
 - **La meilleure sécurité de transport** : TLS, 802.1X, ACL par topic.
 - Infrastructure existante, maintenue par le client.
@@ -440,7 +443,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 - **Réversibilité incertaine** : les firmwares d'origine sont écrasés, et rien ne
   garantit qu'ils soient relisibles.
 - **Handover** entre points d'accès : 2 à 5 s de coupure en mouvement.
-- **Plus cher que le LoRa** : 738 € contre 293 €, malgré la carte gratuite.
+- **La plus chère hors cellulaire** : 867 € contre 293 € en LoRa. Sa carte AGV est fabriquée, pas réutilisée.
 - Une maintenance IT non notifiée peut arrêter la production.
 - Bouton rejouable, pas d'accusé opérateur.
 
