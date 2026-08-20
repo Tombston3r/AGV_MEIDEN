@@ -148,6 +148,42 @@ c'est le retour arrière de cette architecture.
 | Outillage | ☐ | *72,00 €* | *60,00 €* |
 | **TOTAL** | **☐** | ***453,24 €*** | ***377,70 €*** |
 
+### Pourquoi pas un Unipi Gate pour ce poste ?
+
+La question se pose puisque le poste de l'architecture Wi-Fi a été ramené à une
+passerelle Unipi Gate G100. **Ici, non — et pour une raison de fond, pas de
+prix.**
+
+Le Gate est un boîtier DIN fermé : Ethernet, RS485, un port USB. **Aucun
+connecteur SPI, aucun GPIO, aucune embase d'antenne.** Or un RFM95W est un
+composant SPI qu'il faut piloter au niveau du PHY.
+
+Les contournements existent, et ils coûtent tous plus cher que la carte
+spécifiée :
+
+| Contournement | Coût | Ce qu'on y perd |
+|---|---:|---|
+| Dongle LoRa USB | ~30,00 € + hub | L'unique port USB est déjà pris par le TCM 515 |
+| Modem LoRa UART/RS485 (`E32-868T20D`, `RAK3172`) | ~18,00 € | **Le module gère le PHY lui-même** : il faudrait réécrire `LoraTransport`, et surtout **abandonner le contrôle du budget de rapport cyclique** que le firmware applique et teste aujourd'hui. C'est une obligation réglementaire, pas un réglage |
+| Gate + carte ESP32 en frontal radio | ~393,00 € | On paie les deux |
+
+**Le poste LoRa n'a d'ailleurs pas besoin de Linux.** Son travail est une
+traduction de protocole : EnOcean entre, LoRa sort. Il n'héberge pas de broker,
+et l'AGV lui parle directement.
+
+L'asymétrie avec l'architecture Wi-Fi est donc logique :
+
+| | Poste Wi-Fi | Poste LoRa |
+|---|---|---|
+| Doit héberger un broker MQTT | **oui** | non |
+| Doit piloter une radio au niveau PHY | non — le réseau est Ethernet | **oui** — SX1276 sur SPI |
+| Matériel qui en découle | boîtier Linux industriel | microcontrôleur avec SPI |
+| Retenu | Unipi Gate G100 (~240,00 € TTC) | carte ESP32 (~153,00 € TTC) |
+
+⚠️ **Deux antennes 868 MHz sur le même boîtier** — EnOcean et LoRa. Les espacer
+d'au moins 20 cm, ou en déporter une. Une désensibilisation du récepteur EnOcean
+par l'émetteur LoRa se traduirait par des appuis perdus, silencieusement.
+
 ### Où se croisent les deux courbes
 
 | Stations | A1 (TTC) | A3 (TTC) | Moins cher |

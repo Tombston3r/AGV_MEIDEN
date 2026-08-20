@@ -252,6 +252,11 @@ Trois gains au-delà du prix :
    informatique.
 3. **16 Go d'eMMC** au lieu de 8 : de la marge pour le journal d'événements.
 
+Ce raisonnement ne vaut que pour **cette** architecture : le poste LoRa, lui,
+doit piloter une radio SX1276 en SPI, ce qu'un boîtier DIN fermé ne permet pas.
+Voir [`../LoRa/BOM.md`](../LoRa/BOM.md), section « Pourquoi pas un Unipi Gate
+pour ce poste ? ».
+
 Le seul port USB est à surveiller : il est pris par l'adaptateur série du
 TCM 515. Si un second périphérique USB devenait nécessaire, passer le TCM 515
 en RS485 via un convertisseur TTL/RS485 (~10 €) libère le port.
