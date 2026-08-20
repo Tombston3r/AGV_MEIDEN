@@ -25,15 +25,15 @@ client.
 
 ## Comparaison des coûts
 
-Base : **2 points d'appel**, prix indicatifs HT 2026. Détail et hypothèses dans
-le `BOM.md` de chaque dossier.
+Base : **2 points d'appel**, prix indicatifs **HT** 2026. Les `BOM.md` sont des
+**feuilles de sourcing en TTC** à compléter au catalogue — multiplier par 1,20.
 
 | Architecture | Matériel | Récurrent | **10 ans** | Par station de plus |
 |---|---:|---:|---:|---:|
-| [`LoRa/`](LoRa/BOM.md) A1 — LoRa homogène | 267 € | 0 €/an | **~279 €** | +62 € |
-| [`LoRa/`](LoRa/BOM.md) A3 — EnOcean + LoRa | 363 € | 0 €/an | **~363 €** | +46 € |
+| [`LoRa/`](LoRa/BOM.md) A1 — LoRa homogène | 281 € | 0 €/an | **~293 €** | +62 € |
+| [`LoRa/`](LoRa/BOM.md) A3 — EnOcean + LoRa | 378 € | 0 €/an | **~378 €** | +46 € |
 | [`Wifi/`](Wifi/BOM.md) — carte conservée | 738 € | 0 €/an | **~738 €** | +50 € |
-| [`SMS_EnOcean/`](SMS_EnOcean/BOM.md) — LTE-M/MQTT | 407 € | 100 €/an | **~1 407 €** | +50 € |
+| [`SMS_EnOcean/`](SMS_EnOcean/BOM.md) — LTE-M/MQTT | 406 € | 96 €/an | **~1 366 €** | +50 € |
 | [`SMS_EnOcean/`](SMS_EnOcean/BOM.md) — SMS *(déconseillé)* | 625 € | 1 500 €/an | **~15 625 €** | +50 € |
 
 Deux lectures de ce tableau :
@@ -65,12 +65,17 @@ Chaque dossier d'architecture suit la même disposition :
 | `README.md` | ce que fait l'architecture, démarrage rapide |
 | `CLAUDE.md` | règles de contribution et pièges rencontrés |
 | `DEPLOY.md` | **procédure de déploiement propre à l'architecture** — relevés éliminatoires, mise en service, recette |
-| `BOM.md` | **nomenclature complète** — matériel, outillage, récurrent, coût sur 10 ans |
+| `BOM.md` | **feuille de sourcing TTC** à compléter au catalogue — références fabricant, sources, repères de prix |
 | `docs/ETAT_PROJET.md` | **état, déploiement, kanban — tenu à jour à chaque modification** |
 | `docs/Archi_*.md`, `docs/Planification_*.md` | documents de référence de l'architecture |
 | `docs/` | chronogrammes, table des signaux, procédures d'essai, questions ouvertes |
 | `hardware/` | projets KiCad, schémas, photos |
 | `firmware/`, `sim/`, `test/`, `tools/`, `profiles/` | le logiciel |
+
+Les trois `BOM.md` sont **générés** par
+[`tools/generer_bom.py`](tools/generer_bom.py) : les prix y vivent en un seul
+endroit et les totaux sont calculés, jamais recopiés. Modifier un prix se fait
+dans le script, puis `python3 CarteComm/tools/generer_bom.py`.
 
 ## Ce qui est commun aux deux
 

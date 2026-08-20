@@ -33,7 +33,7 @@ aujourd'hui ; **un seul relevé défavorable peut en disqualifier une**.
 
 **Le SMS est à écarter** : il cumule la plus mauvaise latence, la seule latence
 non bornée, l'absence de garantie d'ordre, et un coût récurrent de ~1 500 €/an
-— soit 15 625 € sur dix ans contre 279 € pour le LoRa pur.
+— soit 15 625 € sur dix ans contre 293 € pour le LoRa pur.
 
 ---
 
@@ -86,7 +86,7 @@ Notation : `++` très favorable · `+` favorable · `~` acceptable · `−` déf
 
 | Critère | LoRa pur | LoRa + EnOcean | Wi-Fi + EnOcean | SMS | LTE-M/MQTT |
 |---|:---:|:---:|:---:|:---:|:---:|
-| **Coût sur 10 ans** | `++` 279 € | `++` 363 € | `+` 738 € | `−−` 15 625 € | `~` 1 407 € |
+| **Coût sur 10 ans** | `++` 293 € | `++` 378 € | `+` 738 € | `−−` 15 625 € | `~` 1 366 € |
 | **Latence** | `+` ~330 ms | `+` ~380 ms | `++` ~50 ms | `−−` non bornée | `~` 0,5–2 s |
 | **Déterminisme** | `++` borné | `++` borné | `~` handover | `−−` aucun | `−` reconnexion |
 | **Portée / pénétration** | `++` sub-GHz | `+` limité par EnOcean | `−` 2,4 GHz | `~` opérateur | `~` opérateur |
@@ -109,14 +109,16 @@ Notation : `++` très favorable · `+` favorable · `~` acceptable · `−` déf
 
 ### 4.1 Coût — ✅ établi (prix catalogue 📐)
 
-Base 2 stations, outillage inclus, prix HT 2026.
+Base 2 stations, outillage inclus, prix **HT** 2026. Les nomenclatures
+détaillées sont en **TTC** (TVA 20 %, récupérable pour une entreprise) :
+multiplier par 1,20 pour retrouver leurs totaux.
 
 | | Matériel | Récurrent | **10 ans** | Par station |
 |---|---:|---:|---:|---:|
-| LoRa pur (A1) | 267 € | 0 €/an | **279 €** | +62 € |
-| LoRa + EnOcean (A3) | 363 € | 0 €/an | **363 €** | +46 € |
+| LoRa pur (A1) | 281 € | 0 €/an | **293 €** | +62 € |
+| LoRa + EnOcean (A3) | 378 € | 0 €/an | **378 €** | +46 € |
 | Wi-Fi + EnOcean | 738 € | 0 €/an | **738 €** | +50 € |
-| LTE-M / MQTT | 407 € | 100 €/an | **1 407 €** | +50 € |
+| LTE-M / MQTT | 406 € | 96 €/an | **1 366 €** | +50 € |
 | SMS | 625 € | 1 500 €/an | **15 625 €** | +50 € |
 
 Trois observations qui ne sautent pas aux yeux :
@@ -378,7 +380,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 
 **Points forts**
 
-- Le **coût le plus bas** de toutes les solutions : 279 € sur dix ans.
+- Le **coût le plus bas** de toutes les solutions : 293 € sur dix ans.
 - **Aucune dépendance** : ni opérateur, ni service informatique, ni infrastructure.
 - **Latence bornée**, et la seule à pouvoir être ajustée par un paramètre.
 - **Portée sub-GHz**, la plus adaptée à une structure métallique.
@@ -400,7 +402,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 **Points forts**
 
 - **Boutons sans pile, sans maintenance**, à vie.
-- Coût très bas : 363 € sur dix ans, et **le moins cher par station ajoutée**.
+- Coût très bas : 378 € sur dix ans, et **le moins cher par station ajoutée**.
 - Indépendance totale, comme A1.
 - Latence bornée, portée sub-GHz sur le tronçon long.
 - Boutons du commerce disponibles, pas de PCB bouton à faire.
@@ -438,7 +440,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 - **Réversibilité incertaine** : les firmwares d'origine sont écrasés, et rien ne
   garantit qu'ils soient relisibles.
 - **Handover** entre points d'accès : 2 à 5 s de coupure en mouvement.
-- **Plus cher que le LoRa** : 738 € contre 279 €, malgré la carte gratuite.
+- **Plus cher que le LoRa** : 738 € contre 293 €, malgré la carte gratuite.
 - Une maintenance IT non notifiée peut arrêter la production.
 - Bouton rejouable, pas d'accusé opérateur.
 
@@ -458,7 +460,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 
 **Points faibles**
 
-- **Coût récurrent** : 15 625 € sur dix ans en SMS, 1 407 € en LTE-M, contre 279 €
+- **Coût récurrent** : 15 625 € sur dix ans en SMS, 1 366 € en LTE-M, contre 293 €
   en LoRa.
 - **Couverture intérieure incertaine et non corrigeable.**
 - **Dépendance à un tiers** : panne, saturation, résiliation, changement tarifaire.
@@ -539,7 +541,7 @@ choisir une architecture qui ne fonctionnera pas sur ce site.
 6. **Combien de points d'appel à terme ?** C'est ce qui place le curseur entre
    A1 et A3.
 7. **Le coût récurrent du cellulaire est-il accepté ?** 15 625 € sur dix ans en
-   SMS, 1 407 € en LTE-M, contre 279 € sans opérateur.
+   SMS, 1 366 € en LTE-M, contre 293 € sans opérateur.
 
 ---
 
@@ -565,6 +567,6 @@ le projet.
 crainte porte sur des collisions LoRa dont l'effet serait une retransmission de
 100 ms, et la solution proposée introduit une latence non bornée et un désordre
 de remise possible — pour 15 625 € sur dix ans. Si le cellulaire est un souhait
-politique, **LTE-M/MQTT le satisfait pour un dixième du prix**, et une passerelle
+politique, **LTE-M/MQTT le satisfait pour un onzième du prix**, et une passerelle
 d'alerte SMS à ~10 €/an apporte la notification hors site à n'importe laquelle
 des autres architectures.
