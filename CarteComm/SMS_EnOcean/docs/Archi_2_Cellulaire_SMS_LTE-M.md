@@ -125,6 +125,13 @@ Prix indicatifs HT, 2026.
 | Réf. | Désignation | Qté | PU | Total |
 |---|---|---:|---:|---:|
 | UniPi E413 (variante LTE) | Automate compact Linux, E/S TOR, modem LTE intégré | 1 | ~350 € | 350 € |
+
+> ⚠️ **Révisé depuis.** L'`E413` n'est imposé que par son **modem intégré**.
+> Si le poste est raccordé en Ethernet, ce besoin disparaît — et avec lui une
+> SIM sur deux. La gamme **Gate** devient alors éligible (`Gate G100`, ~200 €
+> au lieu de 350 €, Debian d'origine). Les entrées TOR de l'`E413` ne sont de
+> toute façon jamais utilisées : les boutons sont EnOcean. Voir
+> [`../BOM.md`](../BOM.md), section « Analyse critique ».
 | — | Antenne LTE externe déportée (poste fixe) | 1 | 15 € | 15 € |
 | — | SIM M2M professionnelle (poste) | 1 | — | abonnement |
 | — | Bouton poussoir Ø22 IP65 + câblage TOR | 2 | 12 € | 24 € |

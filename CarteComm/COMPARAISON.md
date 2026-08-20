@@ -541,7 +541,9 @@ choisir une architecture qui ne fonctionnera pas sur ce site.
    avec VLAN dédié et notification des changements ? Réponse à obtenir **avant**
    d'engager la solution Wi-Fi.
 5. **Un historique consultable sur plusieurs semaines est-il attendu ?** Sinon,
-   remplacer l'UniPi par un ESP32 économise ~300 €.
+   remplacer l'UniPi par un ESP32 économise ~300 €. À défaut, une passerelle
+   **Unipi Gate G100** (~200 €) suffit dès que le poste dispose d'une prise
+   réseau — y compris en cellulaire, où elle supprime une SIM sur deux.
 6. **Combien de points d'appel à terme ?** C'est ce qui place le curseur entre
    A1 et A3.
 7. **Le coût récurrent du cellulaire est-il accepté ?** 15 625 € sur dix ans en

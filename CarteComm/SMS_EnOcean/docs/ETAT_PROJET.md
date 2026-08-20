@@ -324,7 +324,8 @@ journalctl -u agv-poste -f
 | B4 | Recaler le format `/agvdump` | Sortie réelle de la V5.0.1 (§12.6, §3.3) |
 | B5 | Choisir la variante d'interface bus | Décision matérielle (§12.10) |
 | B6 | Trancher TCM 515 vs TCM 310 | Besoin d'accusé opérateur ? (§12.8) |
-| B7 | Écrire l'accès aux E/S UniPi | Runtime réel de la référence commandée (§12.9) |
+| B7 | Écrire l'accès aux E/S UniPi | Runtime réel de la référence commandée (§12.9) — **sans objet** si poste ESP32 ou Gate G100 |
+| B7b | **Y a-t-il une prise réseau là où le poste sera fixé ?** | Décide entre l'option B (Gate G100, 1 SIM) et l'option C (E413 LTE, 2 SIM) — 153 € et la moitié du récurrent |
 | B8 | Valider la couverture cellulaire du parcours | Relevé RSRP/RSRQ, essai de latence sur 200 aller-retours (Archi_2 §7) |
 | B9 | Décider du sort de l'app mobile « AIO AGV Remote » | Décision client (§12.7) |
 
@@ -383,7 +384,7 @@ journalctl -u agv-poste -f
 
 | Date | Modification | Impact sur ce document |
 |---|---|---|
-| 2026-08-20 | **Analyse critique** ajoutée à `BOM.md`. Le réservoir capacitif était dimensionné pour des pics de 2 A — valeur d'un `SIM7600E-H` (LTE Cat-1) retenu dans la variante SMS, alors que le `SIM7080G` de la variante recommandée est un modem LTE-M dont les pics sont de 0,5 à 0,7 A. Surtout : l'AGV **et** le poste portent chacun un modem et une SIM, ce qui double le récurrent. Dès que le poste est dans un local technique raccordé en Ethernet, **son modem est inutile** — ~40 € de matériel et la moitié de l'abonnement en moins, sans contrepartie technique. Une passerelle Unipi Gate ne convient pas ici : pas de modem cellulaire, et son unique USB est pris par le récepteur EnOcean. | §3 kanban, BOM |
+| 2026-08-20 | **Analyse critique** ajoutée à `BOM.md`. Le réservoir capacitif était dimensionné pour des pics de 2 A — valeur d'un `SIM7600E-H` (LTE Cat-1) retenu dans la variante SMS, alors que le `SIM7080G` de la variante recommandée est un modem LTE-M dont les pics sont de 0,5 à 0,7 A. Surtout : l'AGV **et** le poste portent chacun un modem et une SIM, ce qui double le récurrent. Dès que le poste est dans un local technique raccordé en Ethernet, **son modem est inutile** — ~40 € de matériel et la moitié de l'abonnement en moins, sans contrepartie technique. Conséquence directe : le poste UniPi peut descendre en gamme. L'`E413` n'était imposé que par son modem intégré ; sans ce besoin, la gamme **Gate** redevient éligible. Le poste se scinde donc en option **B — Unipi Gate G100** (si Ethernet, 545 € HT au total) et option **C — E413 LTE** (sinon, 698 €), soit 153 € et une SIM d'écart. | §3 kanban, BOM |
 | 2026-08-18 | Ajout de [`../BOM.md`](../BOM.md) : nomenclature complète des deux variantes. Écart de ~14 000 € sur dix ans entre SMS et LTE-M, chiffré poste par poste. Ajoute une option de poste ESP32 à 148 € en regard des 439 € de l'UniPi, et le coût comparé des trois variantes d'interface bus — `shift595` est à la fois la moins chère et la plus rapide. | §3 « Fait », journal |
 | 2026-08-13 | Création du monorepo complet (§14 étapes 1 à 8), 122 tests verts | Document initial |
 | 2026-08-18 | Ajout de [`../DEPLOY.md`](../DEPLOY.md) : procédure de déploiement propre à cette architecture, en 10 phases. Met en tête les quatre décisions préalables — déployer MQTT/LTE-M et non le SMS, faire acter le coût récurrent (~1 500 €/an en SMS contre ~100 € en LTE-M), la couverture cellulaire éliminatoire, et le choix de variante d'interface bus qui conditionne le routage du PCB. | §3 « Fait », journal |

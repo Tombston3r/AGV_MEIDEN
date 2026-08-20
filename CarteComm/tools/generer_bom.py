@@ -284,8 +284,21 @@ s_poste_esp.add("Boîtier mural IP54, presse-étoupes, embases SMA", "Fibox ou H
 s_poste_esp.add("Support SIM, passifs", "Molex 785900001 + lot", 1, "RS", 3.00)
 s_poste_esp.add("Câble Ethernet blindé", "Cat 6 S/FTP, 5 m", 1, "RS", 6.00)
 
-s_poste_unipi = Section("Poste fixe — option B : UniPi E413",
-                        "À retenir seulement si un **historique sur plusieurs semaines** est demandé.\n⚠️ §12.9 : vérifier le runtime livré avant commande.")
+s_poste_gate = Section("Poste fixe — option B : Unipi Gate G100 (**si Ethernet disponible**)",
+                  "Le modem du poste ne sert à rien dès qu'une prise réseau est à portée :\n"
+                  "le poste parle au broker par le fil. Cela **supprime une SIM sur deux** et\n"
+                  "ouvre la gamme Gate, qui n'a pas de cellulaire. Debian d'origine.")
+s_poste_gate.add("Passerelle Linux DIN — Debian, 16 Go eMMC, 2× Ethernet, USB 3.0, RS485", "Unipi Gate G100", 1, "Spécialiste", 200.00)
+s_poste_gate.add("Récepteur EnOcean 868 MHz, UART ESP3", "TCM 515 (EnOcean)", 1, "Spécialiste", 28.00)
+s_poste_gate.add("Antenne EnOcean 868 MHz déportée + pigtail", "EnOcean ANT300 ou équiv.", 1, "Spécialiste", 10.00)
+s_poste_gate.add("Adaptateur USB-série vers le TCM 515", "FTDI FT232RL", 1, "RS", 8.00)
+s_poste_gate.add("Alimentation rail DIN 230 V → 24 V 15 W", "MEAN WELL HDR-15-24", 1, "RS", 14.00)
+s_poste_gate.add("Coffret rail DIN, bornier, presse-étoupes", "Fibox ou Schneider", 1, "RS", 20.00)
+s_poste_gate.add("Câble Ethernet blindé vers le réseau usine", "Cat 6 S/FTP, 5 m", 1, "RS", 6.00)
+
+s_poste_unipi = Section("Poste fixe — option C : UniPi E413 LTE (**seulement sans Ethernet**)",
+                  "À ne retenir que si le poste est hors de portée d'une prise réseau. Le\n"
+                  "modem intégré est alors la raison d'être du modèle — et son surcoût.")
 s_poste_unipi.add("Automate compact Linux, E/S TOR, modem LTE intégré", "UniPi E413 (variante LTE)", 1, "Spécialiste", 350.00)
 s_poste_unipi.add("Antenne LTE externe déportée", "Siretta ECHO-9 ou équiv.", 1, "RS", 15.00)
 s_poste_unipi.add("Récepteur EnOcean + antenne", "TCM 515 + ANT300", 1, "Spécialiste", 36.00)
@@ -303,7 +316,7 @@ s_outil.add("Analyseur logique 8 voies — chronogrammes X/Y", "clone Saleae 24 
 s_outil.add("Adaptateur USB-série 3,3 V — mise au point pile AT", "FTDI FT232RL ou CP2102", 1, "Amazon", 6.00)
 s_outil.add("Jeu de cosses, pince à sertir, consommables", "Knipex ou Engineer PA-09", 1, "RS", 24.00)
 
-SMS_SECTIONS = [s_carte, s_poste_esp, s_poste_unipi, s_boutons, s_outil]
+SMS_SECTIONS = [s_carte, s_poste_esp, s_poste_gate, s_poste_unipi, s_boutons, s_outil]
 
 # ===========================================================================
 #  Émission
@@ -740,7 +753,8 @@ write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/Wifi/BOM.md",
 # --- SMS + EnOcean ----------------------------------------------------------
 s_carte595 = s_carte.ht + bus595.ht
 sms_esp_ht = s_carte595 + s_poste_esp.ht + s_boutons.ht + s_outil.ht
-sms_uni_ht = s_carte595 + s_poste_unipi.ht + s_boutons.ht + s_outil.ht
+sms_uni_ht  = s_carte595 + s_poste_unipi.ht + s_boutons.ht + s_outil.ht
+sms_gate_ht = s_carte595 + s_poste_gate.ht  + s_boutons.ht + s_outil.ht
 rs_, _ = recap([("Carte AGV (variante `shift595`)", s_carte595, False),
                 ("Poste fixe ESP32 (option A)", s_poste_esp.ht, False),
                 ("2 boutons EnOcean", s_boutons.ht, False),
@@ -766,16 +780,21 @@ La ligne reste — un réservoir est nécessaire — mais son dimensionnement ch
 et il ne faut pas surdimensionner l'alimentation pour un besoin qui n'existe
 pas. À confirmer sur la fiche technique du modem effectivement commandé.
 
-### ⚠️ Le poste UniPi porte des entrées inutilisées
+### ✅ Corrigé — le poste UniPi peut descendre en gamme
 
 Même constat que dans l'architecture Wi-Fi : les boutons sont **EnOcean**, donc
-`agv_poste/io_backend.py` n'est pas utilisé. L'option A (poste ESP32 à
-{poste_esp}) reste la plus cohérente.
+`agv_poste/io_backend.py` n'est jamais appelé. Les entrées TOR de l'`E413` sont
+payées et inutilisées.
 
-Une passerelle **Unipi Gate G100** ne convient pas ici : elle n'a **pas de modem
-cellulaire**, et son unique port USB serait déjà pris par le récepteur EnOcean.
-Le seul modèle pertinent de la gamme reste l'`E413` en **variante LTE**, dont il
-faut d'abord confirmer l'existence au catalogue.
+L'`E413` était pourtant imposé par une contrainte réelle — son **modem
+cellulaire intégré**. C'est cette contrainte qui tombe : si le poste est
+raccordé en Ethernet, il n'a aucune raison de passer par le réseau de
+l'opérateur, et le modem disparaît avec elle. La gamme **Gate** redevient
+alors éligible.
+
+D'où la scission en deux options : **B — Unipi Gate G100** dès qu'une prise
+réseau existe, **C — E413 LTE** seulement sinon. L'option A (ESP32 à
+{poste_esp}) reste la moins chère dans les deux cas.
 
 ### ⚠️ À vérifier — la limitation de courant des optocoupleurs
 
@@ -804,18 +823,28 @@ ici : `shift595` est retenue par défaut. Sous-total carte AGV complète :
 ***{eur(s_carte595 * TVA)}*** TTC ({eur(s_carte595)} HT).
 
 {rs_}
-### Avec le poste UniPi (option B)
+### Avec un poste UniPi — laquelle des deux options ?
 
-| Poste | *Repère TTC* | *Repère HT* |
-|---|---:|---:|
-| Carte AGV | *{eur(s_carte595 * TVA)}* | *{eur(s_carte595)}* |
-| Poste UniPi E413 | *{eur(s_poste_unipi.ht * TVA)}* | *{eur(s_poste_unipi.ht)}* |
-| 2 boutons EnOcean | *{eur(s_boutons.ht * TVA)}* | *{eur(s_boutons.ht)}* |
-| Outillage | *{eur(s_outil.ht * TVA)}* | *{eur(s_outil.ht)}* |
-| **TOTAL** | ***{eur(sms_uni_ht * TVA)}*** | ***{eur(sms_uni_ht)}*** |
+| Poste | *Repère TTC* | *Repère HT* | Récurrent |
+|---|---:|---:|---|
+| **B — Unipi Gate G100** *(si Ethernet)* | ***{eur(sms_gate_ht * TVA)}*** | ***{eur(sms_gate_ht)}*** | **1 SIM** |
+| **C — UniPi E413 LTE** *(sans Ethernet)* | *{eur(sms_uni_ht * TVA)}* | *{eur(sms_uni_ht)}* | 2 SIM |
 
-L'écart entre les deux postes est de **{eur((s_poste_unipi.ht - s_poste_esp.ht) * TVA)}** :
-c'est le prix de l'historique long terme et d'un automate référencé.
+**{eur((s_poste_unipi.ht - s_poste_gate.ht) * TVA)} d'écart de matériel — et la
+moitié du récurrent.** Le Gate n'a pas de modem cellulaire ; c'est précisément ce
+qui le rend éligible ici, puisqu'un poste raccordé en Ethernet n'en a aucun
+besoin. Il apporte au passage Debian d'origine, deux ports Ethernet et 16 Go
+d'eMMC.
+
+**La question à poser au client tient en une phrase : y a-t-il une prise réseau
+là où le poste sera fixé ?** Si oui, l'option C n'a plus de justification.
+
+⚠️ L'unique port USB du Gate est pris par l'adaptateur série du `TCM 515`.
+Prévoir un concentrateur si un autre périphérique USB devient nécessaire.
+
+Face à l'option A (ESP32, {eur(s_poste_esp.ht * TVA)}), l'écart restant est de
+**{eur((s_poste_gate.ht - s_poste_esp.ht) * TVA)}** : c'est le prix de
+l'historique long terme et d'un matériel référencé.
 
 ### Coût par station supplémentaire
 
@@ -880,7 +909,8 @@ SMS est demandé.
 | PCB 4 couches + assemblage | 3 à 5 semaines | **Chemin critique matériel** |
 | `SIM7080G` | 2 à 4 semaines | Tensions récurrentes sur les modules cellulaires |
 | SIM M2M data LTE-M | 1 à 3 semaines | Contractuel, pas technique |
-| `UniPi E413` (si option B) | 2 à 6 semaines | Vérifier la référence **et le runtime** |
+| `Unipi Gate G100` (option B) | 2 à 6 semaines | Debian d'origine, pas de runtime à vérifier |
+| `UniPi E413` (option C) | 2 à 6 semaines | Vérifier l'existence de la **variante LTE** au catalogue |
 | `PTM 210` / `TCM 515` | 1 à 2 semaines | Peu distribués par RS |
 | `ESP32`, `SN74HC595N`, `PC847` | stock | Faible |
 
@@ -898,7 +928,7 @@ d'interface bus conditionne le routage du PCB.
 
 write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/SMS_EnOcean/BOM.md",
       "architecture SMS + EnOcean (carte neuve)", "../COMPARAISON.md",
-      [s_carte, bus595, busmcp, s_poste_esp, s_poste_unipi, s_boutons, s_outil], SMS_EXTRA + ANALYSE_SMS)
+      [s_carte, bus595, busmcp, s_poste_esp, s_poste_gate, s_poste_unipi, s_boutons, s_outil], SMS_EXTRA + ANALYSE_SMS)
 
 print()
 print("=== TOTAUX (HT / TTC) ===")
@@ -906,5 +936,6 @@ print(f"LoRa A1      {a1_ht:8.2f} / {a1_ht*TVA:8.2f}")
 print(f"LoRa A3      {a3_ht:8.2f} / {a3_ht*TVA:8.2f}")
 print(f"Wi-Fi        {wifi_ht:8.2f} / {wifi_ht*TVA:8.2f}")
 print(f"LTE-M ESP32  {sms_esp_ht:8.2f} / {sms_esp_ht*TVA:8.2f}  (10 ans {(sms_esp_ht+960):8.2f} / {(sms_esp_ht+960)*TVA:8.2f})")
+print(f"LTE-M Gate   {sms_gate_ht:8.2f} / {sms_gate_ht*TVA:8.2f}")
 print(f"LTE-M UniPi  {sms_uni_ht:8.2f} / {sms_uni_ht*TVA:8.2f}")
 print(f"SMS          {625:8.2f} / {625*TVA:8.2f}  (10 ans {15625:8.2f} / {15625*TVA:8.2f})")

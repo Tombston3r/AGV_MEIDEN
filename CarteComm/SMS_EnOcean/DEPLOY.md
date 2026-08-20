@@ -64,7 +64,8 @@ entre GPIOA et GPIOB.
 - [ ] ESP32-WROOM-32E, modem **SIM7080G** (LTE-M/NB-IoT), antenne déportée
 - [ ] Expandeurs selon la variante retenue (4× MCP23017, ou 3× 74HC595 + 3× 74HC165)
 - [ ] Optocoupleurs pour les 43 voies, SUB-D 25 mâle et femelle
-- [ ] UniPi E413 **ou** ESP32 + Ethernet pour le poste fixe
+- [ ] Poste fixe : ESP32 (A), **Unipi Gate G100** (B, si une prise réseau existe
+      sur place) ou UniPi E413 LTE (C, seulement sinon) — voir `BOM.md`
 - [ ] Récepteur EnOcean TCM 515, boutons PTM 210
 - [ ] 2 SIM M2M avec accès data LTE-M
 - [ ] Multimètre, oscilloscope ou analyseur logique
@@ -85,7 +86,7 @@ cd CarteComm/SMS_EnOcean
 | Hôte, port, identifiants et CA du broker MQTT | Client ou hébergeur | 4, 7 |
 | Numéro du technicien d'astreinte (`alert_msisdn`) | Client | 9 |
 | Liste des points d'appel et numéro de station | Exploitation | 8 |
-| Runtime réel de l'UniPi E413 commandé (§12.9) | Fournisseur | 6 |
+| Runtime réel du poste commandé (§12.9) | Fournisseur — **sans objet si Gate G100** : Debian d'origine | 6 |
 | Sortie réelle de `agvdump` de la carte d'origine | Atelier | 3 |
 
 ---

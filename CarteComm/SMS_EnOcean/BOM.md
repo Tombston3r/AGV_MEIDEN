@@ -96,10 +96,27 @@ Suffit dès lors que l'historique long terme n'est pas exigé.
 | Câble Ethernet blindé | `Cat 6 S/FTP, 5 m` | 1 | RS | ☐ | ☐ | ☐ | *7,20 €* |
 | **Sous-total** | | | | | | **☐** | ***177,00 €*** |
 
-### Poste fixe — option B : UniPi E413
+### Poste fixe — option B : Unipi Gate G100 (**si Ethernet disponible**)
 
-À retenir seulement si un **historique sur plusieurs semaines** est demandé.
-⚠️ §12.9 : vérifier le runtime livré avant commande.
+Le modem du poste ne sert à rien dès qu'une prise réseau est à portée :
+le poste parle au broker par le fil. Cela **supprime une SIM sur deux** et
+ouvre la gamme Gate, qui n'a pas de cellulaire. Debian d'origine.
+
+| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+|---|---|---:|---|---|---:|---:|---:|
+| Passerelle Linux DIN — Debian, 16 Go eMMC, 2× Ethernet, USB 3.0, RS485 | `Unipi Gate G100` | 1 | Spécialiste | ☐ | ☐ | ☐ | *240,00 €* |
+| Récepteur EnOcean 868 MHz, UART ESP3 | `TCM 515 (EnOcean)` | 1 | Spécialiste | ☐ | ☐ | ☐ | *33,60 €* |
+| Antenne EnOcean 868 MHz déportée + pigtail | `EnOcean ANT300 ou équiv.` | 1 | Spécialiste | ☐ | ☐ | ☐ | *12,00 €* |
+| Adaptateur USB-série vers le TCM 515 | `FTDI FT232RL` | 1 | RS | ☐ | ☐ | ☐ | *9,60 €* |
+| Alimentation rail DIN 230 V → 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | RS | ☐ | ☐ | ☐ | *16,80 €* |
+| Coffret rail DIN, bornier, presse-étoupes | `Fibox ou Schneider` | 1 | RS | ☐ | ☐ | ☐ | *24,00 €* |
+| Câble Ethernet blindé vers le réseau usine | `Cat 6 S/FTP, 5 m` | 1 | RS | ☐ | ☐ | ☐ | *7,20 €* |
+| **Sous-total** | | | | | | **☐** | ***343,20 €*** |
+
+### Poste fixe — option C : UniPi E413 LTE (**seulement sans Ethernet**)
+
+À ne retenir que si le poste est hors de portée d'une prise réseau. Le
+modem intégré est alors la raison d'être du modèle — et son surcoût.
 
 | Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
@@ -147,18 +164,28 @@ ici : `shift595` est retenue par défaut. Sous-total carte AGV complète :
 | Outillage | ☐ | *54,00 €* | *45,00 €* |
 | **TOTAL** | **☐** | ***487,44 €*** | ***406,20 €*** |
 
-### Avec le poste UniPi (option B)
+### Avec un poste UniPi — laquelle des deux options ?
 
-| Poste | *Repère TTC* | *Repère HT* |
-|---|---:|---:|
-| Carte AGV | *136,44 €* | *113,70 €* |
-| Poste UniPi E413 | *526,80 €* | *439,00 €* |
-| 2 boutons EnOcean | *120,00 €* | *100,00 €* |
-| Outillage | *54,00 €* | *45,00 €* |
-| **TOTAL** | ***837,24 €*** | ***697,70 €*** |
+| Poste | *Repère TTC* | *Repère HT* | Récurrent |
+|---|---:|---:|---|
+| **B — Unipi Gate G100** *(si Ethernet)* | ***653,64 €*** | ***544,70 €*** | **1 SIM** |
+| **C — UniPi E413 LTE** *(sans Ethernet)* | *837,24 €* | *697,70 €* | 2 SIM |
 
-L'écart entre les deux postes est de **349,80 €** :
-c'est le prix de l'historique long terme et d'un automate référencé.
+**183,60 € d'écart de matériel — et la
+moitié du récurrent.** Le Gate n'a pas de modem cellulaire ; c'est précisément ce
+qui le rend éligible ici, puisqu'un poste raccordé en Ethernet n'en a aucun
+besoin. Il apporte au passage Debian d'origine, deux ports Ethernet et 16 Go
+d'eMMC.
+
+**La question à poser au client tient en une phrase : y a-t-il une prise réseau
+là où le poste sera fixé ?** Si oui, l'option C n'a plus de justification.
+
+⚠️ L'unique port USB du Gate est pris par l'adaptateur série du `TCM 515`.
+Prévoir un concentrateur si un autre périphérique USB devient nécessaire.
+
+Face à l'option A (ESP32, 177,00 €), l'écart restant est de
+**166,20 €** : c'est le prix de
+l'historique long terme et d'un matériel référencé.
 
 ### Coût par station supplémentaire
 
@@ -223,7 +250,8 @@ SMS est demandé.
 | PCB 4 couches + assemblage | 3 à 5 semaines | **Chemin critique matériel** |
 | `SIM7080G` | 2 à 4 semaines | Tensions récurrentes sur les modules cellulaires |
 | SIM M2M data LTE-M | 1 à 3 semaines | Contractuel, pas technique |
-| `UniPi E413` (si option B) | 2 à 6 semaines | Vérifier la référence **et le runtime** |
+| `Unipi Gate G100` (option B) | 2 à 6 semaines | Debian d'origine, pas de runtime à vérifier |
+| `UniPi E413` (option C) | 2 à 6 semaines | Vérifier l'existence de la **variante LTE** au catalogue |
 | `PTM 210` / `TCM 515` | 1 à 2 semaines | Peu distribués par RS |
 | `ESP32`, `SN74HC595N`, `PC847` | stock | Faible |
 
@@ -252,16 +280,21 @@ La ligne reste — un réservoir est nécessaire — mais son dimensionnement ch
 et il ne faut pas surdimensionner l'alimentation pour un besoin qui n'existe
 pas. À confirmer sur la fiche technique du modem effectivement commandé.
 
-### ⚠️ Le poste UniPi porte des entrées inutilisées
+### ✅ Corrigé — le poste UniPi peut descendre en gamme
 
 Même constat que dans l'architecture Wi-Fi : les boutons sont **EnOcean**, donc
-`agv_poste/io_backend.py` n'est pas utilisé. L'option A (poste ESP32 à
-177,00 €) reste la plus cohérente.
+`agv_poste/io_backend.py` n'est jamais appelé. Les entrées TOR de l'`E413` sont
+payées et inutilisées.
 
-Une passerelle **Unipi Gate G100** ne convient pas ici : elle n'a **pas de modem
-cellulaire**, et son unique port USB serait déjà pris par le récepteur EnOcean.
-Le seul modèle pertinent de la gamme reste l'`E413` en **variante LTE**, dont il
-faut d'abord confirmer l'existence au catalogue.
+L'`E413` était pourtant imposé par une contrainte réelle — son **modem
+cellulaire intégré**. C'est cette contrainte qui tombe : si le poste est
+raccordé en Ethernet, il n'a aucune raison de passer par le réseau de
+l'opérateur, et le modem disparaît avec elle. La gamme **Gate** redevient
+alors éligible.
+
+D'où la scission en deux options : **B — Unipi Gate G100** dès qu'une prise
+réseau existe, **C — E413 LTE** seulement sinon. L'option A (ESP32 à
+177,00 €) reste la moins chère dans les deux cas.
 
 ### ⚠️ À vérifier — la limitation de courant des optocoupleurs
 
