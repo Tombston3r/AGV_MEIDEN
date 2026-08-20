@@ -2,8 +2,8 @@
 
 > **Document vivant.** Mis à jour à chaque modification du dossier.
 >
-> Dernière mise à jour : **2026-08-18** — nomenclature extraite du projet
-> KiCad ; l'étage de sortie à MOSFET impose `x_open_drain: false`.
+> Dernière mise à jour : **2026-08-18** — poste fixe ramené à une passerelle
+> Unipi Gate G100, ce qui lève le point ouvert §12.9.
 >
 > **Périmètre** : `CarteComm/Wifi/`, projet autonome et zippable. La carte AIO
 > AGV Control V5.0.1 est **conservée** ; ses **deux firmwares sont réécrits**.
@@ -244,7 +244,7 @@ journalctl -u agv-poste -f
 | B5 | Paramètres réseau et MQTT | Accord du service informatique (0.1, W5, W6) |
 | B6 | Confirmer l'UART ESP32 ↔ ATmega | Relevé de continuité (W2) |
 | B7 | Décider de la bande 2,4 GHz vs bi-bande | Arbitrage 0.7 |
-| B8 | Runtime de l'UniPi | Référence commandée (§12.9) |
+| ~~B8~~ | ~~Runtime de l'UniPi~~ | **LEVÉ** si le Gate G100 est retenu : livré sous Debian |
 | B9 | Voyant d'accusé opérateur | Décision client (planification §3.6) |
 
 ### 🟡 À faire — sans dépendance externe
@@ -295,6 +295,7 @@ journalctl -u agv-poste -f
 
 | Date | Modification | Impact |
 |---|---|---|
+| 2026-08-18 | Poste fixe : l'automate UniPi est remplacé par une passerelle **Unipi Gate G100** (~200 € au lieu de 375 €). Le service n'utilise qu'un port série et de l'Ethernet — les boutons étant EnOcean, aucune entrée TOR n'est employée, `io_backend.py` n'est même pas appelé. Trois gains au-delà du prix : le Gate est livré sous **Debian**, ce qui **lève le point ouvert §12.9** (Mervis ou Linux) ; il offre **deux ports Ethernet**, donc une séparation physique OT/IT ; et 16 Go d'eMMC au lieu de 8. Total de l'architecture : 692 € au lieu de 867 € HT. | §2 étape 0.6, §3 kanban B8, BOM, comparatif |
 | 2026-08-18 | Nomenclature de la carte AGV **extraite du projet KiCad** (57 composants placés) au lieu d'être estimée. Deux découvertes : l'étage de sortie est à **23 MOSFET IRF520** avec résistances de grille — le collecteur ouvert est fait par le matériel, donc le microcontrôleur doit être en **sortie poussée** (`x_open_drain: false`, corrigé ; une grille flottante mettrait le MOSFET dans un état indéterminé) — et **aucune protection n'existe sur les 21 entrées Y**, ce qui confirme W1b. La carte est fabriquée et non réutilisée : le total passe de 738 € à 867 € HT. | §1.1 (109 tests), §1.4, §1.8, BOM, comparatif |
 | 2026-08-18 | Ajout de [`../BOM.md`](../BOM.md) : nomenclature complète. La carte AGV coûte 0 € — elle est conservée — mais deux postes propres à cette architecture apparaissent : le harnais de raccordement (42 €) et une adaptation de niveaux conservatoire (0 à 45 €) tant que W1b n'est pas mesuré. Total ~738 € sur 10 ans, dont 461 € pour le seul poste UniPi. | §3 « Fait », journal |
 | 2026-08-18 | Rangement du dossier : le projet KiCad de la carte d'origine est sous `hardware/AIO_AGV_Control_V5.0.1/`, la photo d'assemblage sous `hardware/photos/`, et `Planification_Architecture_WiFi_AGV.md` rejoint `docs/` pour aligner tous les dossiers d'architecture sur la même disposition. Les sauvegardes automatiques KiCad (35 archives, 3,6 Mo) sortent du suivi Git : elles sont régénérées à chaque ouverture du projet. | Liens, §3 « Fait », journal |

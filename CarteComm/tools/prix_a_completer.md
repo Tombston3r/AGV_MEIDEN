@@ -17,7 +17,9 @@ matériel. Si le temps manque, faire celles-là d'abord.
 
 | ⭐ | Réf. à rechercher | Désignation | Qté | Source | *Repère HT* | **PU TTC** |
 |:-:|---|---|---:|---|---:|---|
-| ⭐ | `UniPi E413` (1 Go / 8 Go eMMC) | Automate compact Linux, E/S TOR | 1 | UniPi / revendeur | *375,00 €* | |
+| ⭐ | `Unipi Gate G100` | Passerelle Linux DIN, 2× Eth, USB, RS485 | 1 | Unipi / revendeur | *200,00 €* | |
+| | `Unipi Gate G110` | Idem + 2ᵉ port RS485 isolé | 1 | Unipi / revendeur | *224,00 €* | |
+| | `UniPi E413` **si le modèle existe encore** | Automate à E/S — pour comparaison | 1 | UniPi / revendeur | *375,00 €* | |
 | ⭐ | `UniPi E413` **variante LTE** | Idem, avec modem LTE intégré | 1 | UniPi / revendeur | *350,00 €* | |
 | ⭐ | `Mega2560 Pro` (clone, format compact) | Module MCU du projet KiCad | 1 | Amazon | *18,00 €* | |
 | ⭐ | `ESP32-DEVKITC-32D-F` | Module Wi-Fi/BT sur support | 1 | RS | *12,00 €* | |

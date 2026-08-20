@@ -93,21 +93,22 @@ L'antenne d'origine émet depuis l'intérieur d'un châssis métallique.
 | Support de fixation, visserie | `lot` | 1 | RS | ☐ | ☐ | ☐ | *4,80 €* |
 | **Sous-total** | | | | | | **☐** | ***36,00 €*** |
 
-### Poste fixe UniPi
+### Poste fixe — Unipi Gate G100
 
-Le poste le plus lourd de cette architecture : récepteur EnOcean, broker
-MQTT et interface de supervision.
+Le poste porte le récepteur EnOcean, le broker MQTT et l'interface de
+supervision. **Le Gate G100 remplace l'E413 initialement prévu** : voir
+la justification en fin de document.
 
 | Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Automate compact Linux, 1 Go / 8 Go eMMC, E/S TOR | `UniPi E413` | 1 | Spécialiste | ☐ | ☐ | ☐ | *450,00 €* |
+| Passerelle Linux DIN — Debian, 16 Go eMMC, 2× Ethernet, USB 3.0, RS485 | `Unipi Gate G100` | 1 | Spécialiste | ☐ | ☐ | ☐ | *240,00 €* |
 | Récepteur EnOcean 868 MHz, UART ESP3 | `TCM 515 (EnOcean)` | 1 | Spécialiste | ☐ | ☐ | ☐ | *33,60 €* |
 | Antenne EnOcean 868 MHz déportée + pigtail | `EnOcean ANT300 ou équiv.` | 1 | Spécialiste | ☐ | ☐ | ☐ | *12,00 €* |
 | Adaptateur USB-série vers le TCM 515 | `FTDI FT232RL` | 1 | RS | ☐ | ☐ | ☐ | *9,60 €* |
 | Alimentation rail DIN 230 V → 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | RS | ☐ | ☐ | ☐ | *16,80 €* |
 | Coffret rail DIN, bornier, presse-étoupes | `Fibox ou Schneider` | 1 | RS | ☐ | ☐ | ☐ | *24,00 €* |
 | Câble Ethernet blindé vers le réseau usine | `Cat 6 S/FTP, 5 m` | 1 | RS | ☐ | ☐ | ☐ | *7,20 €* |
-| **Sous-total** | | | | | | **☐** | ***553,20 €*** |
+| **Sous-total** | | | | | | **☐** | ***343,20 €*** |
 
 ### Boutons d'appel EnOcean — 2 stations
 
@@ -200,10 +201,10 @@ semaines de délai, pas seulement un coût.
 | **Carte AGV (nomenclature KiCad)** | ☐ | *154,98 €* | *129,15 €* |
 | Harnais de raccordement | ☐ | *50,40 €* | *42,00 €* |
 | Antenne Wi-Fi déportée | ☐ | *36,00 €* | *30,00 €* |
-| Poste fixe UniPi | ☐ | *553,20 €* | *461,00 €* |
+| Poste fixe UniPi | ☐ | *343,20 €* | *286,00 €* |
 | 2 boutons EnOcean | ☐ | *120,00 €* | *100,00 €* |
 | Outillage | ☐ | *126,00 €* | *105,00 €* |
-| **TOTAL** | **☐** | ***1 040,58 €*** | ***867,15 €*** |
+| **TOTAL** | **☐** | ***830,58 €*** | ***692,15 €*** |
 
 ### Coût par station supplémentaire
 
@@ -220,15 +221,53 @@ semaines de délai, pas seulement un coût.
 | Infrastructure Wi-Fi | à la charge du client (existante) |
 | Piles des boutons | **0 €** — PTM 210 auto-alimentés |
 
-### Alternative à considérer
+### Pourquoi le Gate G100 et non l'E413
 
-La planification pose la question (§12.2) : **historique ou état instantané ?**
+Le service du poste n'utilise, en tout et pour tout, **un port série et de
+l'Ethernet** : le récepteur EnOcean d'un côté, le broker MQTT de l'autre. Les
+boutons étant EnOcean, **aucune entrée TOR n'est utilisée** —
+`agv_poste/io_backend.py` n'est même pas appelé par le service.
 
-Si un historique sur plusieurs semaines n'est **pas** attendu, un ESP32 avec
-module Ethernet remplit la même fonction pour ~102,00 € au lieu de
-553,20 € — soit **451,20 € d'économie**. L'UniPi ne se
-justifie que par la persistance, l'interface web riche et l'hébergement du
-broker.
+Payer un automate à entrées/sorties revient donc à financer du matériel qui ne
+sert pas.
+
+| | Unipi Gate G100 | Unipi E413 / Patron |
+|---|---|---|
+| Prix indicatif | **~200 €** | 375 à 479 € |
+| Système | **Debian Linux** | à vérifier (§12.9) |
+| Ethernet | **2 ports** (Gb + 100M) | 1 |
+| USB | 1× USB 3.0 — pour le TCM 515 | selon modèle |
+| RS485 | 1 (2 isolés sur G110) | selon modèle |
+| Alimentation | 6–36 VDC | 24 V |
+| Stockage | 16 Go eMMC + microSD | 8 Go eMMC |
+| Entrées/sorties TOR | **aucune** | plusieurs — **inutilisées ici** |
+
+Trois gains au-delà du prix :
+
+1. **Le point ouvert §12.9 disparaît.** Le Gate est livré sous **Debian**, donc
+   le service Python 3.11 et systemd fonctionnent sans question. L'incertitude
+   « Mervis ou Linux ? » qui bloquait le dossier ne se pose plus.
+2. **Deux ports Ethernet** permettent de séparer physiquement le VLAN OT du
+   raccordement de maintenance — un argument de plus auprès du service
+   informatique.
+3. **16 Go d'eMMC** au lieu de 8 : de la marge pour le journal d'événements.
+
+Le seul port USB est à surveiller : il est pris par l'adaptateur série du
+TCM 515. Si un second périphérique USB devenait nécessaire, passer le TCM 515
+en RS485 via un convertisseur TTL/RS485 (~10 €) libère le port.
+
+⚠️ **Prix relevé en 2021 sur un article de presse, à confirmer.** Et la
+référence « E413 » du document de planification n'a pas pu être retrouvée au
+catalogue Unipi : vérifier qu'elle existe encore avant toute comparaison
+formelle.
+
+### Alternative encore moins chère
+
+Si aucun historique long terme n'est attendu, un ESP32 avec module Ethernet
+remplit la même fonction pour ~102,00 € au lieu de 343,20 € — soit
+**241,20 € d'économie**. Le Gate ne se justifie que par la
+persistance, l'hébergement du broker et le fait d'être un matériel industriel
+référencé.
 
 ---
 

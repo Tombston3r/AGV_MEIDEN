@@ -15,7 +15,7 @@
 | 12.6b | Repères sérigraphiés T9…T24 ↔ signaux Y | non utilisés par le code | `docs/signal_map.md` | ☐ |
 | 12.7 | Protocole application mobile « AIO AGV Remote » | **abandonné** au profit des boutons EnOcean + IHM web (planif. §1) | — | ✅ |
 | 12.8 | TCM 515 (Rx seul) ou TCM 310 (bidirectionnel) | `enocean.rx_only: true` | `profiles/*.yaml` | ☐ |
-| 12.9 | Runtime de l'UniPi E413 commandé | aucun backend par défaut ; l'UniPi porte AUSSI le broker | `poste-unipi/` | ☐ |
+| 12.9 | Runtime du poste fixe | **LEVÉ si l'Unipi Gate G100 est retenu** : livré sous Debian, donc Python 3.11 + systemd sans question | `poste-unipi/` | ✅* |
 | 12.10 | Variante d'interface bus | **tranché** : carte conservée, ports de l'ATmega | `bus/avr_port_bus.h` | ✅ |
 | W1 | Câblage ATmega ↔ SUB-D 25 | **RELEVÉ** : 11 ports, 3 mixtes (PA, PB, PG) | `firmware/mega/src/board_ports.h` | ✅ |
 | **W1b** | **Amplitude des lignes Y** — arrivent directement sur des broches d'ATmega | inconnue | matériel | ☐ **BLOQUANT** |

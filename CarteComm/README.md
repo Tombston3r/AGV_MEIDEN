@@ -32,7 +32,7 @@ Base : **2 points d'appel**, prix indicatifs **HT** 2026. Les `BOM.md` sont des
 |---|---:|---:|---:|---:|
 | [`LoRa/`](LoRa/BOM.md) A1 — LoRa homogène | 281 € | 0 €/an | **~293 €** | +62 € |
 | [`LoRa/`](LoRa/BOM.md) A3 — EnOcean + LoRa | 378 € | 0 €/an | **~378 €** | +46 € |
-| [`Wifi/`](Wifi/BOM.md) — Wi-Fi entreprise | 867 € | 0 €/an | **~867 €** | +50 € |
+| [`Wifi/`](Wifi/BOM.md) — Wi-Fi entreprise | 692 € | 0 €/an | **~692 €** | +50 € |
 | [`SMS_EnOcean/`](SMS_EnOcean/BOM.md) — LTE-M/MQTT | 406 € | 96 €/an | **~1 366 €** | +50 € |
 | [`SMS_EnOcean/`](SMS_EnOcean/BOM.md) — SMS *(déconseillé)* | 625 € | 1 500 €/an | **~15 625 €** | +50 € |
 
@@ -40,10 +40,10 @@ Deux lectures de ce tableau :
 
 - **le récurrent domine tout** dès qu'un opérateur entre dans la boucle. Le SMS
   coûte 50 fois le LoRa sur dix ans, pour un service inférieur ;
-- **le Wi-Fi est la solution la plus chère hors cellulaire.** La nomenclature
-  extraite du projet KiCad montre que sa carte AGV est **fabriquée**, pas
-  réutilisée : 155 € TTC de composants, dont 30 € pour le seul convertisseur
-  isolé. Ajoutés au poste UniPi, on arrive à 867 € contre 281 € en LoRa.
+- **le Wi-Fi reste plus cher que le LoRa**, même après avoir remplacé l'automate
+  du poste par une passerelle Unipi Gate G100 (~200 € au lieu de 375 €) : 692 €
+  contre 281 €. Sa carte AGV est **fabriquée**, pas réutilisée — 155 € TTC de
+  composants d'après le projet KiCad.
 
 Chaque dossier porte son propre [`DEPLOY.md`](Wifi/DEPLOY.md) : les procédures
 n'ont presque rien en commun. Le Wi-Fi impose de sauvegarder puis d'écraser les

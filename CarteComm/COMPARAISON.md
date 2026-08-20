@@ -86,7 +86,7 @@ Notation : `++` très favorable · `+` favorable · `~` acceptable · `−` déf
 
 | Critère | LoRa pur | LoRa + EnOcean | Wi-Fi + EnOcean | SMS | LTE-M/MQTT |
 |---|:---:|:---:|:---:|:---:|:---:|
-| **Coût sur 10 ans** | `++` 293 € | `++` 378 € | `~` 867 € | `−−` 15 625 € | `~` 1 366 € |
+| **Coût sur 10 ans** | `++` 293 € | `++` 378 € | `+` 692 € | `−−` 15 625 € | `~` 1 366 € |
 | **Latence** | `+` ~330 ms | `+` ~380 ms | `++` ~50 ms | `−−` non bornée | `~` 0,5–2 s |
 | **Déterminisme** | `++` borné | `++` borné | `~` handover | `−−` aucun | `−` reconnexion |
 | **Portée / pénétration** | `++` sub-GHz | `+` limité par EnOcean | `−` 2,4 GHz | `~` opérateur | `~` opérateur |
@@ -117,7 +117,7 @@ multiplier par 1,20 pour retrouver leurs totaux.
 |---|---:|---:|---:|---:|
 | LoRa pur (A1) | 281 € | 0 €/an | **293 €** | +62 € |
 | LoRa + EnOcean (A3) | 378 € | 0 €/an | **378 €** | +46 € |
-| Wi-Fi + EnOcean | 867 € | 0 €/an | **867 €** | +50 € |
+| Wi-Fi + EnOcean | 692 € | 0 €/an | **692 €** | +50 € |
 | LTE-M / MQTT | 406 € | 96 €/an | **1 366 €** | +50 € |
 | SMS | 625 € | 1 500 €/an | **15 625 €** | +50 € |
 
@@ -125,8 +125,9 @@ Trois observations qui ne sautent pas aux yeux :
 
 1. **La carte AGV du Wi-Fi n'est pas gratuite.** La nomenclature extraite du
    projet KiCad montre qu'elle est **fabriquée** : Mega2560 Pro, ESP32-DevKitC,
-   23 MOSFET IRF520 et un convertisseur isolé, soit 129 € HT. Ajoutée au poste
-   UniPi à 461 €, la solution devient la plus chère hors cellulaire.
+   23 MOSFET IRF520 et un convertisseur isolé, soit 129 € HT. Le poste a en
+   revanche été allégé — une passerelle Unipi Gate G100 (~200 €) au lieu d'un
+   automate à entrées/sorties inutilisées, puisque les boutons sont EnOcean.
 2. **Le récurrent domine dès qu'un opérateur entre dans la boucle.** Le SMS
    coûte 56 fois le LoRa pur sur dix ans, pour un service inférieur.
 3. **A1 et A3 se croisent à 8 stations** : en dessous A1 est moins chère, au-delà
@@ -443,7 +444,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 - **Réversibilité incertaine** : les firmwares d'origine sont écrasés, et rien ne
   garantit qu'ils soient relisibles.
 - **Handover** entre points d'accès : 2 à 5 s de coupure en mouvement.
-- **La plus chère hors cellulaire** : 867 € contre 293 € en LoRa. Sa carte AGV est fabriquée, pas réutilisée.
+- **Plus chère que le LoRa** : 692 € contre 293 €. Sa carte AGV est fabriquée, pas réutilisée.
 - Une maintenance IT non notifiée peut arrêter la production.
 - Bouton rejouable, pas d'accusé opérateur.
 
