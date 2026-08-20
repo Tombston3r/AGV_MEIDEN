@@ -237,6 +237,48 @@ d'interface bus conditionne le routage du PCB.
 - **Le contrôle de l'obsolescence 2G/3G** : le `SIM7080G` est LTE-M/NB-IoT, donc
   hors calendrier d'extinction. Un module 2G ne le serait pas.
 - **La carte de rechange** : ~136,44 € pour un échange standard.
+---
+
+## Analyse critique de cette nomenclature
+
+### ✅ Corrigé — le réservoir capacitif était dimensionné pour le mauvais modem
+
+La nomenclature d'étude annonçait des pics de **2 A**. C'est la valeur d'un
+`SIM7600E-H` (LTE Cat-1), retenu dans la **variante SMS**. Le `SIM7080G` de la
+variante recommandée est un modem **LTE-M / NB-IoT** : ses pics d'émission sont
+de l'ordre de **0,5 à 0,7 A**.
+
+La ligne reste — un réservoir est nécessaire — mais son dimensionnement change,
+et il ne faut pas surdimensionner l'alimentation pour un besoin qui n'existe
+pas. À confirmer sur la fiche technique du modem effectivement commandé.
+
+### ⚠️ Le poste UniPi porte des entrées inutilisées
+
+Même constat que dans l'architecture Wi-Fi : les boutons sont **EnOcean**, donc
+`agv_poste/io_backend.py` n'est pas utilisé. L'option A (poste ESP32 à
+177,00 €) reste la plus cohérente.
+
+Une passerelle **Unipi Gate G100** ne convient pas ici : elle n'a **pas de modem
+cellulaire**, et son unique port USB serait déjà pris par le récepteur EnOcean.
+Le seul modèle pertinent de la gamme reste l'`E413` en **variante LTE**, dont il
+faut d'abord confirmer l'existence au catalogue.
+
+### ⚠️ À vérifier — la limitation de courant des optocoupleurs
+
+Comme pour l'architecture LoRa : 43 canaux de `PC847` demandent 43 résistances
+de limitation dimensionnées pour la tension réelle des lignes (§12.1). À sortir
+du forfait « passifs » une fois la mesure faite.
+
+### ⚠️ Deux antennes cellulaires, deux abonnements
+
+L'AGV **et** le poste portent chacun un `SIM7080G` et une SIM. C'est ce qui
+double le coût récurrent. Si le poste dispose d'un raccordement Ethernet — ce
+qui est le cas dès qu'il est dans un local technique — **son modem est inutile**
+et il parle au broker par le réseau filaire : 39,60 € de matériel et la moitié
+du récurrent en moins.
+
+C'est probablement l'économie la plus simple de cette architecture, et elle n'a
+aucune contrepartie technique.
 
 
 ---

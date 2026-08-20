@@ -61,7 +61,10 @@ matériel. Si le temps manque, faire celles-là d'abord.
 | | `TSR 1-2450` (Traco Power) | DC/DC 24 V → 5 V 1 A non isolé | 2 | RS | *7,00 €* | |
 | | `L7806CV` (ST) | Régulateur 6 V TO-220 | 1 | RS | *0,90 €* | |
 | | `AP2112K-3.3TRG1` (Diodes Inc) | LDO 3,3 V 600 mA | 2 | RS | *0,60 €* | |
-| | `TPS62740DSSR` (TI) | Buck ultra-basse conso (bouton) | 1 | RS | *2,00 €* | |
+| | `220 µF tantale + 10 µF X7R` | Réservoir d'impulsion émission LoRa (bouton) | 1 | RS | *0,50 €* | |
+| | `BAT54` | Schottky de protection pile (bouton) | 1 | RS | *0,17 €* | |
+| | `ULN2803A` | **Alternative** à 23× IRF520 — étage de sortie Wi-Fi | 3 | RS | *1,20 €* | |
+| | `IRL520N` | **Alternative** logic-level, même brochage que l'IRF520 | 23 | RS | *1,10 €* | |
 | | `SMBJ33A` (Littelfuse) | Diode TVS 33 V | 2 | RS | *0,50 €* | |
 | | `ER14505` ou `LS14500` (Saft) | Pile Li-SOCl₂ 3,6 V AA + support | 1 | RS | *6,00 €* | |
 

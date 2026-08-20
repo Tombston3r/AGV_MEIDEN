@@ -33,7 +33,7 @@ aujourd'hui ; **un seul relevé défavorable peut en disqualifier une**.
 
 **Le SMS est à écarter** : il cumule la plus mauvaise latence, la seule latence
 non bornée, l'absence de garantie d'ordre, et un coût récurrent de ~1 500 €/an
-— soit 15 625 € sur dix ans contre 293 € pour le LoRa pur.
+— soit 15 625 € sur dix ans contre 291 € pour le LoRa pur.
 
 ---
 
@@ -86,7 +86,7 @@ Notation : `++` très favorable · `+` favorable · `~` acceptable · `−` déf
 
 | Critère | LoRa pur | LoRa + EnOcean | Wi-Fi + EnOcean | SMS | LTE-M/MQTT |
 |---|:---:|:---:|:---:|:---:|:---:|
-| **Coût sur 10 ans** | `++` 293 € | `++` 378 € | `+` 692 € | `−−` 15 625 € | `~` 1 366 € |
+| **Coût sur 10 ans** | `++` 291 € | `++` 378 € | `+` 692 € | `−−` 15 625 € | `~` 1 366 € |
 | **Latence** | `+` ~330 ms | `+` ~380 ms | `++` ~50 ms | `−−` non bornée | `~` 0,5–2 s |
 | **Déterminisme** | `++` borné | `++` borné | `~` handover | `−−` aucun | `−` reconnexion |
 | **Portée / pénétration** | `++` sub-GHz | `+` limité par EnOcean | `−` 2,4 GHz | `~` opérateur | `~` opérateur |
@@ -98,7 +98,7 @@ Notation : `++` très favorable · `+` favorable · `~` acceptable · `−` déf
 | **Délai de mise en œuvre** | `~` PCB 5 sem. | `~` PCB 5 sem. | `−` IT 2–15 j + UniPi | `−` PCB + SIM | `−` PCB + SIM |
 | **Réversibilité** | `++` carte intacte | `++` carte intacte | `−` firmware écrasé | `++` carte intacte | `++` carte intacte |
 | **Maintenance** | `~` piles 5–8 ans | `++` aucune | `++` aucune | `++` aucune | `++` aucune |
-| **Évolutivité** | `+` +62 €/station | `++` +46 €/station | `+` +50 €/station | `+` +50 €/station | `+` +50 €/station |
+| **Évolutivité** | `+` +60 €/station | `++` +46 €/station | `+` +50 €/station | `+` +50 €/station | `+` +50 €/station |
 | **Conformité** | `~` ERC 70-03 | `~` ERC 70-03 | `+` rien à monter | `++` rien à monter | `++` rien à monter |
 | **Pérennité** | `++` 10 ans+ | `++` 10 ans+ | `~` 2,4 GHz saturé | `−` 2G/3G éteints | `+` LTE-M longue durée |
 | **Développement restant** | `−` dossier à compléter | `−` dossier à compléter | `+` 108 tests verts | `+` 112 tests verts | `+` 112 tests verts |
@@ -115,7 +115,7 @@ multiplier par 1,20 pour retrouver leurs totaux.
 
 | | Matériel | Récurrent | **10 ans** | Par station |
 |---|---:|---:|---:|---:|
-| LoRa pur (A1) | 281 € | 0 €/an | **293 €** | +62 € |
+| LoRa pur (A1) | 279 € | 0 €/an | **291 €** | +60 € |
 | LoRa + EnOcean (A3) | 378 € | 0 €/an | **378 €** | +46 € |
 | Wi-Fi + EnOcean | 692 € | 0 €/an | **692 €** | +50 € |
 | LTE-M / MQTT | 406 € | 96 €/an | **1 366 €** | +50 € |
@@ -131,7 +131,7 @@ Trois observations qui ne sautent pas aux yeux :
 2. **Le récurrent domine dès qu'un opérateur entre dans la boucle.** Le SMS
    coûte 56 fois le LoRa pur sur dix ans, pour un service inférieur.
 3. **A1 et A3 se croisent à 8 stations** : en dessous A1 est moins chère, au-delà
-   A3 prend l'avantage grâce à des boutons à 46 € au lieu de 62 €.
+   A3 prend l'avantage grâce à des boutons à 46 € au lieu de 60 €.
 
 Poste évitable dans trois solutions : remplacer l'UniPi (439–461 €) par un poste
 ESP32 (~148 €) économise ~300 €, au prix de l'historique long terme.
@@ -328,7 +328,7 @@ détectable.
 
 | Solution | Station de plus | Second AGV | Limite |
 |---|---:|---|---|
-| LoRa pur | +62 € | +103 € (carte) | Budget de rapport cyclique partagé |
+| LoRa pur | +60 € | +103 € (carte) | Budget de rapport cyclique partagé |
 | LoRa + EnOcean | +46 € | +103 € | Portée EnOcean vers le poste |
 | Wi-Fi + EnOcean | +50 € | **0 € si la carte existe** | Couverture Wi-Fi |
 | Cellulaire | +50 € | +114 € **et une SIM de plus** | Coût récurrent qui double |
@@ -383,7 +383,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 
 **Points forts**
 
-- Le **coût le plus bas** de toutes les solutions : 293 € sur dix ans.
+- Le **coût le plus bas** de toutes les solutions : 291 € sur dix ans.
 - **Aucune dépendance** : ni opérateur, ni service informatique, ni infrastructure.
 - **Latence bornée**, et la seule à pouvoir être ajustée par un paramètre.
 - **Portée sub-GHz**, la plus adaptée à une structure métallique.
@@ -394,7 +394,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 **Points faibles**
 
 - **Piles à remplacer** tous les 5 à 8 ans, et un bouton à pile morte est muet.
-- **Boutons à fabriquer** : PCB, boîtier IP65, assemblage — 62 € l'unité et un
+- **Boutons à fabriquer** : PCB, boîtier IP65, assemblage — 60 € l’unité et un
   délai de PCB en parallèle de la carte AGV.
 - **Budget de rapport cyclique** à respecter : 218 émissions/h à SF9.
 - Dossier logiciel **à compléter** avant de pouvoir construire.
@@ -444,7 +444,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 - **Réversibilité incertaine** : les firmwares d'origine sont écrasés, et rien ne
   garantit qu'ils soient relisibles.
 - **Handover** entre points d'accès : 2 à 5 s de coupure en mouvement.
-- **Plus chère que le LoRa** : 692 € contre 293 €. Sa carte AGV est fabriquée, pas réutilisée.
+- **Plus chère que le LoRa** : 692 € contre 291 €. Sa carte AGV est fabriquée, pas réutilisée.
 - Une maintenance IT non notifiée peut arrêter la production.
 - Bouton rejouable, pas d'accusé opérateur.
 
@@ -464,7 +464,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 
 **Points faibles**
 
-- **Coût récurrent** : 15 625 € sur dix ans en SMS, 1 366 € en LTE-M, contre 293 €
+- **Coût récurrent** : 15 625 € sur dix ans en SMS, 1 366 € en LTE-M, contre 291 €
   en LoRa.
 - **Couverture intérieure incertaine et non corrigeable.**
 - **Dépendance à un tiers** : panne, saturation, résiliation, changement tarifaire.
@@ -545,7 +545,7 @@ choisir une architecture qui ne fonctionnera pas sur ce site.
 6. **Combien de points d'appel à terme ?** C'est ce qui place le curseur entre
    A1 et A3.
 7. **Le coût récurrent du cellulaire est-il accepté ?** 15 625 € sur dix ans en
-   SMS, 1 366 € en LTE-M, contre 293 € sans opérateur.
+   SMS, 1 366 € en LTE-M, contre 291 € sans opérateur.
 
 ---
 

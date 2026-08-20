@@ -202,6 +202,12 @@ Prix indicatifs HT, petites quantités, 2026. À reconsulter au moment de l'acha
 | — | Bouton poussoir industriel Ø22 IP65, coup de poing ou affleurant | 1 | 12,00 € | 12,00 € |
 | ER14505 | Pile Li-SOCl₂ 3,6 V 2,6 Ah + support | 1 | 6,00 € | 6,00 € |
 | TPS62740 | Convertisseur buck ultra-basse conso (ou LDO si budget serré) | 1 | 2,00 € | 2,00 € |
+
+> ⚠️ **Révisé depuis.** Le `TPS62740` a été retiré de la nomenclature : la
+> pile Li-SOCl₂ délivre 3,6 V, que le `STM32L071` (1,65–3,6 V) et le `RFM95W`
+> (1,8–3,7 V) acceptent directement. Le besoin réel est un **réservoir
+> capacitif** pour l'impulsion d'émission. Voir [`../BOM.md`](../BOM.md),
+> section « Analyse critique de cette nomenclature ».
 | — | LED bicolore verte/rouge + résistances | 1 | 1,00 € | 1,00 € |
 | — | PCB 2 couches ~50 × 50 mm | 1 | 3,00 € | 3,00 € |
 | — | Boîtier IP65 avec presse-étoupe et embase antenne | 1 | 18,00 € | 18,00 € |

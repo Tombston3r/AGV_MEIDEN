@@ -4,7 +4,7 @@
 > évolution du code, des profils ou des relevés matériels doit se refléter ici
 > le même jour. Journal des mises à jour en fin de document.
 >
-> Dernière mise à jour : **2026-08-13** — passage à une organisation par
+> Dernière mise à jour : **2026-08-20** — passage à une organisation par
 > dossier d'architecture ; extraction des sources LoRa vers `CarteComm/LoRa/`.
 >
 > **Périmètre de ce document** : le dossier `CarteComm/SMS_EnOcean/`, projet
@@ -383,6 +383,7 @@ journalctl -u agv-poste -f
 
 | Date | Modification | Impact sur ce document |
 |---|---|---|
+| 2026-08-20 | **Analyse critique** ajoutée à `BOM.md`. Le réservoir capacitif était dimensionné pour des pics de 2 A — valeur d'un `SIM7600E-H` (LTE Cat-1) retenu dans la variante SMS, alors que le `SIM7080G` de la variante recommandée est un modem LTE-M dont les pics sont de 0,5 à 0,7 A. Surtout : l'AGV **et** le poste portent chacun un modem et une SIM, ce qui double le récurrent. Dès que le poste est dans un local technique raccordé en Ethernet, **son modem est inutile** — ~40 € de matériel et la moitié de l'abonnement en moins, sans contrepartie technique. Une passerelle Unipi Gate ne convient pas ici : pas de modem cellulaire, et son unique USB est pris par le récepteur EnOcean. | §3 kanban, BOM |
 | 2026-08-18 | Ajout de [`../BOM.md`](../BOM.md) : nomenclature complète des deux variantes. Écart de ~14 000 € sur dix ans entre SMS et LTE-M, chiffré poste par poste. Ajoute une option de poste ESP32 à 148 € en regard des 439 € de l'UniPi, et le coût comparé des trois variantes d'interface bus — `shift595` est à la fois la moins chère et la plus rapide. | §3 « Fait », journal |
 | 2026-08-13 | Création du monorepo complet (§14 étapes 1 à 8), 122 tests verts | Document initial |
 | 2026-08-18 | Ajout de [`../DEPLOY.md`](../DEPLOY.md) : procédure de déploiement propre à cette architecture, en 10 phases. Met en tête les quatre décisions préalables — déployer MQTT/LTE-M et non le SMS, faire acter le coût récurrent (~1 500 €/an en SMS contre ~100 € en LTE-M), la couverture cellulaire éliminatoire, et le choix de variante d'interface bus qui conditionne le routage du PCB. | §3 « Fait », journal |

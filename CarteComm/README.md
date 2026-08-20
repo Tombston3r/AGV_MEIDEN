@@ -30,7 +30,7 @@ Base : **2 points d'appel**, prix indicatifs **HT** 2026. Les `BOM.md` sont des
 
 | Architecture | Matériel | Récurrent | **10 ans** | Par station de plus |
 |---|---:|---:|---:|---:|
-| [`LoRa/`](LoRa/BOM.md) A1 — LoRa homogène | 281 € | 0 €/an | **~293 €** | +62 € |
+| [`LoRa/`](LoRa/BOM.md) A1 — LoRa homogène | 279 € | 0 €/an | **~291 €** | +60 € |
 | [`LoRa/`](LoRa/BOM.md) A3 — EnOcean + LoRa | 378 € | 0 €/an | **~378 €** | +46 € |
 | [`Wifi/`](Wifi/BOM.md) — Wi-Fi entreprise | 692 € | 0 €/an | **~692 €** | +50 € |
 | [`SMS_EnOcean/`](SMS_EnOcean/BOM.md) — LTE-M/MQTT | 406 € | 96 €/an | **~1 366 €** | +50 € |
@@ -42,7 +42,7 @@ Deux lectures de ce tableau :
   coûte 50 fois le LoRa sur dix ans, pour un service inférieur ;
 - **le Wi-Fi reste plus cher que le LoRa**, même après avoir remplacé l'automate
   du poste par une passerelle Unipi Gate G100 (~200 € au lieu de 375 €) : 692 €
-  contre 281 €. Sa carte AGV est **fabriquée**, pas réutilisée — 155 € TTC de
+  contre 279 €. Sa carte AGV est **fabriquée**, pas réutilisée — 155 € TTC de
   composants d'après le projet KiCad.
 
 Chaque dossier porte son propre [`DEPLOY.md`](Wifi/DEPLOY.md) : les procédures

@@ -299,6 +299,63 @@ change la nomenclature.
 - **La carte de rechange** : si la sauvegarde des firmwares d'origine échoue
   (phase 2 de `DEPLOY.md`), il n'y a plus de retour arrière. Prévoir une V5.0.1
   de rechange devient une assurance à chiffrer avec le client.
+---
+
+## Analyse critique de la carte routée
+
+Trois observations issues du projet KiCad. Aucune ne remet en cause le routage,
+mais deux méritent une décision avant fabrication.
+
+### ⚠️ L'`IRF520` n'est pas un MOSFET « logic-level »
+
+Sa tension de seuil est spécifiée **de 2 à 4 V**, et son `Rds(on)` est garanti à
+**Vgs = 10 V**. Attaqué par une broche à 5 V, il conduit — mais hors des
+conditions du constructeur, et avec une résistance à l'état passant très
+supérieure à celle annoncée.
+
+**Pour les courants en jeu, quelques milliampères sur une entrée d'automate,
+cela fonctionne.** La chute de tension reste négligeable même à 10 Ω. Ce n'est
+donc pas un défaut bloquant — c'est un choix hors spécification, qu'il faut
+connaître avant de l'attribuer à autre chose le jour où une voie se comporte mal
+en température.
+
+Si le PCB n'est pas encore fabriqué, deux alternatives valent d'être pesées :
+
+| Solution | Coût | Surface | Remarque |
+|---|---:|---|---|
+| `IRF520` ×23 (actuel) | ~16,56 € | **23 boîtiers TO-220** | Hors spec à 5 V, très encombrant |
+| `IRL520` ×23 | ~30,36 € | idem | Version **logic-level** du même composant, brochage identique — **substitution sans reroutage** |
+| `ULN2803A` ×3 | ~4,32 € | 3 boîtiers DIP-18 | Réseau Darlington à collecteur ouvert : même fonction, **résistances de grille supprimées**, surface divisée par dix |
+
+L'`IRL520` est le changement le moins risqué : même boîtier, même brochage,
+aucune modification du circuit. L'`ULN2803A` est le plus rationnel si le
+routage peut encore bouger, mais il sature à ~1,1 V au lieu de ~0,1 V : **à
+valider contre le seuil d'entrée de l'automate** avant de le retenir.
+
+### ⚠️ Isolation : le convertisseur isolé et l'étage à MOSFET se contredisent
+
+Le `TDN 5-2411WISM` est un convertisseur **isolé 1,5 kV** — le poste le plus
+cher de la carte. Or les MOSFET de sortie tirent les lignes de l'automate vers
+**la masse de la carte** : il y a donc bien une masse commune avec l'automate,
+et l'isolation galvanique n'existe pas au niveau des signaux.
+
+Deux lectures possibles, et il faut trancher :
+
+- **l'isolation sert à découpler le 24 V de l'AGV du rail logique** (bruit,
+  transitoires du chariot). Elle est alors justifiée, et le convertisseur reste ;
+- **l'isolation était censée s'appliquer aux signaux.** Dans ce cas elle est
+  inopérante, et un `TSR 1-2450` non isolé à ~8,40 € remplacerait le `TDN` — soit
+  **21,60 € d'économie** sur la ligne la plus chère de la carte.
+
+### ⚠️ Le 6 V du `L7806CV` alimente un microcontrôleur prévu pour 5,5 V
+
+Rappel de [`docs/subd25_atmega.md`](docs/subd25_atmega.md) : 6,0 V est le
+**maximum absolu** de l'ATmega2560. Le `TDN` fournit déjà un 5 V propre sur la
+carte. Si le Mega peut être alimenté depuis ce 5 V, le `L7806CV` devient inutile
+et le microcontrôleur revient dans sa plage recommandée.
+
+À vérifier au schéma : le 6 V va-t-il sur `Vin` du module Mega — auquel cas il
+est *trop bas* pour son régulateur — ou directement sur `V_CC` ?
 
 
 ---

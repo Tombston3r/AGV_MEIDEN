@@ -148,8 +148,9 @@ bouton_a1.add("Module LoRa 868 MHz", "RFM95W-868S2 (HopeRF)", 1, "Amazon", 10.00
 bouton_a1.add("Antenne 868 MHz + embase SMA", "Siretta ALPHA-1A ou équiv.", 1, "RS", 6.00)
 bouton_a1.add("Bouton poussoir Ø22 IP65", "Schneider XB4BA31 ou équiv.", 1, "RS", 12.00)
 bouton_a1.add("Pile Li-SOCl₂ 3,6 V 2,6 Ah + support", "ER14505 / Saft LS14500", 1, "RS", 6.00)
-bouton_a1.add("Convertisseur buck ultra-basse conso", "TPS62740DSSR (TI)", 1, "RS", 2.00)
+bouton_a1.add("Réservoir d'impulsion pour l'émission LoRa", "220 µF tantale + 10 µF X7R", 1, "RS", 0.60)
 bouton_a1.add("LED bicolore verte/rouge + résistances", "Kingbright L-59EGW", 1, "RS", 1.00)
+bouton_a1.add("Diode Schottky de protection pile", "BAT54 ou équiv.", 1, "RS", 0.20)
 bouton_a1.add("PCB 2 couches ~50 × 50 mm", "Gerber projet", 1, "PCB", 3.00)
 bouton_a1.add("Boîtier IP65, presse-étoupe, embase antenne", "Fibox PC 095808 ou équiv.", 1, "RS", 18.00)
 
@@ -347,6 +348,55 @@ for n in (2, 4, 6, 8, 12):
     win = "**A1**" if a1 < a3 else ("**A3**" if a3 < a1 else "égalité")
     cross.append(f"| {n} | {eur(a1)} | {eur(a3)} | {win} |")
 
+# Repères chiffrés cités dans l'analyse critique.
+gain = eur((2.00 - 0.60) * TVA)     # TPS62740 remplacé par un réservoir capacitif
+bat  = eur(0.20 * TVA)              # diode Schottky de protection pile
+
+ANALYSE_LORA = f"""---
+
+## Analyse critique de cette nomenclature
+
+### ✅ Corrigé — le convertisseur du bouton était inutile
+
+La nomenclature d'étude prévoyait un `TPS62740` (buck ultra-basse consommation)
+entre la pile et l'électronique. Il n'a pas lieu d'être : une pile Li-SOCl₂
+délivre **3,6 V**, et les deux consommateurs l'acceptent directement —
+`STM32L071` de 1,65 à 3,6 V, `RFM95W` de 1,8 à 3,7 V. Le convertisseur ajoutait
+un composant, un courant de repos et un mode de panne, pour rien.
+
+Le vrai besoin est ailleurs : une cellule Li-SOCl₂ a une **impédance interne
+élevée**, et l'émission LoRa tire ~120 mA pendant quelques centaines de
+millisecondes. Sans réservoir, la tension s'effondre et le microcontrôleur
+redémarre — panne classique, et intermittente, donc pénible à diagnostiquer.
+
+`TPS62740` remplacé par **220 µF tantale + 10 µF X7R** : {gain} d'économie, un
+composant de moins, et le problème réellement traité.
+
+Une diode Schottky est ajoutée en protection de la pile — {bat} — contre une
+inversion au remplacement.
+
+### ⚠️ À vérifier — la limitation de courant des optocoupleurs
+
+Les 43 voies passent par 11 `PC847`. Chaque canal a besoin d'une **résistance de
+limitation** dimensionnée pour la tension réelle des lignes — inconnue tant que
+§12.1 n'est pas mesuré. Elles sont pour l'instant noyées dans la ligne
+« résistances, découplages » : à sortir en ligne explicite une fois la tension
+connue, car 43 résistances de valeur précise, ce n'est plus un forfait.
+
+### ⚠️ À vérifier — l'autonomie annoncée
+
+5 à 8 ans sur une `ER14505` de 2,6 Ah suppose un sommeil profond sous 2 µA et
+quelques appuis par jour. **À mesurer au banc** (phase 7 de `DEPLOY.md`) : un
+courant de repos de 20 µA au lieu de 2 divise l'autonomie par cinq, et
+transforme une maintenance décennale en corvée annuelle.
+
+### ✅ Confirmé — la variante `shift595` reste le bon choix
+
+3 € contre 10 € pour les `MCP23017`, et une pose strictement simultanée par
+latch commun. Aucune raison de payer plus cher pour un résultat temporel
+inférieur.
+"""
+
 LORA_EXTRA = f"""---
 
 {r1}
@@ -446,7 +496,7 @@ l'antenne, la puissance d'émission et le nombre de nœuds.
 
 write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/LoRa/BOM.md",
       "architecture LoRa 868 MHz (carte neuve)", "../COMPARAISON.md",
-      LORA_SECTIONS, LORA_EXTRA)
+      LORA_SECTIONS, LORA_EXTRA + ANALYSE_LORA)
 print(f"A1 = {a1_ht:.2f} HT / {a1_ht*TVA:.2f} TTC ; A3 = {a3_ht:.2f} HT / {a3_ht*TVA:.2f} TTC")
 
 # --- Wi-Fi ------------------------------------------------------------------
@@ -457,6 +507,72 @@ rw, _ = recap([("Carte AGV (nomenclature KiCad)", w_carte.ht, True),
                ("Poste fixe UniPi", w_poste.ht, False),
                ("2 boutons EnOcean", w_boutons.ht, False),
                ("Outillage", w_outil.ht, False)])
+
+# Alternatives à l'étage de sortie de la carte routée.
+irf = eur(23 * 0.60 * TVA)          # IRF520 ×23, tel que routé
+irl = eur(23 * 1.10 * TVA)          # IRL520 ×23, version logic-level, même brochage
+uln = eur(3 * 1.20 * TVA)           # ULN2803A ×3, réseau Darlington
+tsr = eur(7.00 * TVA)               # TSR 1-2450 non isolé
+eco = eur((25.00 - 7.00) * TVA)     # économie si l'isolation n'est pas requise
+
+ANALYSE_WIFI = f"""---
+
+## Analyse critique de la carte routée
+
+Trois observations issues du projet KiCad. Aucune ne remet en cause le routage,
+mais deux méritent une décision avant fabrication.
+
+### ⚠️ L'`IRF520` n'est pas un MOSFET « logic-level »
+
+Sa tension de seuil est spécifiée **de 2 à 4 V**, et son `Rds(on)` est garanti à
+**Vgs = 10 V**. Attaqué par une broche à 5 V, il conduit — mais hors des
+conditions du constructeur, et avec une résistance à l'état passant très
+supérieure à celle annoncée.
+
+**Pour les courants en jeu, quelques milliampères sur une entrée d'automate,
+cela fonctionne.** La chute de tension reste négligeable même à 10 Ω. Ce n'est
+donc pas un défaut bloquant — c'est un choix hors spécification, qu'il faut
+connaître avant de l'attribuer à autre chose le jour où une voie se comporte mal
+en température.
+
+Si le PCB n'est pas encore fabriqué, deux alternatives valent d'être pesées :
+
+| Solution | Coût | Surface | Remarque |
+|---|---:|---|---|
+| `IRF520` ×23 (actuel) | ~{irf} | **23 boîtiers TO-220** | Hors spec à 5 V, très encombrant |
+| `IRL520` ×23 | ~{irl} | idem | Version **logic-level** du même composant, brochage identique — **substitution sans reroutage** |
+| `ULN2803A` ×3 | ~{uln} | 3 boîtiers DIP-18 | Réseau Darlington à collecteur ouvert : même fonction, **résistances de grille supprimées**, surface divisée par dix |
+
+L'`IRL520` est le changement le moins risqué : même boîtier, même brochage,
+aucune modification du circuit. L'`ULN2803A` est le plus rationnel si le
+routage peut encore bouger, mais il sature à ~1,1 V au lieu de ~0,1 V : **à
+valider contre le seuil d'entrée de l'automate** avant de le retenir.
+
+### ⚠️ Isolation : le convertisseur isolé et l'étage à MOSFET se contredisent
+
+Le `TDN 5-2411WISM` est un convertisseur **isolé 1,5 kV** — le poste le plus
+cher de la carte. Or les MOSFET de sortie tirent les lignes de l'automate vers
+**la masse de la carte** : il y a donc bien une masse commune avec l'automate,
+et l'isolation galvanique n'existe pas au niveau des signaux.
+
+Deux lectures possibles, et il faut trancher :
+
+- **l'isolation sert à découpler le 24 V de l'AGV du rail logique** (bruit,
+  transitoires du chariot). Elle est alors justifiée, et le convertisseur reste ;
+- **l'isolation était censée s'appliquer aux signaux.** Dans ce cas elle est
+  inopérante, et un `TSR 1-2450` non isolé à ~{tsr} remplacerait le `TDN` — soit
+  **{eco} d'économie** sur la ligne la plus chère de la carte.
+
+### ⚠️ Le 6 V du `L7806CV` alimente un microcontrôleur prévu pour 5,5 V
+
+Rappel de [`docs/subd25_atmega.md`](docs/subd25_atmega.md) : 6,0 V est le
+**maximum absolu** de l'ATmega2560. Le `TDN` fournit déjà un 5 V propre sur la
+carte. Si le Mega peut être alimenté depuis ce 5 V, le `L7806CV` devient inutile
+et le microcontrôleur revient dans sa plage recommandée.
+
+À vérifier au schéma : le 6 V va-t-il sur `Vin` du module Mega — auquel cas il
+est *trop bas* pour son régulateur — ou directement sur `V_CC` ?
+"""
 
 WIFI_EXTRA = f"""---
 
@@ -619,7 +735,7 @@ change la nomenclature.
 
 write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/Wifi/BOM.md",
       "architecture Wi-Fi (carte V5.0.1 conservée)", "../COMPARAISON.md",
-      WIFI_SECTIONS, WIFI_EXTRA)
+      WIFI_SECTIONS, WIFI_EXTRA + ANALYSE_WIFI)
 
 # --- SMS + EnOcean ----------------------------------------------------------
 s_carte595 = s_carte.ht + bus595.ht
@@ -630,6 +746,54 @@ rs_, _ = recap([("Carte AGV (variante `shift595`)", s_carte595, False),
                 ("2 boutons EnOcean", s_boutons.ht, False),
                 ("Outillage", s_outil.ht, False)],
                "Récapitulatif — variante B (LTE-M / MQTT), poste ESP32")
+
+poste_esp = eur(s_poste_esp.ht * TVA)
+# Modem + antenne + support SIM du poste, inutiles s'il est raccordé en Ethernet.
+eco_sim = eur((18.00 + 12.00 + 3.00) * TVA)
+
+ANALYSE_SMS = f"""---
+
+## Analyse critique de cette nomenclature
+
+### ✅ Corrigé — le réservoir capacitif était dimensionné pour le mauvais modem
+
+La nomenclature d'étude annonçait des pics de **2 A**. C'est la valeur d'un
+`SIM7600E-H` (LTE Cat-1), retenu dans la **variante SMS**. Le `SIM7080G` de la
+variante recommandée est un modem **LTE-M / NB-IoT** : ses pics d'émission sont
+de l'ordre de **0,5 à 0,7 A**.
+
+La ligne reste — un réservoir est nécessaire — mais son dimensionnement change,
+et il ne faut pas surdimensionner l'alimentation pour un besoin qui n'existe
+pas. À confirmer sur la fiche technique du modem effectivement commandé.
+
+### ⚠️ Le poste UniPi porte des entrées inutilisées
+
+Même constat que dans l'architecture Wi-Fi : les boutons sont **EnOcean**, donc
+`agv_poste/io_backend.py` n'est pas utilisé. L'option A (poste ESP32 à
+{poste_esp}) reste la plus cohérente.
+
+Une passerelle **Unipi Gate G100** ne convient pas ici : elle n'a **pas de modem
+cellulaire**, et son unique port USB serait déjà pris par le récepteur EnOcean.
+Le seul modèle pertinent de la gamme reste l'`E413` en **variante LTE**, dont il
+faut d'abord confirmer l'existence au catalogue.
+
+### ⚠️ À vérifier — la limitation de courant des optocoupleurs
+
+Comme pour l'architecture LoRa : 43 canaux de `PC847` demandent 43 résistances
+de limitation dimensionnées pour la tension réelle des lignes (§12.1). À sortir
+du forfait « passifs » une fois la mesure faite.
+
+### ⚠️ Deux antennes cellulaires, deux abonnements
+
+L'AGV **et** le poste portent chacun un `SIM7080G` et une SIM. C'est ce qui
+double le coût récurrent. Si le poste dispose d'un raccordement Ethernet — ce
+qui est le cas dès qu'il est dans un local technique — **son modem est inutile**
+et il parle au broker par le réseau filaire : {eco_sim} de matériel et la moitié
+du récurrent en moins.
+
+C'est probablement l'économie la plus simple de cette architecture, et elle n'a
+aucune contrepartie technique.
+"""
 
 SMS_EXTRA = f"""---
 
@@ -734,7 +898,7 @@ d'interface bus conditionne le routage du PCB.
 
 write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/SMS_EnOcean/BOM.md",
       "architecture SMS + EnOcean (carte neuve)", "../COMPARAISON.md",
-      [s_carte, bus595, busmcp, s_poste_esp, s_poste_unipi, s_boutons, s_outil], SMS_EXTRA)
+      [s_carte, bus595, busmcp, s_poste_esp, s_poste_unipi, s_boutons, s_outil], SMS_EXTRA + ANALYSE_SMS)
 
 print()
 print("=== TOTAUX (HT / TTC) ===")

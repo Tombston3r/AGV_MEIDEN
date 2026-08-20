@@ -84,11 +84,12 @@ c'est le retour arrière de cette architecture.
 | Antenne 868 MHz + embase SMA | `Siretta ALPHA-1A ou équiv.` | 1 | RS | ☐ | ☐ | ☐ | *7,20 €* |
 | Bouton poussoir Ø22 IP65 | `Schneider XB4BA31 ou équiv.` | 1 | RS | ☐ | ☐ | ☐ | *14,40 €* |
 | Pile Li-SOCl₂ 3,6 V 2,6 Ah + support | `ER14505 / Saft LS14500` | 1 | RS | ☐ | ☐ | ☐ | *7,20 €* |
-| Convertisseur buck ultra-basse conso | `TPS62740DSSR (TI)` | 1 | RS | ☐ | ☐ | ☐ | *2,40 €* |
+| Réservoir d'impulsion pour l'émission LoRa | `220 µF tantale + 10 µF X7R` | 1 | RS | ☐ | ☐ | ☐ | *0,72 €* |
 | LED bicolore verte/rouge + résistances | `Kingbright L-59EGW` | 1 | RS | ☐ | ☐ | ☐ | *1,20 €* |
+| Diode Schottky de protection pile | `BAT54 ou équiv.` | 1 | RS | ☐ | ☐ | ☐ | *0,24 €* |
 | PCB 2 couches ~50 × 50 mm | `Gerber projet` | 1 | PCB | ☐ | ☐ | ☐ | *3,60 €* |
 | Boîtier IP65, presse-étoupe, embase antenne | `Fibox PC 095808 ou équiv.` | 1 | RS | ☐ | ☐ | ☐ | *21,60 €* |
-| **Sous-total** | | | | | | **☐** | ***73,80 €*** |
+| **Sous-total** | | | | | | **☐** | ***72,36 €*** |
 
 ### **[A3]** Poste fixe EnOcean → LoRa
 
@@ -134,9 +135,9 @@ c'est le retour arrière de cette architecture.
 | Poste | Total TTC relevé | *Repère TTC* | *Repère HT* |
 |---|---:|---:|---:|
 | Carte AGV (variante `shift595`) | ☐ | *117,84 €* | *98,20 €* |
-| 2 boutons sur pile | ☐ | *147,60 €* | *123,00 €* |
+| 2 boutons sur pile | ☐ | *144,72 €* | *120,60 €* |
 | Outillage | ☐ | *72,00 €* | *60,00 €* |
-| **TOTAL** | **☐** | ***337,44 €*** | ***281,20 €*** |
+| **TOTAL** | **☐** | ***334,56 €*** | ***278,80 €*** |
 
 ## Récapitulatif — variante A3 (EnOcean + LoRa)
 
@@ -188,21 +189,21 @@ par l'émetteur LoRa se traduirait par des appuis perdus, silencieusement.
 
 | Stations | A1 (TTC) | A3 (TTC) | Moins cher |
 |---:|---:|---:|---|
-| 2 | 337,44 € | 453,24 € | **A1** |
-| 4 | 485,04 € | 563,64 € | **A1** |
-| 6 | 632,64 € | 674,04 € | **A1** |
-| 8 | 780,24 € | 784,44 € | **A1** |
-| 12 | 1 075,44 € | 1 005,24 € | **A3** |
+| 2 | 334,56 € | 453,24 € | **A1** |
+| 4 | 479,28 € | 563,64 € | **A1** |
+| 6 | 624,00 € | 674,04 € | **A1** |
+| 8 | 768,72 € | 784,44 € | **A1** |
+| 12 | 1 058,16 € | 1 005,24 € | **A3** |
 
 Le point de bascule est à **8 stations**. En dessous, A1 coûte moins **et**
 rend un accusé visuel à l'opérateur. Au-delà, A3 prend l'avantage grâce à des
-boutons à 55,20 € au lieu de 73,80 €, et supprime les piles.
+boutons à 55,20 € au lieu de 72,36 €, et supprime les piles.
 
 ### Coût par station supplémentaire
 
 | | TTC | HT |
 |---|---:|---:|
-| **[A1]** bouton sur pile | **73,80 €** | 61,50 € |
+| **[A1]** bouton sur pile | **72,36 €** | 60,30 € |
 | **[A3]** bouton PTM 210 | **55,20 €** | 46,00 € |
 
 ### Coûts récurrents
@@ -243,6 +244,49 @@ l'antenne, la puissance d'émission et le nombre de nœuds.
 - **La carte de rechange** : ~117,84 € pour un échange standard. Recommandé.
 - **Un éventuel relais LoRa** si le relevé révèle une zone morte : ~48,00 €,
   mais surtout une complexité applicative hors périmètre actuel.
+---
+
+## Analyse critique de cette nomenclature
+
+### ✅ Corrigé — le convertisseur du bouton était inutile
+
+La nomenclature d'étude prévoyait un `TPS62740` (buck ultra-basse consommation)
+entre la pile et l'électronique. Il n'a pas lieu d'être : une pile Li-SOCl₂
+délivre **3,6 V**, et les deux consommateurs l'acceptent directement —
+`STM32L071` de 1,65 à 3,6 V, `RFM95W` de 1,8 à 3,7 V. Le convertisseur ajoutait
+un composant, un courant de repos et un mode de panne, pour rien.
+
+Le vrai besoin est ailleurs : une cellule Li-SOCl₂ a une **impédance interne
+élevée**, et l'émission LoRa tire ~120 mA pendant quelques centaines de
+millisecondes. Sans réservoir, la tension s'effondre et le microcontrôleur
+redémarre — panne classique, et intermittente, donc pénible à diagnostiquer.
+
+`TPS62740` remplacé par **220 µF tantale + 10 µF X7R** : 1,68 € d'économie, un
+composant de moins, et le problème réellement traité.
+
+Une diode Schottky est ajoutée en protection de la pile — 0,24 € — contre une
+inversion au remplacement.
+
+### ⚠️ À vérifier — la limitation de courant des optocoupleurs
+
+Les 43 voies passent par 11 `PC847`. Chaque canal a besoin d'une **résistance de
+limitation** dimensionnée pour la tension réelle des lignes — inconnue tant que
+§12.1 n'est pas mesuré. Elles sont pour l'instant noyées dans la ligne
+« résistances, découplages » : à sortir en ligne explicite une fois la tension
+connue, car 43 résistances de valeur précise, ce n'est plus un forfait.
+
+### ⚠️ À vérifier — l'autonomie annoncée
+
+5 à 8 ans sur une `ER14505` de 2,6 Ah suppose un sommeil profond sous 2 µA et
+quelques appuis par jour. **À mesurer au banc** (phase 7 de `DEPLOY.md`) : un
+courant de repos de 20 µA au lieu de 2 divise l'autonomie par cinq, et
+transforme une maintenance décennale en corvée annuelle.
+
+### ✅ Confirmé — la variante `shift595` reste le bon choix
+
+3 € contre 10 € pour les `MCP23017`, et une pose strictement simultanée par
+latch commun. Aucune raison de payer plus cher pour un résultat temporel
+inférieur.
 
 
 ---
