@@ -1,4 +1,4 @@
-# Email de commande — architecture LoRa (variante A1)
+# Email de commande — architecture LoRa, variante A1 (LoRa homogène)
 
 > Variante **A1**, deux points d'appel. Les quantités couvrent **une carte AGV
 > et deux boutons**. Le PCB et l'outillage sont hors de cette demande : le

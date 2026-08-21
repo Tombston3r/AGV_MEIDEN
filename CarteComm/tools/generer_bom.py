@@ -472,9 +472,18 @@ LORA_EXTRA = f"""---
 {r3}
 ## Demande de prix prête à envoyer
 
-[`email_commande.md`](email_commande.md) reprend cette nomenclature en
-**variante A1, une carte et deux boutons**, sous forme de courrier — avec
-l'explication du système en trois phrases et les substitutions acceptées.
+Les deux variantes ont leur courrier, en quantités réelles et non plus en
+sous-totaux unitaires, avec l'explication du système en trois phrases et les
+substitutions acceptées :
+
+| Courrier | Ce qu'il commande |
+|---|---|
+| [`email_commande_A1.md`](email_commande_A1.md) | Une carte embarquée, **deux boutons sur pile** |
+| [`email_commande_A3.md`](email_commande_A3.md) | Une carte embarquée, **un poste fixe**, deux boutons **EnOcean sans pile** |
+
+Le second signale que la version **EU 868 MHz** du `PTM 210` est impérative :
+les déclinaisons 902 et 928 MHz ne sont pas utilisables en France, et rien dans
+la désignation ne les distingue au premier coup d'œil.
 
 ### Pourquoi pas un Unipi Gate pour ce poste ?
 
