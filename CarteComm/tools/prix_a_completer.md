@@ -5,6 +5,12 @@
 >
 > Remplir la colonne **`PU TTC`**. Le reste se recalcule tout seul.
 >
+> La colonne **`Lien d'achat`** lance une **recherche** sur la référence chez le
+> distributeur, RS en premier partout. Ce ne sont pas des fiches produit : le
+> site de RS bloque l'accès automatisé, aucun numéro de stock n'a pu être
+> vérifié. Un lien secondaire n'apparaît que là où RS ne distribue
+> habituellement pas la référence.
+>
 > `Qté` = quantité **maximale** nécessaire, toutes architectures confondues.
 > C'est ce qui compte pour choisir le bon conditionnement.
 
@@ -15,91 +21,91 @@ matériel. Si le temps manque, faire celles-là d'abord.
 
 ## 1. Modules et microcontrôleurs
 
-| ⭐ | Réf. à rechercher | Désignation | Qté | Source | *Repère HT* | **PU TTC** |
+| ⭐ | Réf. à rechercher | Désignation | Qté | Lien d'achat | *Repère HT* | **PU TTC** |
 |:-:|---|---|---:|---|---:|---|
-| ⭐ | `Unipi Gate G100` | Passerelle Linux DIN, 2× Eth, USB, RS485 | 1 | Unipi / revendeur | *200,00 €* | |
-| | `Unipi Gate G110` | Idem + 2ᵉ port RS485 isolé | 1 | Unipi / revendeur | *224,00 €* | |
-| | `UniPi E413` **si le modèle existe encore** | Automate à E/S — pour comparaison | 1 | UniPi / revendeur | *375,00 €* | |
-| ⭐ | `UniPi E413` **variante LTE** | Idem, avec modem LTE intégré | 1 | UniPi / revendeur | *350,00 €* | |
-| ⭐ | `Mega2560 Pro` (clone, format compact) | Module MCU du projet KiCad | 1 | Amazon | *18,00 €* | |
-| ⭐ | `ESP32-DEVKITC-32D-F` | Module Wi-Fi/BT sur support | 1 | RS | *12,00 €* | |
-| | `ESP32-WROOM-32E-N8` | Module MCU nu, 8 Mo flash | 2 | RS | *5,00 €* | |
-| | `STM32L071KBU6` | MCU ultra-basse conso (bouton LoRa) | 1 | RS | *3,50 €* | |
+| ⭐ | `Unipi Gate G100` | Passerelle Linux DIN, 2× Eth, USB, RS485 | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Unipi+Gate+G100) · [Unipi](https://www.unipi.technology/search?query=Unipi+Gate+G100) | *200,00 €* | |
+| | `Unipi Gate G110` | Idem + 2ᵉ port RS485 isolé | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Unipi+Gate+G110) · [Unipi](https://www.unipi.technology/search?query=Unipi+Gate+G110) | *224,00 €* | |
+| | `UniPi E413` **si le modèle existe encore** | Automate à E/S — pour comparaison | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=UniPi+E413) · [Unipi](https://www.unipi.technology/search?query=E413) | *375,00 €* | |
+| ⭐ | `UniPi E413` **variante LTE** | Idem, avec modem LTE intégré | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=UniPi+E413) · [Unipi](https://www.unipi.technology/search?query=E413) | *350,00 €* | |
+| ⭐ | `Mega2560 Pro` (clone, format compact) | Module MCU du projet KiCad | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Mega2560+Pro) · [Amazon](https://www.amazon.fr/s?k=Mega2560+Pro) | *18,00 €* | |
+| ⭐ | `ESP32-DEVKITC-32D-F` | Module Wi-Fi/BT sur support | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ESP32-DEVKITC-32D-F) | *12,00 €* | |
+| | `ESP32-WROOM-32E-N8` | Module MCU nu, 8 Mo flash | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ESP32-WROOM-32E-N8) | *5,00 €* | |
+| | `STM32L071KBU6` | MCU ultra-basse conso (bouton LoRa) | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=STM32L071KBU6) | *3,50 €* | |
 
 ## 2. Radio et antennes
 
-| ⭐ | Réf. à rechercher | Désignation | Qté | Source | *Repère HT* | **PU TTC** |
+| ⭐ | Réf. à rechercher | Désignation | Qté | Lien d'achat | *Repère HT* | **PU TTC** |
 |:-:|---|---|---:|---|---:|---|
-| ⭐ | `PTM 210` EnOcean, EU 868 MHz | Émetteur auto-alimenté, sans pile | 2 | Distributeur EnOcean | *30,00 €* | |
-| ⭐ | `TCM 515` EnOcean, EU 868 MHz | Récepteur UART ESP3 | 1 | Distributeur EnOcean | *28,00 €* | |
-| ⭐ | `SIM7080G` (SIMCom) | Modem LTE-M / NB-IoT | 2 | Amazon | *18,00 €* | |
-| ⭐ | `RFM95W-868S2` (HopeRF) | Module LoRa SX1276 868 MHz | 3 | Amazon | *10,00 €* | |
-| | Enveloppe murale pour `PTM 210` | Eltako, NodOn ou Trio2Sys | 2 | Distributeur EnOcean | *12,00 €* | |
-| | Antenne EnOcean 868 MHz déportée | `ANT300` ou équivalent | 1 | Distributeur EnOcean | *10,00 €* | |
-| | Antenne LoRa 868 MHz 2 dBi SMA | `Siretta ALPHA-1A` ou équiv. | 3 | RS | *6,00 €* | |
-| | Antenne Wi-Fi 2,4 GHz 2 dBi SMA | `Siretta DELTA-6A` ou équiv. | 1 | RS | *18,00 €* | |
-| | Antenne LTE 4 dBi SMA déportée | `Siretta ECHO-9` ou équiv. | 2 | RS | *15,00 €* | |
-| | Pigtail U.FL → SMA + passe-cloison | `Amphenol 336312-24-0100` | 4 | RS | *3,00 €* | |
+| ⭐ | `PTM 210` EnOcean, EU 868 MHz | Émetteur auto-alimenté, sans pile | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=PTM+210) · [Mouser](https://www.mouser.fr/c/?q=PTM+210) | *30,00 €* | |
+| ⭐ | `TCM 515` EnOcean, EU 868 MHz | Récepteur UART ESP3 | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TCM+515) · [Mouser](https://www.mouser.fr/c/?q=TCM+515) | *28,00 €* | |
+| ⭐ | `SIM7080G` (SIMCom) | Modem LTE-M / NB-IoT | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SIM7080G) · [Amazon](https://www.amazon.fr/s?k=SIM7080G) | *18,00 €* | |
+| ⭐ | `RFM95W-868S2` (HopeRF) | Module LoRa SX1276 868 MHz | 3 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RFM95W-868S2) · [Amazon](https://www.amazon.fr/s?k=RFM95W-868S2) | *10,00 €* | |
+| | Enveloppe murale pour `PTM 210` | Eltako, NodOn ou Trio2Sys | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=PTM+210) · [Mouser](https://www.mouser.fr/c/?q=PTM+210) | *12,00 €* | |
+| | Antenne EnOcean 868 MHz déportée | `ANT300` ou équivalent | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ANT300) · [Mouser](https://www.mouser.fr/c/?q=ANT300) | *10,00 €* | |
+| | Antenne LoRa 868 MHz 2 dBi SMA | `Siretta ALPHA-1A` ou équiv. | 3 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Siretta+ALPHA-1A) | *6,00 €* | |
+| | Antenne Wi-Fi 2,4 GHz 2 dBi SMA | `Siretta DELTA-6A` ou équiv. | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Siretta+DELTA-6A) | *18,00 €* | |
+| | Antenne LTE 4 dBi SMA déportée | `Siretta ECHO-9` ou équiv. | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Siretta+ECHO-9) | *15,00 €* | |
+| | Pigtail U.FL → SMA + passe-cloison | `Amphenol 336312-24-0100` | 4 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+336312-24-0100) | *3,00 €* | |
 
 ## 3. Étage de sortie et interface bus
 
-| ⭐ | Réf. à rechercher | Désignation | Qté | Source | *Repère HT* | **PU TTC** |
+| ⭐ | Réf. à rechercher | Désignation | Qté | Lien d'achat | *Repère HT* | **PU TTC** |
 |:-:|---|---|---:|---|---:|---|
-| ⭐ | `IRF520` (Vishay, TO-220) | MOSFET N canal — étage de sortie | 23 | RS | *0,60 €* | |
-| ⭐ | `PC847` (Sharp) | Optocoupleur quadruple | 11 | RS | *0,60 €* | |
-| | `SN74HC595N` (TI, DIP-16) | Registre à décalage, sortie | 3 | RS | *0,50 €* | |
-| | `SN74HC165N` (TI, DIP-16) | Registre à décalage, entrée | 3 | RS | *0,50 €* | |
-| | `MCP23017-E/SP` (Microchip) | Expandeur I²C 16 GPIO (variante) | 4 | RS | *2,50 €* | |
-| | Résistance 1 kΩ THT 1 % (0411) | Grilles des MOSFET | 25 | RS | *0,05 €* | |
+| ⭐ | `IRF520` (Vishay, TO-220) | MOSFET N canal — étage de sortie | 23 | [RS](https://fr.rs-online.com/web/c/?searchTerm=IRF520) | *0,60 €* | |
+| ⭐ | `PC847` (Sharp) | Optocoupleur quadruple | 11 | [RS](https://fr.rs-online.com/web/c/?searchTerm=PC847) | *0,60 €* | |
+| | `SN74HC595N` (TI, DIP-16) | Registre à décalage, sortie | 3 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SN74HC595N) | *0,50 €* | |
+| | `SN74HC165N` (TI, DIP-16) | Registre à décalage, entrée | 3 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SN74HC165N) | *0,50 €* | |
+| | `MCP23017-E/SP` (Microchip) | Expandeur I²C 16 GPIO (variante) | 4 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MCP23017-E%2FSP) | *2,50 €* | |
+| | Résistance 1 kΩ THT 1 % (0411) | Grilles des MOSFET | 25 | [RS](https://fr.rs-online.com/web/c/?searchTerm=R%C3%A9sistance+1+k%CE%A9+THT+1+%25) | *0,05 €* | |
 
 ## 4. Alimentation
 
-| ⭐ | Réf. à rechercher | Désignation | Qté | Source | *Repère HT* | **PU TTC** |
+| ⭐ | Réf. à rechercher | Désignation | Qté | Lien d'achat | *Repère HT* | **PU TTC** |
 |:-:|---|---|---:|---|---:|---|
-| ⭐ | `TDN 5-2411WISM` (Traco Power) | DC/DC **isolé** 24 V → 5 V, 5 W | 1 | RS | *25,00 €* | |
-| ⭐ | `HDR-15-24` (MEAN WELL) | Alim. rail DIN 230 V → 24 V 15 W | 1 | RS | *14,00 €* | |
-| | `TSR 1-2450` (Traco Power) | DC/DC 24 V → 5 V 1 A non isolé | 2 | RS | *7,00 €* | |
-| | `L7806CV` (ST) | Régulateur 6 V TO-220 | 1 | RS | *0,90 €* | |
-| | `AP2112K-3.3TRG1` (Diodes Inc) | LDO 3,3 V 600 mA | 2 | RS | *0,60 €* | |
-| | `220 µF tantale + 10 µF X7R` | Réservoir d'impulsion émission LoRa (bouton) | 1 | RS | *0,50 €* | |
-| | `BAT54` | Schottky de protection pile (bouton) | 1 | RS | *0,17 €* | |
-| | `ULN2803A` | **Alternative** à 23× IRF520 — étage de sortie Wi-Fi | 3 | RS | *1,20 €* | |
-| | `IRL520N` | **Alternative** logic-level, même brochage que l'IRF520 | 23 | RS | *1,10 €* | |
-| | `SMBJ33A` (Littelfuse) | Diode TVS 33 V | 2 | RS | *0,50 €* | |
-| | `ER14505` ou `LS14500` (Saft) | Pile Li-SOCl₂ 3,6 V AA + support | 1 | RS | *6,00 €* | |
+| ⭐ | `TDN 5-2411WISM` (Traco Power) | DC/DC **isolé** 24 V → 5 V, 5 W | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TDN+5-2411WISM) | *25,00 €* | |
+| ⭐ | `HDR-15-24` (MEAN WELL) | Alim. rail DIN 230 V → 24 V 15 W | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=HDR-15-24) | *14,00 €* | |
+| | `TSR 1-2450` (Traco Power) | DC/DC 24 V → 5 V 1 A non isolé | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TSR+1-2450) | *7,00 €* | |
+| | `L7806CV` (ST) | Régulateur 6 V TO-220 | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=L7806CV) | *0,90 €* | |
+| | `AP2112K-3.3TRG1` (Diodes Inc) | LDO 3,3 V 600 mA | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=AP2112K-3.3TRG1) | *0,60 €* | |
+| | `220 µF tantale + 10 µF X7R` | Réservoir d'impulsion émission LoRa (bouton) | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=220+%C2%B5F+tantale+%2B+10+%C2%B5F+X7R) | *0,50 €* | |
+| | `BAT54` | Schottky de protection pile (bouton) | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=BAT54) | *0,17 €* | |
+| | `ULN2803A` | **Alternative** à 23× IRF520 — étage de sortie Wi-Fi | 3 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ULN2803A) | *1,20 €* | |
+| | `IRL520N` | **Alternative** logic-level, même brochage que l'IRF520 | 23 | [RS](https://fr.rs-online.com/web/c/?searchTerm=IRL520N) | *1,10 €* | |
+| | `SMBJ33A` (Littelfuse) | Diode TVS 33 V | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SMBJ33A) | *0,50 €* | |
+| | `ER14505` ou `LS14500` (Saft) | Pile Li-SOCl₂ 3,6 V AA + support | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ER14505) | *6,00 €* | |
 
 ## 5. Connectique
 
-| ⭐ | Réf. à rechercher | Désignation | Qté | Source | *Repère HT* | **PU TTC** |
+| ⭐ | Réf. à rechercher | Désignation | Qté | Lien d'achat | *Repère HT* | **PU TTC** |
 |:-:|---|---|---:|---|---:|---|
-| | `DB25P564CTXLF` (Amphenol) | SUB-D 25 mâle, coudé CI | 1 | RS | *6,00 €* | |
-| | `DB25S564GTLF` (Amphenol) | SUB-D 25 femelle, coudé CI | 1 | RS | *6,00 €* | |
-| | SUB-D 25 mâle **IDC** (nappe) | `Amphenol L17D25P` ou équiv. | 1 | RS | *4,00 €* | |
-| | SUB-D 25 femelle **IDC** (nappe) | `Amphenol L17D25S` ou équiv. | 1 | RS | *4,00 €* | |
-| | Capot SUB-D 25 métallisé | `Amphenol 17E-1726-2` ou équiv. | 2 | RS | *3,50 €* | |
-| | Nappe 25 conducteurs, au mètre | `3M 3365/25` ou équiv. | 2 m | RS | *6,00 €* | |
-| | `WIZ850io` (WIZnet) | Module Ethernet W5500 + RJ45 | 1 | RS | *6,00 €* | |
-| | ILS (reed) + aimant | `Standex KSK-1A66` ou équiv. | 1 | RS | *2,00 €* | |
-| | Bouton poussoir Ø22 IP65 | `Schneider XB4BA31` ou équiv. | 1 | RS | *12,00 €* | |
+| | `DB25P564CTXLF` (Amphenol) | SUB-D 25 mâle, coudé CI | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=DB25P564CTXLF) | *6,00 €* | |
+| | `DB25S564GTLF` (Amphenol) | SUB-D 25 femelle, coudé CI | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=DB25S564GTLF) | *6,00 €* | |
+| | SUB-D 25 mâle **IDC** (nappe) | `Amphenol L17D25P` ou équiv. | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+L17D25P) | *4,00 €* | |
+| | SUB-D 25 femelle **IDC** (nappe) | `Amphenol L17D25S` ou équiv. | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+L17D25S) | *4,00 €* | |
+| | Capot SUB-D 25 métallisé | `Amphenol 17E-1726-2` ou équiv. | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+17E-1726-2) | *3,50 €* | |
+| | Nappe 25 conducteurs, au mètre | `3M 3365/25` ou équiv. | 2 m | [RS](https://fr.rs-online.com/web/c/?searchTerm=3M+3365%2F25) | *6,00 €* | |
+| | `WIZ850io` (WIZnet) | Module Ethernet W5500 + RJ45 | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=WIZ850io) | *6,00 €* | |
+| | ILS (reed) + aimant | `Standex KSK-1A66` ou équiv. | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Standex+KSK-1A66) | *2,00 €* | |
+| | Bouton poussoir Ø22 IP65 | `Schneider XB4BA31` ou équiv. | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Schneider+XB4BA31) | *12,00 €* | |
 
 ## 6. Boîtiers
 
-| ⭐ | Réf. à rechercher | Désignation | Qté | Source | *Repère HT* | **PU TTC** |
+| ⭐ | Réf. à rechercher | Désignation | Qté | Lien d'achat | *Repère HT* | **PU TTC** |
 |:-:|---|---|---:|---|---:|---|
-| ⭐ | Boîtier carte AGV, ~180 × 130 mm | Hammond ou Fibox, presse-étoupes | 1 | RS | *28,00 €* | |
-| | Boîtier mural IP54 (poste fixe) | Fibox ou `Hammond 1554` | 1 | RS | *30,00 €* | |
-| | Boîtier IP65 (bouton LoRa) | `Fibox PC 095808` ou équiv. | 1 | RS | *18,00 €* | |
-| | Coffret rail DIN + bornier | Fibox ou Schneider | 1 | RS | *20,00 €* | |
+| ⭐ | Boîtier carte AGV, ~180 × 130 mm | Hammond ou Fibox, presse-étoupes | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Bo%C3%AEtier+carte+AGV%2C+~180+%C3%97+130+mm) | *28,00 €* | |
+| | Boîtier mural IP54 (poste fixe) | Fibox ou `Hammond 1554` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Hammond+1554) | *30,00 €* | |
+| | Boîtier IP65 (bouton LoRa) | `Fibox PC 095808` ou équiv. | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Fibox+PC+095808) | *18,00 €* | |
+| | Coffret rail DIN + bornier | Fibox ou Schneider | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Coffret+rail+DIN+%2B+bornier) | *20,00 €* | |
 
 ## 7. Outillage (achat unique)
 
-| ⭐ | Réf. à rechercher | Désignation | Qté | Source | *Repère HT* | **PU TTC** |
+| ⭐ | Réf. à rechercher | Désignation | Qté | Lien d'achat | *Repère HT* | **PU TTC** |
 |:-:|---|---|---:|---|---:|---|
-| | Pince à sertir + jeu de cosses | Knipex ou `Engineer PA-09` | 1 | RS | *45,00 €* | |
-| | `RTL-SDR Blog V4` + antenne | Mesure d'occupation 868 MHz | 1 | Amazon | *30,00 €* | |
-| | Analyseur logique 8 voies USB | clone Saleae 24 MHz | 1 | Amazon | *15,00 €* | |
-| | Programmateur ISP AVR | `USBasp` ou `USBtinyISP` | 1 | Amazon | *8,00 €* | |
-| | Adaptateur USB-série 3,3 V | `FT232RL` ou `CP2102` | 2 | Amazon | *6,00 €* | |
+| | Pince à sertir + jeu de cosses | Knipex ou `Engineer PA-09` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Engineer+PA-09) | *45,00 €* | |
+| | `RTL-SDR Blog V4` + antenne | Mesure d'occupation 868 MHz | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RTL-SDR+Blog+V4) · [Amazon](https://www.amazon.fr/s?k=RTL-SDR+Blog+V4) | *30,00 €* | |
+| | Analyseur logique 8 voies USB | clone Saleae 24 MHz | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Analyseur+logique+8+voies+USB) · [Amazon](https://www.amazon.fr/s?k=Analyseur+logique+8+voies+USB) | *15,00 €* | |
+| | Programmateur ISP AVR | `USBasp` ou `USBtinyISP` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=USBasp) · [Amazon](https://www.amazon.fr/s?k=USBasp) | *8,00 €* | |
+| | Adaptateur USB-série 3,3 V | `FT232RL` ou `CP2102` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=FT232RL) · [Amazon](https://www.amazon.fr/s?k=FT232RL) | *6,00 €* | |
 
 ---
 

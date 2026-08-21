@@ -9,9 +9,26 @@ qui les renseigne depuis le catalogue.
 | Colonne | Ce qu'elle contient |
 |---|---|
 | `Réf. fabricant` | **Référence exacte à rechercher** — c'est ce qui rend la ligne non ambiguë |
-| `Source` | Où chercher en priorité. `RS` = [fr.rs-online.com](https://fr.rs-online.com), `Amazon` = référence non distribuée par RS, `PCB` = fabricant de circuits imprimés, `Spécialiste` = distributeur EnOcean ou UniPi |
+| `Lien d'achat` | **Recherche pré-remplie chez le distributeur**, RS en premier chaque fois que c'est plausible. Un second lien n'apparaît que lorsque RS ne distribue probablement pas la référence |
 | `Réf. catalogue` / `PU TTC` / `Total TTC` | **À remplir** |
 | *`Repère TTC`* | Estimation de départ, **en italique** — voir l'avertissement ci-dessous |
+
+### ⚠️ Ce sont des liens de RECHERCHE, pas des fiches produit
+
+Chaque lien lance une **recherche sur la référence fabricant** chez le
+distributeur. Aucun numéro de stock n'a été vérifié : le site de RS bloque
+l'accès automatisé, il n'était donc pas possible de confirmer qu'une fiche
+produit existe ni à quel prix. Inventer des numéros de stock aurait produit des
+liens crédibles menant à la mauvaise pièce — le pire résultat possible sur une
+liste d'achat.
+
+C'est au service achats de retenir la bonne fiche et d'en reporter la référence
+dans la colonne `Réf. catalogue`. Si une recherche RS ne donne rien, la ligne
+suit un second lien vers Mouser, Digi-Key ou Amazon.
+
+**RS est mis en tête partout**, y compris sur les références EnOcean et Unipi
+qu'il ne distribue habituellement pas : le catalogue évolue, et une commande
+groupée chez un fournisseur déjà référencé vaut souvent le surcoût unitaire.
 
 ### ⚠️ Les repères ne sont PAS des prix RS
 
@@ -42,58 +59,58 @@ la comparaison entre architectures reste donc pertinente en HT, et
 
 Carte neuve à fabriquer. La V5.0.1 d'origine est **conservée intacte**.
 
-| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Module MCU, 8 Mo flash | `ESP32-WROOM-32E-N8` | 1 | RS | ☐ | ☐ | ☐ | *6,00 €* |
-| Modem LTE-M / NB-IoT, très basse consommation | `SIM7080G (SIMCom)` | 1 | Amazon | ☐ | ☐ | ☐ | *21,60 €* |
-| Antenne LTE 4 dBi déportée + pigtail U.FL → SMA | `Siretta ECHO-9 ou équiv.` | 1 | RS | ☐ | ☐ | ☐ | *14,40 €* |
-| Support SIM nano, protection ESD | `Molex 785900001` | 1 | RS | ☐ | ☐ | ☐ | *1,80 €* |
-| Optocoupleur quadruple — 43 voies | `PC847 (Sharp)` | 11 | RS | ☐ | ☐ | ☐ | *7,92 €* |
-| Convertisseur DC/DC 24 V → 5 V 1 A | `TSR 1-2450 (Traco Power)` | 1 | RS | ☐ | ☐ | ☐ | *8,40 €* |
-| LDO 3,3 V 600 mA | `AP2112K-3.3TRG1 (Diodes)` | 1 | RS | ☐ | ☐ | ☐ | *0,72 €* |
-| Diode TVS protection 24 V | `SMBJ33A (Littelfuse)` | 2 | RS | ☐ | ☐ | ☐ | *1,20 €* |
-| **Réservoir capacitif** — pics d'émission modem (2 A) | `470 µF low-ESR 16 V` | 1 | RS | ☐ | ☐ | ☐ | *3,60 €* |
-| Résistances 1 %, découplages, LED d'état | `lot` | 1 | RS | ☐ | ☐ | ☐ | *9,60 €* |
-| ILS (reed) + aimant — Wi-Fi de maintenance | `Standex KSK-1A66 ou équiv.` | 1 | RS | ☐ | ☐ | ☐ | *2,40 €* |
-| SUB-D 25 mâle et femelle, coudés CI | `Amphenol L717SDB25xA4CH4F` | 2 | RS | ☐ | ☐ | ☐ | *7,20 €* |
-| PCB 4 couches ~120 × 100 mm (série de 5) | `Gerber projet` | 1 | PCB | ☐ | ☐ | ☐ | *14,40 €* |
-| Boîtier, fixation, presse-étoupes, conn. de prog. | `Hammond 1590 ou Fibox` | 1 | RS | ☐ | ☐ | ☐ | *33,60 €* |
+| Module MCU, 8 Mo flash | `ESP32-WROOM-32E-N8` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ESP32-WROOM-32E-N8) | ☐ | ☐ | ☐ | *6,00 €* |
+| Modem LTE-M / NB-IoT, très basse consommation | `SIM7080G (SIMCom)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SIM7080G) · [Amazon](https://www.amazon.fr/s?k=SIM7080G) | ☐ | ☐ | ☐ | *21,60 €* |
+| Antenne LTE 4 dBi déportée + pigtail U.FL → SMA | `Siretta ECHO-9 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Siretta+ECHO-9) | ☐ | ☐ | ☐ | *14,40 €* |
+| Support SIM nano, protection ESD | `Molex 785900001` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Molex+785900001) | ☐ | ☐ | ☐ | *1,80 €* |
+| Optocoupleur quadruple — 43 voies | `PC847 (Sharp)` | 11 | [RS](https://fr.rs-online.com/web/c/?searchTerm=PC847) | ☐ | ☐ | ☐ | *7,92 €* |
+| Convertisseur DC/DC 24 V → 5 V 1 A | `TSR 1-2450 (Traco Power)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TSR+1-2450) | ☐ | ☐ | ☐ | *8,40 €* |
+| LDO 3,3 V 600 mA | `AP2112K-3.3TRG1 (Diodes)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=AP2112K-3.3TRG1) | ☐ | ☐ | ☐ | *0,72 €* |
+| Diode TVS protection 24 V | `SMBJ33A (Littelfuse)` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SMBJ33A) | ☐ | ☐ | ☐ | *1,20 €* |
+| **Réservoir capacitif** — pics d'émission modem (2 A) | `470 µF low-ESR 16 V` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=470+%C2%B5F+low-ESR+16+V) | ☐ | ☐ | ☐ | *3,60 €* |
+| Résistances 1 %, découplages, LED d'état | `lot` | 1 | — | ☐ | ☐ | ☐ | *9,60 €* |
+| ILS (reed) + aimant — Wi-Fi de maintenance | `Standex KSK-1A66 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Standex+KSK-1A66) | ☐ | ☐ | ☐ | *2,40 €* |
+| SUB-D 25 mâle et femelle, coudés CI | `Amphenol L717SDB25xA4CH4F` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+L717SDB25xA4CH4F) | ☐ | ☐ | ☐ | *7,20 €* |
+| PCB 4 couches ~120 × 100 mm (série de 5) | `Gerber projet` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *14,40 €* |
+| Boîtier, fixation, presse-étoupes, conn. de prog. | `Hammond 1590 ou Fibox` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Hammond+1590+ou+Fibox) | ☐ | ☐ | ☐ | *33,60 €* |
 | **Sous-total** | | | | | | **☐** | ***132,84 €*** |
 
 ### Interface bus — variante `shift595` (recommandée)
 
-| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Registre à décalage sortie 8 bits | `SN74HC595N (TI)` | 3 | RS | ☐ | ☐ | ☐ | *1,80 €* |
-| Registre à décalage entrée 8 bits | `SN74HC165N (TI)` | 3 | RS | ☐ | ☐ | ☐ | *1,80 €* |
+| Registre à décalage sortie 8 bits | `SN74HC595N (TI)` | 3 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SN74HC595N) | ☐ | ☐ | ☐ | *1,80 €* |
+| Registre à décalage entrée 8 bits | `SN74HC165N (TI)` | 3 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SN74HC165N) | ☐ | ☐ | ☐ | *1,80 €* |
 | **Sous-total** | | | | | | **☐** | ***3,60 €*** |
 
 ### Interface bus — variante `mcp23017` (alternative)
 
-| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Expandeur I²C 16 GPIO | `MCP23017-E/SP (Microchip)` | 4 | RS | ☐ | ☐ | ☐ | *12,00 €* |
+| Expandeur I²C 16 GPIO | `MCP23017-E/SP (Microchip)` | 4 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MCP23017-E%2FSP) | ☐ | ☐ | ☐ | *12,00 €* |
 | **Sous-total** | | | | | | **☐** | ***12,00 €*** |
 
 ### Poste fixe — option A : ESP32 (recommandée)
 
 Suffit dès lors que l'historique long terme n'est pas exigé.
 
-| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Module MCU, 8 Mo flash (LittleFS + pages web) | `ESP32-WROOM-32E-N8` | 1 | RS | ☐ | ☐ | ☐ | *6,00 €* |
-| Modem LTE-M / NB-IoT | `SIM7080G (SIMCom)` | 1 | Amazon | ☐ | ☐ | ☐ | *21,60 €* |
-| Antenne LTE déportée + pigtail | `Siretta ECHO-9 ou équiv.` | 1 | RS | ☐ | ☐ | ☐ | *14,40 €* |
-| Récepteur EnOcean 868 MHz, UART ESP3 | `TCM 515 (EnOcean)` | 1 | Spécialiste | ☐ | ☐ | ☐ | *33,60 €* |
-| Antenne EnOcean déportée | `EnOcean ANT300 ou équiv.` | 1 | Spécialiste | ☐ | ☐ | ☐ | *9,60 €* |
-| Ethernet SPI + RJ45 — **liaison filaire** | `WIZnet WIZ850io (W5500)` | 1 | RS | ☐ | ☐ | ☐ | *7,20 €* |
-| LED d'accusé, LED de vie, boutons appairage/reset | `lot` | 1 | RS | ☐ | ☐ | ☐ | *4,20 €* |
-| Alimentation rail DIN 230 V → 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | RS | ☐ | ☐ | ☐ | *16,80 €* |
-| 24 V → 5 V → 3,3 V | `TSR 1-2450 + AP2112K-3.3` | 1 | RS | ☐ | ☐ | ☐ | *9,60 €* |
-| PCB 2 couches ~100 × 80 mm | `Gerber projet` | 1 | PCB | ☐ | ☐ | ☐ | *7,20 €* |
-| Boîtier mural IP54, presse-étoupes, embases SMA | `Fibox ou Hammond 1554` | 1 | RS | ☐ | ☐ | ☐ | *36,00 €* |
-| Support SIM, passifs | `Molex 785900001 + lot` | 1 | RS | ☐ | ☐ | ☐ | *3,60 €* |
-| Câble Ethernet blindé | `Cat 6 S/FTP, 5 m` | 1 | RS | ☐ | ☐ | ☐ | *7,20 €* |
+| Module MCU, 8 Mo flash (LittleFS + pages web) | `ESP32-WROOM-32E-N8` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ESP32-WROOM-32E-N8) | ☐ | ☐ | ☐ | *6,00 €* |
+| Modem LTE-M / NB-IoT | `SIM7080G (SIMCom)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SIM7080G) · [Amazon](https://www.amazon.fr/s?k=SIM7080G) | ☐ | ☐ | ☐ | *21,60 €* |
+| Antenne LTE déportée + pigtail | `Siretta ECHO-9 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Siretta+ECHO-9) | ☐ | ☐ | ☐ | *14,40 €* |
+| Récepteur EnOcean 868 MHz, UART ESP3 | `TCM 515 (EnOcean)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TCM+515) · [Mouser](https://www.mouser.fr/c/?q=TCM+515) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=TCM+515) | ☐ | ☐ | ☐ | *33,60 €* |
+| Antenne EnOcean déportée | `EnOcean ANT300 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=EnOcean+ANT300) · [Mouser](https://www.mouser.fr/c/?q=EnOcean+ANT300) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=EnOcean+ANT300) | ☐ | ☐ | ☐ | *9,60 €* |
+| Ethernet SPI + RJ45 — **liaison filaire** | `WIZnet WIZ850io (W5500)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=WIZnet+WIZ850io) | ☐ | ☐ | ☐ | *7,20 €* |
+| LED d'accusé, LED de vie, boutons appairage/reset | `lot` | 1 | — | ☐ | ☐ | ☐ | *4,20 €* |
+| Alimentation rail DIN 230 V → 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MEAN+WELL+HDR-15-24) | ☐ | ☐ | ☐ | *16,80 €* |
+| 24 V → 5 V → 3,3 V | `TSR 1-2450 + AP2112K-3.3` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TSR+1-2450+%2B+AP2112K-3.3) | ☐ | ☐ | ☐ | *9,60 €* |
+| PCB 2 couches ~100 × 80 mm | `Gerber projet` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *7,20 €* |
+| Boîtier mural IP54, presse-étoupes, embases SMA | `Fibox ou Hammond 1554` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Fibox+ou+Hammond+1554) | ☐ | ☐ | ☐ | *36,00 €* |
+| Support SIM, passifs | `Molex 785900001 + lot` | 1 | — | ☐ | ☐ | ☐ | *3,60 €* |
+| Câble Ethernet blindé | `Cat 6 S/FTP, 5 m` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Cat+6+S%2FFTP%2C+5+m) | ☐ | ☐ | ☐ | *7,20 €* |
 | **Sous-total** | | | | | | **☐** | ***177,00 €*** |
 
 ### Poste fixe — option B : Unipi Gate G100 (**si Ethernet disponible**)
@@ -102,15 +119,15 @@ Le modem du poste ne sert à rien dès qu'une prise réseau est à portée :
 le poste parle au broker par le fil. Cela **supprime une SIM sur deux** et
 ouvre la gamme Gate, qui n'a pas de cellulaire. Debian d'origine.
 
-| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Passerelle Linux DIN — Debian, 16 Go eMMC, 2× Ethernet, USB 3.0, RS485 | `Unipi Gate G100` | 1 | Spécialiste | ☐ | ☐ | ☐ | *240,00 €* |
-| Récepteur EnOcean 868 MHz, UART ESP3 | `TCM 515 (EnOcean)` | 1 | Spécialiste | ☐ | ☐ | ☐ | *33,60 €* |
-| Antenne EnOcean 868 MHz déportée + pigtail | `EnOcean ANT300 ou équiv.` | 1 | Spécialiste | ☐ | ☐ | ☐ | *12,00 €* |
-| Adaptateur USB-série vers le TCM 515 | `FTDI FT232RL` | 1 | RS | ☐ | ☐ | ☐ | *9,60 €* |
-| Alimentation rail DIN 230 V → 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | RS | ☐ | ☐ | ☐ | *16,80 €* |
-| Coffret rail DIN, bornier, presse-étoupes | `Fibox ou Schneider` | 1 | RS | ☐ | ☐ | ☐ | *24,00 €* |
-| Câble Ethernet blindé vers le réseau usine | `Cat 6 S/FTP, 5 m` | 1 | RS | ☐ | ☐ | ☐ | *7,20 €* |
+| Passerelle Linux DIN — Debian, 16 Go eMMC, 2× Ethernet, USB 3.0, RS485 | `Unipi Gate G100` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Unipi+Gate+G100) · [Unipi](https://www.unipi.technology/search?query=Unipi+Gate+G100) | ☐ | ☐ | ☐ | *240,00 €* |
+| Récepteur EnOcean 868 MHz, UART ESP3 | `TCM 515 (EnOcean)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TCM+515) · [Mouser](https://www.mouser.fr/c/?q=TCM+515) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=TCM+515) | ☐ | ☐ | ☐ | *33,60 €* |
+| Antenne EnOcean 868 MHz déportée + pigtail | `EnOcean ANT300 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=EnOcean+ANT300) · [Mouser](https://www.mouser.fr/c/?q=EnOcean+ANT300) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=EnOcean+ANT300) | ☐ | ☐ | ☐ | *12,00 €* |
+| Adaptateur USB-série vers le TCM 515 | `FTDI FT232RL` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=FTDI+FT232RL) | ☐ | ☐ | ☐ | *9,60 €* |
+| Alimentation rail DIN 230 V → 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MEAN+WELL+HDR-15-24) | ☐ | ☐ | ☐ | *16,80 €* |
+| Coffret rail DIN, bornier, presse-étoupes | `Fibox ou Schneider` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Fibox+ou+Schneider) | ☐ | ☐ | ☐ | *24,00 €* |
+| Câble Ethernet blindé vers le réseau usine | `Cat 6 S/FTP, 5 m` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Cat+6+S%2FFTP%2C+5+m) | ☐ | ☐ | ☐ | *7,20 €* |
 | **Sous-total** | | | | | | **☐** | ***343,20 €*** |
 
 ### Poste fixe — option C : UniPi E413 LTE (**seulement sans Ethernet**)
@@ -118,32 +135,32 @@ ouvre la gamme Gate, qui n'a pas de cellulaire. Debian d'origine.
 À ne retenir que si le poste est hors de portée d'une prise réseau. Le
 modem intégré est alors la raison d'être du modèle — et son surcoût.
 
-| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Automate compact Linux, E/S TOR, modem LTE intégré | `UniPi E413 (variante LTE)` | 1 | Spécialiste | ☐ | ☐ | ☐ | *420,00 €* |
-| Antenne LTE externe déportée | `Siretta ECHO-9 ou équiv.` | 1 | RS | ☐ | ☐ | ☐ | *18,00 €* |
-| Récepteur EnOcean + antenne | `TCM 515 + ANT300` | 1 | Spécialiste | ☐ | ☐ | ☐ | *43,20 €* |
-| Coffret rail DIN, alimentation, bornier | `Fibox + MEAN WELL HDR-15-24` | 1 | RS | ☐ | ☐ | ☐ | *40,80 €* |
-| Câble Ethernet blindé | `Cat 6 S/FTP, 5 m` | 1 | RS | ☐ | ☐ | ☐ | *4,80 €* |
+| Automate compact Linux, E/S TOR, modem LTE intégré | `UniPi E413 (variante LTE)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=UniPi+E413) · [Unipi](https://www.unipi.technology/search?query=UniPi+E413) | ☐ | ☐ | ☐ | *420,00 €* |
+| Antenne LTE externe déportée | `Siretta ECHO-9 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Siretta+ECHO-9) | ☐ | ☐ | ☐ | *18,00 €* |
+| Récepteur EnOcean + antenne | `TCM 515 + ANT300` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TCM+515+%2B+ANT300) · [Mouser](https://www.mouser.fr/c/?q=TCM+515+%2B+ANT300) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=TCM+515+%2B+ANT300) | ☐ | ☐ | ☐ | *43,20 €* |
+| Coffret rail DIN, alimentation, bornier | `Fibox + MEAN WELL HDR-15-24` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Fibox+%2B+MEAN+WELL+HDR-15-24) | ☐ | ☐ | ☐ | *40,80 €* |
+| Câble Ethernet blindé | `Cat 6 S/FTP, 5 m` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Cat+6+S%2FFTP%2C+5+m) | ☐ | ☐ | ☐ | *4,80 €* |
 | **Sous-total** | | | | | | **☐** | ***526,80 €*** |
 
 ### Boutons d'appel EnOcean — 2 stations
 
-| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Module émetteur auto-alimenté, **sans pile** | `PTM 210 (EnOcean, EU 868)` | 2 | Spécialiste | ☐ | ☐ | ☐ | *72,00 €* |
-| Enveloppe / poussoir mural compatible PTM 210 | `Eltako, NodOn ou Trio2Sys` | 2 | Spécialiste | ☐ | ☐ | ☐ | *28,80 €* |
-| Plaque de repérage station gravée | `sur mesure` | 2 | Amazon | ☐ | ☐ | ☐ | *9,60 €* |
-| Fixation, visserie | `lot` | 2 | RS | ☐ | ☐ | ☐ | *9,60 €* |
+| Module émetteur auto-alimenté, **sans pile** | `PTM 210 (EnOcean, EU 868)` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=PTM+210) · [Mouser](https://www.mouser.fr/c/?q=PTM+210) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=PTM+210) | ☐ | ☐ | ☐ | *72,00 €* |
+| Enveloppe / poussoir mural compatible PTM 210 | `Eltako, NodOn ou Trio2Sys` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Eltako%2C+NodOn+ou+Trio2Sys) · [Mouser](https://www.mouser.fr/c/?q=Eltako%2C+NodOn+ou+Trio2Sys) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=Eltako%2C+NodOn+ou+Trio2Sys) | ☐ | ☐ | ☐ | *28,80 €* |
+| Plaque de repérage station gravée | `sur mesure` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=sur+mesure) · [Amazon](https://www.amazon.fr/s?k=sur+mesure) | ☐ | ☐ | ☐ | *9,60 €* |
+| Fixation, visserie | `lot` | 2 | — | ☐ | ☐ | ☐ | *9,60 €* |
 | **Sous-total** | | | | | | **☐** | ***120,00 €*** |
 
 ### Outillage — non récurrent
 
-| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Analyseur logique 8 voies — chronogrammes X/Y | `clone Saleae 24 MHz` | 1 | Amazon | ☐ | ☐ | ☐ | *18,00 €* |
-| Adaptateur USB-série 3,3 V — mise au point pile AT | `FTDI FT232RL ou CP2102` | 1 | Amazon | ☐ | ☐ | ☐ | *7,20 €* |
-| Jeu de cosses, pince à sertir, consommables | `Knipex ou Engineer PA-09` | 1 | RS | ☐ | ☐ | ☐ | *28,80 €* |
+| Analyseur logique 8 voies — chronogrammes X/Y | `clone Saleae 24 MHz` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=clone+Saleae+24+MHz) · [Amazon](https://www.amazon.fr/s?k=clone+Saleae+24+MHz) | ☐ | ☐ | ☐ | *18,00 €* |
+| Adaptateur USB-série 3,3 V — mise au point pile AT | `FTDI FT232RL ou CP2102` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=FTDI+FT232RL+ou+CP2102) · [Amazon](https://www.amazon.fr/s?k=FTDI+FT232RL+ou+CP2102) | ☐ | ☐ | ☐ | *7,20 €* |
+| Jeu de cosses, pince à sertir, consommables | `Knipex ou Engineer PA-09` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Knipex+ou+Engineer+PA-09) | ☐ | ☐ | ☐ | *28,80 €* |
 | **Sous-total** | | | | | | **☐** | ***54,00 €*** |
 
 ---

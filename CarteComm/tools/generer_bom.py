@@ -10,7 +10,46 @@ diverger de son propre détail, comme c'était arrivé sur l'outillage LoRa.
 Régénère les trois BOM.md. Après une mise à jour des prix, penser à reporter les
 totaux dans CarteComm/COMPARAISON.md et CarteComm/README.md.
 """
+from urllib.parse import quote_plus
+
 TVA = 1.20
+
+# Références non recherchables : lots de passifs, fichiers Gerber, assemblages.
+NON_RECHERCHABLE = ("lot", "Gerber", "projet", "équiv. selon")
+
+def _terme(ref):
+    """Nettoie une référence fabricant pour en faire un terme de recherche.
+
+    Le nom du fabricant entre parenthèses et les « ou équiv. » font chuter le
+    nombre de résultats à zéro chez RS : on les retire.
+    """
+    t = ref.split(" ou équiv")[0].split(" (")[0].strip()
+    return t.replace("`", "")
+
+def lien(ref, source):
+    """Lien d'achat, RS en tête chaque fois que c'est plausible.
+
+    Ce sont des liens de RECHERCHE sur la référence fabricant, pas des fiches
+    produit : RS bloque l'accès automatisé, aucun numéro de stock n'a donc pu
+    être vérifié. C'est au service achats de retenir la fiche et de reporter la
+    référence catalogue dans la colonne prévue.
+    """
+    pcb = "[JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx)"
+    if any(m in ref for m in NON_RECHERCHABLE):
+        return pcb if source == "PCB" else "—"
+    q = quote_plus(_terme(ref))
+    rs = f"[RS](https://fr.rs-online.com/web/c/?searchTerm={q})"
+    if source == "RS":
+        return rs
+    if source == "PCB":
+        return pcb
+    if source == "Amazon":
+        return f"{rs} · [Amazon](https://www.amazon.fr/s?k={q})"
+    # Spécialiste : EnOcean et Unipi ne sont pas des lignes RS courantes.
+    if "unipi" in ref.lower():
+        return f"{rs} · [Unipi](https://www.unipi.technology/search?query={q})"
+    return f"{rs} · [Mouser](https://www.mouser.fr/c/?q={q}) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords={q})"
+
 
 def eur(x):
     return f"{x:,.2f} €".replace(",", " ").replace(".", ",")
@@ -32,11 +71,11 @@ class Section:
         if self.note:
             out += ["", self.note]
         out += ["",
-                "| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |",
+                "| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |",
                 "|---|---|---:|---|---|---:|---:|---:|"]
         for desig, ref, qty, source, ht in self.lines:
             rep = eur(qty * ht * TVA)
-            out.append(f"| {desig} | `{ref}` | {qty} | {source} | ☐ | ☐ | ☐ | *{rep}* |")
+            out.append(f"| {desig} | `{ref}` | {qty} | {lien(ref, source)} | ☐ | ☐ | ☐ | *{rep}* |")
         out.append(f"| **Sous-total** | | | | | | **☐** | ***{eur(self.ttc)}*** |")
         return "\n".join(out) + "\n"
 
@@ -51,9 +90,26 @@ qui les renseigne depuis le catalogue.
 | Colonne | Ce qu'elle contient |
 |---|---|
 | `Réf. fabricant` | **Référence exacte à rechercher** — c'est ce qui rend la ligne non ambiguë |
-| `Source` | Où chercher en priorité. `RS` = [fr.rs-online.com](https://fr.rs-online.com), `Amazon` = référence non distribuée par RS, `PCB` = fabricant de circuits imprimés, `Spécialiste` = distributeur EnOcean ou UniPi |
+| `Lien d'achat` | **Recherche pré-remplie chez le distributeur**, RS en premier chaque fois que c'est plausible. Un second lien n'apparaît que lorsque RS ne distribue probablement pas la référence |
 | `Réf. catalogue` / `PU TTC` / `Total TTC` | **À remplir** |
 | *`Repère TTC`* | Estimation de départ, **en italique** — voir l'avertissement ci-dessous |
+
+### ⚠️ Ce sont des liens de RECHERCHE, pas des fiches produit
+
+Chaque lien lance une **recherche sur la référence fabricant** chez le
+distributeur. Aucun numéro de stock n'a été vérifié : le site de RS bloque
+l'accès automatisé, il n'était donc pas possible de confirmer qu'une fiche
+produit existe ni à quel prix. Inventer des numéros de stock aurait produit des
+liens crédibles menant à la mauvaise pièce — le pire résultat possible sur une
+liste d'achat.
+
+C'est au service achats de retenir la bonne fiche et d'en reporter la référence
+dans la colonne `Réf. catalogue`. Si une recherche RS ne donne rien, la ligne
+suit un second lien vers Mouser, Digi-Key ou Amazon.
+
+**RS est mis en tête partout**, y compris sur les références EnOcean et Unipi
+qu'il ne distribue habituellement pas : le catalogue évolue, et une commande
+groupée chez un fournisseur déjà référencé vaut souvent le surcoût unitaire.
 
 ### ⚠️ Les repères ne sont PAS des prix RS
 

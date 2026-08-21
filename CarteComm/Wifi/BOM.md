@@ -9,9 +9,26 @@ qui les renseigne depuis le catalogue.
 | Colonne | Ce qu'elle contient |
 |---|---|
 | `Réf. fabricant` | **Référence exacte à rechercher** — c'est ce qui rend la ligne non ambiguë |
-| `Source` | Où chercher en priorité. `RS` = [fr.rs-online.com](https://fr.rs-online.com), `Amazon` = référence non distribuée par RS, `PCB` = fabricant de circuits imprimés, `Spécialiste` = distributeur EnOcean ou UniPi |
+| `Lien d'achat` | **Recherche pré-remplie chez le distributeur**, RS en premier chaque fois que c'est plausible. Un second lien n'apparaît que lorsque RS ne distribue probablement pas la référence |
 | `Réf. catalogue` / `PU TTC` / `Total TTC` | **À remplir** |
 | *`Repère TTC`* | Estimation de départ, **en italique** — voir l'avertissement ci-dessous |
+
+### ⚠️ Ce sont des liens de RECHERCHE, pas des fiches produit
+
+Chaque lien lance une **recherche sur la référence fabricant** chez le
+distributeur. Aucun numéro de stock n'a été vérifié : le site de RS bloque
+l'accès automatisé, il n'était donc pas possible de confirmer qu'une fiche
+produit existe ni à quel prix. Inventer des numéros de stock aurait produit des
+liens crédibles menant à la mauvaise pièce — le pire résultat possible sur une
+liste d'achat.
+
+C'est au service achats de retenir la bonne fiche et d'en reporter la référence
+dans la colonne `Réf. catalogue`. Si une recherche RS ne donne rien, la ligne
+suit un second lien vers Mouser, Digi-Key ou Amazon.
+
+**RS est mis en tête partout**, y compris sur les références EnOcean et Unipi
+qu'il ne distribue habituellement pas : le catalogue évolue, et une commande
+groupée chez un fournisseur déjà référencé vaut souvent le surcoût unitaire.
 
 ### ⚠️ Les repères ne sont PAS des prix RS
 
@@ -49,21 +66,21 @@ ATmega2560 + ESP32 de l'originale, sur supports, avec son propre étage de
 sortie. La ligne « carte AGV à 0 € » des versions précédentes de ce
 document était donc fausse.
 
-| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Module MCU — carte Mega2560 Pro sur support | `Clone Mega2560 Pro (A1)` | 1 | Amazon | ☐ | ☐ | ☐ | *21,60 €* |
-| Module Wi-Fi/BT sur support | `ESP32-DEVKITC-32D-F (U1)` | 1 | RS | ☐ | ☐ | ☐ | *14,40 €* |
-| **Étage de sortie** — MOSFET N canal TO-220 | `IRF520 (Vishay, T1–T24)` | 23 | RS | ☐ | ☐ | ☐ | *16,56 €* |
-| Résistances de grille des MOSFET | `1 kΩ THT 0411 (R1–R24)` | 23 | RS | ☐ | ☐ | ☐ | *1,38 €* |
-| Diviseurs de mesure | `4,7 k / 2,2 k / 22 k / 220 k (R30, R31, R40, R41)` | 4 | RS | ☐ | ☐ | ☐ | *0,24 €* |
-| Régulateur 6 V — alimentation de l'ATmega | `L7806CV (LM1)` | 1 | RS | ☐ | ☐ | ☐ | *1,08 €* |
-| Convertisseur DC/DC **isolé** 24 V → 5 V, 5 W | `TDN 5-2411WISM (Traco, TDN1)` | 1 | RS | ☐ | ☐ | ☐ | *30,00 €* |
-| Diode de protection DO-41 | `1N4007 ou équiv. (D1)` | 1 | RS | ☐ | ☐ | ☐ | *0,12 €* |
-| Connecteur SUB-D 25 **mâle** coudé CI (entrées) | `Amphenol DB25P564CTXLF (J1)` | 1 | RS | ☐ | ☐ | ☐ | *7,20 €* |
-| Connecteur SUB-D 25 **femelle** coudé CI (sorties) | `Amphenol DB25S564GTLF (J2)` | 1 | RS | ☐ | ☐ | ☐ | *7,20 €* |
-| Supports et barrettes pour les deux modules | `barrettes tulipe 2,54 mm` | 1 | RS | ☐ | ☐ | ☐ | *3,60 €* |
-| PCB ~150 × 100 mm (série de 5) | `Gerber projet` | 1 | PCB | ☐ | ☐ | ☐ | *18,00 €* |
-| Boîtier, entretoises, presse-étoupes, visserie | `Hammond 1590 ou Fibox` | 1 | RS | ☐ | ☐ | ☐ | *33,60 €* |
+| Module MCU — carte Mega2560 Pro sur support | `Clone Mega2560 Pro (A1)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Clone+Mega2560+Pro) · [Amazon](https://www.amazon.fr/s?k=Clone+Mega2560+Pro) | ☐ | ☐ | ☐ | *21,60 €* |
+| Module Wi-Fi/BT sur support | `ESP32-DEVKITC-32D-F (U1)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ESP32-DEVKITC-32D-F) | ☐ | ☐ | ☐ | *14,40 €* |
+| **Étage de sortie** — MOSFET N canal TO-220 | `IRF520 (Vishay, T1–T24)` | 23 | [RS](https://fr.rs-online.com/web/c/?searchTerm=IRF520) | ☐ | ☐ | ☐ | *16,56 €* |
+| Résistances de grille des MOSFET | `1 kΩ THT 0411 (R1–R24)` | 23 | [RS](https://fr.rs-online.com/web/c/?searchTerm=1+k%CE%A9+THT+0411) | ☐ | ☐ | ☐ | *1,38 €* |
+| Diviseurs de mesure | `4,7 k / 2,2 k / 22 k / 220 k (R30, R31, R40, R41)` | 4 | [RS](https://fr.rs-online.com/web/c/?searchTerm=4%2C7+k+%2F+2%2C2+k+%2F+22+k+%2F+220+k) | ☐ | ☐ | ☐ | *0,24 €* |
+| Régulateur 6 V — alimentation de l'ATmega | `L7806CV (LM1)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=L7806CV) | ☐ | ☐ | ☐ | *1,08 €* |
+| Convertisseur DC/DC **isolé** 24 V → 5 V, 5 W | `TDN 5-2411WISM (Traco, TDN1)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TDN+5-2411WISM) | ☐ | ☐ | ☐ | *30,00 €* |
+| Diode de protection DO-41 | `1N4007 ou équiv. (D1)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=1N4007) | ☐ | ☐ | ☐ | *0,12 €* |
+| Connecteur SUB-D 25 **mâle** coudé CI (entrées) | `Amphenol DB25P564CTXLF (J1)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+DB25P564CTXLF) | ☐ | ☐ | ☐ | *7,20 €* |
+| Connecteur SUB-D 25 **femelle** coudé CI (sorties) | `Amphenol DB25S564GTLF (J2)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+DB25S564GTLF) | ☐ | ☐ | ☐ | *7,20 €* |
+| Supports et barrettes pour les deux modules | `barrettes tulipe 2,54 mm` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=barrettes+tulipe+2%2C54+mm) | ☐ | ☐ | ☐ | *3,60 €* |
+| PCB ~150 × 100 mm (série de 5) | `Gerber projet` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *18,00 €* |
+| Boîtier, entretoises, presse-étoupes, visserie | `Hammond 1590 ou Fibox` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Hammond+1590+ou+Fibox) | ☐ | ☐ | ☐ | *33,60 €* |
 | **Sous-total** | | | | | | **☐** | ***154,98 €*** |
 
 ### Harnais de raccordement
@@ -71,14 +88,14 @@ document était donc fausse.
 La carte existe, mais son câblage vers l'automate est à refaire.
 Détail : [`docs/subd25_atmega.md`](docs/subd25_atmega.md).
 
-| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Nappe 25 conducteurs, gaine souple, ~1 m | `3M 3365/25 ou équiv.` | 2 | RS | ☐ | ☐ | ☐ | *14,40 €* |
-| Connecteur IDC SUB-D 25 **mâle** (entrées) | `Amphenol L17D25P` | 1 | RS | ☐ | ☐ | ☐ | *4,80 €* |
-| Connecteur IDC SUB-D 25 **femelle** (sorties) | `Amphenol L17D25S` | 1 | RS | ☐ | ☐ | ☐ | *4,80 €* |
-| Capot métallisé SUB-D 25 avec serre-câble | `Amphenol 17E-1726-2` | 2 | RS | ☐ | ☐ | ☐ | *8,40 €* |
-| Cosses à sertir côté AGV (CN61 à CN64) | `selon bornier automate` | 50 | RS | ☐ | ☐ | ☐ | *9,00 €* |
-| Gaine tressée, colliers, repérage des fils | `lot` | 1 | RS | ☐ | ☐ | ☐ | *9,00 €* |
+| Nappe 25 conducteurs, gaine souple, ~1 m | `3M 3365/25 ou équiv.` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=3M+3365%2F25) | ☐ | ☐ | ☐ | *14,40 €* |
+| Connecteur IDC SUB-D 25 **mâle** (entrées) | `Amphenol L17D25P` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+L17D25P) | ☐ | ☐ | ☐ | *4,80 €* |
+| Connecteur IDC SUB-D 25 **femelle** (sorties) | `Amphenol L17D25S` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+L17D25S) | ☐ | ☐ | ☐ | *4,80 €* |
+| Capot métallisé SUB-D 25 avec serre-câble | `Amphenol 17E-1726-2` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+17E-1726-2) | ☐ | ☐ | ☐ | *8,40 €* |
+| Cosses à sertir côté AGV (CN61 à CN64) | `selon bornier automate` | 50 | [RS](https://fr.rs-online.com/web/c/?searchTerm=selon+bornier+automate) | ☐ | ☐ | ☐ | *9,00 €* |
+| Gaine tressée, colliers, repérage des fils | `lot` | 1 | — | ☐ | ☐ | ☐ | *9,00 €* |
 | **Sous-total** | | | | | | **☐** | ***50,40 €*** |
 
 ### Antenne Wi-Fi déportée
@@ -86,11 +103,11 @@ Détail : [`docs/subd25_atmega.md`](docs/subd25_atmega.md).
 L'antenne d'origine émet depuis l'intérieur d'un châssis métallique.
 ⚠️ Vérifier au démontage que le module ESP32 dispose d'un connecteur U.FL.
 
-| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Antenne 2,4 GHz 2 dBi, embase SMA, déportée | `Siretta DELTA-6A ou équiv.` | 1 | RS | ☐ | ☐ | ☐ | *21,60 €* |
-| Pigtail U.FL → SMA femelle + passe-cloison | `Amphenol 336312-24-0100` | 1 | RS | ☐ | ☐ | ☐ | *9,60 €* |
-| Support de fixation, visserie | `lot` | 1 | RS | ☐ | ☐ | ☐ | *4,80 €* |
+| Antenne 2,4 GHz 2 dBi, embase SMA, déportée | `Siretta DELTA-6A ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Siretta+DELTA-6A) | ☐ | ☐ | ☐ | *21,60 €* |
+| Pigtail U.FL → SMA femelle + passe-cloison | `Amphenol 336312-24-0100` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+336312-24-0100) | ☐ | ☐ | ☐ | *9,60 €* |
+| Support de fixation, visserie | `lot` | 1 | — | ☐ | ☐ | ☐ | *4,80 €* |
 | **Sous-total** | | | | | | **☐** | ***36,00 €*** |
 
 ### Poste fixe — Unipi Gate G100
@@ -99,36 +116,36 @@ Le poste porte le récepteur EnOcean, le broker MQTT et l'interface de
 supervision. **Le Gate G100 remplace l'E413 initialement prévu** : voir
 la justification en fin de document.
 
-| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Passerelle Linux DIN — Debian, 16 Go eMMC, 2× Ethernet, USB 3.0, RS485 | `Unipi Gate G100` | 1 | Spécialiste | ☐ | ☐ | ☐ | *240,00 €* |
-| Récepteur EnOcean 868 MHz, UART ESP3 | `TCM 515 (EnOcean)` | 1 | Spécialiste | ☐ | ☐ | ☐ | *33,60 €* |
-| Antenne EnOcean 868 MHz déportée + pigtail | `EnOcean ANT300 ou équiv.` | 1 | Spécialiste | ☐ | ☐ | ☐ | *12,00 €* |
-| Adaptateur USB-série vers le TCM 515 | `FTDI FT232RL` | 1 | RS | ☐ | ☐ | ☐ | *9,60 €* |
-| Alimentation rail DIN 230 V → 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | RS | ☐ | ☐ | ☐ | *16,80 €* |
-| Coffret rail DIN, bornier, presse-étoupes | `Fibox ou Schneider` | 1 | RS | ☐ | ☐ | ☐ | *24,00 €* |
-| Câble Ethernet blindé vers le réseau usine | `Cat 6 S/FTP, 5 m` | 1 | RS | ☐ | ☐ | ☐ | *7,20 €* |
+| Passerelle Linux DIN — Debian, 16 Go eMMC, 2× Ethernet, USB 3.0, RS485 | `Unipi Gate G100` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Unipi+Gate+G100) · [Unipi](https://www.unipi.technology/search?query=Unipi+Gate+G100) | ☐ | ☐ | ☐ | *240,00 €* |
+| Récepteur EnOcean 868 MHz, UART ESP3 | `TCM 515 (EnOcean)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TCM+515) · [Mouser](https://www.mouser.fr/c/?q=TCM+515) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=TCM+515) | ☐ | ☐ | ☐ | *33,60 €* |
+| Antenne EnOcean 868 MHz déportée + pigtail | `EnOcean ANT300 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=EnOcean+ANT300) · [Mouser](https://www.mouser.fr/c/?q=EnOcean+ANT300) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=EnOcean+ANT300) | ☐ | ☐ | ☐ | *12,00 €* |
+| Adaptateur USB-série vers le TCM 515 | `FTDI FT232RL` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=FTDI+FT232RL) | ☐ | ☐ | ☐ | *9,60 €* |
+| Alimentation rail DIN 230 V → 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MEAN+WELL+HDR-15-24) | ☐ | ☐ | ☐ | *16,80 €* |
+| Coffret rail DIN, bornier, presse-étoupes | `Fibox ou Schneider` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Fibox+ou+Schneider) | ☐ | ☐ | ☐ | *24,00 €* |
+| Câble Ethernet blindé vers le réseau usine | `Cat 6 S/FTP, 5 m` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Cat+6+S%2FFTP%2C+5+m) | ☐ | ☐ | ☐ | *7,20 €* |
 | **Sous-total** | | | | | | **☐** | ***343,20 €*** |
 
 ### Boutons d'appel EnOcean — 2 stations
 
-| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Module émetteur auto-alimenté, **sans pile** | `PTM 210 (EnOcean, EU 868)` | 2 | Spécialiste | ☐ | ☐ | ☐ | *72,00 €* |
-| Enveloppe / poussoir mural compatible PTM 210 | `Eltako, NodOn ou Trio2Sys` | 2 | Spécialiste | ☐ | ☐ | ☐ | *28,80 €* |
-| Plaque de repérage station gravée | `sur mesure` | 2 | Amazon | ☐ | ☐ | ☐ | *9,60 €* |
-| Fixation, visserie, adhésif industriel | `3M VHB ou équiv.` | 2 | RS | ☐ | ☐ | ☐ | *9,60 €* |
+| Module émetteur auto-alimenté, **sans pile** | `PTM 210 (EnOcean, EU 868)` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=PTM+210) · [Mouser](https://www.mouser.fr/c/?q=PTM+210) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=PTM+210) | ☐ | ☐ | ☐ | *72,00 €* |
+| Enveloppe / poussoir mural compatible PTM 210 | `Eltako, NodOn ou Trio2Sys` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Eltako%2C+NodOn+ou+Trio2Sys) · [Mouser](https://www.mouser.fr/c/?q=Eltako%2C+NodOn+ou+Trio2Sys) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=Eltako%2C+NodOn+ou+Trio2Sys) | ☐ | ☐ | ☐ | *28,80 €* |
+| Plaque de repérage station gravée | `sur mesure` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=sur+mesure) · [Amazon](https://www.amazon.fr/s?k=sur+mesure) | ☐ | ☐ | ☐ | *9,60 €* |
+| Fixation, visserie, adhésif industriel | `3M VHB ou équiv.` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=3M+VHB) | ☐ | ☐ | ☐ | *9,60 €* |
 | **Sous-total** | | | | | | **☐** | ***120,00 €*** |
 
 ### Outillage — non récurrent
 
-| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Programmateur ISP — **sauvegarde puis flash de l'ATmega** | `USBasp ou USBtinyISP` | 1 | Amazon | ☐ | ☐ | ☐ | *9,60 €* |
-| Adaptateur USB-série 3,3 V — ESP32 et liaison inter-MCU | `FTDI FT232RL ou CP2102` | 1 | Amazon | ☐ | ☐ | ☐ | *7,20 €* |
-| Analyseur logique 8 voies — chronogrammes X/Y | `clone Saleae 24 MHz` | 1 | Amazon | ☐ | ☐ | ☐ | *18,00 €* |
-| Jeu de cosses + pince à sertir — confection du harnais | `Knipex ou Engineer PA-09` | 1 | RS | ☐ | ☐ | ☐ | *54,00 €* |
-| Kit réseau : testeur RJ45, sertisseuse | `lot` | 1 | Amazon | ☐ | ☐ | ☐ | *37,20 €* |
+| Programmateur ISP — **sauvegarde puis flash de l'ATmega** | `USBasp ou USBtinyISP` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=USBasp+ou+USBtinyISP) · [Amazon](https://www.amazon.fr/s?k=USBasp+ou+USBtinyISP) | ☐ | ☐ | ☐ | *9,60 €* |
+| Adaptateur USB-série 3,3 V — ESP32 et liaison inter-MCU | `FTDI FT232RL ou CP2102` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=FTDI+FT232RL+ou+CP2102) · [Amazon](https://www.amazon.fr/s?k=FTDI+FT232RL+ou+CP2102) | ☐ | ☐ | ☐ | *7,20 €* |
+| Analyseur logique 8 voies — chronogrammes X/Y | `clone Saleae 24 MHz` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=clone+Saleae+24+MHz) · [Amazon](https://www.amazon.fr/s?k=clone+Saleae+24+MHz) | ☐ | ☐ | ☐ | *18,00 €* |
+| Jeu de cosses + pince à sertir — confection du harnais | `Knipex ou Engineer PA-09` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Knipex+ou+Engineer+PA-09) | ☐ | ☐ | ☐ | *54,00 €* |
+| Kit réseau : testeur RJ45, sertisseuse | `lot` | 1 | — | ☐ | ☐ | ☐ | *37,20 €* |
 | **Sous-total** | | | | | | **☐** | ***126,00 €*** |
 
 ---

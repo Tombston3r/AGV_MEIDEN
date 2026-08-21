@@ -9,9 +9,26 @@ qui les renseigne depuis le catalogue.
 | Colonne | Ce qu'elle contient |
 |---|---|
 | `Réf. fabricant` | **Référence exacte à rechercher** — c'est ce qui rend la ligne non ambiguë |
-| `Source` | Où chercher en priorité. `RS` = [fr.rs-online.com](https://fr.rs-online.com), `Amazon` = référence non distribuée par RS, `PCB` = fabricant de circuits imprimés, `Spécialiste` = distributeur EnOcean ou UniPi |
+| `Lien d'achat` | **Recherche pré-remplie chez le distributeur**, RS en premier chaque fois que c'est plausible. Un second lien n'apparaît que lorsque RS ne distribue probablement pas la référence |
 | `Réf. catalogue` / `PU TTC` / `Total TTC` | **À remplir** |
 | *`Repère TTC`* | Estimation de départ, **en italique** — voir l'avertissement ci-dessous |
+
+### ⚠️ Ce sont des liens de RECHERCHE, pas des fiches produit
+
+Chaque lien lance une **recherche sur la référence fabricant** chez le
+distributeur. Aucun numéro de stock n'a été vérifié : le site de RS bloque
+l'accès automatisé, il n'était donc pas possible de confirmer qu'une fiche
+produit existe ni à quel prix. Inventer des numéros de stock aurait produit des
+liens crédibles menant à la mauvaise pièce — le pire résultat possible sur une
+liste d'achat.
+
+C'est au service achats de retenir la bonne fiche et d'en reporter la référence
+dans la colonne `Réf. catalogue`. Si une recherche RS ne donne rien, la ligne
+suit un second lien vers Mouser, Digi-Key ou Amazon.
+
+**RS est mis en tête partout**, y compris sur les références EnOcean et Unipi
+qu'il ne distribue habituellement pas : le catalogue évolue, et une commande
+groupée chez un fournisseur déjà référencé vaut souvent le surcoût unitaire.
 
 ### ⚠️ Les repères ne sont PAS des prix RS
 
@@ -43,89 +60,89 @@ la comparaison entre architectures reste donc pertinente en HT, et
 Carte neuve à fabriquer. La V5.0.1 d'origine est **conservée intacte** :
 c'est le retour arrière de cette architecture.
 
-| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Module MCU Wi-Fi/BT, 8 Mo flash | `ESP32-WROOM-32E-N8` | 1 | RS | ☐ | ☐ | ☐ | *6,00 €* |
-| Module LoRa SX1276 868 MHz | `RFM95W-868S2 (HopeRF)` | 1 | Amazon | ☐ | ☐ | ☐ | *12,00 €* |
-| Pigtail U.FL → SMA femelle + passe-cloison | `Amphenol 336312-24-0100` | 1 | RS | ☐ | ☐ | ☐ | *3,60 €* |
-| Antenne 868 MHz 1/4 onde 2 dBi, embase SMA | `Siretta ALPHA-1A ou équiv.` | 1 | RS | ☐ | ☐ | ☐ | *7,20 €* |
-| Optocoupleur quadruple — 43 voies | `PC847 (Sharp)` | 11 | RS | ☐ | ☐ | ☐ | *7,92 €* |
-| Convertisseur DC/DC 24 V → 5 V 1 A | `TSR 1-2450 (Traco Power)` | 1 | RS | ☐ | ☐ | ☐ | *8,40 €* |
-| LDO 3,3 V 600 mA | `AP2112K-3.3TRG1 (Diodes)` | 1 | RS | ☐ | ☐ | ☐ | *0,72 €* |
-| Diode TVS protection 24 V | `SMBJ33A (Littelfuse)` | 2 | RS | ☐ | ☐ | ☐ | *1,20 €* |
-| Résistances 1 %, découplages, LED d'état | `lot` | 1 | RS | ☐ | ☐ | ☐ | *9,60 €* |
-| ILS (reed) + aimant — Wi-Fi de maintenance | `Standex KSK-1A66 ou équiv.` | 1 | RS | ☐ | ☐ | ☐ | *2,40 €* |
-| SUB-D 25 mâle et femelle, coudés CI | `Amphenol L717SDB25xA4CH4F` | 2 | RS | ☐ | ☐ | ☐ | *7,20 €* |
-| PCB 4 couches ~120 × 100 mm (série de 5) | `Gerber projet` | 1 | PCB | ☐ | ☐ | ☐ | *14,40 €* |
-| Boîtier, fixation, presse-étoupes, conn. de prog. | `Hammond 1590 ou Fibox` | 1 | RS | ☐ | ☐ | ☐ | *33,60 €* |
+| Module MCU Wi-Fi/BT, 8 Mo flash | `ESP32-WROOM-32E-N8` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ESP32-WROOM-32E-N8) | ☐ | ☐ | ☐ | *6,00 €* |
+| Module LoRa SX1276 868 MHz | `RFM95W-868S2 (HopeRF)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RFM95W-868S2) · [Amazon](https://www.amazon.fr/s?k=RFM95W-868S2) | ☐ | ☐ | ☐ | *12,00 €* |
+| Pigtail U.FL → SMA femelle + passe-cloison | `Amphenol 336312-24-0100` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+336312-24-0100) | ☐ | ☐ | ☐ | *3,60 €* |
+| Antenne 868 MHz 1/4 onde 2 dBi, embase SMA | `Siretta ALPHA-1A ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Siretta+ALPHA-1A) | ☐ | ☐ | ☐ | *7,20 €* |
+| Optocoupleur quadruple — 43 voies | `PC847 (Sharp)` | 11 | [RS](https://fr.rs-online.com/web/c/?searchTerm=PC847) | ☐ | ☐ | ☐ | *7,92 €* |
+| Convertisseur DC/DC 24 V → 5 V 1 A | `TSR 1-2450 (Traco Power)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TSR+1-2450) | ☐ | ☐ | ☐ | *8,40 €* |
+| LDO 3,3 V 600 mA | `AP2112K-3.3TRG1 (Diodes)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=AP2112K-3.3TRG1) | ☐ | ☐ | ☐ | *0,72 €* |
+| Diode TVS protection 24 V | `SMBJ33A (Littelfuse)` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SMBJ33A) | ☐ | ☐ | ☐ | *1,20 €* |
+| Résistances 1 %, découplages, LED d'état | `lot` | 1 | — | ☐ | ☐ | ☐ | *9,60 €* |
+| ILS (reed) + aimant — Wi-Fi de maintenance | `Standex KSK-1A66 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Standex+KSK-1A66) | ☐ | ☐ | ☐ | *2,40 €* |
+| SUB-D 25 mâle et femelle, coudés CI | `Amphenol L717SDB25xA4CH4F` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+L717SDB25xA4CH4F) | ☐ | ☐ | ☐ | *7,20 €* |
+| PCB 4 couches ~120 × 100 mm (série de 5) | `Gerber projet` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *14,40 €* |
+| Boîtier, fixation, presse-étoupes, conn. de prog. | `Hammond 1590 ou Fibox` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Hammond+1590+ou+Fibox) | ☐ | ☐ | ☐ | *33,60 €* |
 | **Sous-total** | | | | | | **☐** | ***114,24 €*** |
 
 ### Interface bus — variante `shift595` (recommandée)
 
-| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Registre à décalage sortie 8 bits | `SN74HC595N (TI)` | 3 | RS | ☐ | ☐ | ☐ | *1,80 €* |
-| Registre à décalage entrée 8 bits | `SN74HC165N (TI)` | 3 | RS | ☐ | ☐ | ☐ | *1,80 €* |
+| Registre à décalage sortie 8 bits | `SN74HC595N (TI)` | 3 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SN74HC595N) | ☐ | ☐ | ☐ | *1,80 €* |
+| Registre à décalage entrée 8 bits | `SN74HC165N (TI)` | 3 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SN74HC165N) | ☐ | ☐ | ☐ | *1,80 €* |
 | **Sous-total** | | | | | | **☐** | ***3,60 €*** |
 
 ### Interface bus — variante `mcp23017` (alternative)
 
-| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Expandeur I²C 16 GPIO | `MCP23017-E/SP (Microchip)` | 4 | RS | ☐ | ☐ | ☐ | *12,00 €* |
+| Expandeur I²C 16 GPIO | `MCP23017-E/SP (Microchip)` | 4 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MCP23017-E%2FSP) | ☐ | ☐ | ☐ | *12,00 €* |
 | **Sous-total** | | | | | | **☐** | ***12,00 €*** |
 
 ### **[A1]** Bouton d'appel sur pile — l'unité
 
-| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| MCU ultra-basse consommation | `STM32L071KBU6 (ST)` | 1 | RS | ☐ | ☐ | ☐ | *4,20 €* |
-| Module LoRa 868 MHz | `RFM95W-868S2 (HopeRF)` | 1 | Amazon | ☐ | ☐ | ☐ | *12,00 €* |
-| Antenne 868 MHz + embase SMA | `Siretta ALPHA-1A ou équiv.` | 1 | RS | ☐ | ☐ | ☐ | *7,20 €* |
-| Bouton poussoir Ø22 IP65 | `Schneider XB4BA31 ou équiv.` | 1 | RS | ☐ | ☐ | ☐ | *14,40 €* |
-| Pile Li-SOCl₂ 3,6 V 2,6 Ah + support | `ER14505 / Saft LS14500` | 1 | RS | ☐ | ☐ | ☐ | *7,20 €* |
-| Réservoir d'impulsion pour l'émission LoRa | `220 µF tantale + 10 µF X7R` | 1 | RS | ☐ | ☐ | ☐ | *0,72 €* |
-| LED bicolore verte/rouge + résistances | `Kingbright L-59EGW` | 1 | RS | ☐ | ☐ | ☐ | *1,20 €* |
-| Diode Schottky de protection pile | `BAT54 ou équiv.` | 1 | RS | ☐ | ☐ | ☐ | *0,24 €* |
-| PCB 2 couches ~50 × 50 mm | `Gerber projet` | 1 | PCB | ☐ | ☐ | ☐ | *3,60 €* |
-| Boîtier IP65, presse-étoupe, embase antenne | `Fibox PC 095808 ou équiv.` | 1 | RS | ☐ | ☐ | ☐ | *21,60 €* |
+| MCU ultra-basse consommation | `STM32L071KBU6 (ST)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=STM32L071KBU6) | ☐ | ☐ | ☐ | *4,20 €* |
+| Module LoRa 868 MHz | `RFM95W-868S2 (HopeRF)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RFM95W-868S2) · [Amazon](https://www.amazon.fr/s?k=RFM95W-868S2) | ☐ | ☐ | ☐ | *12,00 €* |
+| Antenne 868 MHz + embase SMA | `Siretta ALPHA-1A ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Siretta+ALPHA-1A) | ☐ | ☐ | ☐ | *7,20 €* |
+| Bouton poussoir Ø22 IP65 | `Schneider XB4BA31 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Schneider+XB4BA31) | ☐ | ☐ | ☐ | *14,40 €* |
+| Pile Li-SOCl₂ 3,6 V 2,6 Ah + support | `ER14505 / Saft LS14500` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ER14505+%2F+Saft+LS14500) | ☐ | ☐ | ☐ | *7,20 €* |
+| Réservoir d'impulsion pour l'émission LoRa | `220 µF tantale + 10 µF X7R` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=220+%C2%B5F+tantale+%2B+10+%C2%B5F+X7R) | ☐ | ☐ | ☐ | *0,72 €* |
+| LED bicolore verte/rouge + résistances | `Kingbright L-59EGW` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Kingbright+L-59EGW) | ☐ | ☐ | ☐ | *1,20 €* |
+| Diode Schottky de protection pile | `BAT54 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=BAT54) | ☐ | ☐ | ☐ | *0,24 €* |
+| PCB 2 couches ~50 × 50 mm | `Gerber projet` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *3,60 €* |
+| Boîtier IP65, presse-étoupe, embase antenne | `Fibox PC 095808 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Fibox+PC+095808) | ☐ | ☐ | ☐ | *21,60 €* |
 | **Sous-total** | | | | | | **☐** | ***72,36 €*** |
 
 ### **[A3]** Poste fixe EnOcean → LoRa
 
-| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Module MCU, 8 Mo flash (LittleFS + pages web) | `ESP32-WROOM-32E-N8` | 1 | RS | ☐ | ☐ | ☐ | *6,00 €* |
-| Récepteur EnOcean 868 MHz, UART ESP3 | `TCM 515 (EnOcean)` | 1 | Spécialiste | ☐ | ☐ | ☐ | *33,60 €* |
-| Antenne EnOcean 868 MHz déportée | `EnOcean ANT300 ou équiv.` | 1 | Spécialiste | ☐ | ☐ | ☐ | *9,60 €* |
-| Module LoRa SX1276 | `RFM95W-868S2 (HopeRF)` | 1 | Amazon | ☐ | ☐ | ☐ | *12,00 €* |
-| Pigtail U.FL → SMA + antenne LoRa 2 dBi | `Amphenol + Siretta` | 1 | RS | ☐ | ☐ | ☐ | *10,80 €* |
-| Contrôleur Ethernet SPI + RJ45 magnétique | `WIZnet WIZ850io (W5500)` | 1 | RS | ☐ | ☐ | ☐ | *7,20 €* |
-| LED d'accusé bicolore, LED de vie, résistances | `lot` | 1 | RS | ☐ | ☐ | ☐ | *1,80 €* |
-| Bouton d'appairage + bouton reset | `Omron B3F-1000` | 2 | RS | ☐ | ☐ | ☐ | *2,40 €* |
-| Alimentation rail DIN 230 V → 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | RS | ☐ | ☐ | ☐ | *16,80 €* |
-| 24 V → 5 V → 3,3 V | `TSR 1-2450 + AP2112K-3.3` | 1 | RS | ☐ | ☐ | ☐ | *9,60 €* |
-| PCB 2 couches ~100 × 80 mm | `Gerber projet` | 1 | PCB | ☐ | ☐ | ☐ | *7,20 €* |
-| Boîtier mural IP54, presse-étoupes, embases SMA | `Fibox ou Hammond 1554` | 1 | RS | ☐ | ☐ | ☐ | *36,00 €* |
+| Module MCU, 8 Mo flash (LittleFS + pages web) | `ESP32-WROOM-32E-N8` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ESP32-WROOM-32E-N8) | ☐ | ☐ | ☐ | *6,00 €* |
+| Récepteur EnOcean 868 MHz, UART ESP3 | `TCM 515 (EnOcean)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TCM+515) · [Mouser](https://www.mouser.fr/c/?q=TCM+515) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=TCM+515) | ☐ | ☐ | ☐ | *33,60 €* |
+| Antenne EnOcean 868 MHz déportée | `EnOcean ANT300 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=EnOcean+ANT300) · [Mouser](https://www.mouser.fr/c/?q=EnOcean+ANT300) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=EnOcean+ANT300) | ☐ | ☐ | ☐ | *9,60 €* |
+| Module LoRa SX1276 | `RFM95W-868S2 (HopeRF)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RFM95W-868S2) · [Amazon](https://www.amazon.fr/s?k=RFM95W-868S2) | ☐ | ☐ | ☐ | *12,00 €* |
+| Pigtail U.FL → SMA + antenne LoRa 2 dBi | `Amphenol + Siretta` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+%2B+Siretta) | ☐ | ☐ | ☐ | *10,80 €* |
+| Contrôleur Ethernet SPI + RJ45 magnétique | `WIZnet WIZ850io (W5500)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=WIZnet+WIZ850io) | ☐ | ☐ | ☐ | *7,20 €* |
+| LED d'accusé bicolore, LED de vie, résistances | `lot` | 1 | — | ☐ | ☐ | ☐ | *1,80 €* |
+| Bouton d'appairage + bouton reset | `Omron B3F-1000` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Omron+B3F-1000) | ☐ | ☐ | ☐ | *2,40 €* |
+| Alimentation rail DIN 230 V → 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MEAN+WELL+HDR-15-24) | ☐ | ☐ | ☐ | *16,80 €* |
+| 24 V → 5 V → 3,3 V | `TSR 1-2450 + AP2112K-3.3` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TSR+1-2450+%2B+AP2112K-3.3) | ☐ | ☐ | ☐ | *9,60 €* |
+| PCB 2 couches ~100 × 80 mm | `Gerber projet` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *7,20 €* |
+| Boîtier mural IP54, presse-étoupes, embases SMA | `Fibox ou Hammond 1554` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Fibox+ou+Hammond+1554) | ☐ | ☐ | ☐ | *36,00 €* |
 | **Sous-total** | | | | | | **☐** | ***153,00 €*** |
 
 ### **[A3]** Bouton EnOcean sans pile — l'unité
 
-| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Module émetteur auto-alimenté, **sans pile** | `PTM 210 (EnOcean, EU 868)` | 1 | Spécialiste | ☐ | ☐ | ☐ | *36,00 €* |
-| Enveloppe / poussoir mural compatible PTM 210 | `Eltako, NodOn ou Trio2Sys` | 1 | Spécialiste | ☐ | ☐ | ☐ | *14,40 €* |
-| Plaque de repérage station gravée | `sur mesure` | 1 | Amazon | ☐ | ☐ | ☐ | *4,80 €* |
+| Module émetteur auto-alimenté, **sans pile** | `PTM 210 (EnOcean, EU 868)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=PTM+210) · [Mouser](https://www.mouser.fr/c/?q=PTM+210) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=PTM+210) | ☐ | ☐ | ☐ | *36,00 €* |
+| Enveloppe / poussoir mural compatible PTM 210 | `Eltako, NodOn ou Trio2Sys` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Eltako%2C+NodOn+ou+Trio2Sys) · [Mouser](https://www.mouser.fr/c/?q=Eltako%2C+NodOn+ou+Trio2Sys) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=Eltako%2C+NodOn+ou+Trio2Sys) | ☐ | ☐ | ☐ | *14,40 €* |
+| Plaque de repérage station gravée | `sur mesure` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=sur+mesure) · [Amazon](https://www.amazon.fr/s?k=sur+mesure) | ☐ | ☐ | ☐ | *4,80 €* |
 | **Sous-total** | | | | | | **☐** | ***55,20 €*** |
 
 ### Outillage — non récurrent
 
-| Désignation | Réf. fabricant | Qté | Source | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Dongle RTL-SDR + antenne — occupation de la bande 868 MHz | `RTL-SDR Blog V4` | 1 | Amazon | ☐ | ☐ | ☐ | *36,00 €* |
-| Analyseur logique 8 voies — chronogrammes X/Y | `clone Saleae 24 MHz` | 1 | Amazon | ☐ | ☐ | ☐ | *18,00 €* |
-| Adaptateur USB-série 3,3 V | `FTDI FT232RL ou CP2102` | 1 | Amazon | ☐ | ☐ | ☐ | *7,20 €* |
-| Mesure de courant µA — sommeil profond **[A1]** | `multimètre à faible burden voltage` | 1 | Amazon | ☐ | ☐ | ☐ | *10,80 €* |
+| Dongle RTL-SDR + antenne — occupation de la bande 868 MHz | `RTL-SDR Blog V4` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RTL-SDR+Blog+V4) · [Amazon](https://www.amazon.fr/s?k=RTL-SDR+Blog+V4) | ☐ | ☐ | ☐ | *36,00 €* |
+| Analyseur logique 8 voies — chronogrammes X/Y | `clone Saleae 24 MHz` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=clone+Saleae+24+MHz) · [Amazon](https://www.amazon.fr/s?k=clone+Saleae+24+MHz) | ☐ | ☐ | ☐ | *18,00 €* |
+| Adaptateur USB-série 3,3 V | `FTDI FT232RL ou CP2102` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=FTDI+FT232RL+ou+CP2102) · [Amazon](https://www.amazon.fr/s?k=FTDI+FT232RL+ou+CP2102) | ☐ | ☐ | ☐ | *7,20 €* |
+| Mesure de courant µA — sommeil profond **[A1]** | `multimètre à faible burden voltage` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=multim%C3%A8tre+%C3%A0+faible+burden+voltage) · [Amazon](https://www.amazon.fr/s?k=multim%C3%A8tre+%C3%A0+faible+burden+voltage) | ☐ | ☐ | ☐ | *10,80 €* |
 | **Sous-total** | | | | | | **☐** | ***72,00 €*** |
 
 ---
