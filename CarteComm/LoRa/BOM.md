@@ -55,7 +55,23 @@ la comparaison entre architectures reste donc pertinente en HT, et
 
 ---
 
-### Carte AGV — commune à A1 et A3
+### Carte AGV — **variante « V5.0.1 réutilisée »** (retenue)
+
+La carte existante est **conservée telle quelle** : elle porte déjà un
+`Mega2560 Pro` qui accède aux 43 lignes et un `ESP32-DEVKITC` dont le relevé
+KiCad montre que **34 de ses 38 broches ne sont pas connectées**. Il ne reste
+qu'à y greffer la radio LoRa. Voir « Réutiliser la carte existante ».
+
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+|---|---|---:|---|---|---:|---:|---:|
+| Carte AIO AGV Control V5.0.1 **existante** | `conservée — 0 €` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=conserv%C3%A9e+%E2%80%94+0+%E2%82%AC) | ☐ | ☐ | ☐ | *0,00 €* |
+| Module LoRa SX1276 868 MHz | `RFM95W-868S2 (HopeRF)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RFM95W-868S2) · [Amazon](https://www.amazon.fr/s?k=RFM95W-868S2) | ☐ | ☐ | ☐ | *12,00 €* |
+| Carte fille : RFM95W vers broches libres de l'ESP32 | `PCB 2 couches ~30 × 30 mm + barrettes` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *9,60 €* |
+| Pigtail U.FL → SMA femelle + passe-cloison | `Amphenol 336312-24-0100` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+336312-24-0100) | ☐ | ☐ | ☐ | *3,60 €* |
+| Antenne 868 MHz 1/4 onde 2 dBi, embase SMA | `Siretta ALPHA-1A ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Siretta+ALPHA-1A) | ☐ | ☐ | ☐ | *7,20 €* |
+| **Sous-total** | | | | | | **☐** | ***32,40 €*** |
+
+### Carte AGV neuve — **variante de repli**, commune à A1 et A3
 
 Carte neuve à fabriquer. La V5.0.1 d'origine est **conservée intacte** :
 c'est le retour arrière de cette architecture.
@@ -163,20 +179,20 @@ additionner les deux. Voir « Peut-on se passer des optocoupleurs ? ».
 
 | Poste | Total TTC relevé | *Repère TTC* | *Repère HT* |
 |---|---:|---:|---:|
-| Carte AGV (variante `shift595`) | ☐ | *117,84 €* | *98,20 €* |
+| Carte AGV **réutilisée** + radio | ☐ | *32,40 €* | *27,00 €* |
 | 2 boutons sur pile | ☐ | *144,72 €* | *120,60 €* |
 | Outillage | ☐ | *72,00 €* | *60,00 €* |
-| **TOTAL** | **☐** | ***334,56 €*** | ***278,80 €*** |
+| **TOTAL** | **☐** | ***249,12 €*** | ***207,60 €*** |
 
 ## Récapitulatif — variante A3 (EnOcean + LoRa)
 
 | Poste | Total TTC relevé | *Repère TTC* | *Repère HT* |
 |---|---:|---:|---:|
-| Carte AGV (variante `shift595`) | ☐ | *117,84 €* | *98,20 €* |
+| Carte AGV **réutilisée** + radio | ☐ | *32,40 €* | *27,00 €* |
 | Poste fixe EnOcean → LoRa | ☐ | *153,00 €* | *127,50 €* |
 | 2 boutons PTM 210 | ☐ | *110,40 €* | *92,00 €* |
 | Outillage | ☐ | *72,00 €* | *60,00 €* |
-| **TOTAL** | **☐** | ***453,24 €*** | ***377,70 €*** |
+| **TOTAL** | **☐** | ***367,80 €*** | ***306,50 €*** |
 
 ## Demande de prix prête à envoyer
 
@@ -193,7 +209,65 @@ Le second signale que la version **EU 868 MHz** du `PTM 210` est impérative :
 les déclinaisons 902 et 928 MHz ne sont pas utilisables en France, et rien dans
 la désignation ne les distingue au premier coup d'œil.
 
+### Réutiliser la carte existante
+
+C'est l'option retenue, et le relevé du projet KiCad la valide.
+
+**L'`ESP32-DEVKITC` de la V5.0.1 n'utilise que 4 de ses 38 broches** : deux
+d'alimentation, et deux vers le `Mega2560 Pro`. **Les 34 autres ne sont
+connectées à rien.** Il y a donc largement la place d'y greffer un `RFM95W` en
+SPI — `IO18`, `IO19`, `IO23`, `IO5` pour le bus, plus `DIO0` et `RESET`, toutes
+libres.
+
+La répartition des rôles reste celle de l'architecture Wi-Fi : le `Mega2560 Pro`
+porte la mission et les 43 lignes du bus, l'`ESP32` porte la radio. Seule la
+radio change — Wi-Fi d'un côté, LoRa de l'autre.
+
+| | Carte neuve | **V5.0.1 réutilisée** |
+|---|---:|---:|
+| Coût matériel | 98,20 € HT | **27,00 € HT** |
+| PCB à router et faire fabriquer | oui, 4 couches | **non** |
+| Délai d'approvisionnement | 3 à 5 semaines | **immédiat** |
+| Brochage du bus | à relever | **déjà relevé et testé** |
+
+**71,20 € HT d'économie par AGV**, et surtout **le chemin critique matériel
+disparaît** : plus de PCB à faire fabriquer avant de pouvoir essayer quoi que
+ce soit.
+
+⚠️ **Ce que la greffe suppose.** L'`ESP32` et le `Mega2560 Pro` sont sur
+supports ; la carte fille se raccorde donc aux broches libres du module. Pour un
+exemplaire, un câblage volant suffit ; au-delà, la petite carte fille chiffrée
+ci-dessus évite un faisceau fragile dans un chariot qui vibre.
+
+### La liaison entre les deux microcontrôleurs n'est pas un UART
+
+Le relevé KiCad corrige une hypothèse qui était fausse — et le firmware a été
+corrigé en conséquence.
+
+```
+MEGA D53 (PB0) ──[2,2 k]──┬── ESP32 IO16 (U2RXD)     5 V ramenés à 3,4 V
+                          │
+                       [4,7 k]
+                          │
+                         GND
+
+ESP32 IO17 (U2TXD) ───────── MEGA D52 (PB1)          3,3 V lus en logique 5 V
+```
+
+Côté ESP32 c'est bien `UART2`. **Côté MEGA, D52 et D53 ne sont pas des broches
+d'UART matériel** — et les trois UART du MEGA sont inutilisables, car leurs
+broches de réception portent des signaux du bus : `D19`/`PD2` = `Y13`,
+`D17`/`PH0` = `Y11`, `D15`/`PJ0` = **`Y05`**, le drapeau de déplacement.
+
+Un `Serial1.begin()` aurait mis `Y13` en sortie **contre la sortie de
+l'automate**. Le firmware passe donc en `SoftwareSerial` sur D52/D53, à
+**38 400 bauds** — 115 200 n'est pas tenable en émulation logicielle sur AVR.
+
 ### Peut-on se passer des optocoupleurs ?
+
+> Cette section ne concerne plus que la **variante de repli**, si une carte
+> neuve devait malgré tout être fabriquée. La V5.0.1 réutilisée règle la
+> question d'elle-même : elle n'a pas d'optocoupleur.
 
 Oui — et c'est même ce que fait la carte d'origine. Mais l'échange n'est pas
 celui qu'on croit : **on ne retire pas 11 boîtiers, on change de topologie.**
@@ -298,11 +372,11 @@ par l'émetteur LoRa se traduirait par des appuis perdus, silencieusement.
 
 | Stations | A1 (TTC) | A3 (TTC) | Moins cher |
 |---:|---:|---:|---|
-| 2 | 334,56 € | 453,24 € | **A1** |
-| 4 | 479,28 € | 563,64 € | **A1** |
-| 6 | 624,00 € | 674,04 € | **A1** |
-| 8 | 768,72 € | 784,44 € | **A1** |
-| 12 | 1 058,16 € | 1 005,24 € | **A3** |
+| 2 | 249,12 € | 367,80 € | **A1** |
+| 4 | 393,84 € | 478,20 € | **A1** |
+| 6 | 538,56 € | 588,60 € | **A1** |
+| 8 | 683,28 € | 699,00 € | **A1** |
+| 12 | 972,72 € | 919,80 € | **A3** |
 
 Le point de bascule est à **8 stations**. En dessous, A1 coûte moins **et**
 rend un accusé visuel à l'opérateur. Au-delà, A3 prend l'avantage grâce à des

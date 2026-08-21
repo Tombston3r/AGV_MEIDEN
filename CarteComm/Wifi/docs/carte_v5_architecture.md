@@ -24,7 +24,7 @@
 │  │  • AP de maintenance à la demande     │                        │
 │  │  • NE TOUCHE JAMAIS AU BUS MEIDEN     │                        │
 │  └───────────────┬───────────────────────┘                        │
-│                  │ UART 115 200 bauds, trames à CRC-16            │
+│                  │ SoftwareSerial D52/D53, 38 400 bd, CRC-16      │
 │                  │ + heartbeat applicatif toutes les 500 ms       │
 │  ┌───────────────▼───────────────────────┐                        │
 │  │ ATmega2560                            │                        │
@@ -106,7 +106,9 @@ Ces points conditionnent le premier flash et sont listés dans
 - ~~le câblage ATmega ↔ SUB-D 25~~ — **RELEVÉ**, voir
   [`subd25_atmega.md`](subd25_atmega.md). Reste à contrôler au multimètre
   qu'aucune nappe n'est sertie à l'envers (mode découverte) ;
-- ⚠️ **les niveaux du bus** : le L7806CV est l'alimentation de l'ATmega
+- ~~les niveaux du bus~~ — **vérifiés par le client le 2026-08-21** : la
+  connexion directe des lignes Y est confirmée compatible (W1b clos).
+  Historique : le L7806CV est l'alimentation de l'ATmega
   (24 V de CN64 A6/B6 abaissés à 6 V), il ne renseigne donc pas sur les
   signaux. L'amplitude des lignes Y (§12.1) et la topologie des entrées de
   l'automate restent inconnues — voir
@@ -114,8 +116,11 @@ Ces points conditionnent le premier flash et sont listés dans
 - ⚠️ **la tension V_CC réelle de l'ATmega** : si le 6 V l'alimente directement,
   c'est au niveau du **maximum absolu** du datasheet (6,0 V) et hors plage
   recommandée. Mesure de trente secondes, à faire ;
-- **l'UART qui relie l'ESP32 à l'ATmega** — `Serial1` supposé côté MEGA,
-  `UART1` côté ESP32 ;
+- ~~l'UART qui relie l'ESP32 à l'ATmega~~ — **RELEVÉ au KiCad, et ce n'en est
+  pas un** : `ESP32 IO17` → `MEGA D52` en direct, `MEGA D53` → pont 2,2 k/4,7 k
+  → `ESP32 IO16`. Les trois UART matériels du MEGA sont inutilisables, leurs
+  broches de réception portant `Y13`, `Y11` et `Y05`. D'où `SoftwareSerial` sur
+  D52/D53 à 38 400 bauds ;
 - **l'existence d'une ligne de heartbeat matérielle dédiée** entre les deux
   microcontrôleurs : si le relevé en révèle une, la surveiller **en plus** de la
   trame série détecterait un ESP32 bloqué qui continuerait d'émettre par DMA ;

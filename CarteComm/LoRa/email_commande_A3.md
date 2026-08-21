@@ -5,6 +5,11 @@
 > demande : les circuits imprimés se commandent chez un fabricant spécialisé
 > ([`BOM.md`](BOM.md)), l'outillage est non récurrent et facultatif.
 >
+> ⚠️ **À RÉVISER** — la carte AGV n'est plus fabriquée : la V5.0.1 existante
+> est réutilisée, seule la radio LoRa s'y greffe. Les listes ci-dessous
+> décrivent encore une carte neuve. Voir `BOM.md`, « Réutiliser la carte
+> existante ».
+>
 > ⚠️ Les prix n'étant pas encore relevés au catalogue, c'est une **demande de
 > prix et de disponibilité** — elle devient un bon de commande dès le retour
 > chiffré.

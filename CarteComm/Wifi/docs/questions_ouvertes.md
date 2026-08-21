@@ -18,11 +18,11 @@
 | 12.9 | Runtime du poste fixe | **LEVÉ si l'Unipi Gate G100 est retenu** : livré sous Debian, donc Python 3.11 + systemd sans question | `poste-unipi/` | ✅* |
 | 12.10 | Variante d'interface bus | **tranché** : carte conservée, ports de l'ATmega | `bus/avr_port_bus.h` | ✅ |
 | W1 | Câblage ATmega ↔ SUB-D 25 | **RELEVÉ** : 11 ports, 3 mixtes (PA, PB, PG) | `firmware/mega/src/board_ports.h` | ✅ |
-| **W1b** | **Amplitude des lignes Y** — arrivent directement sur des broches d'ATmega | inconnue | matériel | ☐ **BLOQUANT** |
+| ~~**W1b**~~ | ~~Amplitude des lignes Y~~ — **vérifiée par le client le 2026-08-21** : connexion directe confirmée compatible. *Relever la valeur mesurée ici pour la traçabilité.* | compatible | matériel | ✅ **RÉSOLU** |
 | W1d | Topologie des entrées de l'automate (tirées ou attendant un courant ?) | `x_open_drain: true` (mode qui ne détruit rien) | `profiles/*.yaml` | ☐ |
 | W1e | Tension V_CC réelle de l'ATmega (le L7806CV sort 6 V) | non mesurée | matériel | ☐ |
 | W1c | Pull-ups internes sur les Y (collecteur ouvert ?) | `y_pullups: false` | `profiles/*.yaml` | ☐ |
-| W2 | UART reliant l'ESP32 à l'ATmega | `Serial1` / `UART1` supposés | `board_ports.h`, `board_pins.h` | ☐ |
+| ~~W2~~ | ~~UART reliant l'ESP32 à l'ATmega~~ — **relevé au projet KiCad** : ce n'est **pas** un UART matériel côté MEGA. `ESP32 IO17` → `MEGA D52` en direct, `MEGA D53` → pont 2,2 k/4,7 k → `ESP32 IO16`. Les trois UART du MEGA sont inutilisables, leurs broches RX portant `Y13`, `Y11` et `Y05`. Firmware passé en `SoftwareSerial` à 38 400 bauds. | D52/D53 | `board_ports.h`, `board_pins.h` | ✅ **RÉSOLU** |
 | W3 | Ligne de heartbeat matérielle dédiée | aucune identifiée ; heartbeat par trame série | `board_ports.h` | ☐ |
 | W4 | Connecteur ICSP pour flasher l'ATmega | supposé présent | procédure de déploiement | ☐ |
 | W5 | Paramètres réseau (SSID, IP, VLAN, 802.1X) | placeholders | `profiles/*.yaml` | ☐ |

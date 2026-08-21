@@ -76,7 +76,9 @@ heartbeat:
 
 # --- Liaison série ESP32 <-> ATmega2560 (planification §2.4) -----------------
 link:
-  baud: 115200
+  # 115 200 n'est pas tenable en SoftwareSerial sur AVR : la liaison est câblée
+  # sur D52/D53, hors UART matériel (board_ports.h). 38 400 laisse une marge.
+  baud: 38400
   # Le MEGA répond sous ce délai, sinon l'ESP32 compte une désynchronisation.
   reply_timeout_ms: 50
   # Cadence d'interrogation de l'état du MEGA par l'ESP32.

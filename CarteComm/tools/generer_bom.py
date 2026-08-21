@@ -175,7 +175,7 @@ rupture de stock :
 # ===========================================================================
 #  LoRa — A1 (homogène) et A3 (hybride EnOcean)
 # ===========================================================================
-carte = Section("Carte AGV — commune à A1 et A3",
+carte = Section("Carte AGV neuve — **variante de repli**, commune à A1 et A3",
                 "Carte neuve à fabriquer. La V5.0.1 d'origine est **conservée intacte** :\nc'est le retour arrière de cette architecture.")
 carte.add("Module MCU Wi-Fi/BT, 8 Mo flash", "ESP32-WROOM-32E-N8", 1, "RS", 5.00)
 carte.add("Module LoRa SX1276 868 MHz", "RFM95W-868S2 (HopeRF)", 1, "Amazon", 10.00)
@@ -207,7 +207,18 @@ busavr = Section("Interface bus — variante `avr_port` (alignée sur la V5.0.1)
 busavr.add("Module MCU 5 V, 70 E/S — porte les 43 lignes du bus", "Mega2560 Pro (format compact)", 1, "Amazon", 18.00)
 busavr.add("Réseau Darlington collecteur ouvert — étage des 22 sorties X", "ULN2803A (TI)", 3, "RS", 1.20)
 
-bouton_a1 = Section("**[A1]** Bouton d'appel sur pile — l'unité")
+cartereemploi = Section("Carte AGV — **variante « V5.0.1 réutilisée »** (retenue)",
+                 "La carte existante est **conservée telle quelle** : elle porte déjà un\n"
+                 "`Mega2560 Pro` qui accède aux 43 lignes et un `ESP32-DEVKITC` dont le relevé\n"
+                 "KiCad montre que **34 de ses 38 broches ne sont pas connectées**. Il ne reste\n"
+                 "qu'à y greffer la radio LoRa. Voir « Réutiliser la carte existante ».")
+cartereemploi.add("Carte AIO AGV Control V5.0.1 **existante**", "conservée — 0 €", 1, "RS", 0.00)
+cartereemploi.add("Module LoRa SX1276 868 MHz", "RFM95W-868S2 (HopeRF)", 1, "Amazon", 10.00)
+cartereemploi.add("Carte fille : RFM95W vers broches libres de l'ESP32", "PCB 2 couches ~30 × 30 mm + barrettes", 1, "PCB", 8.00)
+cartereemploi.add("Pigtail U.FL → SMA femelle + passe-cloison", "Amphenol 336312-24-0100", 1, "RS", 3.00)
+cartereemploi.add("Antenne 868 MHz 1/4 onde 2 dBi, embase SMA", "Siretta ALPHA-1A ou équiv.", 1, "RS", 6.00)
+
+bouton_a1 = Section("**[A1]** Bouton d\'appel sur pile — l\'unité")
 bouton_a1.add("MCU ultra-basse consommation", "STM32L071KBU6 (ST)", 1, "RS", 3.50)
 bouton_a1.add("Module LoRa 868 MHz", "RFM95W-868S2 (HopeRF)", 1, "Amazon", 10.00)
 bouton_a1.add("Antenne 868 MHz + embase SMA", "Siretta ALPHA-1A ou équiv.", 1, "RS", 6.00)
@@ -244,7 +255,7 @@ outil_lora.add("Analyseur logique 8 voies — chronogrammes X/Y", "clone Saleae 
 outil_lora.add("Adaptateur USB-série 3,3 V", "FTDI FT232RL ou CP2102", 1, "Amazon", 6.00)
 outil_lora.add("Mesure de courant µA — sommeil profond **[A1]**", "multimètre à faible burden voltage", 1, "Amazon", 9.00)
 
-LORA_SECTIONS = [carte, bus595, busmcp, busavr, bouton_a1, poste_a3, bouton_a3, outil_lora]
+LORA_SECTIONS = [cartereemploi, carte, bus595, busmcp, busavr, bouton_a1, poste_a3, bouton_a3, outil_lora]
 
 # ===========================================================================
 #  Wi-Fi — carte V5.0.1 conservée
@@ -413,20 +424,21 @@ carte595 = carte.ht + bus595.ht
 # quand les 21 entrées Y arrivent directement sur des broches d'ATmega.
 opto_ht  = 11 * 0.60
 carteavr = carte.ht - opto_ht + busavr.ht
-a1_ht = carte595 + 2 * bouton_a1.ht + outil_lora.ht
-a3_ht = carte595 + poste_a3.ht + 2 * bouton_a3.ht + outil_lora.ht
-r1, _ = recap([("Carte AGV (variante `shift595`)", carte595, False),
+carte_reemploi_ht = cartereemploi.ht
+a1_ht = carte_reemploi_ht + 2 * bouton_a1.ht + outil_lora.ht
+a3_ht = carte_reemploi_ht + poste_a3.ht + 2 * bouton_a3.ht + outil_lora.ht
+r1, _ = recap([("Carte AGV **réutilisée** + radio", carte_reemploi_ht, False),
                ("2 boutons sur pile", 2 * bouton_a1.ht, False),
                ("Outillage", outil_lora.ht, False)], "Récapitulatif — variante A1 (LoRa homogène)")
-r3, _ = recap([("Carte AGV (variante `shift595`)", carte595, False),
+r3, _ = recap([("Carte AGV **réutilisée** + radio", carte_reemploi_ht, False),
                ("Poste fixe EnOcean → LoRa", poste_a3.ht, False),
                ("2 boutons PTM 210", 2 * bouton_a3.ht, False),
                ("Outillage", outil_lora.ht, False)], "Récapitulatif — variante A3 (EnOcean + LoRa)")
 
 cross = []
 for n in (2, 4, 6, 8, 12):
-    a1 = (carte595 + outil_lora.ht + bouton_a1.ht * n) * TVA
-    a3 = (carte595 + poste_a3.ht + outil_lora.ht + bouton_a3.ht * n) * TVA
+    a1 = (carte_reemploi_ht + outil_lora.ht + bouton_a1.ht * n) * TVA
+    a3 = (carte_reemploi_ht + poste_a3.ht + outil_lora.ht + bouton_a3.ht * n) * TVA
     win = "**A1**" if a1 < a3 else ("**A3**" if a3 < a1 else "égalité")
     cross.append(f"| {n} | {eur(a1)} | {eur(a3)} | {win} |")
 
@@ -479,7 +491,9 @@ latch commun. Aucune raison de payer plus cher pour un résultat temporel
 inférieur.
 """
 
-c595  = eur(carte595)
+c595   = eur(carte595)
+creemp = eur(carte_reemploi_ht)
+gainc  = eur(carte595 - carte_reemploi_ht)
 cavr  = eur(carteavr)
 delta = eur(carteavr - carte595)
 
@@ -502,7 +516,65 @@ Le second signale que la version **EU 868 MHz** du `PTM 210` est impérative :
 les déclinaisons 902 et 928 MHz ne sont pas utilisables en France, et rien dans
 la désignation ne les distingue au premier coup d'œil.
 
+### Réutiliser la carte existante
+
+C'est l'option retenue, et le relevé du projet KiCad la valide.
+
+**L'`ESP32-DEVKITC` de la V5.0.1 n'utilise que 4 de ses 38 broches** : deux
+d'alimentation, et deux vers le `Mega2560 Pro`. **Les 34 autres ne sont
+connectées à rien.** Il y a donc largement la place d'y greffer un `RFM95W` en
+SPI — `IO18`, `IO19`, `IO23`, `IO5` pour le bus, plus `DIO0` et `RESET`, toutes
+libres.
+
+La répartition des rôles reste celle de l'architecture Wi-Fi : le `Mega2560 Pro`
+porte la mission et les 43 lignes du bus, l'`ESP32` porte la radio. Seule la
+radio change — Wi-Fi d'un côté, LoRa de l'autre.
+
+| | Carte neuve | **V5.0.1 réutilisée** |
+|---|---:|---:|
+| Coût matériel | {c595} HT | **{creemp} HT** |
+| PCB à router et faire fabriquer | oui, 4 couches | **non** |
+| Délai d'approvisionnement | 3 à 5 semaines | **immédiat** |
+| Brochage du bus | à relever | **déjà relevé et testé** |
+
+**{gainc} HT d'économie par AGV**, et surtout **le chemin critique matériel
+disparaît** : plus de PCB à faire fabriquer avant de pouvoir essayer quoi que
+ce soit.
+
+⚠️ **Ce que la greffe suppose.** L'`ESP32` et le `Mega2560 Pro` sont sur
+supports ; la carte fille se raccorde donc aux broches libres du module. Pour un
+exemplaire, un câblage volant suffit ; au-delà, la petite carte fille chiffrée
+ci-dessus évite un faisceau fragile dans un chariot qui vibre.
+
+### La liaison entre les deux microcontrôleurs n'est pas un UART
+
+Le relevé KiCad corrige une hypothèse qui était fausse — et le firmware a été
+corrigé en conséquence.
+
+```
+MEGA D53 (PB0) ──[2,2 k]──┬── ESP32 IO16 (U2RXD)     5 V ramenés à 3,4 V
+                          │
+                       [4,7 k]
+                          │
+                         GND
+
+ESP32 IO17 (U2TXD) ───────── MEGA D52 (PB1)          3,3 V lus en logique 5 V
+```
+
+Côté ESP32 c'est bien `UART2`. **Côté MEGA, D52 et D53 ne sont pas des broches
+d'UART matériel** — et les trois UART du MEGA sont inutilisables, car leurs
+broches de réception portent des signaux du bus : `D19`/`PD2` = `Y13`,
+`D17`/`PH0` = `Y11`, `D15`/`PJ0` = **`Y05`**, le drapeau de déplacement.
+
+Un `Serial1.begin()` aurait mis `Y13` en sortie **contre la sortie de
+l'automate**. Le firmware passe donc en `SoftwareSerial` sur D52/D53, à
+**38 400 bauds** — 115 200 n'est pas tenable en émulation logicielle sur AVR.
+
 ### Peut-on se passer des optocoupleurs ?
+
+> Cette section ne concerne plus que la **variante de repli**, si une carte
+> neuve devait malgré tout être fabriquée. La V5.0.1 réutilisée règle la
+> question d'elle-même : elle n'a pas d'optocoupleur.
 
 Oui — et c'est même ce que fait la carte d'origine. Mais l'échange n'est pas
 celui qu'on croit : **on ne retire pas 11 boîtiers, on change de topologie.**

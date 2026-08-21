@@ -18,6 +18,7 @@
 // bumpers et le scrutateur laser restent dans une chaîne indépendante conforme
 // à l'ISO 3691-4.
 #include <Arduino.h>
+#include <SoftwareSerial.h>
 #include <util/atomic.h>
 
 #include "app/course_queue.h"
@@ -61,9 +62,14 @@ class AvrCritical final : public agv::ICriticalSection {
   uint8_t saved_ = 0;
 };
 
+// La liaison vers l'ESP32 est câblée sur D52/D53, qui ne sont pas des broches
+// d'UART matériel — voir board_ports.h. Les trois UART du MEGA ont leur RX
+// occupé par un signal du bus.
+SoftwareSerial g_link(agv::board::kLinkRxPin, agv::board::kLinkTxPin);
+
 class SerialWriter final : public agv::ILinkWriter {
  public:
-  void write(const uint8_t* data, size_t len) override { Serial1.write(data, len); }
+  void write(const uint8_t* data, size_t len) override { g_link.write(data, len); }
 };
 
 // --- Objets applicatifs (allocation statique : pas de tas sur AVR) ---------
@@ -93,8 +99,8 @@ void discovery_tick(uint32_t now_ms) {
   if (now_ms - g_discovery_last_ms < kDiscoveryStepMs) return;
   g_discovery_last_ms = now_ms;
   g_bus->drive_single(g_discovery_bit);
-  Serial1.print(F("# DECOUVERTE bit X="));
-  Serial1.println(g_discovery_bit);
+  g_link.print(F("# DECOUVERTE bit X="));
+  g_link.println(g_discovery_bit);
   Serial.print(F("# DECOUVERTE bit X="));
   Serial.println(g_discovery_bit);
   g_discovery_bit = static_cast<uint8_t>((g_discovery_bit + 1) % 22);
@@ -107,7 +113,8 @@ void setup() {
 
   // Console de mise au point (USB) — jamais dans le chemin de commande.
   Serial.begin(115200);
-  Serial1.begin(profile.link.baud);
+  g_link.begin(profile.link.baud);
+  g_link.listen();
 
   static agv::AvrBusMap bus_map = agv::board::bus_map();
   static agv::AvrPortBus bus(profile, bus_map, g_critical, g_clock);
@@ -135,8 +142,8 @@ void loop() {
   const uint32_t now_ms = millis();
 
   // Commandes de l'ESP32.
-  while (Serial1.available() > 0) {
-    g_app->feed(static_cast<uint8_t>(Serial1.read()), now_ms);
+  while (g_link.available() > 0) {
+    g_app->feed(static_cast<uint8_t>(g_link.read()), now_ms);
   }
 
   // Console de mise au point : bascule du mode découverte.

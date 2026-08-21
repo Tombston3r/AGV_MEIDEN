@@ -235,14 +235,15 @@ journalctl -u agv-poste -f
 | # | Tâche | Débloqué par |
 |---|---|---|
 | B1 | Renseigner `t_setup_us` et les timeouts `Y22`/`Y05`/`Y10` | Relevé à l'analyseur logique (0.4, §12.4-12.5) |
-| B2 | ⚠️ **Qualifier l'amplitude des lignes Y** — protection à ajouter si > V_CC | Mesure sur `Y05` (W1b) |
+| ~~B2~~ | ~~Qualifier l'amplitude des lignes Y~~ | ✅ **vérifié par le client le 2026-08-21** |
 | B2c | Confirmer la topologie de l'étage de sortie (`x_open_drain`) | Mesure du tirage côté automate (W1d) |
 | B2d | Vérifier la tension V_CC de l'ATmega | 6 V = maximum absolu du datasheet (W1e) |
 | B2b | Trancher les pull-ups internes sur les Y | Sorties automate à collecteur ouvert ou poussées ? (W1c) |
 | B3 | Figer la polarité PNP/NPN | Mesure sur l'automate (§12.3) |
 | B4 | Recaler le format `/agvdump` | Sortie réelle de la V5.0.1 (§12.6, §3.3) |
 | B5 | Paramètres réseau et MQTT | Accord du service informatique (0.1, W5, W6) |
-| B6 | Confirmer l'UART ESP32 ↔ ATmega | Relevé de continuité (W2) |
+| ~~B6~~ | ~~Confirmer l'UART ESP32 ↔ ATmega~~ | ✅ **relevé au KiCad** : SoftwareSerial D52/D53, 38 400 bd |
+| B6b | Vérifier au banc la tenue de `SoftwareSerial` à 38 400 bauds sous charge du séquenceur | L'émission logicielle masque les interruptions pendant chaque octet |
 | B7 | Décider de la bande 2,4 GHz vs bi-bande | Arbitrage 0.7 |
 | B2e | ⚠️ **Trancher l'étage de sortie** — `IRF520` (hors spec à 5 V), `IRL520` (logic-level, même brochage) ou `ULN2803A` | Le PCB est-il déjà fabriqué ? (analyse `BOM.md`) |
 | B2f | Décider si l'isolation galvanique est requise — le `TDN 5-2411WISM` isolé cohabite avec des MOSFET à masse commune | Arbitrage client ; ~22 € en jeu (analyse `BOM.md`) |
@@ -297,6 +298,8 @@ journalctl -u agv-poste -f
 
 | Date | Modification | Impact |
 |---|---|---|
+| 2026-08-21 | ⚠️ **Correction de firmware — la liaison inter-MCU n'est pas un UART matériel.** Le relevé du projet KiCad montre `ESP32 IO17` → `MEGA D52` en direct, et `MEGA D53` → pont 2,2 k/4,7 k → `ESP32 IO16`. Or D52/D53 ne sont pas des broches d'UART sur le MEGA, et **ses trois UART sont inutilisables** : leurs broches de réception portent `Y13` (D19/PD2), `Y11` (D17/PH0) et `Y05` (D15/PJ0). Le `Serial1.begin()` que contenait `firmware/mega/src/main.cpp` aurait mis **Y13 en sortie contre la sortie de l'automate**. Passage en `SoftwareSerial` sur D52/D53 et **abaissement à 38 400 bauds**, 115 200 n'étant pas tenable en émulation logicielle sur AVR. **W2 est clos.** | §1.6, W2, `profiles/default.yaml`, 109 tests toujours verts |
+| 2026-08-21 | **W1b clos** : le client a vérifié l'amplitude des lignes Y, la connexion directe sur broches d'ATmega est confirmée compatible. La valeur mesurée reste à consigner dans `questions_ouvertes.md` pour la traçabilité. | W1b, kanban B2 |
 | 2026-08-21 | Troisième variante d'interface bus chiffrée pour l'architecture LoRa : **`avr_port`**, alignée sur la topologie de la V5.0.1. Un `Mega2560 Pro` porte les 43 lignes sur ses broches, les 11 `PC847` disparaissent, et `avr_port_bus.cpp` — écrit et testé ici — se réutilise avec son relevé de câblage. 12 € HT de plus, une conception matérielle au lieu de deux. **Contrepartie : W1b devient strictement bloquant** — un optocoupleur encaisse 24 V, une broche d'ATmega non. La V5.0.1 relie pourtant ses 21 entrées Y directement depuis cinq ans, ce qui rend l'hypothèse « lignes en logique » très probable sans la démontrer. | BOM LoRa, W1b |
 | 2026-08-21 | Colonne **`Lien d'achat`** ajoutée aux nomenclatures et à `tools/prix_a_completer.md`, en remplacement de la colonne `Source` qu'elle rend redondante. **RS est mis en tête partout**, y compris sur les références EnOcean et Unipi qu'il ne distribue habituellement pas : le catalogue évolue et une commande groupée chez un fournisseur référencé vaut souvent le surcoût unitaire. Ce sont des liens de **recherche sur la référence fabricant**, pas des fiches produit — le site de RS bloque l'accès automatisé, aucun numéro de stock n'a donc pu être vérifié. Des numéros inventés auraient produit des liens crédibles menant à la mauvaise pièce. | BOM, feuille de sourcing |
 | 2026-08-20 | **Analyse critique de la carte routée** ajoutée à `BOM.md`. Trois points relevés sur le projet KiCad. (1) L'`IRF520` n'est **pas** un MOSFET logic-level : seuil spécifié de 2 à 4 V, `Rds(on)` garanti à Vgs = 10 V. Il conduit sous 5 V et convient aux quelques milliampères d'une entrée d'automate, mais hors conditions constructeur ; l'`IRL520` est une substitution sans reroutage, l'`ULN2803A` divise la surface par dix. (2) Le convertisseur **isolé** `TDN 5-2411WISM` — poste le plus cher de la carte — cohabite avec un étage de sortie à **masse commune** : l'isolation ne protège pas les signaux, et si elle ne visait qu'eux, un `TSR 1-2450` économise ~22 €. (3) Le 6 V du `L7806CV` reste au maximum absolu de l'ATmega alors qu'un 5 V propre existe déjà sur la carte. Aucun changement de nomenclature : ces trois points sont des **décisions**, pas des corrections. | §3 kanban B2e/B2f, BOM |
