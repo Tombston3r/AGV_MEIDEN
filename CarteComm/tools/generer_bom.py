@@ -198,6 +198,15 @@ bus595.add("Registre à décalage entrée 8 bits", "SN74HC165N (TI)", 3, "RS", 0
 busmcp = Section("Interface bus — variante `mcp23017` (alternative)")
 busmcp.add("Expandeur I²C 16 GPIO", "MCP23017-E/SP (Microchip)", 4, "RS", 2.50)
 
+# Variante alignée sur la topologie de la V5.0.1 : un ATmega porte les 43 lignes
+# sur ses propres broches. Elle SUPPRIME les 11 PC847 de la carte.
+busavr = Section("Interface bus — variante `avr_port` (alignée sur la V5.0.1)",
+                 "⚠️ Cette variante **retire les 11 `PC847`** de la carte AGV ci-dessus :\n"
+                 "les 43 lignes arrivent directement sur les broches de l'ATmega. Ne pas\n"
+                 "additionner les deux. Voir « Peut-on se passer des optocoupleurs ? ».")
+busavr.add("Module MCU 5 V, 70 E/S — porte les 43 lignes du bus", "Mega2560 Pro (format compact)", 1, "Amazon", 18.00)
+busavr.add("Réseau Darlington collecteur ouvert — étage des 22 sorties X", "ULN2803A (TI)", 3, "RS", 1.20)
+
 bouton_a1 = Section("**[A1]** Bouton d'appel sur pile — l'unité")
 bouton_a1.add("MCU ultra-basse consommation", "STM32L071KBU6 (ST)", 1, "RS", 3.50)
 bouton_a1.add("Module LoRa 868 MHz", "RFM95W-868S2 (HopeRF)", 1, "Amazon", 10.00)
@@ -235,7 +244,7 @@ outil_lora.add("Analyseur logique 8 voies — chronogrammes X/Y", "clone Saleae 
 outil_lora.add("Adaptateur USB-série 3,3 V", "FTDI FT232RL ou CP2102", 1, "Amazon", 6.00)
 outil_lora.add("Mesure de courant µA — sommeil profond **[A1]**", "multimètre à faible burden voltage", 1, "Amazon", 9.00)
 
-LORA_SECTIONS = [carte, bus595, busmcp, bouton_a1, poste_a3, bouton_a3, outil_lora]
+LORA_SECTIONS = [carte, bus595, busmcp, busavr, bouton_a1, poste_a3, bouton_a3, outil_lora]
 
 # ===========================================================================
 #  Wi-Fi — carte V5.0.1 conservée
@@ -400,6 +409,10 @@ def write(path, titre, cmp_path, sections, extra):
 
 # --- LoRa -------------------------------------------------------------------
 carte595 = carte.ht + bus595.ht
+# La variante avr_port retire les optocoupleurs : ils ne servent plus à rien
+# quand les 21 entrées Y arrivent directement sur des broches d'ATmega.
+opto_ht  = 11 * 0.60
+carteavr = carte.ht - opto_ht + busavr.ht
 a1_ht = carte595 + 2 * bouton_a1.ht + outil_lora.ht
 a3_ht = carte595 + poste_a3.ht + 2 * bouton_a3.ht + outil_lora.ht
 r1, _ = recap([("Carte AGV (variante `shift595`)", carte595, False),
@@ -466,6 +479,10 @@ latch commun. Aucune raison de payer plus cher pour un résultat temporel
 inférieur.
 """
 
+c595  = eur(carte595)
+cavr  = eur(carteavr)
+delta = eur(carteavr - carte595)
+
 LORA_EXTRA = f"""---
 
 {r1}
@@ -484,6 +501,71 @@ substitutions acceptées :
 Le second signale que la version **EU 868 MHz** du `PTM 210` est impérative :
 les déclinaisons 902 et 928 MHz ne sont pas utilisables en France, et rien dans
 la désignation ne les distingue au premier coup d'œil.
+
+### Peut-on se passer des optocoupleurs ?
+
+Oui — et c'est même ce que fait la carte d'origine. Mais l'échange n'est pas
+celui qu'on croit : **on ne retire pas 11 boîtiers, on change de topologie.**
+
+Un `ESP32` seul n'a qu'une trentaine d'E/S pour 43 signaux. C'est précisément
+pour ça que la carte porte des optocoupleurs et des registres à décalage. Les
+supprimer suppose donc d'ajouter un microcontrôleur qui, lui, a les broches :
+un **`Mega2560 Pro`**, exactement comme la V5.0.1.
+
+| | `shift595` (actuelle) | `avr_port` (V5.0.1) |
+|---|---|---|
+| Microcontrôleurs | `ESP32` seul | `ESP32` + `Mega2560 Pro` |
+| Entrées Y | 11× `PC847` | **directement sur broches** |
+| Sorties X | 11× `PC847` + registres | `ULN2803A` ×3 |
+| Isolation galvanique | oui | **non** |
+| Pose du bus | chaînes de registres | **5 écritures de port, ~0,3 µs** |
+| Coût de la carte | {c595} HT | {cavr} HT |
+
+**{delta} HT de plus, et beaucoup moins de logiciel.**
+
+### Ce que cette variante fait gagner
+
+Le driver existe déjà, écrit et testé pour l'architecture Wi-Fi :
+`firmware/common/bus/avr_port_bus.cpp`, plus le **relevé de câblage complet**
+dans `firmware/mega/src/board_ports.h` — 43 lignes réparties sur 11 ports, avec
+les masques calculés à l'initialisation. Il n'y a rien à écrire.
+
+Elle apporte aussi le **repli de sécurité par heartbeat** de l'architecture
+Wi-Fi, que la carte à `ESP32` seul n'a pas : la mission vit sur un
+microcontrôleur sans pile réseau, qui décide seul de l'arrêt sûr.
+
+Et surtout : **une seule conception matérielle pour deux architectures.** La
+carte LoRa devient la V5.0.1 avec une radio différente.
+
+### Ce qu'elle coûte — et la condition qui la conditionne
+
+L'isolation galvanique disparaît. Ce n'est **pas une régression** : la V5.0.1
+n'en a pas non plus, ses MOSFET de sortie tirent les lignes vers la masse de la
+carte. Cinq ans de production le valident.
+
+Deux points ne se négocient pas :
+
+1. **Les sorties gardent un étage de puissance.** On ne pilote pas une entrée
+   d'automate depuis une broche de microcontrôleur. Les `ULN2803A` remplacent
+   les MOSFET de la V5.0.1 — trois boîtiers DIP-18 au lieu de vingt-trois
+   TO-220. À valider contre le seuil d'entrée de l'automate : ils saturent à
+   ~1,1 V au lieu de ~0,1 V.
+2. ⚠️ **§12.1 devient bloquant, et ne l'était pas.** Un `PC847` avec sa
+   résistance de limitation encaisse des lignes à 24 V ; une broche d'ATmega
+   les détruit. Aujourd'hui, l'amplitude des lignes Y **n'est pas mesurée**.
+
+Le faisceau d'indices est pourtant très favorable : la V5.0.1 relie ses 21
+entrées Y **directement aux broches de l'ATmega**, sans la moindre protection,
+et tourne depuis cinq ans. Une ligne à 24 V sur une broche d'ATmega ne dure pas
+cinq ans, elle dure quelques secondes.
+
+**Mais un faisceau d'indices n'est pas une mesure**, et c'est un multimètre sur
+`Y05` pendant trente secondes — le point W1b, déjà au kanban. Avec les
+optocoupleurs, se tromper coûte une résistance ; sans eux, cela coûte la carte.
+
+**Recommandation : retenir `avr_port`, et faire la mesure avant de lancer le
+PCB.** Le gain logiciel est réel et immédiat ; le risque se referme en une
+demi-minute d'atelier.
 
 ### Pourquoi pas un Unipi Gate pour ce poste ?
 

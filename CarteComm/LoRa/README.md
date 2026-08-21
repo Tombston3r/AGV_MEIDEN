@@ -72,6 +72,19 @@ make test
 partagé entre architectures et n'a aucune raison de transporter un facteur
 d'étalement. C'est ce qui rend cette greffe indolore.
 
+## Variante d'interface bus à trancher
+
+[`BOM.md`](BOM.md) chiffre une troisième variante, **`avr_port`**, alignée sur la
+topologie de la carte V5.0.1 : un `Mega2560 Pro` porte les 43 lignes sur ses
+propres broches, **les optocoupleurs disparaissent**, et le driver
+`avr_port_bus.cpp` déjà écrit et testé pour l'architecture Wi-Fi se réutilise
+tel quel, relevé de câblage compris.
+
+12 € HT de plus sur la carte, beaucoup moins de logiciel — mais elle rend la
+mesure de l'amplitude des lignes Y (**W1b**) strictement bloquante : sans
+optocoupleur, une ligne à 24 V détruit la broche. Voir la section « Peut-on se
+passer des optocoupleurs ? ».
+
 ## Points à ne pas perdre de vue
 
 - Le **budget de rapport cyclique est une obligation réglementaire**, pas une

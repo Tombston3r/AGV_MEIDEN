@@ -92,6 +92,18 @@ c'est le retour arrière de cette architecture.
 | Expandeur I²C 16 GPIO | `MCP23017-E/SP (Microchip)` | 4 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MCP23017-E%2FSP) | ☐ | ☐ | ☐ | *12,00 €* |
 | **Sous-total** | | | | | | **☐** | ***12,00 €*** |
 
+### Interface bus — variante `avr_port` (alignée sur la V5.0.1)
+
+⚠️ Cette variante **retire les 11 `PC847`** de la carte AGV ci-dessus :
+les 43 lignes arrivent directement sur les broches de l'ATmega. Ne pas
+additionner les deux. Voir « Peut-on se passer des optocoupleurs ? ».
+
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+|---|---|---:|---|---|---:|---:|---:|
+| Module MCU 5 V, 70 E/S — porte les 43 lignes du bus | `Mega2560 Pro (format compact)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Mega2560+Pro) · [Amazon](https://www.amazon.fr/s?k=Mega2560+Pro) | ☐ | ☐ | ☐ | *21,60 €* |
+| Réseau Darlington collecteur ouvert — étage des 22 sorties X | `ULN2803A (TI)` | 3 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ULN2803A) | ☐ | ☐ | ☐ | *4,32 €* |
+| **Sous-total** | | | | | | **☐** | ***25,92 €*** |
+
 ### **[A1]** Bouton d'appel sur pile — l'unité
 
 | Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
@@ -180,6 +192,71 @@ substitutions acceptées :
 Le second signale que la version **EU 868 MHz** du `PTM 210` est impérative :
 les déclinaisons 902 et 928 MHz ne sont pas utilisables en France, et rien dans
 la désignation ne les distingue au premier coup d'œil.
+
+### Peut-on se passer des optocoupleurs ?
+
+Oui — et c'est même ce que fait la carte d'origine. Mais l'échange n'est pas
+celui qu'on croit : **on ne retire pas 11 boîtiers, on change de topologie.**
+
+Un `ESP32` seul n'a qu'une trentaine d'E/S pour 43 signaux. C'est précisément
+pour ça que la carte porte des optocoupleurs et des registres à décalage. Les
+supprimer suppose donc d'ajouter un microcontrôleur qui, lui, a les broches :
+un **`Mega2560 Pro`**, exactement comme la V5.0.1.
+
+| | `shift595` (actuelle) | `avr_port` (V5.0.1) |
+|---|---|---|
+| Microcontrôleurs | `ESP32` seul | `ESP32` + `Mega2560 Pro` |
+| Entrées Y | 11× `PC847` | **directement sur broches** |
+| Sorties X | 11× `PC847` + registres | `ULN2803A` ×3 |
+| Isolation galvanique | oui | **non** |
+| Pose du bus | chaînes de registres | **5 écritures de port, ~0,3 µs** |
+| Coût de la carte | 98,20 € HT | 110,20 € HT |
+
+**12,00 € HT de plus, et beaucoup moins de logiciel.**
+
+### Ce que cette variante fait gagner
+
+Le driver existe déjà, écrit et testé pour l'architecture Wi-Fi :
+`firmware/common/bus/avr_port_bus.cpp`, plus le **relevé de câblage complet**
+dans `firmware/mega/src/board_ports.h` — 43 lignes réparties sur 11 ports, avec
+les masques calculés à l'initialisation. Il n'y a rien à écrire.
+
+Elle apporte aussi le **repli de sécurité par heartbeat** de l'architecture
+Wi-Fi, que la carte à `ESP32` seul n'a pas : la mission vit sur un
+microcontrôleur sans pile réseau, qui décide seul de l'arrêt sûr.
+
+Et surtout : **une seule conception matérielle pour deux architectures.** La
+carte LoRa devient la V5.0.1 avec une radio différente.
+
+### Ce qu'elle coûte — et la condition qui la conditionne
+
+L'isolation galvanique disparaît. Ce n'est **pas une régression** : la V5.0.1
+n'en a pas non plus, ses MOSFET de sortie tirent les lignes vers la masse de la
+carte. Cinq ans de production le valident.
+
+Deux points ne se négocient pas :
+
+1. **Les sorties gardent un étage de puissance.** On ne pilote pas une entrée
+   d'automate depuis une broche de microcontrôleur. Les `ULN2803A` remplacent
+   les MOSFET de la V5.0.1 — trois boîtiers DIP-18 au lieu de vingt-trois
+   TO-220. À valider contre le seuil d'entrée de l'automate : ils saturent à
+   ~1,1 V au lieu de ~0,1 V.
+2. ⚠️ **§12.1 devient bloquant, et ne l'était pas.** Un `PC847` avec sa
+   résistance de limitation encaisse des lignes à 24 V ; une broche d'ATmega
+   les détruit. Aujourd'hui, l'amplitude des lignes Y **n'est pas mesurée**.
+
+Le faisceau d'indices est pourtant très favorable : la V5.0.1 relie ses 21
+entrées Y **directement aux broches de l'ATmega**, sans la moindre protection,
+et tourne depuis cinq ans. Une ligne à 24 V sur une broche d'ATmega ne dure pas
+cinq ans, elle dure quelques secondes.
+
+**Mais un faisceau d'indices n'est pas une mesure**, et c'est un multimètre sur
+`Y05` pendant trente secondes — le point W1b, déjà au kanban. Avec les
+optocoupleurs, se tromper coûte une résistance ; sans eux, cela coûte la carte.
+
+**Recommandation : retenir `avr_port`, et faire la mesure avant de lancer le
+PCB.** Le gain logiciel est réel et immédiat ; le risque se referme en une
+demi-minute d'atelier.
 
 ### Pourquoi pas un Unipi Gate pour ce poste ?
 
