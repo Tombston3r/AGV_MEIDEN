@@ -166,6 +166,12 @@ c'est le retour arrière de cette architecture.
 | Outillage | ☐ | *72,00 €* | *60,00 €* |
 | **TOTAL** | **☐** | ***453,24 €*** | ***377,70 €*** |
 
+## Demande de prix prête à envoyer
+
+[`email_commande.md`](email_commande.md) reprend cette nomenclature en
+**variante A1, une carte et deux boutons**, sous forme de courrier — avec
+l'explication du système en trois phrases et les substitutions acceptées.
+
 ### Pourquoi pas un Unipi Gate pour ce poste ?
 
 La question se pose puisque le poste de l'architecture Wi-Fi a été ramené à une
