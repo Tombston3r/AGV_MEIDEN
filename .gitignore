@@ -30,3 +30,7 @@ _autosave-*
 *.kicad_pcb-bak
 *.kicad_sch-bak
 _autosave-*
+
+# Caches Python des scripts d'essai
+__pycache__/
+*.pyc
