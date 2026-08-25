@@ -50,8 +50,8 @@ en tête le montant des accessoires écartés.
 
 | Architecture | Matériel | Récurrent | **10 ans** | Par station de plus |
 |---|---:|---:|---:|---:|
-| [`A3_LoRa/`](A3_LoRa/BOM.md) **A3** — LoRa homogène | 208 € | 0 €/an | **~220 €** | +60 € |
-| [`A2_Hybride/`](A2_Hybride/BOM.md) **A2** — EnOcean + LoRa | 307 € | 0 €/an | **~307 €** | +46 € |
+| [`A3_LoRa/`](A3_LoRa/BOM.md) **A3** — LoRa homogène | 329 € | 0 €/an | **~341 €** | +60 € |
+| [`A2_Hybride/`](A2_Hybride/BOM.md) **A2** — EnOcean + LoRa | 428 € | 0 €/an | **~428 €** | +46 € |
 | [`A4_Wifi/`](A4_Wifi/BOM.md) **A4** — Wi-Fi entreprise | 692 € | 0 €/an | **~692 €** | +50 € |
 | [`A1_Cellulaire/`](A1_Cellulaire/BOM.md) **A1** — LTE-M/MQTT | 406 € | 96 €/an | **~1 366 €** | +50 € |
 | [`A1_Cellulaire/`](A1_Cellulaire/BOM.md) **A1** — SMS *(déconseillé)* | 625 € | 1 500 €/an | **~15 625 €** | +50 € |
@@ -60,10 +60,11 @@ Deux lectures de ce tableau :
 
 - **le récurrent domine tout** dès qu'un opérateur entre dans la boucle. Le SMS
   coûte 50 fois le LoRa sur dix ans, pour un service inférieur ;
-- **le Wi-Fi reste plus cher que le LoRa**, même après avoir remplacé l'automate
-  du poste par une passerelle Unipi Gate G100 (~200 € au lieu de 375 €) : 692 €
-  contre 208 €. Sa carte AGV est **fabriquée**, pas réutilisée — 155 € TTC de
-  composants d'après le projet KiCad.
+- **le Wi-Fi reste le plus cher des trois sans opérateur** : 692 € contre 341 €
+  pour le LoRa pur, même après avoir remplacé l'automate du poste par une
+  passerelle Unipi Gate G100 (~200 € au lieu de 375 €). L'écart ne vient pas de
+  la carte AGV — **les deux sont fabriquées**, et la V6.0 du LoRa ne coûte que
+  10 € de plus que la V5.0.1 — mais du poste fixe et de l'infrastructure.
 
 Chaque dossier porte son propre [`DEPLOY.md`](A4_Wifi/DEPLOY.md) : les procédures
 n'ont presque rien en commun. Le Wi-Fi impose de sauvegarder puis d'écraser les

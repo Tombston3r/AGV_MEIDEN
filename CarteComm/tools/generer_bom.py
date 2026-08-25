@@ -177,7 +177,7 @@ TAIL_SOURCING = """
 3. Si la référence est absente du catalogue RS : chercher sur Amazon, et
    **noter la source dans la colonne `Réf. catalogue`** — la traçabilité de
    l'origine compte autant que le prix.
-4. Attention aux **conditionnements** : un PC847 ou un SN74HC595N se vend
+4. Attention aux **conditionnements** : un IRF520 ou une résistance se vend
    souvent par 5, 10 ou 100. Le prix unitaire affiché peut correspondre à un
    lot entier.
 5. Les lignes marquées `PCB` ne sont pas des articles de catalogue : elles
@@ -186,20 +186,7 @@ TAIL_SOURCING = """
 6. Reporter les sous-totaux dans le récapitulatif, puis **mettre à jour
    [`{cmp}`]({cmp})** si les écarts changent le classement des architectures.
 
-## Équivalences acceptables
-
-Ces substitutions ne changent rien au fonctionnement, et peuvent débloquer une
-rupture de stock :
-
-| Référence | Équivalents |
-|---|---|
-| `PC847` | `LTV-847`, `TLP281-4`, tout optocoupleur quadruple à sortie transistor |
-| `SN74HC595N` | `MC74HC595AN`, `CD74HC595E` — boîtier DIP-16 |
-| `SN74HC165N` | `MC74HC165AN`, `CD74HC165E` |
-| `TSR 1-2450` | `OKI-78SR-5/1.5-W36-C` (Murata), même brochage |
-| `AP2112K-3.3TRG1` | `MCP1700T-3302E`, `XC6206P332MR` |
-| `SMBJ33A` | `SMBJ33CA` (bidirectionnelle), `P6SMB33A` |
-| `ER14505` | `LS14500` (Saft), `SL-360` (Tadiran) — Li-SOCl₂ 3,6 V AA |
+{equivalences}
 """
 
 # ===========================================================================
@@ -237,16 +224,27 @@ busavr = Section("Interface bus — variante `avr_port` (alignée sur la V5.0.1)
 busavr.add("Module MCU 5 V, 70 E/S — porte les 43 lignes du bus", "Mega2560 Pro (format compact)", 1, "Amazon", 18.00)
 busavr.add("Réseau Darlington collecteur ouvert — étage des 22 sorties X", "ULN2803A (TI)", 3, "RS", 1.20)
 
-cartereemploi = Section("Carte AGV — **variante « V5.0.1 réutilisée »** (retenue)",
-                 "La carte existante est **conservée telle quelle** : elle porte déjà un\n"
-                 "`Mega2560 Pro` qui accède aux 43 lignes et un `ESP32-DEVKITC` dont le relevé\n"
-                 "KiCad montre que **34 de ses 38 broches ne sont pas connectées**. Il ne reste\n"
-                 "qu'à y greffer la radio LoRa. Voir « Réutiliser la carte existante ».")
-cartereemploi.add("Carte AIO AGV Control V5.0.1 **existante**", "conservée — 0 €", 1, "RS", 0.00, core=True)
-cartereemploi.add("Module LoRa SX1276 868 MHz", "RFM95W-868S2 (HopeRF)", 1, "Amazon", 10.00, core=True)
-cartereemploi.add("Carte fille : RFM95W vers broches libres de l'ESP32", "PCB 2 couches ~30 × 30 mm + barrettes", 1, "PCB", 8.00, core=True)
-cartereemploi.add("Pigtail U.FL → SMA femelle + passe-cloison", "Amphenol 336312-24-0100", 1, "RS", 3.00, core=False)
-cartereemploi.add("Antenne 868 MHz 1/4 onde 2 dBi, embase SMA", "Siretta ALPHA-1A ou équiv.", 1, "RS", 6.00, core=False)
+# La V6.0 est la V5.0.1 au composant près, PLUS un RFM95W-868S2. Elle est donc
+# construite à partir de la nomenclature KiCad de la V5.0.1 (`w_carte`, définie
+# plus bas) : une seule source pour les 57 lignes communes, et un écart explicite.
+def carte_v6():
+    s = Section("Carte AGV `AIO_AGV_Control_V6.0`",
+                "**Nomenclature réelle**, extraite de\n"
+                "[`hardware/AIO_AGV_Control_V6.0/`](hardware/AIO_AGV_Control_V6.0/) :\n"
+                "58 composants placés au PCB.\n\n"
+                "C'est la **V5.0.1 au composant près, plus un `RFM95W-868S2`** — le\n"
+                "diff des deux projets KiCad ne montre aucun autre écart. La radio est\n"
+                "**intégrée à la carte**, câblée sur le SPI libre de l'ESP32 : il n'y a\n"
+                "ni carte fille ni câblage volant.\n\n"
+                "⚠️ Cette carte est **fabriquée**. La V5.0.1 d'origine reste intacte sur\n"
+                "le chariot — c'est le retour arrière de cette architecture.")
+    for desig, ref, qty, source, ht, core in w_carte.lines:
+        s.add(desig, ref, qty, source, ht, core)
+    s.add("**Module LoRa SX1276 868 MHz** — l'unique écart avec la V5.0.1",
+          "RFM95W-868S2 (HopeRF, U2)", 1, "Amazon", 10.00, core=True)
+    s.add("Pigtail U.FL → SMA femelle + passe-cloison", "Amphenol 336312-24-0100", 1, "RS", 3.00, core=False)
+    s.add("Antenne 868 MHz 1/4 onde 2 dBi, embase SMA", "Siretta ALPHA-1A ou équiv.", 1, "RS", 6.00, core=False)
+    return s
 
 bouton_pile = Section("**[A3]** Bouton d\'appel sur pile — l\'unité")
 bouton_pile.add("MCU ultra-basse consommation", "STM32L071KBU6 (ST)", 1, "RS", 3.50, core=True)
@@ -285,7 +283,8 @@ outil_lora.add("Analyseur logique 8 voies — chronogrammes X/Y", "clone Saleae 
 outil_lora.add("Adaptateur USB-série 3,3 V", "FTDI FT232RL ou CP2102", 1, "Amazon", 6.00)
 outil_lora.add("Mesure de courant µA — sommeil profond **[A3]**", "multimètre à faible burden voltage", 1, "Amazon", 9.00)
 
-LORA_SECTIONS = [cartereemploi, carte, bus595, busmcp, busavr, bouton_pile, poste_enocean, bouton_enocean, outil_lora]
+# LORA_SECTIONS n'existe plus : chaque architecture LoRa compose la sienne
+# près de son write(), la carte V6.0 dépendant de `w_carte` défini plus bas.
 
 # ===========================================================================
 #  Wi-Fi — carte V5.0.1 conservée
@@ -477,7 +476,51 @@ def bloc_total(totaux):
     return "\n".join(out)
 
 
-def write(path, titre, cmp_path, sections, extra, totaux=()):
+EQUIV_LORA = """## Équivalences acceptables
+
+Ces substitutions ne changent rien au fonctionnement, et peuvent débloquer une
+rupture de stock :
+
+| Référence | Équivalents |
+|---|---|
+| `IRF520` | `IRL520N` — version **logic-level**, brochage identique |
+| `RFM95W-868S2` | Tout module SX1276 868 MHz au même brochage |
+| `TSR 1-2450` | `OKI-78SR-5/1.5-W36-C` (Murata), même brochage |
+| `AP2112K-3.3TRG1` | `MCP1700T-3302E`, `XC6206P332MR` |
+| `ER14505` | `LS14500` (Saft), `SL-360` (Tadiran) — Li-SOCl₂ 3,6 V AA |
+| `TCM 515` | `TCM 310` si l'accusé opérateur n'est pas retenu |
+"""
+
+EQUIV_CARTE_NEUVE = """## Équivalences acceptables
+
+Ces substitutions ne changent rien au fonctionnement, et peuvent débloquer une
+rupture de stock :
+
+| Référence | Équivalents |
+|---|---|
+| `PC847` | `LTV-847`, `TLP281-4`, tout optocoupleur quadruple à sortie transistor |
+| `SN74HC595N` | `MC74HC595AN`, `CD74HC595E` — boîtier DIP-16 |
+| `SN74HC165N` | `MC74HC165AN`, `CD74HC165E` |
+| `TSR 1-2450` | `OKI-78SR-5/1.5-W36-C` (Murata), même brochage |
+| `AP2112K-3.3TRG1` | `MCP1700T-3302E`, `XC6206P332MR` |
+| `SMBJ33A` | `SMBJ33CA` (bidirectionnelle), `P6SMB33A` |
+"""
+
+EQUIV_V5 = """## Équivalences acceptables
+
+Ces substitutions ne changent rien au fonctionnement, et peuvent débloquer une
+rupture de stock :
+
+| Référence | Équivalents |
+|---|---|
+| `IRF520` | `IRL520N` — version **logic-level**, brochage identique |
+| `TDN 5-2411WISM` | `TSR 1-2450` **si l'isolation n'est pas requise** — voir l'analyse |
+| `L7806CV` | Sans objet si l'ATmega est alimenté depuis le 5 V de la carte |
+| `DB25P564CTXLF` | Tout SUB-D 25 coudé CI au même pas |
+"""
+
+
+def write(path, titre, cmp_path, sections, extra, totaux=(), equivalences=EQUIV_LORA):
     total = bloc_total(totaux).format(cmp=cmp_path) if totaux else ""
     body = [HEADER.format(titre=titre, cmp=cmp_path, total=total)]
     for s in sections:
@@ -485,31 +528,32 @@ def write(path, titre, cmp_path, sections, extra, totaux=()):
         if md:
             body.append(md)
     body.append(extra)
-    body.append(TAIL_SOURCING.format(cmp=cmp_path))
+    body.append(TAIL_SOURCING.format(cmp=cmp_path, equivalences=equivalences))
     open(path, "w").write("\n".join(body))
     print("écrit :", path)
 
 # --- LoRa -------------------------------------------------------------------
+v6 = carte_v6()          # dépend de w_carte : construite ici, après lui
 carte595 = carte.ht + bus595.ht
 # La variante avr_port retire les optocoupleurs : ils ne servent plus à rien
 # quand les 21 entrées Y arrivent directement sur des broches d'ATmega.
 opto_ht  = 11 * 0.60
 carteavr = carte.ht - opto_ht + busavr.ht
-carte_reemploi_ht = cartereemploi.ht
-ht_lora_pur = carte_reemploi_ht + 2 * bouton_pile.ht + outil_lora.ht
-ht_hybride = carte_reemploi_ht + poste_enocean.ht + 2 * bouton_enocean.ht + outil_lora.ht
-r1, _ = recap([("Carte AGV **réutilisée** + radio", carte_reemploi_ht, False),
+carte_v6_ht = v6.ht
+ht_lora_pur = carte_v6_ht + 2 * bouton_pile.ht + outil_lora.ht
+ht_hybride = carte_v6_ht + poste_enocean.ht + 2 * bouton_enocean.ht + outil_lora.ht
+r1, _ = recap([("Carte AGV `V6.0` (nomenclature KiCad)", carte_v6_ht, False),
                ("2 boutons sur pile", 2 * bouton_pile.ht, False),
                ("Outillage", outil_lora.ht, False)], "Récapitulatif — variante A3 (LoRa homogène)")
-r3, _ = recap([("Carte AGV **réutilisée** + radio", carte_reemploi_ht, False),
+r3, _ = recap([("Carte AGV `V6.0` (nomenclature KiCad)", carte_v6_ht, False),
                ("Poste fixe EnOcean → LoRa", poste_enocean.ht, False),
                ("2 boutons PTM 210", 2 * bouton_enocean.ht, False),
                ("Outillage", outil_lora.ht, False)], "Récapitulatif — variante A2 (EnOcean + LoRa)")
 
 cross = []
 for n in (2, 4, 6, 8, 12):
-    a1 = (carte_reemploi_ht + outil_lora.ht + bouton_pile.ht_complet * n) * TVA
-    a3 = (carte_reemploi_ht + poste_enocean.ht_complet + outil_lora.ht + bouton_enocean.ht_complet * n) * TVA
+    a1 = (carte_v6_ht + outil_lora.ht + bouton_pile.ht_complet * n) * TVA
+    a3 = (carte_v6_ht + poste_enocean.ht_complet + outil_lora.ht + bouton_enocean.ht_complet * n) * TVA
     win = "**A3**" if a1 < a3 else ("**A2**" if a3 < a1 else "égalité")
     cross.append(f"| {n} | {eur(a1)} | {eur(a3)} | {win} |")
 
@@ -540,13 +584,18 @@ composant de moins, et le problème réellement traité.
 Une diode Schottky est ajoutée en protection de la pile — {bat} — contre une
 inversion au remplacement.
 
-### ⚠️ À vérifier — la limitation de courant des optocoupleurs
+### ⚠️ L'`IRF520` n'est pas un MOSFET « logic-level »
 
-Les 43 voies passent par 11 `PC847`. Chaque canal a besoin d'une **résistance de
-limitation** dimensionnée pour la tension réelle des lignes — inconnue tant que
-§12.1 n'est pas mesuré. Elles sont pour l'instant noyées dans la ligne
-« résistances, découplages » : à sortir en ligne explicite une fois la tension
-connue, car 43 résistances de valeur précise, ce n'est plus un forfait.
+La V6.0 hérite de l'étage de sortie de la V5.0.1 : **23 `IRF520`**, dont la
+tension de seuil est spécifiée de 2 à 4 V et le `Rds(on)` garanti à Vgs = 10 V.
+Attaqué par une broche à 5 V, il conduit — mais hors des conditions du
+constructeur.
+
+Pour quelques milliampères sur une entrée d'automate, cela fonctionne. Ce n'est
+pas un défaut bloquant, c'est un choix hors spécification qu'il faut connaître
+avant de l'attribuer à autre chose le jour où une voie se comporte mal en
+température. L'`IRL520` est la version logic-level du même composant, **au même
+brochage** : une substitution sans reroutage.
 
 ### ⚠️ À vérifier — l'autonomie annoncée
 
@@ -555,16 +604,21 @@ quelques appuis par jour. **À mesurer au banc** (phase 7 de `DEPLOY.md`) : un
 courant de repos de 20 µA au lieu de 2 divise l'autonomie par cinq, et
 transforme une maintenance décennale en corvée annuelle.
 
-### ✅ Confirmé — la variante `shift595` reste le bon choix
+### ✅ Confirmé — les 43 lignes sur les broches de l'ATmega
 
-3 € contre 10 € pour les `MCP23017`, et une pose strictement simultanée par
-latch commun. Aucune raison de payer plus cher pour un résultat temporel
-inférieur.
+La V6.0 reprend la topologie de la V5.0.1 : le `Mega2560 Pro` porte les 43
+lignes sur ses propres broches, sans expandeur ni registre à décalage. Le
+relevé de câblage montre que les 22 sorties occupent 5 ports, soit **5
+écritures ≈ 0,3 µs** en section critique — 500 fois plus rapide qu'un expandeur
+I²C.
+
+Le driver `avr_port_bus.cpp` est déjà écrit et testé, et le relevé complet vit
+dans `firmware/mega/src/board_ports.h`. Il n'y a rien à concevoir de ce côté.
 """
 
 def _bascule():
-    fixe_a1 = carte_reemploi_ht + outil_lora.ht
-    fixe_a3 = carte_reemploi_ht + poste_enocean.ht_complet + outil_lora.ht
+    fixe_a1 = carte_v6_ht + outil_lora.ht
+    fixe_a3 = carte_v6_ht + poste_enocean.ht_complet + outil_lora.ht
     for n in range(2, 100):
         if fixe_a3 + bouton_enocean.ht_complet * n < fixe_a1 + bouton_pile.ht_complet * n:
             return n
@@ -573,48 +627,60 @@ def _bascule():
 bascule = _bascule()
 
 c595   = eur(carte595)
-creemp = eur(carte_reemploi_ht)
-gainc  = eur(carte595 - carte_reemploi_ht)
+creemp = eur(carte_v6_ht)
+gainc  = eur(carte595 - carte_v6_ht)
 cavr  = eur(carteavr)
 delta = eur(carteavr - carte595)
 
-LORA_EXTRA = f"""---
+def lora_extra(recap_archi):
+    return f"""---
 
-{r1}
-{r3}
+{recap_archi}
 ⚠️ La version **EU 868 MHz** du `PTM 210` est impérative : les déclinaisons
 902 et 928 MHz ne sont pas utilisables en France, et rien dans la désignation
 courante ne les distingue au premier coup d'œil.
 
-### Réutiliser la carte existante
+### La V6.0, c'est la V5.0.1 plus une radio
 
-C'est l'option retenue, et le relevé du projet KiCad la valide.
+Le diff des deux projets KiCad est sans ambiguïté : **58 empreintes contre 57,
+un seul écart, le `RFM95W-868S2`.** Tout le reste — `Mega2560 Pro`,
+`ESP32-DEVKITC`, les 23 `IRF520` et leurs résistances de grille, le `L7806CV`,
+le `TDN 5-2411WISM`, les deux SUB-D 25 — est strictement identique.
 
-**L'`ESP32-DEVKITC` de la V5.0.1 n'utilise que 4 de ses 38 broches** : deux
-d'alimentation, et deux vers le `Mega2560 Pro`. **Les 34 autres ne sont
-connectées à rien.** Il y a donc largement la place d'y greffer un `RFM95W` en
-SPI — `IO18`, `IO19`, `IO23`, `IO5` pour le bus, plus `DIO0` et `RESET`, toutes
-libres.
+La radio est **intégrée à la carte**, câblée sur le SPI que l'ESP32 laissait
+libre. Le relevé confirme le brochage :
 
-La répartition des rôles reste celle de l'architecture Wi-Fi : le `Mega2560 Pro`
-porte la mission et les 43 lignes du bus, l'`ESP32` porte la radio. Seule la
-radio change — Wi-Fi d'un côté, LoRa de l'autre.
+| RFM95W | ESP32 |
+|---|---|
+| `NSS` | `IO5` |
+| `SCK` | `IO18` |
+| `MISO` | `IO19` |
+| `MOSI` | `IO23` |
+| `DIO0` | `IO26` |
 
-| | Carte neuve | **V5.0.1 réutilisée** |
+⚠️ **`RESET` n'est pas câblée.** Un module figé ne se récupérera qu'en coupant
+l'alimentation de la carte : aucun reset logiciel n'est possible. Une GPIO libre
+suffirait à corriger cela sur une V6.1 — il en reste largement.
+
+⚠️ **`IO16` et `IO17` sont interdites** : elles portent la liaison série vers le
+`Mega2560 Pro`.
+
+### Ce que cela change par rapport aux versions précédentes de ce document
+
+Les nomenclatures antérieures chiffraient la carte LoRa comme une **V5.0.1
+réutilisée** à 0 €, augmentée d'une carte fille portant le `RFM95W`. C'était une
+hypothèse de travail ; la V6.0 la remplace, et **elle est plus chère** :
+
+| | Hypothèse précédente | **V6.0 réelle** |
 |---|---:|---:|
-| Coût matériel | {c595} HT | **{creemp} HT** |
-| PCB à router et faire fabriquer | oui, 4 couches | **non** |
-| Délai d'approvisionnement | 3 à 5 semaines | **immédiat** |
-| Brochage du bus | à relever | **déjà relevé et testé** |
+| Carte AGV | {eur(18.00)} HT *(greffe)* | **{eur(carte_v6_ht)} HT** *(fabriquée)* |
 
-**{gainc} HT d'économie par AGV**, et surtout **le chemin critique matériel
-disparaît** : plus de PCB à faire fabriquer avant de pouvoir essayer quoi que
-ce soit.
+La carte est à produire, comme celle de l'architecture A4. En contrepartie il
+n'y a **ni carte fille, ni câblage volant dans un chariot qui vibre** — ce qui,
+sur un équipement destiné à durer, vaut largement l'écart.
 
-⚠️ **Ce que la greffe suppose.** L'`ESP32` et le `Mega2560 Pro` sont sur
-supports ; la carte fille se raccorde donc aux broches libres du module. Pour un
-exemplaire, un câblage volant suffit ; au-delà, la petite carte fille chiffrée
-ci-dessus évite un faisceau fragile dans un chariot qui vibre.
+La V5.0.1 d'origine **reste intacte sur le chariot** : c'est le retour arrière
+de cette architecture.
 
 ### La liaison entre les deux microcontrôleurs n'est pas un UART
 
@@ -639,75 +705,6 @@ broches de réception portent des signaux du bus : `D19`/`PD2` = `Y13`,
 Un `Serial1.begin()` aurait mis `Y13` en sortie **contre la sortie de
 l'automate**. Le firmware passe donc en `SoftwareSerial` sur D52/D53, à
 **38 400 bauds** — 115 200 n'est pas tenable en émulation logicielle sur AVR.
-
-### Peut-on se passer des optocoupleurs ?
-
-> Cette section ne concerne plus que la **variante de repli**, si une carte
-> neuve devait malgré tout être fabriquée. La V5.0.1 réutilisée règle la
-> question d'elle-même : elle n'a pas d'optocoupleur.
-
-Oui — et c'est même ce que fait la carte d'origine. Mais l'échange n'est pas
-celui qu'on croit : **on ne retire pas 11 boîtiers, on change de topologie.**
-
-Un `ESP32` seul n'a qu'une trentaine d'E/S pour 43 signaux. C'est précisément
-pour ça que la carte porte des optocoupleurs et des registres à décalage. Les
-supprimer suppose donc d'ajouter un microcontrôleur qui, lui, a les broches :
-un **`Mega2560 Pro`**, exactement comme la V5.0.1.
-
-| | `shift595` (actuelle) | `avr_port` (V5.0.1) |
-|---|---|---|
-| Microcontrôleurs | `ESP32` seul | `ESP32` + `Mega2560 Pro` |
-| Entrées Y | 11× `PC847` | **directement sur broches** |
-| Sorties X | 11× `PC847` + registres | `ULN2803A` ×3 |
-| Isolation galvanique | oui | **non** |
-| Pose du bus | chaînes de registres | **5 écritures de port, ~0,3 µs** |
-| Coût de la carte | {c595} HT | {cavr} HT |
-
-**{delta} HT de plus, et beaucoup moins de logiciel.**
-
-### Ce que cette variante fait gagner
-
-Le driver existe déjà, écrit et testé pour l'architecture Wi-Fi :
-`firmware/common/bus/avr_port_bus.cpp`, plus le **relevé de câblage complet**
-dans `firmware/mega/src/board_ports.h` — 43 lignes réparties sur 11 ports, avec
-les masques calculés à l'initialisation. Il n'y a rien à écrire.
-
-Elle apporte aussi le **repli de sécurité par heartbeat** de l'architecture
-Wi-Fi, que la carte à `ESP32` seul n'a pas : la mission vit sur un
-microcontrôleur sans pile réseau, qui décide seul de l'arrêt sûr.
-
-Et surtout : **une seule conception matérielle pour deux architectures.** La
-carte LoRa devient la V5.0.1 avec une radio différente.
-
-### Ce qu'elle coûte — et la condition qui la conditionne
-
-L'isolation galvanique disparaît. Ce n'est **pas une régression** : la V5.0.1
-n'en a pas non plus, ses MOSFET de sortie tirent les lignes vers la masse de la
-carte. Cinq ans de production le valident.
-
-Deux points ne se négocient pas :
-
-1. **Les sorties gardent un étage de puissance.** On ne pilote pas une entrée
-   d'automate depuis une broche de microcontrôleur. Les `ULN2803A` remplacent
-   les MOSFET de la V5.0.1 — trois boîtiers DIP-18 au lieu de vingt-trois
-   TO-220. À valider contre le seuil d'entrée de l'automate : ils saturent à
-   ~1,1 V au lieu de ~0,1 V.
-2. ⚠️ **§12.1 devient bloquant, et ne l'était pas.** Un `PC847` avec sa
-   résistance de limitation encaisse des lignes à 24 V ; une broche d'ATmega
-   les détruit. Aujourd'hui, l'amplitude des lignes Y **n'est pas mesurée**.
-
-Le faisceau d'indices est pourtant très favorable : la V5.0.1 relie ses 21
-entrées Y **directement aux broches de l'ATmega**, sans la moindre protection,
-et tourne depuis cinq ans. Une ligne à 24 V sur une broche d'ATmega ne dure pas
-cinq ans, elle dure quelques secondes.
-
-**Mais un faisceau d'indices n'est pas une mesure**, et c'est un multimètre sur
-`Y05` pendant trente secondes — le point W1b, déjà au kanban. Avec les
-optocoupleurs, se tromper coûte une résistance ; sans eux, cela coûte la carte.
-
-**Recommandation : retenir `avr_port`, et faire la mesure avant de lancer le
-PCB.** Le gain logiciel est réel et immédiat ; le risque se referme en une
-demi-minute d'atelier.
 
 ### Pourquoi pas un Unipi Gate pour ce poste ?
 
@@ -790,7 +787,7 @@ puisque c'est précisément l'enveloppe du bouton A3 qui le rend cher.
 | `RFM95W-868S2` | 1 à 3 semaines | **Contrefaçons fréquentes** — acheter chez un distributeur référencé, pas sur une place de marché |
 | `PTM 210` / `TCM 515` | 1 à 2 semaines | Peu distribués par RS : prévoir un distributeur EnOcean |
 | `ER14505` Li-SOCl₂ | 1 à 2 semaines | **Restrictions de transport aérien** sur le lithium |
-| `ESP32`, `SN74HC595N`, `PC847` | stock | Faible |
+| `ESP32-DEVKITC`, `Mega2560 Pro`, `IRF520` | stock | Faible |
 
 **Ne rien commander avant la phase 1 de [`DEPLOY.md`](DEPLOY.md)** : le relevé de
 couverture radio et l'arbitrage du facteur d'étalement peuvent changer
@@ -811,19 +808,19 @@ l'antenne, la puissance d'émission et le nombre de nœuds.
 # Un dossier par architecture : A3 et A2 ont chacun leur nomenclature. Les
 # sections communes — carte V6.0, variantes d'interface bus, outillage — sont
 # répétées dans les deux, comme le reste du dossier autonome.
-COMMUN_LORA = [cartereemploi, carte, bus595, busmcp, busavr]
+COMMUN_LORA = [v6]
 
 write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/A3_LoRa/BOM.md",
       "A3 — LoRa P2P homogène, boutons sur pile", "../COMPARAISON.md",
-      COMMUN_LORA + [bouton_pile, outil_lora], LORA_EXTRA + ANALYSE_LORA,
+      COMMUN_LORA + [bouton_pile, outil_lora], lora_extra(r1) + ANALYSE_LORA,
       totaux=[("A3 — LoRa homogène, 2 boutons sur pile", ht_lora_pur,
-               acc_de(cartereemploi, outil_lora) + 2 * bouton_pile.ht_accessoires)])
+               acc_de(v6, outil_lora) + 2 * bouton_pile.ht_accessoires)])
 
 write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/A2_Hybride/BOM.md",
       "A2 — Hybride EnOcean + LoRa", "../COMPARAISON.md",
-      COMMUN_LORA + [poste_enocean, bouton_enocean, outil_lora], LORA_EXTRA + ANALYSE_LORA,
+      COMMUN_LORA + [poste_enocean, bouton_enocean, outil_lora], lora_extra(r3) + ANALYSE_LORA,
       totaux=[("A2 — EnOcean + LoRa, 2 boutons sans pile", ht_hybride,
-               acc_de(cartereemploi, poste_enocean, outil_lora) + 2 * bouton_enocean.ht_accessoires)])
+               acc_de(v6, poste_enocean, outil_lora) + 2 * bouton_enocean.ht_accessoires)])
 print(f"A3 = {ht_lora_pur:.2f} HT / {ht_lora_pur*TVA:.2f} TTC ; A2 = {ht_hybride:.2f} HT / {ht_hybride*TVA:.2f} TTC")
 
 # --- Wi-Fi ------------------------------------------------------------------
@@ -1062,6 +1059,7 @@ change la nomenclature.
 write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/A4_Wifi/BOM.md",
       "A4 — Wi-Fi + EnOcean (carte V5.0.1 conservée)", "../COMPARAISON.md",
       WIFI_SECTIONS, WIFI_EXTRA + ANALYSE_WIFI,
+      equivalences=EQUIV_V5,
       totaux=[("A4 — Wi-Fi + EnOcean", wifi_ht,
                acc_de(w_carte, w_harnais, w_antenne, w_poste, w_boutons, w_outil))])
 
@@ -1236,7 +1234,7 @@ SMS est demandé.
 | `Unipi Gate G100` (option B) | 2 à 6 semaines | Debian d'origine, pas de runtime à vérifier |
 | `UniPi E413` (option C) | 2 à 6 semaines | Vérifier l'existence de la **variante LTE** au catalogue |
 | `PTM 210` / `TCM 515` | 1 à 2 semaines | Peu distribués par RS |
-| `ESP32`, `SN74HC595N`, `PC847` | stock | Faible |
+| `ESP32-DEVKITC`, `Mega2560 Pro`, `IRF520` | stock | Faible |
 
 **Ne rien commander avant la phase 1 de [`DEPLOY.md`](DEPLOY.md)** : un seul
 point d'arrêt sous −110 dBm disqualifie l'architecture, et le choix de variante
@@ -1254,6 +1252,7 @@ write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/A1_Cellulaire/BOM.md",
       "A1 — Cellulaire + EnOcean (SMS ou LTE-M)", "../COMPARAISON.md",
       [s_carte, bus595, busmcp, s_poste_esp, s_poste_gate, s_poste_unipi, s_boutons, s_outil],
       SMS_EXTRA + ANALYSE_SMS,
+      equivalences=EQUIV_CARTE_NEUVE,
       totaux=[("A1 — poste ESP32 (recommandé)", sms_esp_ht,
                acc_de(s_carte, s_poste_esp, s_boutons, s_outil)),
               ("A1 — poste Unipi Gate G100", sms_gate_ht,
@@ -1268,8 +1267,8 @@ def _acc(*sections):
 # Totaux « complets », accessoires compris. Ce sont EUX qui alimentent
 # README.md et COMPARAISON.md : on y compare des architectures entre elles, et
 # une comparaison amputée des boîtiers et des antennes fausserait le classement.
-complet_lora_pur   = ht_lora_pur   + _acc(cartereemploi, outil_lora) + 2 * bouton_pile.ht_accessoires
-complet_hybride   = ht_hybride   + _acc(cartereemploi, poste_enocean, outil_lora) + 2 * bouton_enocean.ht_accessoires
+complet_lora_pur   = ht_lora_pur   + _acc(v6, outil_lora) + 2 * bouton_pile.ht_accessoires
+complet_hybride   = ht_hybride   + _acc(v6, poste_enocean, outil_lora) + 2 * bouton_enocean.ht_accessoires
 wifi_complet = wifi_ht + _acc(w_carte, w_harnais, w_antenne, w_poste, w_boutons, w_outil)
 sms_complet  = sms_esp_ht  + _acc(s_carte, s_poste_esp, s_boutons, s_outil)
 gate_complet = sms_gate_ht + _acc(s_carte, s_poste_gate, s_boutons, s_outil)

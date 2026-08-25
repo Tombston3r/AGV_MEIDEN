@@ -382,7 +382,7 @@ est *trop bas* pour son régulateur — ou directement sur `V_CC` ?
 3. Si la référence est absente du catalogue RS : chercher sur Amazon, et
    **noter la source dans la colonne `Réf. catalogue`** — la traçabilité de
    l'origine compte autant que le prix.
-4. Attention aux **conditionnements** : un PC847 ou un SN74HC595N se vend
+4. Attention aux **conditionnements** : un IRF520 ou une résistance se vend
    souvent par 5, 10 ou 100. Le prix unitaire affiché peut correspondre à un
    lot entier.
 5. Les lignes marquées `PCB` ne sont pas des articles de catalogue : elles
@@ -398,10 +398,8 @@ rupture de stock :
 
 | Référence | Équivalents |
 |---|---|
-| `PC847` | `LTV-847`, `TLP281-4`, tout optocoupleur quadruple à sortie transistor |
-| `SN74HC595N` | `MC74HC595AN`, `CD74HC595E` — boîtier DIP-16 |
-| `SN74HC165N` | `MC74HC165AN`, `CD74HC165E` |
-| `TSR 1-2450` | `OKI-78SR-5/1.5-W36-C` (Murata), même brochage |
-| `AP2112K-3.3TRG1` | `MCP1700T-3302E`, `XC6206P332MR` |
-| `SMBJ33A` | `SMBJ33CA` (bidirectionnelle), `P6SMB33A` |
-| `ER14505` | `LS14500` (Saft), `SL-360` (Tadiran) — Li-SOCl₂ 3,6 V AA |
+| `IRF520` | `IRL520N` — version **logic-level**, brochage identique |
+| `TDN 5-2411WISM` | `TSR 1-2450` **si l'isolation n'est pas requise** — voir l'analyse |
+| `L7806CV` | Sans objet si l'ATmega est alimenté depuis le 5 V de la carte |
+| `DB25P564CTXLF` | Tout SUB-D 25 coudé CI au même pas |
+

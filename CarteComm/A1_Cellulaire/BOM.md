@@ -280,7 +280,7 @@ SMS est demandé.
 | `Unipi Gate G100` (option B) | 2 à 6 semaines | Debian d'origine, pas de runtime à vérifier |
 | `UniPi E413` (option C) | 2 à 6 semaines | Vérifier l'existence de la **variante LTE** au catalogue |
 | `PTM 210` / `TCM 515` | 1 à 2 semaines | Peu distribués par RS |
-| `ESP32`, `SN74HC595N`, `PC847` | stock | Faible |
+| `ESP32-DEVKITC`, `Mega2560 Pro`, `IRF520` | stock | Faible |
 
 **Ne rien commander avant la phase 1 de [`DEPLOY.md`](DEPLOY.md)** : un seul
 point d'arrêt sous −110 dBm disqualifie l'architecture, et le choix de variante
@@ -350,7 +350,7 @@ aucune contrepartie technique.
 3. Si la référence est absente du catalogue RS : chercher sur Amazon, et
    **noter la source dans la colonne `Réf. catalogue`** — la traçabilité de
    l'origine compte autant que le prix.
-4. Attention aux **conditionnements** : un PC847 ou un SN74HC595N se vend
+4. Attention aux **conditionnements** : un IRF520 ou une résistance se vend
    souvent par 5, 10 ou 100. Le prix unitaire affiché peut correspondre à un
    lot entier.
 5. Les lignes marquées `PCB` ne sont pas des articles de catalogue : elles
@@ -372,4 +372,4 @@ rupture de stock :
 | `TSR 1-2450` | `OKI-78SR-5/1.5-W36-C` (Murata), même brochage |
 | `AP2112K-3.3TRG1` | `MCP1700T-3302E`, `XC6206P332MR` |
 | `SMBJ33A` | `SMBJ33CA` (bidirectionnelle), `P6SMB33A` |
-| `ER14505` | `LS14500` (Saft), `SL-360` (Tadiran) — Li-SOCl₂ 3,6 V AA |
+

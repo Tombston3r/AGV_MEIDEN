@@ -4,7 +4,7 @@
 
 | | HT | TTC | *Accessoires écartés* |
 |---|---:|---:|---:|
-| **A3 — LoRa homogène, 2 boutons sur pile** | **124,60 €** | **149,52 €** | *+ 83,00 € HT* |
+| **A3 — LoRa homogène, 2 boutons sur pile** | **217,75 €** | **261,30 €** | *+ 111,00 € HT* |
 
 Ces totaux ne comptent que les **composants déterminants**.
 
@@ -74,65 +74,36 @@ la comparaison entre architectures reste donc pertinente en HT, et
 
 ---
 
-### Carte AGV — **variante « V5.0.1 réutilisée »** (retenue)
+### Carte AGV `AIO_AGV_Control_V6.0`
 
-La carte existante est **conservée telle quelle** : elle porte déjà un
-`Mega2560 Pro` qui accède aux 43 lignes et un `ESP32-DEVKITC` dont le relevé
-KiCad montre que **34 de ses 38 broches ne sont pas connectées**. Il ne reste
-qu'à y greffer la radio LoRa. Voir « Réutiliser la carte existante ».
+**Nomenclature réelle**, extraite de
+[`hardware/AIO_AGV_Control_V6.0/`](hardware/AIO_AGV_Control_V6.0/) :
+58 composants placés au PCB.
 
-| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
-|---|---|---:|---|---|---:|---:|---:|
-| Carte AIO AGV Control V5.0.1 **existante** | `conservée — 0 €` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=conserv%C3%A9e+%E2%80%94+0+%E2%82%AC) | ☐ | ☐ | ☐ | *0,00 €* |
-| Module LoRa SX1276 868 MHz | `RFM95W-868S2 (HopeRF)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RFM95W-868S2) · [Amazon](https://www.amazon.fr/s?k=RFM95W-868S2) | ☐ | ☐ | ☐ | *12,00 €* |
-| Carte fille : RFM95W vers broches libres de l'ESP32 | `PCB 2 couches ~30 × 30 mm + barrettes` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *9,60 €* |
-| **Sous-total** | | | | | | **☐** | ***21,60 €*** |
+C'est la **V5.0.1 au composant près, plus un `RFM95W-868S2`** — le
+diff des deux projets KiCad ne montre aucun autre écart. La radio est
+**intégrée à la carte**, câblée sur le SPI libre de l'ESP32 : il n'y a
+ni carte fille ni câblage volant.
 
-### Carte AGV neuve — **variante de repli**, commune à A3 et A2
-
-Carte neuve à fabriquer. La V5.0.1 d'origine est **conservée intacte** :
-c'est le retour arrière de cette architecture.
+⚠️ Cette carte est **fabriquée**. La V5.0.1 d'origine reste intacte sur
+le chariot — c'est le retour arrière de cette architecture.
 
 | Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Module MCU Wi-Fi/BT, 8 Mo flash | `ESP32-WROOM-32E-N8` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ESP32-WROOM-32E-N8) | ☐ | ☐ | ☐ | *6,00 €* |
-| Module LoRa SX1276 868 MHz | `RFM95W-868S2 (HopeRF)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RFM95W-868S2) · [Amazon](https://www.amazon.fr/s?k=RFM95W-868S2) | ☐ | ☐ | ☐ | *12,00 €* |
-| Optocoupleur quadruple — 43 voies | `PC847 (Sharp)` | 11 | [RS](https://fr.rs-online.com/web/c/?searchTerm=PC847) | ☐ | ☐ | ☐ | *7,92 €* |
-| Convertisseur DC/DC 24 V → 5 V 1 A | `TSR 1-2450 (Traco Power)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TSR+1-2450) | ☐ | ☐ | ☐ | *8,40 €* |
-| LDO 3,3 V 600 mA | `AP2112K-3.3TRG1 (Diodes)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=AP2112K-3.3TRG1) | ☐ | ☐ | ☐ | *0,72 €* |
-| Diode TVS protection 24 V | `SMBJ33A (Littelfuse)` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SMBJ33A) | ☐ | ☐ | ☐ | *1,20 €* |
-| Résistances 1 %, découplages, LED d'état | `lot` | 1 | — | ☐ | ☐ | ☐ | *9,60 €* |
-| ILS (reed) + aimant — Wi-Fi de maintenance | `Standex KSK-1A66 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Standex+KSK-1A66) | ☐ | ☐ | ☐ | *2,40 €* |
-| SUB-D 25 mâle et femelle, coudés CI | `Amphenol L717SDB25xA4CH4F` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+L717SDB25xA4CH4F) | ☐ | ☐ | ☐ | *7,20 €* |
-| PCB 4 couches ~120 × 100 mm (série de 5) | `Gerber projet` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *14,40 €* |
-| **Sous-total** | | | | | | **☐** | ***69,84 €*** |
-
-### Interface bus — variante `shift595` (recommandée)
-
-| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
-|---|---|---:|---|---|---:|---:|---:|
-| Registre à décalage sortie 8 bits | `SN74HC595N (TI)` | 3 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SN74HC595N) | ☐ | ☐ | ☐ | *1,80 €* |
-| Registre à décalage entrée 8 bits | `SN74HC165N (TI)` | 3 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SN74HC165N) | ☐ | ☐ | ☐ | *1,80 €* |
-| **Sous-total** | | | | | | **☐** | ***3,60 €*** |
-
-### Interface bus — variante `mcp23017` (alternative)
-
-| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
-|---|---|---:|---|---|---:|---:|---:|
-| Expandeur I²C 16 GPIO | `MCP23017-E/SP (Microchip)` | 4 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MCP23017-E%2FSP) | ☐ | ☐ | ☐ | *12,00 €* |
-| **Sous-total** | | | | | | **☐** | ***12,00 €*** |
-
-### Interface bus — variante `avr_port` (alignée sur la V5.0.1)
-
-⚠️ Cette variante **retire les 11 `PC847`** de la carte AGV ci-dessus :
-les 43 lignes arrivent directement sur les broches de l'ATmega. Ne pas
-additionner les deux. Voir « Peut-on se passer des optocoupleurs ? ».
-
-| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
-|---|---|---:|---|---|---:|---:|---:|
-| Module MCU 5 V, 70 E/S — porte les 43 lignes du bus | `Mega2560 Pro (format compact)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Mega2560+Pro) · [Amazon](https://www.amazon.fr/s?k=Mega2560+Pro) | ☐ | ☐ | ☐ | *21,60 €* |
-| Réseau Darlington collecteur ouvert — étage des 22 sorties X | `ULN2803A (TI)` | 3 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ULN2803A) | ☐ | ☐ | ☐ | *4,32 €* |
-| **Sous-total** | | | | | | **☐** | ***25,92 €*** |
+| Module MCU — carte Mega2560 Pro sur support | `Clone Mega2560 Pro (A1)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Clone+Mega2560+Pro) · [Amazon](https://www.amazon.fr/s?k=Clone+Mega2560+Pro) | ☐ | ☐ | ☐ | *21,60 €* |
+| Module Wi-Fi/BT sur support | `ESP32-DEVKITC-32D-F (U1)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ESP32-DEVKITC-32D-F) | ☐ | ☐ | ☐ | *14,40 €* |
+| **Étage de sortie** — MOSFET N canal TO-220 | `IRF520 (Vishay, T1–T24)` | 23 | [RS](https://fr.rs-online.com/web/c/?searchTerm=IRF520) | ☐ | ☐ | ☐ | *16,56 €* |
+| Résistances de grille des MOSFET | `1 kΩ THT 0411 (R1–R24)` | 23 | [RS](https://fr.rs-online.com/web/c/?searchTerm=1+k%CE%A9+THT+0411) | ☐ | ☐ | ☐ | *1,38 €* |
+| Diviseurs de mesure | `4,7 k / 2,2 k / 22 k / 220 k (R30, R31, R40, R41)` | 4 | [RS](https://fr.rs-online.com/web/c/?searchTerm=4%2C7+k+%2F+2%2C2+k+%2F+22+k+%2F+220+k) | ☐ | ☐ | ☐ | *0,24 €* |
+| Régulateur 6 V — alimentation de l'ATmega | `L7806CV (LM1)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=L7806CV) | ☐ | ☐ | ☐ | *1,08 €* |
+| Convertisseur DC/DC **isolé** 24 V → 5 V, 5 W | `TDN 5-2411WISM (Traco, TDN1)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TDN+5-2411WISM) | ☐ | ☐ | ☐ | *30,00 €* |
+| Diode de protection DO-41 | `1N4007 ou équiv. (D1)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=1N4007) | ☐ | ☐ | ☐ | *0,12 €* |
+| Connecteur SUB-D 25 **mâle** coudé CI (entrées) | `Amphenol DB25P564CTXLF (J1)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+DB25P564CTXLF) | ☐ | ☐ | ☐ | *7,20 €* |
+| Connecteur SUB-D 25 **femelle** coudé CI (sorties) | `Amphenol DB25S564GTLF (J2)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+DB25S564GTLF) | ☐ | ☐ | ☐ | *7,20 €* |
+| Supports et barrettes pour les deux modules | `barrettes tulipe 2,54 mm` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=barrettes+tulipe+2%2C54+mm) | ☐ | ☐ | ☐ | *3,60 €* |
+| PCB ~150 × 100 mm (série de 5) | `Gerber projet` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *18,00 €* |
+| **Module LoRa SX1276 868 MHz** — l'unique écart avec la V5.0.1 | `RFM95W-868S2 (HopeRF, U2)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RFM95W-868S2) · [Amazon](https://www.amazon.fr/s?k=RFM95W-868S2) | ☐ | ☐ | ☐ | *12,00 €* |
+| **Sous-total** | | | | | | **☐** | ***133,38 €*** |
 
 ### **[A3]** Bouton d'appel sur pile — l'unité
 
@@ -162,54 +133,56 @@ additionner les deux. Voir « Peut-on se passer des optocoupleurs ? ».
 
 | Poste | Total TTC relevé | *Repère TTC* | *Repère HT* |
 |---|---:|---:|---:|
-| Carte AGV **réutilisée** + radio | ☐ | *21,60 €* | *18,00 €* |
+| Carte AGV `V6.0` (nomenclature KiCad) | ☐ | *133,38 €* | *111,15 €* |
 | 2 boutons sur pile | ☐ | *55,92 €* | *46,60 €* |
 | Outillage | ☐ | *72,00 €* | *60,00 €* |
-| **TOTAL** | **☐** | ***149,52 €*** | ***124,60 €*** |
-
-## Récapitulatif — variante A2 (EnOcean + LoRa)
-
-| Poste | Total TTC relevé | *Repère TTC* | *Repère HT* |
-|---|---:|---:|---:|
-| Carte AGV **réutilisée** + radio | ☐ | *21,60 €* | *18,00 €* |
-| Poste fixe EnOcean → LoRa | ☐ | *94,80 €* | *79,00 €* |
-| 2 boutons PTM 210 | ☐ | *72,00 €* | *60,00 €* |
-| Outillage | ☐ | *72,00 €* | *60,00 €* |
-| **TOTAL** | **☐** | ***260,40 €*** | ***217,00 €*** |
+| **TOTAL** | **☐** | ***261,30 €*** | ***217,75 €*** |
 
 ⚠️ La version **EU 868 MHz** du `PTM 210` est impérative : les déclinaisons
 902 et 928 MHz ne sont pas utilisables en France, et rien dans la désignation
 courante ne les distingue au premier coup d'œil.
 
-### Réutiliser la carte existante
+### La V6.0, c'est la V5.0.1 plus une radio
 
-C'est l'option retenue, et le relevé du projet KiCad la valide.
+Le diff des deux projets KiCad est sans ambiguïté : **58 empreintes contre 57,
+un seul écart, le `RFM95W-868S2`.** Tout le reste — `Mega2560 Pro`,
+`ESP32-DEVKITC`, les 23 `IRF520` et leurs résistances de grille, le `L7806CV`,
+le `TDN 5-2411WISM`, les deux SUB-D 25 — est strictement identique.
 
-**L'`ESP32-DEVKITC` de la V5.0.1 n'utilise que 4 de ses 38 broches** : deux
-d'alimentation, et deux vers le `Mega2560 Pro`. **Les 34 autres ne sont
-connectées à rien.** Il y a donc largement la place d'y greffer un `RFM95W` en
-SPI — `IO18`, `IO19`, `IO23`, `IO5` pour le bus, plus `DIO0` et `RESET`, toutes
-libres.
+La radio est **intégrée à la carte**, câblée sur le SPI que l'ESP32 laissait
+libre. Le relevé confirme le brochage :
 
-La répartition des rôles reste celle de l'architecture Wi-Fi : le `Mega2560 Pro`
-porte la mission et les 43 lignes du bus, l'`ESP32` porte la radio. Seule la
-radio change — Wi-Fi d'un côté, LoRa de l'autre.
+| RFM95W | ESP32 |
+|---|---|
+| `NSS` | `IO5` |
+| `SCK` | `IO18` |
+| `MISO` | `IO19` |
+| `MOSI` | `IO23` |
+| `DIO0` | `IO26` |
 
-| | Carte neuve | **V5.0.1 réutilisée** |
+⚠️ **`RESET` n'est pas câblée.** Un module figé ne se récupérera qu'en coupant
+l'alimentation de la carte : aucun reset logiciel n'est possible. Une GPIO libre
+suffirait à corriger cela sur une V6.1 — il en reste largement.
+
+⚠️ **`IO16` et `IO17` sont interdites** : elles portent la liaison série vers le
+`Mega2560 Pro`.
+
+### Ce que cela change par rapport aux versions précédentes de ce document
+
+Les nomenclatures antérieures chiffraient la carte LoRa comme une **V5.0.1
+réutilisée** à 0 €, augmentée d'une carte fille portant le `RFM95W`. C'était une
+hypothèse de travail ; la V6.0 la remplace, et **elle est plus chère** :
+
+| | Hypothèse précédente | **V6.0 réelle** |
 |---|---:|---:|
-| Coût matériel | 61,20 € HT | **18,00 € HT** |
-| PCB à router et faire fabriquer | oui, 4 couches | **non** |
-| Délai d'approvisionnement | 3 à 5 semaines | **immédiat** |
-| Brochage du bus | à relever | **déjà relevé et testé** |
+| Carte AGV | 18,00 € HT *(greffe)* | **111,15 € HT** *(fabriquée)* |
 
-**43,20 € HT d'économie par AGV**, et surtout **le chemin critique matériel
-disparaît** : plus de PCB à faire fabriquer avant de pouvoir essayer quoi que
-ce soit.
+La carte est à produire, comme celle de l'architecture A4. En contrepartie il
+n'y a **ni carte fille, ni câblage volant dans un chariot qui vibre** — ce qui,
+sur un équipement destiné à durer, vaut largement l'écart.
 
-⚠️ **Ce que la greffe suppose.** L'`ESP32` et le `Mega2560 Pro` sont sur
-supports ; la carte fille se raccorde donc aux broches libres du module. Pour un
-exemplaire, un câblage volant suffit ; au-delà, la petite carte fille chiffrée
-ci-dessus évite un faisceau fragile dans un chariot qui vibre.
+La V5.0.1 d'origine **reste intacte sur le chariot** : c'est le retour arrière
+de cette architecture.
 
 ### La liaison entre les deux microcontrôleurs n'est pas un UART
 
@@ -234,75 +207,6 @@ broches de réception portent des signaux du bus : `D19`/`PD2` = `Y13`,
 Un `Serial1.begin()` aurait mis `Y13` en sortie **contre la sortie de
 l'automate**. Le firmware passe donc en `SoftwareSerial` sur D52/D53, à
 **38 400 bauds** — 115 200 n'est pas tenable en émulation logicielle sur AVR.
-
-### Peut-on se passer des optocoupleurs ?
-
-> Cette section ne concerne plus que la **variante de repli**, si une carte
-> neuve devait malgré tout être fabriquée. La V5.0.1 réutilisée règle la
-> question d'elle-même : elle n'a pas d'optocoupleur.
-
-Oui — et c'est même ce que fait la carte d'origine. Mais l'échange n'est pas
-celui qu'on croit : **on ne retire pas 11 boîtiers, on change de topologie.**
-
-Un `ESP32` seul n'a qu'une trentaine d'E/S pour 43 signaux. C'est précisément
-pour ça que la carte porte des optocoupleurs et des registres à décalage. Les
-supprimer suppose donc d'ajouter un microcontrôleur qui, lui, a les broches :
-un **`Mega2560 Pro`**, exactement comme la V5.0.1.
-
-| | `shift595` (actuelle) | `avr_port` (V5.0.1) |
-|---|---|---|
-| Microcontrôleurs | `ESP32` seul | `ESP32` + `Mega2560 Pro` |
-| Entrées Y | 11× `PC847` | **directement sur broches** |
-| Sorties X | 11× `PC847` + registres | `ULN2803A` ×3 |
-| Isolation galvanique | oui | **non** |
-| Pose du bus | chaînes de registres | **5 écritures de port, ~0,3 µs** |
-| Coût de la carte | 61,20 € HT | 73,20 € HT |
-
-**12,00 € HT de plus, et beaucoup moins de logiciel.**
-
-### Ce que cette variante fait gagner
-
-Le driver existe déjà, écrit et testé pour l'architecture Wi-Fi :
-`firmware/common/bus/avr_port_bus.cpp`, plus le **relevé de câblage complet**
-dans `firmware/mega/src/board_ports.h` — 43 lignes réparties sur 11 ports, avec
-les masques calculés à l'initialisation. Il n'y a rien à écrire.
-
-Elle apporte aussi le **repli de sécurité par heartbeat** de l'architecture
-Wi-Fi, que la carte à `ESP32` seul n'a pas : la mission vit sur un
-microcontrôleur sans pile réseau, qui décide seul de l'arrêt sûr.
-
-Et surtout : **une seule conception matérielle pour deux architectures.** La
-carte LoRa devient la V5.0.1 avec une radio différente.
-
-### Ce qu'elle coûte — et la condition qui la conditionne
-
-L'isolation galvanique disparaît. Ce n'est **pas une régression** : la V5.0.1
-n'en a pas non plus, ses MOSFET de sortie tirent les lignes vers la masse de la
-carte. Cinq ans de production le valident.
-
-Deux points ne se négocient pas :
-
-1. **Les sorties gardent un étage de puissance.** On ne pilote pas une entrée
-   d'automate depuis une broche de microcontrôleur. Les `ULN2803A` remplacent
-   les MOSFET de la V5.0.1 — trois boîtiers DIP-18 au lieu de vingt-trois
-   TO-220. À valider contre le seuil d'entrée de l'automate : ils saturent à
-   ~1,1 V au lieu de ~0,1 V.
-2. ⚠️ **§12.1 devient bloquant, et ne l'était pas.** Un `PC847` avec sa
-   résistance de limitation encaisse des lignes à 24 V ; une broche d'ATmega
-   les détruit. Aujourd'hui, l'amplitude des lignes Y **n'est pas mesurée**.
-
-Le faisceau d'indices est pourtant très favorable : la V5.0.1 relie ses 21
-entrées Y **directement aux broches de l'ATmega**, sans la moindre protection,
-et tourne depuis cinq ans. Une ligne à 24 V sur une broche d'ATmega ne dure pas
-cinq ans, elle dure quelques secondes.
-
-**Mais un faisceau d'indices n'est pas une mesure**, et c'est un multimètre sur
-`Y05` pendant trente secondes — le point W1b, déjà au kanban. Avec les
-optocoupleurs, se tromper coûte une résistance ; sans eux, cela coûte la carte.
-
-**Recommandation : retenir `avr_port`, et faire la mesure avant de lancer le
-PCB.** Le gain logiciel est réel et immédiat ; le risque se referme en une
-demi-minute d'atelier.
 
 ### Pourquoi pas un Unipi Gate pour ce poste ?
 
@@ -344,11 +248,11 @@ par l'émetteur LoRa se traduirait par des appuis perdus, silencieusement.
 
 | Stations | A3 (TTC) | A2 (TTC) | Moins cher |
 |---:|---:|---:|---|
-| 2 | 238,32 € | 357,00 € | **A3** |
-| 4 | 383,04 € | 467,40 € | **A3** |
-| 6 | 527,76 € | 577,80 € | **A3** |
-| 8 | 672,48 € | 688,20 € | **A3** |
-| 12 | 961,92 € | 909,00 € | **A2** |
+| 2 | 350,10 € | 468,78 € | **A3** |
+| 4 | 494,82 € | 579,18 € | **A3** |
+| 6 | 639,54 € | 689,58 € | **A3** |
+| 8 | 784,26 € | 799,98 € | **A3** |
+| 12 | 1 073,70 € | 1 020,78 € | **A2** |
 
 Le point de bascule est à **9 stations**. En dessous, A3 coûte moins
 **et** rend un accusé visuel à l'opérateur. Au-delà, A2 prend l'avantage grâce
@@ -389,7 +293,7 @@ puisque c'est précisément l'enveloppe du bouton A3 qui le rend cher.
 | `RFM95W-868S2` | 1 à 3 semaines | **Contrefaçons fréquentes** — acheter chez un distributeur référencé, pas sur une place de marché |
 | `PTM 210` / `TCM 515` | 1 à 2 semaines | Peu distribués par RS : prévoir un distributeur EnOcean |
 | `ER14505` Li-SOCl₂ | 1 à 2 semaines | **Restrictions de transport aérien** sur le lithium |
-| `ESP32`, `SN74HC595N`, `PC847` | stock | Faible |
+| `ESP32-DEVKITC`, `Mega2560 Pro`, `IRF520` | stock | Faible |
 
 **Ne rien commander avant la phase 1 de [`DEPLOY.md`](DEPLOY.md)** : le relevé de
 couverture radio et l'arbitrage du facteur d'étalement peuvent changer
@@ -428,13 +332,18 @@ composant de moins, et le problème réellement traité.
 Une diode Schottky est ajoutée en protection de la pile — 0,24 € — contre une
 inversion au remplacement.
 
-### ⚠️ À vérifier — la limitation de courant des optocoupleurs
+### ⚠️ L'`IRF520` n'est pas un MOSFET « logic-level »
 
-Les 43 voies passent par 11 `PC847`. Chaque canal a besoin d'une **résistance de
-limitation** dimensionnée pour la tension réelle des lignes — inconnue tant que
-§12.1 n'est pas mesuré. Elles sont pour l'instant noyées dans la ligne
-« résistances, découplages » : à sortir en ligne explicite une fois la tension
-connue, car 43 résistances de valeur précise, ce n'est plus un forfait.
+La V6.0 hérite de l'étage de sortie de la V5.0.1 : **23 `IRF520`**, dont la
+tension de seuil est spécifiée de 2 à 4 V et le `Rds(on)` garanti à Vgs = 10 V.
+Attaqué par une broche à 5 V, il conduit — mais hors des conditions du
+constructeur.
+
+Pour quelques milliampères sur une entrée d'automate, cela fonctionne. Ce n'est
+pas un défaut bloquant, c'est un choix hors spécification qu'il faut connaître
+avant de l'attribuer à autre chose le jour où une voie se comporte mal en
+température. L'`IRL520` est la version logic-level du même composant, **au même
+brochage** : une substitution sans reroutage.
 
 ### ⚠️ À vérifier — l'autonomie annoncée
 
@@ -443,11 +352,16 @@ quelques appuis par jour. **À mesurer au banc** (phase 7 de `DEPLOY.md`) : un
 courant de repos de 20 µA au lieu de 2 divise l'autonomie par cinq, et
 transforme une maintenance décennale en corvée annuelle.
 
-### ✅ Confirmé — la variante `shift595` reste le bon choix
+### ✅ Confirmé — les 43 lignes sur les broches de l'ATmega
 
-3 € contre 10 € pour les `MCP23017`, et une pose strictement simultanée par
-latch commun. Aucune raison de payer plus cher pour un résultat temporel
-inférieur.
+La V6.0 reprend la topologie de la V5.0.1 : le `Mega2560 Pro` porte les 43
+lignes sur ses propres broches, sans expandeur ni registre à décalage. Le
+relevé de câblage montre que les 22 sorties occupent 5 ports, soit **5
+écritures ≈ 0,3 µs** en section critique — 500 fois plus rapide qu'un expandeur
+I²C.
+
+Le driver `avr_port_bus.cpp` est déjà écrit et testé, et le relevé complet vit
+dans `firmware/mega/src/board_ports.h`. Il n'y a rien à concevoir de ce côté.
 
 
 ---
@@ -459,7 +373,7 @@ inférieur.
 3. Si la référence est absente du catalogue RS : chercher sur Amazon, et
    **noter la source dans la colonne `Réf. catalogue`** — la traçabilité de
    l'origine compte autant que le prix.
-4. Attention aux **conditionnements** : un PC847 ou un SN74HC595N se vend
+4. Attention aux **conditionnements** : un IRF520 ou une résistance se vend
    souvent par 5, 10 ou 100. Le prix unitaire affiché peut correspondre à un
    lot entier.
 5. Les lignes marquées `PCB` ne sont pas des articles de catalogue : elles
@@ -475,10 +389,10 @@ rupture de stock :
 
 | Référence | Équivalents |
 |---|---|
-| `PC847` | `LTV-847`, `TLP281-4`, tout optocoupleur quadruple à sortie transistor |
-| `SN74HC595N` | `MC74HC595AN`, `CD74HC595E` — boîtier DIP-16 |
-| `SN74HC165N` | `MC74HC165AN`, `CD74HC165E` |
+| `IRF520` | `IRL520N` — version **logic-level**, brochage identique |
+| `RFM95W-868S2` | Tout module SX1276 868 MHz au même brochage |
 | `TSR 1-2450` | `OKI-78SR-5/1.5-W36-C` (Murata), même brochage |
 | `AP2112K-3.3TRG1` | `MCP1700T-3302E`, `XC6206P332MR` |
-| `SMBJ33A` | `SMBJ33CA` (bidirectionnelle), `P6SMB33A` |
 | `ER14505` | `LS14500` (Saft), `SL-360` (Tadiran) — Li-SOCl₂ 3,6 V AA |
+| `TCM 515` | `TCM 310` si l'accusé opérateur n'est pas retenu |
+

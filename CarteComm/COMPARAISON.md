@@ -33,7 +33,7 @@ aujourd'hui ; **un seul relevé défavorable peut en disqualifier une**.
 
 **Le SMS est à écarter** : il cumule la plus mauvaise latence, la seule latence
 non bornée, l'absence de garantie d'ordre, et un coût récurrent de ~1 500 €/an
-— soit 15 625 € sur dix ans contre 220 € pour le LoRa pur.
+— soit 15 625 € sur dix ans contre 341 € pour le LoRa pur.
 
 ---
 
@@ -86,7 +86,7 @@ Notation : `++` très favorable · `+` favorable · `~` acceptable · `−` déf
 
 | Critère | LoRa pur | LoRa + EnOcean | Wi-Fi + EnOcean | SMS | LTE-M/MQTT |
 |---|:---:|:---:|:---:|:---:|:---:|
-| **Coût sur 10 ans** | `++` 220 € | `++` 307 € | `+` 692 € | `−−` 15 625 € | `~` 1 366 € |
+| **Coût sur 10 ans** | `++` 341 € | `+` 428 € | `+` 692 € | `−−` 15 625 € | `~` 1 366 € |
 | **Latence** | `+` ~330 ms | `+` ~380 ms | `++` ~50 ms | `−−` non bornée | `~` 0,5–2 s |
 | **Déterminisme** | `++` borné | `++` borné | `~` handover | `−−` aucun | `−` reconnexion |
 | **Portée / pénétration** | `++` sub-GHz | `+` limité par EnOcean | `−` 2,4 GHz | `~` opérateur | `~` opérateur |
@@ -115,8 +115,8 @@ multiplier par 1,20 pour retrouver leurs totaux.
 
 | | Matériel | Récurrent | **10 ans** | Par station |
 |---|---:|---:|---:|---:|
-| LoRa pur (A3) | 208 € | 0 €/an | **220 €** | +60 € |
-| LoRa + EnOcean (A2) | 307 € | 0 €/an | **307 €** | +46 € |
+| LoRa pur (A3) | 329 € | 0 €/an | **341 €** | +60 € |
+| LoRa + EnOcean (A2) | 428 € | 0 €/an | **428 €** | +46 € |
 | Wi-Fi + EnOcean (A4) | 692 € | 0 €/an | **692 €** | +50 € |
 | LTE-M / MQTT (A1) | 406 € | 96 €/an | **1 366 €** | +50 € |
 | SMS (A1) | 625 € | 1 500 €/an | **15 625 €** | +50 € |
@@ -383,7 +383,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 
 **Points forts**
 
-- Le **coût le plus bas** de toutes les solutions : 220 € sur dix ans.
+- Le **coût le plus bas** de toutes les solutions : 341 € sur dix ans.
 - **Aucune dépendance** : ni opérateur, ni service informatique, ni infrastructure.
 - **Latence bornée**, et la seule à pouvoir être ajustée par un paramètre.
 - **Portée sub-GHz**, la plus adaptée à une structure métallique.
@@ -405,7 +405,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 **Points forts**
 
 - **Boutons sans pile, sans maintenance**, à vie.
-- Coût très bas : 307 € sur dix ans, et **le moins cher par station ajoutée**.
+- Coût très bas : 428 € sur dix ans, et **le moins cher par station ajoutée**.
 - Indépendance totale, comme A3.
 - Latence bornée, portée sub-GHz sur le tronçon long.
 - Boutons du commerce disponibles, pas de PCB bouton à faire.
@@ -444,7 +444,8 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 - **Réversibilité incertaine** : les firmwares d'origine sont écrasés, et rien ne
   garantit qu'ils soient relisibles.
 - **Handover** entre points d'accès : 2 à 5 s de coupure en mouvement.
-- **Plus chère que le LoRa** : 692 € contre 220 €. Sa carte AGV est fabriquée, pas réutilisée.
+- **Plus chère que le LoRa** : 692 € contre 341 €. L'écart tient au poste fixe,
+  pas à la carte AGV : la V6.0 du LoRa est la même carte plus un `RFM95W`.
 - Une maintenance IT non notifiée peut arrêter la production.
 - Bouton rejouable, pas d'accusé opérateur.
 
@@ -464,7 +465,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 
 **Points faibles**
 
-- **Coût récurrent** : 15 625 € sur dix ans en SMS, 1 366 € en LTE-M, contre 220 €
+- **Coût récurrent** : 15 625 € sur dix ans en SMS, 1 366 € en LTE-M, contre 341 €
   en LoRa.
 - **Couverture intérieure incertaine et non corrigeable.**
 - **Dépendance à un tiers** : panne, saturation, résiliation, changement tarifaire.
@@ -547,7 +548,7 @@ choisir une architecture qui ne fonctionnera pas sur ce site.
 6. **Combien de points d'appel à terme ?** C'est ce qui place le curseur entre
    A3 et A2.
 7. **Le coût récurrent du cellulaire est-il accepté ?** 15 625 € sur dix ans en
-   SMS, 1 366 € en LTE-M, contre 220 € sans opérateur.
+   SMS, 1 366 € en LTE-M, contre 341 € sans opérateur.
 
 ---
 
