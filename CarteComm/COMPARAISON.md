@@ -27,7 +27,7 @@ aujourd'hui ; **un seul relevé défavorable peut en disqualifier une**.
 | | Recommandation |
 |---|---|
 | **Si le sans-pile est une exigence réelle** | **Hybride LoRa + EnOcean (A3)** |
-| **Si le sans-pile est un confort** | **LoRa pur (A1)** — moins cher jusqu'à 8 stations, et seul à rendre un accusé visuel à l'opérateur |
+| **Si le sans-pile est un confort** | **LoRa pur (A2)** — moins cher jusqu’à 9 stations, et seul à rendre un accusé visuel à l'opérateur |
 | **Si le client refuse toute nouvelle carte** | **Wi-Fi + EnOcean** — mais son coût dépasse celui du LoRa |
 | **Si le cellulaire est imposé** | **LTE-M/MQTT**, jamais le SMS |
 
@@ -39,7 +39,7 @@ non bornée, l'absence de garantie d'ordre, et un coût récurrent de ~1 500 €
 
 ## 2. Les quatre solutions en un coup d'œil
 
-### LoRa pur (A1)
+### LoRa pur (A2)
 
 ```
 Bouton sur pile ──868 MHz LoRa P2P──▶ Carte AGV neuve ──▶ automate
@@ -115,11 +115,11 @@ multiplier par 1,20 pour retrouver leurs totaux.
 
 | | Matériel | Récurrent | **10 ans** | Par station |
 |---|---:|---:|---:|---:|
-| LoRa pur (A1) | 208 € | 0 €/an | **220 €** | +60 € |
+| LoRa pur (A2) | 208 € | 0 €/an | **220 €** | +60 € |
 | LoRa + EnOcean (A3) | 307 € | 0 €/an | **307 €** | +46 € |
 | Wi-Fi + EnOcean (A4) | 692 € | 0 €/an | **692 €** | +50 € |
-| LTE-M / MQTT (A2) | 406 € | 96 €/an | **1 366 €** | +50 € |
-| SMS (A2) | 625 € | 1 500 €/an | **15 625 €** | +50 € |
+| LTE-M / MQTT (A1) | 406 € | 96 €/an | **1 366 €** | +50 € |
+| SMS (A1) | 625 € | 1 500 €/an | **15 625 €** | +50 € |
 
 Trois observations qui ne sautent pas aux yeux :
 
@@ -130,7 +130,7 @@ Trois observations qui ne sautent pas aux yeux :
    automate à entrées/sorties inutilisées, puisque les boutons sont EnOcean.
 2. **Le récurrent domine dès qu'un opérateur entre dans la boucle.** Le SMS
    coûte 56 fois le LoRa pur sur dix ans, pour un service inférieur.
-3. **A1 et A3 se croisent à 8 stations** : en dessous A1 est moins chère, au-delà
+3. **A2 et A3 se croisent à 9 stations** : en dessous A2 est moins chère, au-delà
    A3 prend l'avantage grâce à des boutons à 46 € au lieu de 60 €.
 
 Poste évitable dans trois solutions : remplacer l'UniPi (439–461 €) par un poste
@@ -198,7 +198,7 @@ pas celle qu'on croit.
 
 | Solution | Chiffrement | Authentification | Anti-rejeu | Surface exposée |
 |---|---|---|---|---|
-| LoRa (A1, A3) | AES-128-CTR applicatif | clé partagée | fenêtre `seq` 16 | Portée radio du site |
+| LoRa (A2, A3) | AES-128-CTR applicatif | clé partagée | fenêtre `seq` 16 | Portée radio du site |
 | Wi-Fi | **TLS** + WPA2 ou 802.1X | certificats + ACL par topic | fenêtre `seq` + horodatage | **Réseau d'entreprise** |
 | LTE-M / MQTT | **TLS** | certificats + ACL | idem | Internet, si broker sur VPS |
 | SMS | AES-128-CTR applicatif | clé partagée | fenêtre `seq` + péremption | **Tout le réseau mobile** |
@@ -238,7 +238,7 @@ cellulaire. Ce n'est pas un défaut du logiciel — c'est le protocole du bouton
 |---|---|---|
 | Accepter le risque | Il faut être à ~30 m avec du matériel dédié pour appeler un chariot | 0 € |
 | Émetteurs à sécurité EnOcean (rolling code AES) | Ferme la brèche | +~15 €/bouton, à valider avec le TCM 515 |
-| Boutons LoRa (**A1**) | **Chiffrés et anti-rejeu de bout en bout** | inclus |
+| Boutons LoRa (**A2**) | **Chiffrés et anti-rejeu de bout en bout** | inclus |
 
 **C'est un argument de sécurité en faveur du LoRa pur** qui n'apparaît dans
 aucune autre comparaison : c'est la seule solution où le bouton lui-même est
@@ -248,7 +248,7 @@ authentifié.
 
 | Solution | Ce qui peut couper le service depuis l'extérieur |
 |---|---|
-| LoRa (A1, A3) | Brouillage 868 MHz volontaire — détectable, et le repli s'active |
+| LoRa (A2, A3) | Brouillage 868 MHz volontaire — détectable, et le repli s'active |
 | Wi-Fi | Panne réseau, **maintenance IT non notifiée**, changement de politique |
 | Cellulaire | Panne opérateur, saturation locale, résiliation, changement tarifaire |
 
@@ -319,7 +319,7 @@ une assurance à chiffrer.
 Les quatre servent la page `/agvdump` au format historique du client, ce qui
 préserve les procédures d'atelier existantes.
 
-Le remplacement des piles de A1 est peu contraignant — 6 € et cinq minutes tous
+Le remplacement des piles de A2 est peu contraignant — 6 € et cinq minutes tous
 les 5 à 8 ans — mais c'est une **tâche récurrente à ne pas oublier**, et un
 bouton à pile morte est muet. La LED rouge et le compteur au poste le rendent
 détectable.
@@ -379,7 +379,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 
 ## 5. Fiches par solution
 
-### 5.1 LoRa pur (A1)
+### 5.1 LoRa pur (A2)
 
 **Points forts**
 
@@ -406,7 +406,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 
 - **Boutons sans pile, sans maintenance**, à vie.
 - Coût très bas : 307 € sur dix ans, et **le moins cher par station ajoutée**.
-- Indépendance totale, comme A1.
+- Indépendance totale, comme A2.
 - Latence bornée, portée sub-GHz sur le tronçon long.
 - Boutons du commerce disponibles, pas de PCB bouton à faire.
 
@@ -420,7 +420,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 - Un **poste fixe supplémentaire** à alimenter et à maintenir.
 - **Deux antennes 868 MHz** sur le même boîtier : à espacer, sous peine de
   désensibiliser le récepteur EnOcean.
-- Même dossier logiciel à compléter que A1.
+- Même dossier logiciel à compléter que A2.
 
 ### 5.3 Wi-Fi + EnOcean
 
@@ -490,13 +490,13 @@ Le client refuse-t-il toute nouvelle carte ?
             ├── OUI ──▶ Plus de 8 points d'appel ?
             │           ├── OUI ──▶ HYBRIDE LORA + ENOCEAN
             │           └── NON ──▶ HYBRIDE LORA + ENOCEAN
-            │                       (A1 serait moins cher, mais l'exigence tranche)
+            │                       (A2 serait moins cher, mais l'exigence tranche)
             │
             └── NON ──▶ Un accusé visuel à l'opérateur est-il utile ?
-                        ├── OUI ──▶ LORA PUR (A1)
+                        ├── OUI ──▶ LORA PUR (A2)
                         └── NON ──▶ Plus de 8 points d'appel ?
                                     ├── OUI ──▶ HYBRIDE (A3)
-                                    └── NON ──▶ LORA PUR (A1)
+                                    └── NON ──▶ LORA PUR (A2)
 
 Le cellulaire est-il imposé par le client ?
 └── OUI ──▶ LTE-M / MQTT, jamais le SMS
@@ -512,7 +512,7 @@ disqualifier une solution.
 
 | # | Mesure | Disqualifie | Charge |
 |---|---|---|---|
-| 1 | **Couverture LoRa** le long du parcours, à hauteur d'antenne AGV | A1, A3 si trous | 0,5 j |
+| 1 | **Couverture LoRa** le long du parcours, à hauteur d'antenne AGV | A2, A3 si trous | 0,5 j |
 | 2 | **Couverture Wi-Fi** idem, plus comptage des handovers | Wi-Fi | 1 j |
 | 3 | **Couverture cellulaire** RSRP/RSRQ — un point sous −110 dBm suffit | Cellulaire | 0,5 j |
 | 4 | **Portée EnOcean** depuis chaque emplacement définitif de bouton | A3, Wi-Fi, cellulaire | 0,5 j |
@@ -530,8 +530,8 @@ choisir une architecture qui ne fonctionnera pas sur ce site.
 ## 8. Questions à faire trancher par le client
 
 1. **Le sans-pile est-il une exigence contractuelle, ou un confort ?** C'est la
-   question qui départage A1 et A3, et elle vaut ~84 € plus un accusé opérateur.
-2. **Un opérateur doit-il savoir que son appel est parti ?** Si oui, seul A1 le
+   question qui départage A2 et A3, et elle vaut ~84 € plus un accusé opérateur.
+2. **Un opérateur doit-il savoir que son appel est parti ?** Si oui, seul A2 le
    rend nativement ; les autres imposent un voyant au poste ou un actionneur
    EnOcean (+100 à 160 €).
 3. **Quel seuil de latence rend un appel « raté » aux yeux d'un opérateur ?**
@@ -545,7 +545,7 @@ choisir une architecture qui ne fonctionnera pas sur ce site.
    **Unipi Gate G100** (~200 €) suffit dès que le poste dispose d'une prise
    réseau — y compris en cellulaire, où elle supprime une SIM sur deux.
 6. **Combien de points d'appel à terme ?** C'est ce qui place le curseur entre
-   A1 et A3.
+   A2 et A3.
 7. **Le coût récurrent du cellulaire est-il accepté ?** 15 625 € sur dix ans en
    SMS, 1 366 € en LTE-M, contre 220 € sans opérateur.
 

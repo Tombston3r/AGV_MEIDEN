@@ -11,8 +11,8 @@ et son matériel. Un dossier peut donc être zippé et transmis seul.
 | Dossier | Code | Architecture | Matériel AGV | Statut | Autonome ? |
 |---|:-:|---|---|---|---|
 | [`Wifi/`](Wifi/) | **A4** | Boutons EnOcean → poste UniPi → **Wi-Fi d'entreprise / MQTT** → carte V5.0.1 | **Carte conservée**, deux firmwares réécrits | Spécifiée en détail | ✅ oui — 101 tests C++ + 17 Python |
-| [`SMS_EnOcean/`](SMS_EnOcean/) | **A2** | Boutons EnOcean au poste + liaison cellulaire (SMS ou LTE-M/MQTT) | Nouvelle carte | Étudiée à la demande du client | ✅ oui — 112 tests |
-| [`LoRa/`](LoRa/) | **A1**<br>**A3** | LoRa P2P 868 MHz, seul (A1) ou hybride EnOcean (A3) | **Carte V5.0.1 réutilisée** | Sources extraites, **pas encore un projet complet** | ❌ pas encore |
+| [`SMS_EnOcean/`](SMS_EnOcean/) | **A1** | Boutons EnOcean au poste + liaison cellulaire (SMS ou LTE-M/MQTT) | Nouvelle carte | Étudiée à la demande du client | ✅ oui — 112 tests |
+| [`LoRa/`](LoRa/) | **A2**<br>**A3** | LoRa P2P 868 MHz, seul (A2) ou hybride EnOcean (A3) | **Carte V5.0.1 réutilisée** | Sources extraites, **pas encore un projet complet** | ❌ pas encore |
 
 ## Choisir une architecture
 
@@ -36,11 +36,11 @@ en tête le montant des accessoires écartés.
 
 | Architecture | Matériel | Récurrent | **10 ans** | Par station de plus |
 |---|---:|---:|---:|---:|
-| [`LoRa/`](LoRa/BOM.md) **A1** — LoRa homogène | 208 € | 0 €/an | **~220 €** | +60 € |
+| [`LoRa/`](LoRa/BOM.md) **A2** — LoRa homogène | 208 € | 0 €/an | **~220 €** | +60 € |
 | [`LoRa/`](LoRa/BOM.md) **A3** — EnOcean + LoRa | 307 € | 0 €/an | **~307 €** | +46 € |
 | [`Wifi/`](Wifi/BOM.md) **A4** — Wi-Fi entreprise | 692 € | 0 €/an | **~692 €** | +50 € |
-| [`SMS_EnOcean/`](SMS_EnOcean/BOM.md) **A2** — LTE-M/MQTT | 406 € | 96 €/an | **~1 366 €** | +50 € |
-| [`SMS_EnOcean/`](SMS_EnOcean/BOM.md) **A2** — SMS *(déconseillé)* | 625 € | 1 500 €/an | **~15 625 €** | +50 € |
+| [`SMS_EnOcean/`](SMS_EnOcean/BOM.md) **A1** — LTE-M/MQTT | 406 € | 96 €/an | **~1 366 €** | +50 € |
+| [`SMS_EnOcean/`](SMS_EnOcean/BOM.md) **A1** — SMS *(déconseillé)* | 625 € | 1 500 €/an | **~15 625 €** | +50 € |
 
 Deux lectures de ce tableau :
 

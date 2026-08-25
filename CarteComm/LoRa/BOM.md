@@ -1,10 +1,10 @@
-# Nomenclature — A1 · A3 — LoRa 868 MHz
+# Nomenclature — A2 · A3 — LoRa 868 MHz
 
 ## 💰 Total
 
 | | HT | TTC | *Accessoires écartés* |
 |---|---:|---:|---:|
-| **A1 — LoRa homogène, boutons sur pile** | **124,60 €** | **149,52 €** | *+ 83,00 € HT* |
+| **A2 — LoRa homogène, boutons sur pile** | **124,60 €** | **149,52 €** | *+ 83,00 € HT* |
 | **A3 — Hybride EnOcean + LoRa** | **217,00 €** | **260,40 €** | *+ 89,50 € HT* |
 
 Ces totaux ne comptent que les **composants déterminants**.
@@ -89,7 +89,7 @@ qu'à y greffer la radio LoRa. Voir « Réutiliser la carte existante ».
 | Carte fille : RFM95W vers broches libres de l'ESP32 | `PCB 2 couches ~30 × 30 mm + barrettes` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *9,60 €* |
 | **Sous-total** | | | | | | **☐** | ***21,60 €*** |
 
-### Carte AGV neuve — **variante de repli**, commune à A1 et A3
+### Carte AGV neuve — **variante de repli**, commune à A2 et A3
 
 Carte neuve à fabriquer. La V5.0.1 d'origine est **conservée intacte** :
 c'est le retour arrière de cette architecture.
@@ -135,7 +135,7 @@ additionner les deux. Voir « Peut-on se passer des optocoupleurs ? ».
 | Réseau Darlington collecteur ouvert — étage des 22 sorties X | `ULN2803A (TI)` | 3 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ULN2803A) | ☐ | ☐ | ☐ | *4,32 €* |
 | **Sous-total** | | | | | | **☐** | ***25,92 €*** |
 
-### **[A1]** Bouton d'appel sur pile — l'unité
+### **[A2]** Bouton d'appel sur pile — l'unité
 
 | Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
@@ -175,12 +175,12 @@ additionner les deux. Voir « Peut-on se passer des optocoupleurs ? ».
 | Dongle RTL-SDR + antenne — occupation de la bande 868 MHz | `RTL-SDR Blog V4` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RTL-SDR+Blog+V4) · [Amazon](https://www.amazon.fr/s?k=RTL-SDR+Blog+V4) | ☐ | ☐ | ☐ | *36,00 €* |
 | Analyseur logique 8 voies — chronogrammes X/Y | `clone Saleae 24 MHz` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=clone+Saleae+24+MHz) · [Amazon](https://www.amazon.fr/s?k=clone+Saleae+24+MHz) | ☐ | ☐ | ☐ | *18,00 €* |
 | Adaptateur USB-série 3,3 V | `FTDI FT232RL ou CP2102` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=FTDI+FT232RL+ou+CP2102) · [Amazon](https://www.amazon.fr/s?k=FTDI+FT232RL+ou+CP2102) | ☐ | ☐ | ☐ | *7,20 €* |
-| Mesure de courant µA — sommeil profond **[A1]** | `multimètre à faible burden voltage` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=multim%C3%A8tre+%C3%A0+faible+burden+voltage) · [Amazon](https://www.amazon.fr/s?k=multim%C3%A8tre+%C3%A0+faible+burden+voltage) | ☐ | ☐ | ☐ | *10,80 €* |
+| Mesure de courant µA — sommeil profond **[A2]** | `multimètre à faible burden voltage` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=multim%C3%A8tre+%C3%A0+faible+burden+voltage) · [Amazon](https://www.amazon.fr/s?k=multim%C3%A8tre+%C3%A0+faible+burden+voltage) | ☐ | ☐ | ☐ | *10,80 €* |
 | **Sous-total** | | | | | | **☐** | ***72,00 €*** |
 
 ---
 
-## Récapitulatif — variante A1 (LoRa homogène)
+## Récapitulatif — variante A2 (LoRa homogène)
 
 | Poste | Total TTC relevé | *Repère TTC* | *Repère HT* |
 |---|---:|---:|---:|
@@ -364,29 +364,29 @@ par l'émetteur LoRa se traduirait par des appuis perdus, silencieusement.
 
 ### Où se croisent les deux courbes
 
-| Stations | A1 (TTC) | A3 (TTC) | Moins cher |
+| Stations | A2 (TTC) | A3 (TTC) | Moins cher |
 |---:|---:|---:|---|
-| 2 | 238,32 € | 357,00 € | **A1** |
-| 4 | 383,04 € | 467,40 € | **A1** |
-| 6 | 527,76 € | 577,80 € | **A1** |
-| 8 | 672,48 € | 688,20 € | **A1** |
+| 2 | 238,32 € | 357,00 € | **A2** |
+| 4 | 383,04 € | 467,40 € | **A2** |
+| 6 | 527,76 € | 577,80 € | **A2** |
+| 8 | 672,48 € | 688,20 € | **A2** |
 | 12 | 961,92 € | 909,00 € | **A3** |
 
-Le point de bascule est à **9 stations**. En dessous, A1 coûte moins
+Le point de bascule est à **9 stations**. En dessous, A2 coûte moins
 **et** rend un accusé visuel à l'opérateur. Au-delà, A3 prend l'avantage grâce
 à des boutons à 55,20 € au lieu de
 72,36 €, et supprime les piles.
 
 ⚠️ Ce tableau raisonne **accessoires compris** — boîtier IP65 et poussoir Ø22
-du bouton A1, enveloppe murale du bouton A3. C'est une comparaison économique,
+du bouton A2, enveloppe murale du bouton A3. C'est une comparaison économique,
 pas une liste d'achat : les retirer inverserait artificiellement le classement,
-puisque c'est précisément l'enveloppe du bouton A1 qui le rend cher.
+puisque c'est précisément l'enveloppe du bouton A2 qui le rend cher.
 
 ### Coût par station supplémentaire
 
 | | TTC | HT |
 |---|---:|---:|
-| **[A1]** bouton sur pile | **27,96 €** | 23,30 € |
+| **[A2]** bouton sur pile | **27,96 €** | 23,30 € |
 | **[A3]** bouton PTM 210 | **36,00 €** | 30,00 € |
 
 ### Coûts récurrents
@@ -395,7 +395,7 @@ puisque c'est précisément l'enveloppe du bouton A1 qui le rend cher.
 |---|---:|
 | Abonnement opérateur | **0 €** — bande ISM libre |
 | Infrastructure | **0 €** — aucune |
-| **[A1]** Remplacement des piles | ~7,20 € par bouton tous les 5 à 8 ans |
+| **[A2]** Remplacement des piles | ~7,20 € par bouton tous les 5 à 8 ans |
 | **[A3]** Piles | **0 €** — PTM 210 auto-alimentés |
 
 **C'est l'architecture la moins chère des trois sur dix ans.**
@@ -407,7 +407,7 @@ puisque c'est précisément l'enveloppe du bouton A1 qui le rend cher.
 | Élément | Délai typique | Risque |
 |---|---|---|
 | PCB 4 couches + assemblage | 3 à 5 semaines | **Chemin critique matériel** |
-| **[A1]** PCB bouton + boîtiers IP65 | 3 à 5 semaines | En parallèle de la carte AGV |
+| **[A2]** PCB bouton + boîtiers IP65 | 3 à 5 semaines | En parallèle de la carte AGV |
 | `RFM95W-868S2` | 1 à 3 semaines | **Contrefaçons fréquentes** — acheter chez un distributeur référencé, pas sur une place de marché |
 | `PTM 210` / `TCM 515` | 1 à 2 semaines | Peu distribués par RS : prévoir un distributeur EnOcean |
 | `ER14505` Li-SOCl₂ | 1 à 2 semaines | **Restrictions de transport aérien** sur le lithium |

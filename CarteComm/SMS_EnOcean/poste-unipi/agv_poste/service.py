@@ -6,7 +6,7 @@ applicatif -> voyant.
 RAPPEL PORTÉ PAR LE CODE : sur transport SMS, la latence n'est pas bornée et
 l'ordre de remise n'est pas garanti. Le service refuse donc toute commande
 qu'il ne peut pas horodater, et rejette à la réception toute trame plus ancienne
-que `max_command_age_s`. Voir Archi_2_Cellulaire_SMS_LTE-M.md §3.2.
+que `max_command_age_s`. Voir Archi_1_Cellulaire_SMS_LTE-M.md §3.2.
 """
 
 from __future__ import annotations

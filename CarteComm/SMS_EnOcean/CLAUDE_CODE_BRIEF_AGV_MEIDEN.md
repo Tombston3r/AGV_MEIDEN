@@ -23,8 +23,8 @@ encore tranché avec le client :
 
 | | Architecture | Statut |
 |---|---|---|
-| **A1** | LoRa P2P 868 MHz (RFM95W), boutons sur pile | Solution de référence homogène |
-| **A2** | Cellulaire : SMS (variante A) ou LTE-M/MQTT (variante B) | Étudiée à la demande du client, **non recommandée en liaison principale** ; retenue en complément bas volume pour alertes hors site |
+| **A1** | Cellulaire : SMS (variante A) ou LTE-M/MQTT (variante B) | Étudiée à la demande du client, **non recommandée en liaison principale** ; retenue en complément bas volume pour alertes hors site |
+| **A2** | LoRa P2P 868 MHz (RFM95W), boutons sur pile | Solution de référence homogène |
 | **A3** | Hybride EnOcean (boutons sans pile) + LoRa | **Architecture retenue**, sous réserve que l'exigence « sans pile » soit réelle |
 
 ---
@@ -36,10 +36,10 @@ Monorepo, structure attendue :
 ```
 /firmware
   /agv                  ESP32 embarqué sur l'AGV — le cœur du projet
-  /poste-esp32          Poste fixe en variante ESP32 (A1 / A3)
-  /bouton-lora          Nœud bouton sur pile (A1 uniquement)
+  /poste-esp32          Poste fixe en variante ESP32 (A2 / A3)
+  /bouton-lora          Nœud bouton sur pile (A2 uniquement)
   /common               Bibliothèques partagées (protocole, CRC, transport, config)
-/poste-unipi            Poste fixe en variante UniPi E413 (A2)
+/poste-unipi            Poste fixe en variante UniPi E413 (A1)
 /sim                    Simulateur d'automate MEIDEN (banc de test hors AGV)
 /web                    Interface de supervision (servie par le poste fixe)
 /docs                   Chronogrammes, tables de signaux, procédures d'essai
@@ -294,14 +294,14 @@ doit jamais pouvoir la piloter.
 
 ## 9. Poste fixe
 
-### 9.1 Variante ESP32 (A1 / A3)
+### 9.1 Variante ESP32 (A2 / A3)
 
 - `TCM 515` sur UART1, `RFM95W` sur SPI, **Ethernet filaire** via W5500 ou WT32-ETH01.
   L'Ethernet filaire est un choix délibéré : **aucune émission 2,4 GHz permanente**.
 - `ESPAsyncWebServer` + **WebSocket** pour la mise à jour temps réel, assets en **LittleFS**.
 - mDNS : `agv.local`.
 
-### 9.2 Variante UniPi E413 (A2)
+### 9.2 Variante UniPi E413 (A1)
 
 Python 3.11, service systemd, entrées TOR lues via l'API de l'automate.
 ⚠️ **Vérifier d'abord le runtime réellement disponible** sur la référence commandée (Mervis IDE
@@ -401,10 +401,10 @@ Si tu as besoin d'une valeur pour avancer, prends la valeur par défaut, marque-
 1. `/sim` — simulateur logiciel de l'automate + tests natifs.
 2. `/common` — trame, CRC, AES, idempotence, `IBusDriver`, `ITransport`, couche de configuration.
 3. `/firmware/agv` — séquenceur trois phases contre le simulateur, file NVS, machine à états.
-4. `LoRaTransport` + `/firmware/poste-esp32` — chaîne A1 complète, ordonnanceur half-duplex.
+4. `LoRaTransport` + `/firmware/poste-esp32` — chaîne A2 complète, ordonnanceur half-duplex.
 5. `/web` — supervision WebSocket + `/agvdump` compatible.
 6. Décodeur EnOcean ESP3 + mode appairage → chaîne A3.
-7. `SmsTransport` et `MqttLteTransport` → chaîne A2.
+7. `SmsTransport` et `MqttLteTransport` → chaîne A1.
 8. `AlertGateway` (SMS bas volume, toutes architectures).
 9. Banc HIL, puis intégration sur AGV réel.
 

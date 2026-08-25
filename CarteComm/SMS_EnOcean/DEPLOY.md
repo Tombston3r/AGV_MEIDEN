@@ -5,7 +5,7 @@
 > validée.
 >
 > État du projet et kanban : [`docs/ETAT_PROJET.md`](docs/ETAT_PROJET.md).
-> Analyse de l'architecture : [`docs/Archi_2_Cellulaire_SMS_LTE-M.md`](docs/Archi_2_Cellulaire_SMS_LTE-M.md).
+> Analyse de l'architecture : [`docs/Archi_1_Cellulaire_SMS_LTE-M.md`](docs/Archi_1_Cellulaire_SMS_LTE-M.md).
 
 **Charge estimée** : 6 à 9 jours-homme hors fabrication de carte et hors délais
 externes (souscription des SIM, disponibilité de l'AGV). La fabrication de la
@@ -60,7 +60,7 @@ entre GPIOA et GPIOB.
 
 ### Matériel
 
-- [ ] Carte AGV fabriquée et assemblée (nomenclature : `docs/Archi_2_Cellulaire_SMS_LTE-M.md` §6)
+- [ ] Carte AGV fabriquée et assemblée (nomenclature : `docs/Archi_1_Cellulaire_SMS_LTE-M.md` §6)
 - [ ] ESP32-WROOM-32E, modem **SIM7080G** (LTE-M/NB-IoT), antenne déportée
 - [ ] Expandeurs selon la variante retenue (4× MCP23017, ou 3× 74HC595 + 3× 74HC165)
 - [ ] Optocoupleurs pour les 43 voies, SUB-D 25 mâle et femelle
