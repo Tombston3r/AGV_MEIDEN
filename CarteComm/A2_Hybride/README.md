@@ -55,16 +55,6 @@ pio run -e esp32             # ESP32 embarqué : radio LoRa + heartbeat
 pio run -e poste             # poste fixe : TCM 515 -> LoRa
 ```
 
-## ⚠️ Ce qui reste à faire
-
-Comme [A3](../A3_LoRa/), le firmware ESP32 hérité de A4 porte encore la
-**passerelle MQTT** (`firmware/common/app/gateway_app.{h,cpp}`). Il faut lui
-substituer un `LoraGatewayApp` bâti sur `LoraTransport`. Le transport, le pilote
-radio, le décodage ESP3 et le budget légal sont là et testés ; c'est la couche
-d'assemblage qui manque.
-
-Voir [`docs/ETAT_PROJET.md`](docs/ETAT_PROJET.md), kanban.
-
 ## Points à ne pas perdre de vue
 
 - **Déduplication PTM 210** : chaque appui émet **3 sous-télégrammes**. Sans

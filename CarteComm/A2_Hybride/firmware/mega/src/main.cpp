@@ -1,4 +1,4 @@
-// Firmware ATmega2560 de la carte AIO AGV Control V5.0.1 — RÉÉCRIT.
+// Firmware ATmega2560 de la carte AIO AGV Control V6.0 — RÉÉCRIT.
 //
 // Le firmware d'origine n'est pas disponible (ni sources, ni lecture de flash
 // garantie : planification 0.5). Celui-ci est écrit à partir du comportement
@@ -10,9 +10,9 @@
 //   - décodage de la position 10 bits et de la vitesse 4 bits,
 //   - repli de sécurité sur perte du heartbeat de l'ESP32.
 //
-// Il ne connaît ni le Wi-Fi, ni MQTT, ni le poste fixe. C'est délibéré : le
-// jour où le réseau d'entreprise tombe, l'AGV reste piloté par un
-// microcontrôleur qui n'en dépend pas.
+// Il ne connaît ni la radio, ni les boutons. C'est délibéré : le jour où la
+// liaison LoRa tombe, l'AGV reste piloté par un microcontrôleur qui n'en
+// dépend pas et décide seul de l'arrêt sûr.
 //
 // ⚠ CE N'EST PAS UN ORGANE DE SÉCURITÉ (brief §3.1). L'arrêt d'urgence, les
 // bumpers et le scrutateur laser restent dans une chaîne indépendante conforme

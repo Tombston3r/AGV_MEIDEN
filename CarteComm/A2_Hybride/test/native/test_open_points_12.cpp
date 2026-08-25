@@ -15,6 +15,8 @@
 #include "bus/bus_signals.h"
 #include "bus/debounce.h"
 #include "config/hardware_profile.h"
+#include "config/lora_config.h"
+#include "transport/duty_cycle.h"
 #include "proto/frame.h"
 #include "proto/json.h"
 #include "sim_bus_driver.h"
@@ -216,16 +218,20 @@ TEST(point_12_7_le_protocole_reste_versionne) {
 }
 
 // §12.8 — TCM 515 (Rx seul) ou TCM 310 (bidirectionnel). Dans cette
-// architecture, le récepteur EnOcean est sur le POSTE FIXE (UniPi), pas sur la
-// carte AGV : la question ne concerne pas ce firmware. Ce qui le concerne, en
-// revanche, c'est que l'accusé opérateur dépend d'un aller-retour complet
-// AGV -> MQTT -> poste : le champ `ack` publié doit donc toujours être émis.
-TEST(point_12_8_l_accuse_remonte_jusqu_au_poste) {
-  const HardwareProfile& p = default_profile();
-  // Un ACK est publié sur agv/<id>/ack pour chaque commande, quel qu'en soit
-  // le sort : c'est la seule information dont dispose l'opérateur.
-  CHECK(p.mqtt.qos >= 1u);  // QoS 1 minimum (planification §2)
-  CHECK_STR_EQ(p.mqtt.agv_id, "1");
+// architecture il n'y a NI broker NI poste sur le chemin de l'accusé : l'AGV
+// répond directement en LoRa à celui qui l'a appelé. L'accusé ne dépend donc
+// que d'un aller-retour radio, et le budget de rapport cyclique doit lui
+// laisser de la place — c'est ce que ce test contraint.
+TEST(point_12_8_l_accuse_tient_dans_le_budget_legal) {
+  const LoraConfig cfg;
+  // Une trame de 9 octets à SF9, puis son accusé : les deux doivent tenir dans
+  // le budget horaire, sinon l'opérateur reste sans réponse.
+  const uint32_t air_us = lora_airtime_us(kFrameBaseSize, cfg.spreading_factor,
+                                          cfg.bandwidth_hz, cfg.coding_rate);
+  DutyCycleBudget budget(cfg.duty_cycle_permille, cfg.duty_window_ms);
+  CHECK(budget.can_transmit(air_us, 0));
+  budget.record(air_us, 0);
+  CHECK(budget.can_transmit(air_us, 1));   // l'accusé passe juste après
 }
 
 // §12.9 — Runtime disponible sur l'UniPi E413 commandé (Mervis vs Linux).

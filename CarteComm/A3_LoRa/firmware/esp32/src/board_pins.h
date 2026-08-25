@@ -7,6 +7,7 @@
 #pragma once
 
 #include <driver/gpio.h>
+#include <driver/spi_master.h>
 
 namespace agv::board {
 
@@ -20,5 +21,19 @@ constexpr gpio_num_t kMaintenanceReed = GPIO_NUM_25;
 // Signalisation locale, si la carte en dispose.
 constexpr gpio_num_t kLedFault = GPIO_NUM_2;
 constexpr gpio_num_t kLedLink = GPIO_NUM_15;
+
+// --- Radio LoRa — RELEVÉ sur le projet KiCad de la V6.0 --------------------
+//
+// Le RFM95W-868S2 (U2) est câblé sur le SPI que l'ESP32 laissait libre.
+constexpr spi_host_device_t kLoraSpiHost = VSPI_HOST;
+constexpr gpio_num_t kLoraSck = GPIO_NUM_18;    // U2.SCK  -> U1 pad 30
+constexpr gpio_num_t kLoraMiso = GPIO_NUM_19;   // U2.MISO -> U1 pad 31
+constexpr gpio_num_t kLoraMosi = GPIO_NUM_23;   // U2.MOSI -> U1 pad 37
+constexpr gpio_num_t kLoraNss = GPIO_NUM_5;     // U2.NSS  -> U1 pad 29
+constexpr uint8_t kLoraDio0 = 26;               // U2.DIO0 -> U1 pad 10
+// ⚠ U2.RESET n'est PAS câblée sur la V6.0 : aucun reset matériel n'est
+// possible, un module figé ne se récupère qu'en coupant l'alimentation carte.
+constexpr uint8_t kLoraReset = 0xFF;
+constexpr uint32_t kLoraSpiHz = 5000000;
 
 }  // namespace agv::board

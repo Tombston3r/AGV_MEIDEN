@@ -56,17 +56,6 @@ pio run -e mega              # ATmega2560 : séquenceur + file (flasher EN PREMI
 pio run -e esp32             # ESP32 : radio LoRa + heartbeat
 ```
 
-## ⚠️ Ce qui reste à faire
-
-Le firmware ESP32 hérité de A4 porte encore la **passerelle MQTT** :
-`firmware/common/app/gateway_app.{h,cpp}` publie sur des topics et dépend de
-`IMqttPublisher`. Pour cette architecture il faut lui substituer un
-`LoraGatewayApp` bâti sur `LoraTransport` — trames binaires de 9 octets, fenêtre
-d'écoute d'ACK, budget de rapport cyclique. Le transport, le pilote radio et le
-budget légal sont déjà là et testés ; c'est la couche d'assemblage qui manque.
-
-Voir [`docs/ETAT_PROJET.md`](docs/ETAT_PROJET.md), kanban.
-
 ## Points à ne pas perdre de vue
 
 - Le **budget de rapport cyclique est une obligation réglementaire** (EN 300 220

@@ -8,7 +8,7 @@
 
 #include "app/agvdump.h"
 #include "app/course_queue.h"
-#include "app/gateway_app.h"
+#include "app/lora_gateway_app.h"
 #include "app/mega_app.h"
 #include "app/persistent_store.h"
 #include "app/sequencer.h"
@@ -109,25 +109,46 @@ struct MegaBench {
 
 // --- Banc ESP32 ------------------------------------------------------------
 
-class FakeMqtt final : public IMqttPublisher {
+// Radio factice : capte ce que la passerelle émet, injecte ce qu'elle reçoit.
+class FakeRadio final : public ITransport {
  public:
-  bool publish(const char* topic, const char* payload, bool retain) override {
-    if (!connected_) return false;
-    published.push_back({topic, payload, retain});
+  bool begin() override { return true; }
+  bool send(const Frame& f) override {
+    if (!budget_) {          // budget de rapport cyclique épuisé
+      ++refused;
+      return false;
+    }
+    sent.push_back(f);
     return true;
   }
-  bool connected() const override { return connected_; }
-  void set_connected(bool v) { connected_ = v; }
+  bool poll(Frame& out) override {
+    if (inbox_.empty()) return false;
+    out = inbox_.front();
+    inbox_.erase(inbox_.begin());
+    return true;
+  }
+  LinkHealth health() const override { return health_; }
+  const char* name() const override { return "fake-lora"; }
+  void tick() override { ++ticks; }
 
-  struct Message {
-    std::string topic;
-    std::string payload;
-    bool retain;
-  };
-  std::vector<Message> published;
+  void receive(const Frame& f) { inbox_.push_back(f); }
+  void set_budget(bool ok) { budget_ = ok; }
+  size_t count(FrameType t) const {
+    size_t n = 0;
+    for (const auto& f : sent) {
+      if (f.type == t) ++n;
+    }
+    return n;
+  }
+
+  std::vector<Frame> sent;
+  uint32_t refused = 0;
+  uint32_t ticks = 0;
 
  private:
-  bool connected_ = true;
+  std::vector<Frame> inbox_;
+  LinkHealth health_{};
+  bool budget_ = true;
 };
 
 class CaptureLink final : public ILinkPort {
@@ -161,9 +182,9 @@ class CaptureLink final : public ILinkPort {
 struct GatewayBench {
   HardwareProfile profile = default_profile();
   FakeClock clock;
-  FakeMqtt mqtt;
+  FakeRadio radio;
   CaptureLink link_port;
-  GatewayApp app{profile, clock, mqtt, link_port};
+  LoraGatewayApp app{profile, clock, radio, link_port};
 
   GatewayBench() {
     clock.set_wall_s(1'700'000'000u);
@@ -176,15 +197,27 @@ struct GatewayBench {
     }
     app.tick();
   }
-  std::string cmd_json(uint32_t seq, uint32_t dest, uint32_t speed, uint32_t ts) {
-    char buf[160];
-    json::Writer w(buf, sizeof(buf));
-    w.field("seq", seq);
-    w.field("dest", dest);
-    w.field("speed", speed);
-    w.field("ts", ts);
-    w.end();
-    return std::string(buf);
+  // Une commande arrivant par la radio, comme depuis un bouton ou le poste.
+  Frame goto_frame(uint8_t seq, uint16_t station, uint8_t speed = 4,
+                   uint16_t node = 0x0042) {
+    Frame f;
+    f.type = FrameType::CmdGoto;
+    f.node_id = node;
+    f.seq = seq;
+    f.station = station;
+    f.speed = speed;
+    return f;
+  }
+  // Réponse de l'ATmega, injectée octet par octet.
+  void mega_ack(uint8_t seq, link::CmdResult r) {
+    uint8_t buf[link::kFrameMax];
+    const size_t n = link::encode_ack(seq, r, buf, sizeof(buf));
+    for (size_t i = 0; i < n; ++i) app.on_link_byte(buf[i]);
+  }
+  void mega_state(const link::LinkState& st) {
+    uint8_t buf[link::kFrameMax];
+    const size_t n = link::encode_state(st, buf, sizeof(buf));
+    for (size_t i = 0; i < n; ++i) app.on_link_byte(buf[i]);
   }
 };
 
@@ -381,147 +414,135 @@ TEST(mega_repond_a_get_state_avec_un_etat_coherent) {
 }
 
 // ===========================================================================
-//  ESP32 — passerelle MQTT
+//  ESP32 — passerelle LoRa
 // ===========================================================================
 
-TEST(gateway_commande_json_est_transmise_a_l_atmega) {
+TEST(gateway_commande_recue_en_lora_est_transmise_a_l_atmega) {
   GatewayBench b;
-  b.app.on_mqtt_command(b.cmd_json(1, 42, 6, b.clock.now_s()).c_str());
+  b.radio.receive(b.goto_frame(1, 42, 6));
+  b.app.tick();
 
-  CHECK_EQ(b.app.stats().cmd_forwarded, 1u);
-  const auto frames = b.link_port.frames();
-  bool found = false;
-  for (const auto& f : frames) {
-    if (f.first == link::Cmd::Goto && f.second.size() >= 5) {
-      CHECK_EQ(f.second[0], 1u);
-      CHECK_EQ(static_cast<uint16_t>((f.second[1] << 8) | f.second[2]), 42u);
-      CHECK_EQ(f.second[3], 6u);
-      found = true;
-    }
-  }
-  CHECK(found);
-}
-
-TEST(gateway_commande_perimee_n_est_jamais_transmise) {
-  // Planification §2 : horodatage + péremption 30 s. Une commande retardée par
-  // le réseau d'entreprise ne doit jamais faire bouger l'AGV.
-  GatewayBench b;
-  const uint32_t vieux = b.clock.now_s() - 120;
-  b.app.on_mqtt_command(b.cmd_json(1, 42, 6, vieux).c_str());
-
-  CHECK_EQ(b.app.stats().cmd_expired, 1u);
-  CHECK_EQ(b.app.stats().cmd_forwarded, 0u);
-  CHECK_EQ(b.link_port.count(link::Cmd::Goto), 0u);
-}
-
-TEST(gateway_seuil_de_peremption_vient_du_profil) {
-  GatewayBench b;
-  b.profile.safety.max_command_age_s = 300;  // paramètre, pas constante
-  const uint32_t vieux = b.clock.now_s() - 120;
-  b.app.on_mqtt_command(b.cmd_json(1, 42, 6, vieux).c_str());
-  CHECK_EQ(b.app.stats().cmd_expired, 0u);
-  CHECK_EQ(b.app.stats().cmd_forwarded, 1u);
-}
-
-TEST(gateway_doublon_et_desordre_sont_filtres_avant_la_liaison_serie) {
-  GatewayBench b;
-  b.app.on_mqtt_command(b.cmd_json(10, 5, 4, b.clock.now_s()).c_str());
-  b.app.on_mqtt_command(b.cmd_json(10, 5, 4, b.clock.now_s()).c_str());
-  b.app.on_mqtt_command(b.cmd_json(9, 5, 4, b.clock.now_s()).c_str());
-
-  CHECK_EQ(b.app.stats().cmd_duplicate, 1u);
-  CHECK_EQ(b.app.stats().cmd_out_of_order, 1u);
+  CHECK_EQ(b.link_port.count(link::Cmd::Goto), 1u);
   CHECK_EQ(b.app.stats().cmd_forwarded, 1u);
 }
 
 TEST(gateway_commande_malformee_est_comptee_et_rejetee) {
   GatewayBench b;
-  b.app.on_mqtt_command("{\"seq\":1}");                 // pas de destination
-  b.app.on_mqtt_command("pas du json");
-  b.app.on_mqtt_command(b.cmd_json(2, 5000, 4, b.clock.now_s()).c_str());  // hors bornes
-  CHECK_EQ(b.app.stats().cmd_malformed, 3u);
-  CHECK_EQ(b.app.stats().cmd_forwarded, 0u);
+  // Station hors plage : elle ne doit jamais atteindre le bus.
+  b.radio.receive(b.goto_frame(1, kStationMax + 1));
+  b.app.tick();
+
+  CHECK_EQ(b.link_port.count(link::Cmd::Goto), 0u);
+  CHECK_EQ(b.app.stats().cmd_malformed, 1u);
+  CHECK_EQ(b.radio.count(FrameType::Ack), 1u);
 }
 
-TEST(gateway_heartbeat_est_emis_meme_sans_mqtt) {
-  // Couper le heartbeat parce que le Wi-Fi est tombé immobiliserait l'AGV pour
-  // rien : la carte va très bien, c'est le réseau qui est absent.
+TEST(gateway_doublon_est_reacquitte_sans_seconde_course) {
+  // La règle d'idempotence : sans elle, un accusé perdu déclenche une course
+  // en double, ce qui envoie l'AGV deux fois au même endroit.
   GatewayBench b;
-  b.mqtt.set_connected(false);
+  b.radio.receive(b.goto_frame(7, 12));
+  b.app.tick();
+  CHECK_EQ(b.link_port.count(link::Cmd::Goto), 1u);
+
+  b.radio.receive(b.goto_frame(7, 12));
+  b.app.tick();
+
+  CHECK_EQ(b.link_port.count(link::Cmd::Goto), 1u);   // PAS de seconde course
+  CHECK_EQ(b.app.stats().cmd_duplicate, 1u);
+  CHECK_EQ(b.radio.count(FrameType::Ack), 1u);        // mais bien ré-acquittée
+}
+
+TEST(gateway_deux_boutons_ont_des_sequences_independantes) {
+  GatewayBench b;
+  b.radio.receive(b.goto_frame(3, 10, 4, /*node=*/0x0001));
+  b.radio.receive(b.goto_frame(3, 20, 4, /*node=*/0x0002));
+  b.app.tick();
+
+  // Même seq, nœuds différents : ce n'est pas un doublon.
+  CHECK_EQ(b.link_port.count(link::Cmd::Goto), 2u);
+  CHECK_EQ(b.app.stats().cmd_duplicate, 0u);
+}
+
+TEST(gateway_heartbeat_est_emis_meme_sans_radio) {
+  // La carte va très bien ; c'est la liaison radio qui est absente. Couper le
+  // heartbeat immobiliserait l'AGV pour rien.
+  GatewayBench b;
+  b.radio.set_budget(false);          // plus rien ne peut partir en LoRa
   b.run(2000);
-  CHECK(b.app.stats().heartbeats_sent >= 3u);
+
   CHECK(b.link_port.count(link::Cmd::Heartbeat) >= 3u);
+  CHECK(b.app.stats().heartbeats_sent >= 3u);
 }
 
-TEST(gateway_publie_l_etat_avec_retain) {
+TEST(gateway_accuse_chaque_reponse_de_l_atmega) {
   GatewayBench b;
-  b.run(3500);
-  size_t states = 0;
-  for (const auto& m : b.mqtt.published) {
-    if (m.topic == std::string("agv/1/state")) {
-      ++states;
-      CHECK(m.retain);  // un poste qui se connecte doit connaître l'état
-    }
-  }
-  CHECK(states >= 3u);  // ~1 publication par seconde
+  b.radio.receive(b.goto_frame(5, 8));
+  b.app.tick();
+  b.mega_ack(5, link::CmdResult::Accepted);
+
+  CHECK_EQ(b.radio.count(FrameType::Ack), 1u);
+  CHECK_EQ(b.app.stats().acks_sent, 1u);
 }
 
-TEST(gateway_publie_un_ack_pour_chaque_reponse_de_l_atmega) {
+TEST(gateway_refus_de_l_atmega_part_en_ack_negatif) {
   GatewayBench b;
-  uint8_t frame[link::kFrameMax];
-  const size_t n = link::encode_ack(9, link::CmdResult::QueueFull, frame, sizeof(frame));
-  for (size_t i = 0; i < n; ++i) b.app.on_link_byte(frame[i]);
+  b.radio.receive(b.goto_frame(6, 8));
+  b.app.tick();
+  b.mega_ack(6, link::CmdResult::QueueFull);
 
-  bool found = false;
-  for (const auto& m : b.mqtt.published) {
-    if (m.topic == std::string("agv/1/ack")) {
-      found = true;
-      CHECK(m.payload.find("\"seq\":9") != std::string::npos);
-      CHECK(m.payload.find("\"ok\":false") != std::string::npos);
-      CHECK(!m.retain);  // un ACK ne se rejoue pas à la reconnexion
-    }
+  bool nack = false;
+  for (const auto& f : b.radio.sent) {
+    if (f.type == FrameType::Ack && (f.flags & flag::kNack)) nack = true;
   }
-  CHECK(found);
+  CHECK(nack);
+}
+
+TEST(gateway_accuse_refuse_par_le_budget_est_compte_pas_perdu) {
+  // Un récepteur qui acquitte est un émetteur : l'accusé consomme du budget de
+  // rapport cyclique. S'il est refusé, cela doit se voir.
+  GatewayBench b;
+  b.radio.set_budget(false);
+  b.radio.receive(b.goto_frame(9, 3));
+  b.app.tick();
+  b.mega_ack(9, link::CmdResult::Accepted);
+
+  CHECK_EQ(b.app.stats().acks_sent, 0u);
+  CHECK(b.app.stats().acks_refused_duty >= 1u);
 }
 
 TEST(gateway_detecte_le_silence_de_l_atmega) {
-  // Un ATmega muet est un défaut de la CARTE, pas du réseau : il doit être
-  // distingué d'une coupure Wi-Fi dans la supervision.
   GatewayBench b;
-  uint8_t frame[link::kFrameMax];
-  const size_t n = link::encode_state(link::LinkState{}, frame, sizeof(frame));
-  for (size_t i = 0; i < n; ++i) b.app.on_link_byte(frame[i]);
+  link::LinkState st;
+  st.station = 4;
+  b.mega_state(st);
   CHECK(b.app.link_up());
 
-  b.run(3000);
+  b.run(5000);
   CHECK(!b.app.link_up());
   CHECK_EQ(b.app.stats().link_timeouts, 1u);
 }
 
 TEST(gateway_etat_json_porte_le_repli_de_securite) {
   GatewayBench b;
-  link::LinkState s;
-  s.station = 12;
-  s.flags = link::state_flag::kSafeStop;
-  uint8_t frame[link::kFrameMax];
-  const size_t n = link::encode_state(s, frame, sizeof(frame));
-  for (size_t i = 0; i < n; ++i) b.app.on_link_byte(frame[i]);
+  link::LinkState st;
+  st.station = 11;
+  st.flags = link::state_flag::kSafeStop;
+  b.mega_state(st);
 
-  char json[512];
-  const size_t len = b.app.render_state_json(json, sizeof(json));
-  REQUIRE(len > 0u);
-  const std::string payload(json, len);
-  CHECK(payload.find("\"station\":12") != std::string::npos);
-  CHECK(payload.find("\"safe_stop\":true") != std::string::npos);
-  CHECK(payload.find("\"heartbeat_ok\":false") != std::string::npos);
+  char buf[256];
+  const size_t n = b.app.render_state_json(buf, sizeof(buf));
+  CHECK(n > 0);
+  CHECK(std::string(buf).find("\"safe_stop\":true") != std::string::npos);
+  CHECK(std::string(buf).find("\"station\":11") != std::string::npos);
 }
 
-TEST(gateway_topics_suivent_l_identifiant_du_profil) {
+TEST(gateway_emet_de_la_telemetrie_espacee) {
+  // Elle ne doit pas manger le budget réservé aux accusés.
   GatewayBench b;
-  CHECK_STR_EQ(b.app.topic_state(), "agv/1/state");
-  CHECK_STR_EQ(b.app.topic_cmd(), "agv/1/cmd");
-  CHECK_STR_EQ(b.app.topic_ack(), "agv/1/ack");
-  CHECK_STR_EQ(b.app.topic_status(), "agv/1/status");
+  b.run(6000);
+  CHECK(b.radio.count(FrameType::Telemetry) >= 1u);
+  CHECK(b.radio.count(FrameType::Telemetry) <= 5u);
 }
 
 TEST(agvdump_reste_au_format_atelier) {

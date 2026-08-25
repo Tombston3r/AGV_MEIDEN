@@ -33,31 +33,6 @@ struct LinkConfig {
   uint32_t state_poll_ms;
 };
 
-struct WifiConfig {
-  const char* ssid;
-  const char* password;
-  bool use_static_ip;
-  const char* static_ip;
-  const char* gateway;
-  const char* netmask;
-  uint32_t reconnect_backoff_ms;
-  uint32_t reconnect_backoff_max_ms;
-  int16_t rssi_warn_dbm;
-};
-
-struct MqttConfig {
-  const char* host;
-  uint16_t port;
-  uint8_t qos;
-  uint32_t keepalive_s;
-  const char* client_id;
-  const char* agv_id;
-  const char* username;
-  const char* password;
-  bool tls;
-  uint32_t state_period_ms;
-};
-
 struct BusConfig {
   bool x_active_high;      // §12.3 PNP/NPN
   bool y_active_high;      // §12.3
@@ -117,8 +92,6 @@ struct HardwareProfile {
   QueueConfig queue;
   HeartbeatConfig heartbeat;
   LinkConfig link;
-  WifiConfig wifi;
-  MqttConfig mqtt;
   ProtocolConfig protocol;
   MaintenanceConfig maintenance;
 };

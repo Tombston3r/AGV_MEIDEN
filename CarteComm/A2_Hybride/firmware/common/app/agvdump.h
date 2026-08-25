@@ -23,6 +23,9 @@ struct AgvDumpInput {
   uint16_t battery_mv = 0;   // ADC AGV, traverse la barrière d'isolation
   bool link_up = false;      // liaison série ESP32 <-> ATmega
   bool wifi_up = false;
+  // Nom conservé volontairement : le format `/agvdump` est celui des
+  // procédures d'atelier du client (§3.3). En LoRa on y place l'état de
+  // la liaison radio — renommer le champ casserait leurs outils.
   bool mqtt_up = false;
   int16_t rssi_dbm = 0;
   const char* ssid = "";

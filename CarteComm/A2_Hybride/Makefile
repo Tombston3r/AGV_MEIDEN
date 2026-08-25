@@ -35,7 +35,12 @@ config $(GENERATED):
 
 $(BUILD_DIR)/%.o: %.cpp $(GENERATED)
 	@mkdir -p $(dir $@)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -MMD -MP -c $< -o $@
+
+# Sans cela, modifier un en-tête ne recompile RIEN : on relie des objets
+# compilés contre deux versions d'une même classe, et le programme se comporte
+# de façon incohérente sans qu'aucune erreur ne soit signalée.
+-include $(OBJ:.o=.d)
 
 $(BIN): $(OBJ)
 	$(CXX) $(CXXFLAGS) $(OBJ) -o $@

@@ -1,6 +1,6 @@
 # Profil de l'architecture Wi-Fi — SOURCE DE VÉRITÉ UNIQUE
 #
-# Carte AIO AGV Control V5.0.1 CONSERVÉE : ESP32 (client Wi-Fi + MQTT) et
+# Carte AIO AGV Control V6.0 : ESP32 (radio LoRa 868 MHz) et
 # ATmega2560 (séquenceur X/Y + file de courses) sur la même carte, reliés par
 # une liaison série et une ligne de heartbeat matérielle.
 #
@@ -60,7 +60,7 @@ timeouts:
   stop_max_tries: 3            # PROVISOIRE §12.5
 
 safety:
-  # Chien de garde applicatif côté ESP32 : absence de trame MQTT valide.
+  # Chien de garde applicatif côté ESP32 : absence de trame LoRa valide.
   link_watchdog_s: 30
   # Péremption des commandes (planification §2 : 30 s).
   max_command_age_s: 30
@@ -96,36 +96,10 @@ protocol:
   version: 1
   node_id: 1
   replay_window: 16
-  aes_enabled: false           # le chiffrement est assuré par MQTT/TLS
+  aes_enabled: true            # AUCUN TLS ici : le chiffrement applicatif
+                             # est la seule protection de la liaison radio
 
 # --- Wi-Fi : CLIENT du réseau d'entreprise, pas point d'accès ---------------
-wifi:
-  ssid: "USINE-OT"             # PROVISOIRE — à fournir par le service informatique
-  password: ""                 # PROVISOIRE — WPA2-PSK, ou 802.1X (planif. 0.1)
-  # IP statique : élimine le délai DHCP au handover (planification §1.4).
-  use_static_ip: true
-  static_ip: "10.20.30.41"     # PROVISOIRE — réservation à obtenir
-  gateway: "10.20.30.1"        # PROVISOIRE
-  netmask: "255.255.255.0"     # PROVISOIRE
-  reconnect_backoff_ms: 1000
-  reconnect_backoff_max_ms: 15000
-  # Seuil d'alerte : sous ce niveau, la couverture n'est plus tenable en
-  # mouvement (à confirmer par le relevé 0.2).
-  rssi_warn_dbm: -75
-
-mqtt:
-  host: "10.20.30.10"          # PROVISOIRE — Mosquitto sur l'UniPi
-  port: 8883
-  qos: 1
-  keepalive_s: 30
-  client_id: "agv-1"
-  agv_id: "1"
-  username: "agv1"             # PROVISOIRE
-  password: ""                 # PROVISOIRE
-  tls: true
-  # Publication d'état toutes les secondes (planification §2).
-  state_period_ms: 1000
-
 maintenance:
   # Wi-Fi de maintenance : point d'accès temporaire, à la demande (planif. 2.8).
   wifi_enabled_at_boot: false
@@ -181,3 +155,18 @@ pinmap:
     Y32: 18
     Y33: 19
     Y34: 20
+
+# --- Radio LoRa 868 MHz ---------------------------------------------------
+lora:
+  frequency_hz: 868100000
+  spreading_factor: 9          # arbitrage portée/latence — voir docs/latence_lora.md
+  bandwidth_hz: 125000
+  coding_rate: 5               # 4/5
+  sync_word: 0x12              # privé, != 0x34 (réservé LoRaWAN)
+  tx_power_dbm: 14
+  ack_timeout_ms: 400
+  max_tries: 3
+  # EN 300 220 / ERC 70-03 : 1 % de rapport cyclique sur 1 h glissante.
+  # Obligation réglementaire : le transport REFUSE d'émettre au-delà.
+  duty_cycle_permille: 10
+  duty_window_ms: 3600000

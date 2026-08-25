@@ -7880,6 +7880,14 @@
 		(uuid "b4d7a592-6e61-465d-b803-076e0b19e3ee")
 	)
 	(no_connect
+		(at 26.67 24.13)
+		(uuid "b70216d7-fbb8-4be8-880a-deedac8805e4")
+	)
+	(no_connect
+		(at 49.53 41.91)
+		(uuid "b8066257-7630-4ef3-b0f8-67282e82c248")
+	)
+	(no_connect
 		(at 73.66 109.22)
 		(uuid "bb9ea2f9-a7af-45a8-9eb6-17930f012ebf")
 	)
@@ -9183,16 +9191,6 @@
 	)
 	(wire
 		(pts
-			(xy 26.67 22.86) (xy 49.53 22.86)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "44b3b590-0ddf-4810-b780-6a794cb69e59")
-	)
-	(wire
-		(pts
 			(xy 255.27 129.54) (xy 255.27 139.7)
 		)
 		(stroke
@@ -9614,6 +9612,16 @@
 			(color 0 0 0 1)
 		)
 		(uuid "58ea119f-b0ca-4c0c-b8ac-6fe7bb8681c1")
+	)
+	(wire
+		(pts
+			(xy 26.67 29.21) (xy 26.67 31.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "59121cea-3cfa-4385-9f96-4d9575cbd790")
 	)
 	(wire
 		(pts
@@ -10573,16 +10581,6 @@
 			(type default)
 		)
 		(uuid "90664681-7c24-4c27-aebb-441630c5017a")
-	)
-	(wire
-		(pts
-			(xy 26.67 27.94) (xy 26.67 31.75)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "915934a5-8634-456d-a738-40f7b483920e")
 	)
 	(wire
 		(pts
@@ -11974,16 +11972,6 @@
 			(color 0 0 0 1)
 		)
 		(uuid "e3c83d62-8bf6-4707-a444-f9539f22039e")
-	)
-	(wire
-		(pts
-			(xy 49.53 22.86) (xy 49.53 41.91)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e3e7e229-f554-4984-b752-01642fbc3485")
 	)
 	(wire
 		(pts
@@ -15166,88 +15154,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 26.67 25.4 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "5f088ca9-ff83-42a8-b0e9-6a7e859a538c")
-		(property "Reference" "J3"
-			(at 29.21 24.6494 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "Conn_Coaxial_Small"
-			(at 29.21 27.1894 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-143_Horizontal"
-			(at 26.67 25.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 26.67 25.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "small coaxial connector (BNC, SMA, SMB, SMC, Cinch/RCA, LEMO, ...)"
-			(at 26.67 25.4 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "2"
-			(uuid "328e7181-494b-49b9-8324-c5fce05f125f")
-		)
-		(pin "1"
-			(uuid "fb56a78f-6b78-4897-a184-6cf5bb1fdabb")
-		)
-		(instances
-			(project "AIO_AGV_Control_V6.0"
-				(path "/8c8bc9e4-6813-466f-a699-de8b6f087fa1"
-					(reference "J3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "IRF520:IRF520")
 		(at 238.76 130.81 0)
 		(unit 1)
@@ -17545,6 +17451,88 @@
 			(project "AIO_AGV_Control_V6.0"
 				(path "/8c8bc9e4-6813-466f-a699-de8b6f087fa1"
 					(reference "R31")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_Coaxial_Small")
+		(at 26.67 26.67 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "bed1f09b-aacf-4d84-9161-415cec502d6e")
+		(property "Reference" "J3"
+			(at 29.21 25.9194 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Conn_Coaxial_Small"
+			(at 29.21 28.4594 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Connector_Coaxial:SMA_BAT_Wireless_BWSMA-KWE-Z001"
+			(at 26.67 26.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 26.67 26.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "small coaxial connector (BNC, SMA, SMB, SMC, Cinch/RCA, LEMO, ...)"
+			(at 26.67 26.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "971ee584-83a9-4572-8152-2bc3688f6b7e")
+		)
+		(pin "2"
+			(uuid "d1137c26-b1a0-46f1-b9cc-8ada71d10b64")
+		)
+		(instances
+			(project "AIO_AGV_Control_V6.0"
+				(path "/8c8bc9e4-6813-466f-a699-de8b6f087fa1"
+					(reference "J3")
 					(unit 1)
 				)
 			)

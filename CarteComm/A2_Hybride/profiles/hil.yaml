@@ -156,3 +156,18 @@ pinmap:
     Y32: 18
     Y33: 19
     Y34: 20
+
+# --- Radio LoRa 868 MHz ---------------------------------------------------
+lora:
+  frequency_hz: 868100000
+  spreading_factor: 9          # arbitrage portée/latence — voir docs/latence_lora.md
+  bandwidth_hz: 125000
+  coding_rate: 5               # 4/5
+  sync_word: 0x12              # privé, != 0x34 (réservé LoRaWAN)
+  tx_power_dbm: 14
+  ack_timeout_ms: 400
+  max_tries: 3
+  # EN 300 220 / ERC 70-03 : 1 % de rapport cyclique sur 1 h glissante.
+  # Obligation réglementaire : le transport REFUSE d'émettre au-delà.
+  duty_cycle_permille: 10
+  duty_window_ms: 3600000
