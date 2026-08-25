@@ -17,6 +17,29 @@
 **Priorité** : les 12 lignes marquées ⭐ portent à elles seules ~70 % du budget
 matériel. Si le temps manque, faire celles-là d'abord.
 
+### ⚠️ Les accessoires n'y sont plus
+
+Antennes, pigtails, boîtiers, coffrets, enveloppes murales et poussoirs de
+façade ont été **retirés** de cette feuille comme des nomenclatures : ils se
+substituent librement d'un fournisseur à l'autre, s'arbitrent en fin de projet
+selon le budget, et n'engagent aucun choix de conception. Les chercher au
+catalogue serait du temps perdu tant que le reste n'est pas figé.
+
+### ⚠️ Ce total n'est pas un budget
+
+Le total ci-dessous additionne **toutes les lignes à leur quantité maximale,
+alternatives comprises** — les trois postes fixes UniPi, les trois étages de
+sortie possibles, les deux variantes d'interface bus. Aucun projet ne les
+achète tous.
+
+C'est une **enveloppe de sourcing** : elle borne l'effort de recherche, pas la
+dépense. Les coûts réels par architecture sont dans les trois `BOM.md`, où les
+options s'excluent proprement.
+
+| | HT |
+|---|---:|
+| **Enveloppe de sourcing** — 42 lignes, quantités maximales | **~1 630 €** |
+
 ---
 
 ## 1. Modules et microcontrôleurs
@@ -32,7 +55,7 @@ matériel. Si le temps manque, faire celles-là d'abord.
 | | `ESP32-WROOM-32E-N8` | Module MCU nu, 8 Mo flash | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ESP32-WROOM-32E-N8) | *5,00 €* | |
 | | `STM32L071KBU6` | MCU ultra-basse conso (bouton LoRa) | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=STM32L071KBU6) | *3,50 €* | |
 
-## 2. Radio et antennes
+## 2. Radio
 
 | ⭐ | Réf. à rechercher | Désignation | Qté | Lien d'achat | *Repère HT* | **PU TTC** |
 |:-:|---|---|---:|---|---:|---|
@@ -40,12 +63,6 @@ matériel. Si le temps manque, faire celles-là d'abord.
 | ⭐ | `TCM 515` EnOcean, EU 868 MHz | Récepteur UART ESP3 | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TCM+515) · [Mouser](https://www.mouser.fr/c/?q=TCM+515) | *28,00 €* | |
 | ⭐ | `SIM7080G` (SIMCom) | Modem LTE-M / NB-IoT | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SIM7080G) · [Amazon](https://www.amazon.fr/s?k=SIM7080G) | *18,00 €* | |
 | ⭐ | `RFM95W-868S2` (HopeRF) | Module LoRa SX1276 868 MHz | 3 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RFM95W-868S2) · [Amazon](https://www.amazon.fr/s?k=RFM95W-868S2) | *10,00 €* | |
-| | Enveloppe murale pour `PTM 210` | Eltako, NodOn ou Trio2Sys | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=PTM+210) · [Mouser](https://www.mouser.fr/c/?q=PTM+210) | *12,00 €* | |
-| | Antenne EnOcean 868 MHz déportée | `ANT300` ou équivalent | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ANT300) · [Mouser](https://www.mouser.fr/c/?q=ANT300) | *10,00 €* | |
-| | Antenne LoRa 868 MHz 2 dBi SMA | `Siretta ALPHA-1A` ou équiv. | 3 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Siretta+ALPHA-1A) | *6,00 €* | |
-| | Antenne Wi-Fi 2,4 GHz 2 dBi SMA | `Siretta DELTA-6A` ou équiv. | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Siretta+DELTA-6A) | *18,00 €* | |
-| | Antenne LTE 4 dBi SMA déportée | `Siretta ECHO-9` ou équiv. | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Siretta+ECHO-9) | *15,00 €* | |
-| | Pigtail U.FL → SMA + passe-cloison | `Amphenol 336312-24-0100` | 4 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+336312-24-0100) | *3,00 €* | |
 
 ## 3. Étage de sortie et interface bus
 
@@ -86,18 +103,8 @@ matériel. Si le temps manque, faire celles-là d'abord.
 | | Nappe 25 conducteurs, au mètre | `3M 3365/25` ou équiv. | 2 m | [RS](https://fr.rs-online.com/web/c/?searchTerm=3M+3365%2F25) | *6,00 €* | |
 | | `WIZ850io` (WIZnet) | Module Ethernet W5500 + RJ45 | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=WIZ850io) | *6,00 €* | |
 | | ILS (reed) + aimant | `Standex KSK-1A66` ou équiv. | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Standex+KSK-1A66) | *2,00 €* | |
-| | Bouton poussoir Ø22 IP65 | `Schneider XB4BA31` ou équiv. | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Schneider+XB4BA31) | *12,00 €* | |
 
-## 6. Boîtiers
-
-| ⭐ | Réf. à rechercher | Désignation | Qté | Lien d'achat | *Repère HT* | **PU TTC** |
-|:-:|---|---|---:|---|---:|---|
-| ⭐ | Boîtier carte AGV, ~180 × 130 mm | Hammond ou Fibox, presse-étoupes | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Bo%C3%AEtier+carte+AGV%2C+~180+%C3%97+130+mm) | *28,00 €* | |
-| | Boîtier mural IP54 (poste fixe) | Fibox ou `Hammond 1554` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Hammond+1554) | *30,00 €* | |
-| | Boîtier IP65 (bouton LoRa) | `Fibox PC 095808` ou équiv. | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Fibox+PC+095808) | *18,00 €* | |
-| | Coffret rail DIN + bornier | Fibox ou Schneider | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Coffret+rail+DIN+%2B+bornier) | *20,00 €* | |
-
-## 7. Outillage (achat unique)
+## 6. Outillage (achat unique)
 
 | ⭐ | Réf. à rechercher | Désignation | Qté | Lien d'achat | *Repère HT* | **PU TTC** |
 |:-:|---|---|---:|---|---:|---|
@@ -115,6 +122,9 @@ Ces lignes ne sont pas des articles de catalogue — inutile de les chercher :
 
 | Ligne | Pourquoi |
 |---|---|
+| **Antennes** (LoRa, EnOcean, Wi-Fi, LTE) et pigtails | Accessoires arbitrables selon le budget — voir ci-dessus |
+| **Boîtiers, coffrets rail DIN, enveloppes murales** | Idem |
+| **Poussoir Ø22 de façade** | Idem |
 | PCB 2 et 4 couches | Devis chez un fabricant (JLCPCB, Eurocircuits, PCBWay) à partir des Gerber |
 | Plaques de repérage gravées | Sur mesure |
 | Lots de passifs (résistances, condensateurs, LED) | Forfait, sans incidence sur l'arbitrage |

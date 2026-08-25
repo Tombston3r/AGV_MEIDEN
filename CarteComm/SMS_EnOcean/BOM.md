@@ -1,12 +1,12 @@
-# Nomenclature — architecture SMS + EnOcean (carte neuve)
+# Nomenclature — A2 — Cellulaire + EnOcean (SMS ou LTE-M)
 
 ## 💰 Total
 
 | | HT | TTC | *Accessoires écartés* |
 |---|---:|---:|---:|
-| **Option A — poste ESP32 (recommandée)** | **266,70 €** | **320,04 €** | *+ 139,50 € HT* |
-| **Option B — poste Unipi Gate G100** | **428,70 €** | **514,44 €** | *+ 116,00 € HT* |
-| **Option C — poste UniPi E413 LTE** | **564,70 €** | **677,64 €** | *+ 133,00 € HT* |
+| **A2 — poste ESP32 (recommandé)** | **266,70 €** | **320,04 €** | *+ 139,50 € HT* |
+| **A2 — poste Unipi Gate G100** | **428,70 €** | **514,44 €** | *+ 116,00 € HT* |
+| **A2 — poste UniPi E413 LTE** | **564,70 €** | **677,64 €** | *+ 133,00 € HT* |
 
 Ces totaux ne comptent que les **composants déterminants**.
 
@@ -76,7 +76,7 @@ la comparaison entre architectures reste donc pertinente en HT, et
 
 ---
 
-### Carte AGV — variante LTE-M
+### **[A2]** Carte AGV — variante LTE-M
 
 Carte neuve à fabriquer. La V5.0.1 d'origine est **conservée intacte**.
 
@@ -111,7 +111,7 @@ Carte neuve à fabriquer. La V5.0.1 d'origine est **conservée intacte**.
 | Expandeur I²C 16 GPIO | `MCP23017-E/SP (Microchip)` | 4 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MCP23017-E%2FSP) | ☐ | ☐ | ☐ | *12,00 €* |
 | **Sous-total** | | | | | | **☐** | ***12,00 €*** |
 
-### Poste fixe — option A : ESP32 (recommandée)
+### **[A2]** Poste fixe — option A : ESP32 (recommandée)
 
 Suffit dès lors que l'historique long terme n'est pas exigé.
 
@@ -127,7 +127,7 @@ Suffit dès lors que l'historique long terme n'est pas exigé.
 | Support SIM, passifs | `Molex 785900001 + lot` | 1 | — | ☐ | ☐ | ☐ | *3,60 €* |
 | **Sous-total** | | | | | | **☐** | ***105,60 €*** |
 
-### Poste fixe — option B : Unipi Gate G100 (**si Ethernet disponible**)
+### **[A2]** Poste fixe — option B : Unipi Gate G100 (**si Ethernet disponible**)
 
 Le modem du poste ne sert à rien dès qu'une prise réseau est à portée :
 le poste parle au broker par le fil. Cela **supprime une SIM sur deux** et
@@ -141,7 +141,7 @@ ouvre la gamme Gate, qui n'a pas de cellulaire. Debian d'origine.
 | Alimentation rail DIN 230 V → 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MEAN+WELL+HDR-15-24) | ☐ | ☐ | ☐ | *16,80 €* |
 | **Sous-total** | | | | | | **☐** | ***300,00 €*** |
 
-### Poste fixe — option C : UniPi E413 LTE (**seulement sans Ethernet**)
+### **[A2]** Poste fixe — option C : UniPi E413 LTE (**seulement sans Ethernet**)
 
 À ne retenir que si le poste est hors de portée d'une prise réseau. Le
 modem intégré est alors la raison d'être du modèle — et son surcoût.
@@ -152,7 +152,7 @@ modem intégré est alors la raison d'être du modèle — et son surcoût.
 | Récepteur EnOcean + antenne | `TCM 515 + ANT300` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TCM+515+%2B+ANT300) · [Mouser](https://www.mouser.fr/c/?q=TCM+515+%2B+ANT300) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=TCM+515+%2B+ANT300) | ☐ | ☐ | ☐ | *43,20 €* |
 | **Sous-total** | | | | | | **☐** | ***463,20 €*** |
 
-### Boutons d'appel EnOcean — 2 stations
+### **[A2]** Boutons d'appel EnOcean — 2 stations
 
 | Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|

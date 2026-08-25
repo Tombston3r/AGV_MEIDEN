@@ -290,7 +290,7 @@ LORA_SECTIONS = [cartereemploi, carte, bus595, busmcp, busavr, bouton_a1, poste_
 # ===========================================================================
 #  Wi-Fi — carte V5.0.1 conservée
 # ===========================================================================
-w_carte = Section("Carte AGV — extraite du projet KiCad",
+w_carte = Section("**[A4]** Carte AGV — extraite du projet KiCad",
                   "**Nomenclature réelle**, extraite de\n"
                   "[`hardware/AIO_AGV_Control_V5.0.1/`](hardware/AIO_AGV_Control_V5.0.1/) :\n"
                   "57 composants placés au PCB. Ce n'est plus une estimation d'étude.\n\n"
@@ -312,7 +312,7 @@ w_carte.add("Supports et barrettes pour les deux modules", "barrettes tulipe 2,5
 w_carte.add("PCB ~150 × 100 mm (série de 5)", "Gerber projet", 1, "PCB", 15.00)
 w_carte.add("Boîtier, entretoises, presse-étoupes, visserie", "Hammond 1590 ou Fibox", 1, "RS", 28.00, core=False)
 
-w_harnais = Section("Harnais de raccordement",
+w_harnais = Section("**[A4]** Harnais de raccordement",
                     "La carte existe, mais son câblage vers l'automate est à refaire.\nDétail : [`docs/subd25_atmega.md`](docs/subd25_atmega.md).")
 w_harnais.add("Nappe 25 conducteurs, gaine souple, ~1 m", "3M 3365/25 ou équiv.", 2, "RS", 6.00)
 w_harnais.add("Connecteur IDC SUB-D 25 **mâle** (entrées)", "Amphenol L17D25P", 1, "RS", 4.00)
@@ -321,13 +321,13 @@ w_harnais.add("Capot métallisé SUB-D 25 avec serre-câble", "Amphenol 17E-1726
 w_harnais.add("Cosses à sertir côté AGV (CN61 à CN64)", "selon bornier automate", 50, "RS", 0.15)
 w_harnais.add("Gaine tressée, colliers, repérage des fils", "lot", 1, "RS", 7.50, core=False)
 
-w_antenne = Section("Antenne Wi-Fi déportée",
+w_antenne = Section("**[A4]** Antenne Wi-Fi déportée",
                     "L'antenne d'origine émet depuis l'intérieur d'un châssis métallique.\n⚠️ Vérifier au démontage que le module ESP32 dispose d'un connecteur U.FL.")
 w_antenne.add("Antenne 2,4 GHz 2 dBi, embase SMA, déportée", "Siretta DELTA-6A ou équiv.", 1, "RS", 18.00, core=False)
 w_antenne.add("Pigtail U.FL → SMA femelle + passe-cloison", "Amphenol 336312-24-0100", 1, "RS", 8.00, core=False)
 w_antenne.add("Support de fixation, visserie", "lot", 1, "RS", 4.00, core=False)
 
-w_poste = Section("Poste fixe — Unipi Gate G100",
+w_poste = Section("**[A4]** Poste fixe — Unipi Gate G100",
                   "Le poste porte le récepteur EnOcean, le broker MQTT et l'interface de\n"
                   "supervision. **Le Gate G100 remplace l'E413 initialement prévu** : voir\n"
                   "la justification en fin de document.")
@@ -339,7 +339,7 @@ w_poste.add("Alimentation rail DIN 230 V → 24 V 15 W", "MEAN WELL HDR-15-24", 
 w_poste.add("Coffret rail DIN, bornier, presse-étoupes", "Fibox ou Schneider", 1, "RS", 20.00, core=False)
 w_poste.add("Câble Ethernet blindé vers le réseau usine", "Cat 6 S/FTP, 5 m", 1, "RS", 6.00, core=False)
 
-w_boutons = Section("Boutons d'appel EnOcean — 2 stations")
+w_boutons = Section("**[A4]** Boutons d'appel EnOcean — 2 stations")
 w_boutons.add("Module émetteur auto-alimenté, **sans pile**", "PTM 210 (EnOcean, EU 868)", 2, "Spécialiste", 30.00)
 w_boutons.add("Enveloppe / poussoir mural compatible PTM 210", "Eltako, NodOn ou Trio2Sys", 2, "Spécialiste", 12.00, core=False)
 w_boutons.add("Plaque de repérage station gravée", "sur mesure", 2, "Amazon", 4.00, core=False)
@@ -357,7 +357,7 @@ WIFI_SECTIONS = [w_carte, w_harnais, w_antenne, w_poste, w_boutons, w_outil]
 # ===========================================================================
 #  SMS + EnOcean — variante B (LTE-M / MQTT)
 # ===========================================================================
-s_carte = Section("Carte AGV — variante LTE-M",
+s_carte = Section("**[A2]** Carte AGV — variante LTE-M",
                   "Carte neuve à fabriquer. La V5.0.1 d'origine est **conservée intacte**.")
 s_carte.add("Module MCU, 8 Mo flash", "ESP32-WROOM-32E-N8", 1, "RS", 5.00)
 s_carte.add("Modem LTE-M / NB-IoT, très basse consommation", "SIM7080G (SIMCom)", 1, "Amazon", 18.00)
@@ -374,7 +374,7 @@ s_carte.add("SUB-D 25 mâle et femelle, coudés CI", "Amphenol L717SDB25xA4CH4F"
 s_carte.add("PCB 4 couches ~120 × 100 mm (série de 5)", "Gerber projet", 1, "PCB", 12.00)
 s_carte.add("Boîtier, fixation, presse-étoupes, conn. de prog.", "Hammond 1590 ou Fibox", 1, "RS", 28.00, core=False)
 
-s_poste_esp = Section("Poste fixe — option A : ESP32 (recommandée)",
+s_poste_esp = Section("**[A2]** Poste fixe — option A : ESP32 (recommandée)",
                       "Suffit dès lors que l'historique long terme n'est pas exigé.")
 s_poste_esp.add("Module MCU, 8 Mo flash (LittleFS + pages web)", "ESP32-WROOM-32E-N8", 1, "RS", 5.00)
 s_poste_esp.add("Modem LTE-M / NB-IoT", "SIM7080G (SIMCom)", 1, "Amazon", 18.00)
@@ -390,7 +390,7 @@ s_poste_esp.add("Boîtier mural IP54, presse-étoupes, embases SMA", "Fibox ou H
 s_poste_esp.add("Support SIM, passifs", "Molex 785900001 + lot", 1, "RS", 3.00)
 s_poste_esp.add("Câble Ethernet blindé", "Cat 6 S/FTP, 5 m", 1, "RS", 6.00, core=False)
 
-s_poste_gate = Section("Poste fixe — option B : Unipi Gate G100 (**si Ethernet disponible**)",
+s_poste_gate = Section("**[A2]** Poste fixe — option B : Unipi Gate G100 (**si Ethernet disponible**)",
                   "Le modem du poste ne sert à rien dès qu'une prise réseau est à portée :\n"
                   "le poste parle au broker par le fil. Cela **supprime une SIM sur deux** et\n"
                   "ouvre la gamme Gate, qui n'a pas de cellulaire. Debian d'origine.")
@@ -402,7 +402,7 @@ s_poste_gate.add("Alimentation rail DIN 230 V → 24 V 15 W", "MEAN WELL HDR-15-
 s_poste_gate.add("Coffret rail DIN, bornier, presse-étoupes", "Fibox ou Schneider", 1, "RS", 20.00, core=False)
 s_poste_gate.add("Câble Ethernet blindé vers le réseau usine", "Cat 6 S/FTP, 5 m", 1, "RS", 6.00, core=False)
 
-s_poste_unipi = Section("Poste fixe — option C : UniPi E413 LTE (**seulement sans Ethernet**)",
+s_poste_unipi = Section("**[A2]** Poste fixe — option C : UniPi E413 LTE (**seulement sans Ethernet**)",
                   "À ne retenir que si le poste est hors de portée d'une prise réseau. Le\n"
                   "modem intégré est alors la raison d'être du modèle — et son surcoût.")
 s_poste_unipi.add("Automate compact Linux, E/S TOR, modem LTE intégré", "UniPi E413 (variante LTE)", 1, "Spécialiste", 350.00)
@@ -411,7 +411,7 @@ s_poste_unipi.add("Récepteur EnOcean + antenne", "TCM 515 + ANT300", 1, "Spéci
 s_poste_unipi.add("Coffret rail DIN, alimentation, bornier", "Fibox + MEAN WELL HDR-15-24", 1, "RS", 34.00, core=False)
 s_poste_unipi.add("Câble Ethernet blindé", "Cat 6 S/FTP, 5 m", 1, "RS", 4.00, core=False)
 
-s_boutons = Section("Boutons d'appel EnOcean — 2 stations")
+s_boutons = Section("**[A2]** Boutons d'appel EnOcean — 2 stations")
 s_boutons.add("Module émetteur auto-alimenté, **sans pile**", "PTM 210 (EnOcean, EU 868)", 2, "Spécialiste", 30.00)
 s_boutons.add("Enveloppe / poussoir mural compatible PTM 210", "Eltako, NodOn ou Trio2Sys", 2, "Spécialiste", 12.00, core=False)
 s_boutons.add("Plaque de repérage station gravée", "sur mesure", 2, "Amazon", 4.00, core=False)
@@ -809,11 +809,11 @@ l'antenne, la puissance d'émission et le nombre de nœuds.
 """
 
 write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/LoRa/BOM.md",
-      "architecture LoRa 868 MHz (carte neuve)", "../COMPARAISON.md",
+      "A1 · A3 — LoRa 868 MHz", "../COMPARAISON.md",
       LORA_SECTIONS, LORA_EXTRA + ANALYSE_LORA,
-      totaux=[("Variante A1 — LoRa homogène, 2 boutons", a1_ht,
+      totaux=[("A1 — LoRa homogène, boutons sur pile", a1_ht,
                acc_de(cartereemploi, outil_lora) + 2 * bouton_a1.ht_accessoires),
-              ("Variante A3 — EnOcean + LoRa, 2 boutons", a3_ht,
+              ("A3 — Hybride EnOcean + LoRa", a3_ht,
                acc_de(cartereemploi, poste_a3, outil_lora) + 2 * bouton_a3.ht_accessoires)])
 print(f"A1 = {a1_ht:.2f} HT / {a1_ht*TVA:.2f} TTC ; A3 = {a3_ht:.2f} HT / {a3_ht*TVA:.2f} TTC")
 
@@ -1051,9 +1051,9 @@ change la nomenclature.
 """
 
 write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/Wifi/BOM.md",
-      "architecture Wi-Fi (carte V5.0.1 conservée)", "../COMPARAISON.md",
+      "A4 — Wi-Fi + EnOcean (carte V5.0.1 conservée)", "../COMPARAISON.md",
       WIFI_SECTIONS, WIFI_EXTRA + ANALYSE_WIFI,
-      totaux=[("Architecture complète, 2 points d'appel", wifi_ht,
+      totaux=[("A4 — Wi-Fi + EnOcean", wifi_ht,
                acc_de(w_carte, w_harnais, w_antenne, w_poste, w_boutons, w_outil))])
 
 # --- SMS + EnOcean ----------------------------------------------------------
@@ -1242,14 +1242,14 @@ d'interface bus conditionne le routage du PCB.
 """
 
 write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/SMS_EnOcean/BOM.md",
-      "architecture SMS + EnOcean (carte neuve)", "../COMPARAISON.md",
+      "A2 — Cellulaire + EnOcean (SMS ou LTE-M)", "../COMPARAISON.md",
       [s_carte, bus595, busmcp, s_poste_esp, s_poste_gate, s_poste_unipi, s_boutons, s_outil],
       SMS_EXTRA + ANALYSE_SMS,
-      totaux=[("Option A — poste ESP32 (recommandée)", sms_esp_ht,
+      totaux=[("A2 — poste ESP32 (recommandé)", sms_esp_ht,
                acc_de(s_carte, s_poste_esp, s_boutons, s_outil)),
-              ("Option B — poste Unipi Gate G100", sms_gate_ht,
+              ("A2 — poste Unipi Gate G100", sms_gate_ht,
                acc_de(s_carte, s_poste_gate, s_boutons, s_outil)),
-              ("Option C — poste UniPi E413 LTE", sms_uni_ht,
+              ("A2 — poste UniPi E413 LTE", sms_uni_ht,
                acc_de(s_carte, s_poste_unipi, s_boutons, s_outil))])
 
 print()

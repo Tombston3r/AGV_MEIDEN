@@ -1,11 +1,11 @@
-# Nomenclature — architecture LoRa 868 MHz (carte neuve)
+# Nomenclature — A1 · A3 — LoRa 868 MHz
 
 ## 💰 Total
 
 | | HT | TTC | *Accessoires écartés* |
 |---|---:|---:|---:|
-| **Variante A1 — LoRa homogène, 2 boutons** | **124,60 €** | **149,52 €** | *+ 83,00 € HT* |
-| **Variante A3 — EnOcean + LoRa, 2 boutons** | **217,00 €** | **260,40 €** | *+ 89,50 € HT* |
+| **A1 — LoRa homogène, boutons sur pile** | **124,60 €** | **149,52 €** | *+ 83,00 € HT* |
+| **A3 — Hybride EnOcean + LoRa** | **217,00 €** | **260,40 €** | *+ 89,50 € HT* |
 
 Ces totaux ne comptent que les **composants déterminants**.
 

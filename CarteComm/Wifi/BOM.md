@@ -1,10 +1,10 @@
-# Nomenclature — architecture Wi-Fi (carte V5.0.1 conservée)
+# Nomenclature — A4 — Wi-Fi + EnOcean (carte V5.0.1 conservée)
 
 ## 💰 Total
 
 | | HT | TTC | *Accessoires écartés* |
 |---|---:|---:|---:|
-| **Architecture complète, 2 points d'appel** | **550,65 €** | **660,78 €** | *+ 141,50 € HT* |
+| **A4 — Wi-Fi + EnOcean** | **550,65 €** | **660,78 €** | *+ 141,50 € HT* |
 
 Ces totaux ne comptent que les **composants déterminants**.
 
@@ -74,7 +74,7 @@ la comparaison entre architectures reste donc pertinente en HT, et
 
 ---
 
-### Carte AGV — extraite du projet KiCad
+### **[A4]** Carte AGV — extraite du projet KiCad
 
 **Nomenclature réelle**, extraite de
 [`hardware/AIO_AGV_Control_V5.0.1/`](hardware/AIO_AGV_Control_V5.0.1/) :
@@ -101,7 +101,7 @@ document était donc fausse.
 | PCB ~150 × 100 mm (série de 5) | `Gerber projet` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *18,00 €* |
 | **Sous-total** | | | | | | **☐** | ***121,38 €*** |
 
-### Harnais de raccordement
+### **[A4]** Harnais de raccordement
 
 La carte existe, mais son câblage vers l'automate est à refaire.
 Détail : [`docs/subd25_atmega.md`](docs/subd25_atmega.md).
@@ -115,7 +115,7 @@ Détail : [`docs/subd25_atmega.md`](docs/subd25_atmega.md).
 | Cosses à sertir côté AGV (CN61 à CN64) | `selon bornier automate` | 50 | [RS](https://fr.rs-online.com/web/c/?searchTerm=selon+bornier+automate) | ☐ | ☐ | ☐ | *9,00 €* |
 | **Sous-total** | | | | | | **☐** | ***41,40 €*** |
 
-### Poste fixe — Unipi Gate G100
+### **[A4]** Poste fixe — Unipi Gate G100
 
 Le poste porte le récepteur EnOcean, le broker MQTT et l'interface de
 supervision. **Le Gate G100 remplace l'E413 initialement prévu** : voir
@@ -129,7 +129,7 @@ la justification en fin de document.
 | Alimentation rail DIN 230 V → 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MEAN+WELL+HDR-15-24) | ☐ | ☐ | ☐ | *16,80 €* |
 | **Sous-total** | | | | | | **☐** | ***300,00 €*** |
 
-### Boutons d'appel EnOcean — 2 stations
+### **[A4]** Boutons d'appel EnOcean — 2 stations
 
 | Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|

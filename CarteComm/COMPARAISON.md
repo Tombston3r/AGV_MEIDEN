@@ -117,9 +117,9 @@ multiplier par 1,20 pour retrouver leurs totaux.
 |---|---:|---:|---:|---:|
 | LoRa pur (A1) | 208 € | 0 €/an | **220 €** | +60 € |
 | LoRa + EnOcean (A3) | 307 € | 0 €/an | **307 €** | +46 € |
-| Wi-Fi + EnOcean | 692 € | 0 €/an | **692 €** | +50 € |
-| LTE-M / MQTT | 406 € | 96 €/an | **1 366 €** | +50 € |
-| SMS | 625 € | 1 500 €/an | **15 625 €** | +50 € |
+| Wi-Fi + EnOcean (A4) | 692 € | 0 €/an | **692 €** | +50 € |
+| LTE-M / MQTT (A2) | 406 € | 96 €/an | **1 366 €** | +50 € |
+| SMS (A2) | 625 € | 1 500 €/an | **15 625 €** | +50 € |
 
 Trois observations qui ne sautent pas aux yeux :
 
