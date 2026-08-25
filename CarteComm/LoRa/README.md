@@ -26,12 +26,7 @@
 qui fait de ce dossier un projet autonome.
 
 [`BOM.md`](BOM.md) chiffre les deux variantes A1 et A3, et montre où leurs
-courbes de coût se croisent — **à 8 stations**.
-
-Les demandes de prix correspondantes sont prêtes à envoyer :
-[`email_commande_A1.md`](email_commande_A1.md) (une carte, deux boutons sur
-pile) et [`email_commande_A3.md`](email_commande_A3.md) (une carte, un poste
-fixe, deux boutons EnOcean sans pile).
+courbes de coût se croisent — **à 9 stations**.
 
 ## Contenu
 
@@ -46,8 +41,6 @@ fixe, deux boutons EnOcean sans pile).
 | `firmware/bouton-lora/src/main.cpp` | Nœud bouton sur pile : sommeil profond, 3 tentatives, LED verte/rouge |
 | `test/native/test_lora.cpp` | 10 tests : temps d'antenne, budget légal, half-duplex, retransmissions |
 | `DEPLOY.md` | Procédure de déploiement, A1 et A3 |
-| `email_commande_A1.md` | **Demande de prix prête à envoyer** — variante A1, 2 points d'appel |
-| `email_commande_A3.md` | **Demande de prix prête à envoyer** — variante A3, 2 points d'appel |
 | `BOM.md` | Nomenclature chiffrée des deux variantes |
 | `docs/latence_lora.md` | **Écart latence/SF à arbitrer avec le client** |
 | `docs/Archi_1_LoRa_P2P_homogene.md` | Document de référence de l'architecture 1 : LoRa P2P homogène, boutons sur pile |

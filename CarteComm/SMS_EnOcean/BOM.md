@@ -1,5 +1,26 @@
 # Nomenclature — architecture SMS + EnOcean (carte neuve)
 
+## 💰 Total
+
+| | HT | TTC | *Accessoires écartés* |
+|---|---:|---:|---:|
+| **Option A — poste ESP32 (recommandée)** | **266,70 €** | **320,04 €** | *+ 139,50 € HT* |
+| **Option B — poste Unipi Gate G100** | **428,70 €** | **514,44 €** | *+ 116,00 € HT* |
+| **Option C — poste UniPi E413 LTE** | **564,70 €** | **677,64 €** | *+ 133,00 € HT* |
+
+Ces totaux ne comptent que les **composants déterminants**.
+
+Les accessoires arbitrables selon le budget — antennes, boîtiers,
+coffrets, enveloppes murales, câbles — sont volontairement **hors
+nomenclature** : ils se substituent librement d'un fournisseur à l'autre
+et ne changent rien à la conception. La dernière colonne rappelle ce
+qu'ils pèsent, pour que ce total ne soit jamais pris pour un coût
+d'achat complet.
+
+⚠️ [`../COMPARAISON.md`](../COMPARAISON.md) et le `README.md` racine comparent les architectures
+**accessoires compris** — sans quoi le classement serait faussé. Leurs
+chiffres sont donc plus élevés que ceux-ci, et c'est normal.
+
 ## ⚠️ Feuille de sourcing — à compléter avant usage
 
 Ce document est une **liste d'achat à remplir**, pas un devis. Les colonnes
@@ -63,7 +84,6 @@ Carte neuve à fabriquer. La V5.0.1 d'origine est **conservée intacte**.
 |---|---|---:|---|---|---:|---:|---:|
 | Module MCU, 8 Mo flash | `ESP32-WROOM-32E-N8` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ESP32-WROOM-32E-N8) | ☐ | ☐ | ☐ | *6,00 €* |
 | Modem LTE-M / NB-IoT, très basse consommation | `SIM7080G (SIMCom)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SIM7080G) · [Amazon](https://www.amazon.fr/s?k=SIM7080G) | ☐ | ☐ | ☐ | *21,60 €* |
-| Antenne LTE 4 dBi déportée + pigtail U.FL → SMA | `Siretta ECHO-9 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Siretta+ECHO-9) | ☐ | ☐ | ☐ | *14,40 €* |
 | Support SIM nano, protection ESD | `Molex 785900001` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Molex+785900001) | ☐ | ☐ | ☐ | *1,80 €* |
 | Optocoupleur quadruple — 43 voies | `PC847 (Sharp)` | 11 | [RS](https://fr.rs-online.com/web/c/?searchTerm=PC847) | ☐ | ☐ | ☐ | *7,92 €* |
 | Convertisseur DC/DC 24 V → 5 V 1 A | `TSR 1-2450 (Traco Power)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TSR+1-2450) | ☐ | ☐ | ☐ | *8,40 €* |
@@ -74,8 +94,7 @@ Carte neuve à fabriquer. La V5.0.1 d'origine est **conservée intacte**.
 | ILS (reed) + aimant — Wi-Fi de maintenance | `Standex KSK-1A66 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Standex+KSK-1A66) | ☐ | ☐ | ☐ | *2,40 €* |
 | SUB-D 25 mâle et femelle, coudés CI | `Amphenol L717SDB25xA4CH4F` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+L717SDB25xA4CH4F) | ☐ | ☐ | ☐ | *7,20 €* |
 | PCB 4 couches ~120 × 100 mm (série de 5) | `Gerber projet` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *14,40 €* |
-| Boîtier, fixation, presse-étoupes, conn. de prog. | `Hammond 1590 ou Fibox` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Hammond+1590+ou+Fibox) | ☐ | ☐ | ☐ | *33,60 €* |
-| **Sous-total** | | | | | | **☐** | ***132,84 €*** |
+| **Sous-total** | | | | | | **☐** | ***84,84 €*** |
 
 ### Interface bus — variante `shift595` (recommandée)
 
@@ -100,18 +119,13 @@ Suffit dès lors que l'historique long terme n'est pas exigé.
 |---|---|---:|---|---|---:|---:|---:|
 | Module MCU, 8 Mo flash (LittleFS + pages web) | `ESP32-WROOM-32E-N8` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ESP32-WROOM-32E-N8) | ☐ | ☐ | ☐ | *6,00 €* |
 | Modem LTE-M / NB-IoT | `SIM7080G (SIMCom)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SIM7080G) · [Amazon](https://www.amazon.fr/s?k=SIM7080G) | ☐ | ☐ | ☐ | *21,60 €* |
-| Antenne LTE déportée + pigtail | `Siretta ECHO-9 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Siretta+ECHO-9) | ☐ | ☐ | ☐ | *14,40 €* |
 | Récepteur EnOcean 868 MHz, UART ESP3 | `TCM 515 (EnOcean)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TCM+515) · [Mouser](https://www.mouser.fr/c/?q=TCM+515) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=TCM+515) | ☐ | ☐ | ☐ | *33,60 €* |
-| Antenne EnOcean déportée | `EnOcean ANT300 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=EnOcean+ANT300) · [Mouser](https://www.mouser.fr/c/?q=EnOcean+ANT300) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=EnOcean+ANT300) | ☐ | ☐ | ☐ | *9,60 €* |
 | Ethernet SPI + RJ45 — **liaison filaire** | `WIZnet WIZ850io (W5500)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=WIZnet+WIZ850io) | ☐ | ☐ | ☐ | *7,20 €* |
-| LED d'accusé, LED de vie, boutons appairage/reset | `lot` | 1 | — | ☐ | ☐ | ☐ | *4,20 €* |
 | Alimentation rail DIN 230 V → 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MEAN+WELL+HDR-15-24) | ☐ | ☐ | ☐ | *16,80 €* |
 | 24 V → 5 V → 3,3 V | `TSR 1-2450 + AP2112K-3.3` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TSR+1-2450+%2B+AP2112K-3.3) | ☐ | ☐ | ☐ | *9,60 €* |
 | PCB 2 couches ~100 × 80 mm | `Gerber projet` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *7,20 €* |
-| Boîtier mural IP54, presse-étoupes, embases SMA | `Fibox ou Hammond 1554` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Fibox+ou+Hammond+1554) | ☐ | ☐ | ☐ | *36,00 €* |
 | Support SIM, passifs | `Molex 785900001 + lot` | 1 | — | ☐ | ☐ | ☐ | *3,60 €* |
-| Câble Ethernet blindé | `Cat 6 S/FTP, 5 m` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Cat+6+S%2FFTP%2C+5+m) | ☐ | ☐ | ☐ | *7,20 €* |
-| **Sous-total** | | | | | | **☐** | ***177,00 €*** |
+| **Sous-total** | | | | | | **☐** | ***105,60 €*** |
 
 ### Poste fixe — option B : Unipi Gate G100 (**si Ethernet disponible**)
 
@@ -123,12 +137,9 @@ ouvre la gamme Gate, qui n'a pas de cellulaire. Debian d'origine.
 |---|---|---:|---|---|---:|---:|---:|
 | Passerelle Linux DIN — Debian, 16 Go eMMC, 2× Ethernet, USB 3.0, RS485 | `Unipi Gate G100` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Unipi+Gate+G100) · [Unipi](https://www.unipi.technology/search?query=Unipi+Gate+G100) | ☐ | ☐ | ☐ | *240,00 €* |
 | Récepteur EnOcean 868 MHz, UART ESP3 | `TCM 515 (EnOcean)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TCM+515) · [Mouser](https://www.mouser.fr/c/?q=TCM+515) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=TCM+515) | ☐ | ☐ | ☐ | *33,60 €* |
-| Antenne EnOcean 868 MHz déportée + pigtail | `EnOcean ANT300 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=EnOcean+ANT300) · [Mouser](https://www.mouser.fr/c/?q=EnOcean+ANT300) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=EnOcean+ANT300) | ☐ | ☐ | ☐ | *12,00 €* |
 | Adaptateur USB-série vers le TCM 515 | `FTDI FT232RL` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=FTDI+FT232RL) | ☐ | ☐ | ☐ | *9,60 €* |
 | Alimentation rail DIN 230 V → 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MEAN+WELL+HDR-15-24) | ☐ | ☐ | ☐ | *16,80 €* |
-| Coffret rail DIN, bornier, presse-étoupes | `Fibox ou Schneider` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Fibox+ou+Schneider) | ☐ | ☐ | ☐ | *24,00 €* |
-| Câble Ethernet blindé vers le réseau usine | `Cat 6 S/FTP, 5 m` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Cat+6+S%2FFTP%2C+5+m) | ☐ | ☐ | ☐ | *7,20 €* |
-| **Sous-total** | | | | | | **☐** | ***343,20 €*** |
+| **Sous-total** | | | | | | **☐** | ***300,00 €*** |
 
 ### Poste fixe — option C : UniPi E413 LTE (**seulement sans Ethernet**)
 
@@ -138,21 +149,15 @@ modem intégré est alors la raison d'être du modèle — et son surcoût.
 | Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
 | Automate compact Linux, E/S TOR, modem LTE intégré | `UniPi E413 (variante LTE)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=UniPi+E413) · [Unipi](https://www.unipi.technology/search?query=UniPi+E413) | ☐ | ☐ | ☐ | *420,00 €* |
-| Antenne LTE externe déportée | `Siretta ECHO-9 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Siretta+ECHO-9) | ☐ | ☐ | ☐ | *18,00 €* |
 | Récepteur EnOcean + antenne | `TCM 515 + ANT300` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TCM+515+%2B+ANT300) · [Mouser](https://www.mouser.fr/c/?q=TCM+515+%2B+ANT300) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=TCM+515+%2B+ANT300) | ☐ | ☐ | ☐ | *43,20 €* |
-| Coffret rail DIN, alimentation, bornier | `Fibox + MEAN WELL HDR-15-24` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Fibox+%2B+MEAN+WELL+HDR-15-24) | ☐ | ☐ | ☐ | *40,80 €* |
-| Câble Ethernet blindé | `Cat 6 S/FTP, 5 m` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Cat+6+S%2FFTP%2C+5+m) | ☐ | ☐ | ☐ | *4,80 €* |
-| **Sous-total** | | | | | | **☐** | ***526,80 €*** |
+| **Sous-total** | | | | | | **☐** | ***463,20 €*** |
 
 ### Boutons d'appel EnOcean — 2 stations
 
 | Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
 | Module émetteur auto-alimenté, **sans pile** | `PTM 210 (EnOcean, EU 868)` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=PTM+210) · [Mouser](https://www.mouser.fr/c/?q=PTM+210) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=PTM+210) | ☐ | ☐ | ☐ | *72,00 €* |
-| Enveloppe / poussoir mural compatible PTM 210 | `Eltako, NodOn ou Trio2Sys` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Eltako%2C+NodOn+ou+Trio2Sys) · [Mouser](https://www.mouser.fr/c/?q=Eltako%2C+NodOn+ou+Trio2Sys) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=Eltako%2C+NodOn+ou+Trio2Sys) | ☐ | ☐ | ☐ | *28,80 €* |
-| Plaque de repérage station gravée | `sur mesure` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=sur+mesure) · [Amazon](https://www.amazon.fr/s?k=sur+mesure) | ☐ | ☐ | ☐ | *9,60 €* |
-| Fixation, visserie | `lot` | 2 | — | ☐ | ☐ | ☐ | *9,60 €* |
-| **Sous-total** | | | | | | **☐** | ***120,00 €*** |
+| **Sous-total** | | | | | | **☐** | ***72,00 €*** |
 
 ### Outillage — non récurrent
 
@@ -169,26 +174,26 @@ modem intégré est alors la raison d'être du modèle — et son surcoût.
 
 Les deux variantes d'interface bus de la section précédente s'appliquent aussi
 ici : `shift595` est retenue par défaut. Sous-total carte AGV complète :
-***136,44 €*** TTC (113,70 € HT).
+***88,44 €*** TTC (73,70 € HT).
 
 ## Récapitulatif — variante B (LTE-M / MQTT), poste ESP32
 
 | Poste | Total TTC relevé | *Repère TTC* | *Repère HT* |
 |---|---:|---:|---:|
-| Carte AGV (variante `shift595`) | ☐ | *136,44 €* | *113,70 €* |
-| Poste fixe ESP32 (option A) | ☐ | *177,00 €* | *147,50 €* |
-| 2 boutons EnOcean | ☐ | *120,00 €* | *100,00 €* |
+| Carte AGV (variante `shift595`) | ☐ | *88,44 €* | *73,70 €* |
+| Poste fixe ESP32 (option A) | ☐ | *105,60 €* | *88,00 €* |
+| 2 boutons EnOcean | ☐ | *72,00 €* | *60,00 €* |
 | Outillage | ☐ | *54,00 €* | *45,00 €* |
-| **TOTAL** | **☐** | ***487,44 €*** | ***406,20 €*** |
+| **TOTAL** | **☐** | ***320,04 €*** | ***266,70 €*** |
 
 ### Avec un poste UniPi — laquelle des deux options ?
 
 | Poste | *Repère TTC* | *Repère HT* | Récurrent |
 |---|---:|---:|---|
-| **B — Unipi Gate G100** *(si Ethernet)* | ***653,64 €*** | ***544,70 €*** | **1 SIM** |
-| **C — UniPi E413 LTE** *(sans Ethernet)* | *837,24 €* | *697,70 €* | 2 SIM |
+| **B — Unipi Gate G100** *(si Ethernet)* | ***514,44 €*** | ***428,70 €*** | **1 SIM** |
+| **C — UniPi E413 LTE** *(sans Ethernet)* | *677,64 €* | *564,70 €* | 2 SIM |
 
-**183,60 € d'écart de matériel — et la
+**163,20 € d'écart de matériel — et la
 moitié du récurrent.** Le Gate n'a pas de modem cellulaire ; c'est précisément ce
 qui le rend éligible ici, puisqu'un poste raccordé en Ethernet n'en a aucun
 besoin. Il apporte au passage Debian d'origine, deux ports Ethernet et 16 Go
@@ -200,8 +205,8 @@ là où le poste sera fixé ?** Si oui, l'option C n'a plus de justification.
 ⚠️ L'unique port USB du Gate est pris par l'adaptateur série du `TCM 515`.
 Prévoir un concentrateur si un autre périphérique USB devient nécessaire.
 
-Face à l'option A (ESP32, 177,00 €), l'écart restant est de
-**166,20 €** : c'est le prix de
+Face à l'option A (ESP32, 105,60 €), l'écart restant est de
+**194,40 €** : c'est le prix de
 l'historique long terme et d'un matériel référencé.
 
 ### Coût par station supplémentaire
@@ -228,10 +233,10 @@ dépendance à un tiers. À proposer systématiquement.
 
 | | Poste ESP32 | Poste UniPi |
 |---|---:|---:|
-| Matériel et outillage (TTC) | 487,44 € | 837,24 € |
+| Matériel et outillage (TTC) | 320,04 € | 677,64 € |
 | Récurrent sur 10 ans (TTC) | 1 152,00 € | 1 152,00 € |
-| **Total 10 ans (TTC)** | **1 639,44 €** | **1 989,24 €** |
-| *pour mémoire, en HT* | *1 366,20 €* | *1 657,70 €* |
+| **Total 10 ans (TTC)** | **1 472,04 €** | **1 829,64 €** |
+| *pour mémoire, en HT* | *1 226,70 €* | *1 524,70 €* |
 
 ---
 
@@ -239,6 +244,11 @@ dépendance à un tiers. À proposer systématiquement.
 
 Chiffrée pour la comparaison. **Ne pas déployer** en liaison principale : ni
 latence bornée, ni ordre de remise, ni garantie de remise.
+
+⚠️ Ce tableau est chiffré **accessoires compris** — antennes, coffrets,
+câblage — contrairement au reste du document. C'est la nomenclature d'étude
+d'origine, conservée telle quelle : elle ne sert qu'à donner l'ordre de
+grandeur du récurrent, qui est l'argument décisif.
 
 | Poste | *Repère TTC* | *Repère HT* |
 |---|---:|---:|
@@ -281,7 +291,7 @@ d'interface bus conditionne le routage du PCB.
 - **La main-d'œuvre** : 6 à 9 jours-homme de mise en œuvre, hors développement.
 - **Le contrôle de l'obsolescence 2G/3G** : le `SIM7080G` est LTE-M/NB-IoT, donc
   hors calendrier d'extinction. Un module 2G ne le serait pas.
-- **La carte de rechange** : ~136,44 € pour un échange standard.
+- **La carte de rechange** : ~88,44 € pour un échange standard.
 ---
 
 ## Analyse critique de cette nomenclature
@@ -311,7 +321,7 @@ alors éligible.
 
 D'où la scission en deux options : **B — Unipi Gate G100** dès qu'une prise
 réseau existe, **C — E413 LTE** seulement sinon. L'option A (ESP32 à
-177,00 €) reste la moins chère dans les deux cas.
+105,60 €) reste la moins chère dans les deux cas.
 
 ### ⚠️ À vérifier — la limitation de courant des optocoupleurs
 

@@ -55,32 +55,62 @@ def eur(x):
     return f"{x:,.2f} €".replace(",", " ").replace(".", ",")
 
 class Section:
+    """Un poste de la nomenclature.
+
+    `core=False` marque un accessoire **arbitrable selon le budget** — antenne,
+    boîtier, enveloppe murale, câble. Ces lignes restent définies ici, mais ne
+    sont **ni affichées ni comptées** : elles brouillaient la lecture sans rien
+    apporter à la décision technique. Leur montant est rappelé en un seul
+    chiffre par `ACCESSOIRES_HT`, pour que le total ne soit jamais pris pour
+    un coût d'achat complet.
+    """
+
     def __init__(self, title, note=None):
         self.title, self.note, self.lines = title, note, []
-    def add(self, desig, ref, qty, source, ht):
-        self.lines.append((desig, ref, qty, source, ht))
+
+    def add(self, desig, ref, qty, source, ht, core=True):
+        self.lines.append((desig, ref, qty, source, ht, core))
         return self
+
+    @property
+    def core_lines(self):
+        return [l for l in self.lines if l[5]]
+
     @property
     def ht(self):
-        return sum(q * p for _, _, q, _, p in self.lines)
+        """Coût des seuls composants retenus — c'est lui qui alimente les totaux."""
+        return sum(q * p for _, _, q, _, p, c in self.lines if c)
+
+    @property
+    def ht_accessoires(self):
+        return sum(q * p for _, _, q, _, p, c in self.lines if not c)
+
+    @property
+    def ht_complet(self):
+        """Accessoires compris — pour les comparaisons économiques."""
+        return self.ht + self.ht_accessoires
+
     @property
     def ttc(self):
         return self.ht * TVA
+
     def md(self, level="###"):
+        if not self.core_lines:
+            return ""          # section entièrement accessoire : elle disparaît
         out = [f"{level} {self.title}"]
         if self.note:
             out += ["", self.note]
         out += ["",
                 "| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |",
                 "|---|---|---:|---|---|---:|---:|---:|"]
-        for desig, ref, qty, source, ht in self.lines:
+        for desig, ref, qty, source, ht, _ in self.core_lines:
             rep = eur(qty * ht * TVA)
             out.append(f"| {desig} | `{ref}` | {qty} | {lien(ref, source)} | ☐ | ☐ | ☐ | *{rep}* |")
         out.append(f"| **Sous-total** | | | | | | **☐** | ***{eur(self.ttc)}*** |")
         return "\n".join(out) + "\n"
 
 HEADER = """# Nomenclature — {titre}
-
+{total}
 ## ⚠️ Feuille de sourcing — à compléter avant usage
 
 Ce document est une **liste d'achat à remplir**, pas un devis. Les colonnes
@@ -179,8 +209,8 @@ carte = Section("Carte AGV neuve — **variante de repli**, commune à A1 et A3"
                 "Carte neuve à fabriquer. La V5.0.1 d'origine est **conservée intacte** :\nc'est le retour arrière de cette architecture.")
 carte.add("Module MCU Wi-Fi/BT, 8 Mo flash", "ESP32-WROOM-32E-N8", 1, "RS", 5.00)
 carte.add("Module LoRa SX1276 868 MHz", "RFM95W-868S2 (HopeRF)", 1, "Amazon", 10.00)
-carte.add("Pigtail U.FL → SMA femelle + passe-cloison", "Amphenol 336312-24-0100", 1, "RS", 3.00)
-carte.add("Antenne 868 MHz 1/4 onde 2 dBi, embase SMA", "Siretta ALPHA-1A ou équiv.", 1, "RS", 6.00)
+carte.add("Pigtail U.FL → SMA femelle + passe-cloison", "Amphenol 336312-24-0100", 1, "RS", 3.00, core=False)
+carte.add("Antenne 868 MHz 1/4 onde 2 dBi, embase SMA", "Siretta ALPHA-1A ou équiv.", 1, "RS", 6.00, core=False)
 carte.add("Optocoupleur quadruple — 43 voies", "PC847 (Sharp)", 11, "RS", 0.60)
 carte.add("Convertisseur DC/DC 24 V → 5 V 1 A", "TSR 1-2450 (Traco Power)", 1, "RS", 7.00)
 carte.add("LDO 3,3 V 600 mA", "AP2112K-3.3TRG1 (Diodes)", 1, "RS", 0.60)
@@ -189,7 +219,7 @@ carte.add("Résistances 1 %, découplages, LED d'état", "lot", 1, "RS", 8.00)
 carte.add("ILS (reed) + aimant — Wi-Fi de maintenance", "Standex KSK-1A66 ou équiv.", 1, "RS", 2.00)
 carte.add("SUB-D 25 mâle et femelle, coudés CI", "Amphenol L717SDB25xA4CH4F", 2, "RS", 3.00)
 carte.add("PCB 4 couches ~120 × 100 mm (série de 5)", "Gerber projet", 1, "PCB", 12.00)
-carte.add("Boîtier, fixation, presse-étoupes, conn. de prog.", "Hammond 1590 ou Fibox", 1, "RS", 28.00)
+carte.add("Boîtier, fixation, presse-étoupes, conn. de prog.", "Hammond 1590 ou Fibox", 1, "RS", 28.00, core=False)
 
 bus595 = Section("Interface bus — variante `shift595` (recommandée)")
 bus595.add("Registre à décalage sortie 8 bits", "SN74HC595N (TI)", 3, "RS", 0.50)
@@ -212,42 +242,42 @@ cartereemploi = Section("Carte AGV — **variante « V5.0.1 réutilisée »** (r
                  "`Mega2560 Pro` qui accède aux 43 lignes et un `ESP32-DEVKITC` dont le relevé\n"
                  "KiCad montre que **34 de ses 38 broches ne sont pas connectées**. Il ne reste\n"
                  "qu'à y greffer la radio LoRa. Voir « Réutiliser la carte existante ».")
-cartereemploi.add("Carte AIO AGV Control V5.0.1 **existante**", "conservée — 0 €", 1, "RS", 0.00)
-cartereemploi.add("Module LoRa SX1276 868 MHz", "RFM95W-868S2 (HopeRF)", 1, "Amazon", 10.00)
-cartereemploi.add("Carte fille : RFM95W vers broches libres de l'ESP32", "PCB 2 couches ~30 × 30 mm + barrettes", 1, "PCB", 8.00)
-cartereemploi.add("Pigtail U.FL → SMA femelle + passe-cloison", "Amphenol 336312-24-0100", 1, "RS", 3.00)
-cartereemploi.add("Antenne 868 MHz 1/4 onde 2 dBi, embase SMA", "Siretta ALPHA-1A ou équiv.", 1, "RS", 6.00)
+cartereemploi.add("Carte AIO AGV Control V5.0.1 **existante**", "conservée — 0 €", 1, "RS", 0.00, core=True)
+cartereemploi.add("Module LoRa SX1276 868 MHz", "RFM95W-868S2 (HopeRF)", 1, "Amazon", 10.00, core=True)
+cartereemploi.add("Carte fille : RFM95W vers broches libres de l'ESP32", "PCB 2 couches ~30 × 30 mm + barrettes", 1, "PCB", 8.00, core=True)
+cartereemploi.add("Pigtail U.FL → SMA femelle + passe-cloison", "Amphenol 336312-24-0100", 1, "RS", 3.00, core=False)
+cartereemploi.add("Antenne 868 MHz 1/4 onde 2 dBi, embase SMA", "Siretta ALPHA-1A ou équiv.", 1, "RS", 6.00, core=False)
 
 bouton_a1 = Section("**[A1]** Bouton d\'appel sur pile — l\'unité")
-bouton_a1.add("MCU ultra-basse consommation", "STM32L071KBU6 (ST)", 1, "RS", 3.50)
-bouton_a1.add("Module LoRa 868 MHz", "RFM95W-868S2 (HopeRF)", 1, "Amazon", 10.00)
-bouton_a1.add("Antenne 868 MHz + embase SMA", "Siretta ALPHA-1A ou équiv.", 1, "RS", 6.00)
-bouton_a1.add("Bouton poussoir Ø22 IP65", "Schneider XB4BA31 ou équiv.", 1, "RS", 12.00)
-bouton_a1.add("Pile Li-SOCl₂ 3,6 V 2,6 Ah + support", "ER14505 / Saft LS14500", 1, "RS", 6.00)
-bouton_a1.add("Réservoir d'impulsion pour l'émission LoRa", "220 µF tantale + 10 µF X7R", 1, "RS", 0.60)
-bouton_a1.add("LED bicolore verte/rouge + résistances", "Kingbright L-59EGW", 1, "RS", 1.00)
-bouton_a1.add("Diode Schottky de protection pile", "BAT54 ou équiv.", 1, "RS", 0.20)
-bouton_a1.add("PCB 2 couches ~50 × 50 mm", "Gerber projet", 1, "PCB", 3.00)
-bouton_a1.add("Boîtier IP65, presse-étoupe, embase antenne", "Fibox PC 095808 ou équiv.", 1, "RS", 18.00)
+bouton_a1.add("MCU ultra-basse consommation", "STM32L071KBU6 (ST)", 1, "RS", 3.50, core=True)
+bouton_a1.add("Module LoRa 868 MHz", "RFM95W-868S2 (HopeRF)", 1, "Amazon", 10.00, core=True)
+bouton_a1.add("Antenne 868 MHz + embase SMA", "Siretta ALPHA-1A ou équiv.", 1, "RS", 6.00, core=False)
+bouton_a1.add("Bouton poussoir Ø22 IP65", "Schneider XB4BA31 ou équiv.", 1, "RS", 12.00, core=False)
+bouton_a1.add("Pile Li-SOCl₂ 3,6 V 2,6 Ah + support", "ER14505 / Saft LS14500", 1, "RS", 6.00, core=True)
+bouton_a1.add("Réservoir d'impulsion pour l'émission LoRa", "220 µF tantale + 10 µF X7R", 1, "RS", 0.60, core=True)
+bouton_a1.add("LED bicolore verte/rouge + résistances", "Kingbright L-59EGW", 1, "RS", 1.00, core=False)
+bouton_a1.add("Diode Schottky de protection pile", "BAT54 ou équiv.", 1, "RS", 0.20, core=True)
+bouton_a1.add("PCB 2 couches ~50 × 50 mm", "Gerber projet", 1, "PCB", 3.00, core=True)
+bouton_a1.add("Boîtier IP65, presse-étoupe, embase antenne", "Fibox PC 095808 ou équiv.", 1, "RS", 18.00, core=False)
 
 poste_a3 = Section("**[A3]** Poste fixe EnOcean → LoRa")
 poste_a3.add("Module MCU, 8 Mo flash (LittleFS + pages web)", "ESP32-WROOM-32E-N8", 1, "RS", 5.00)
 poste_a3.add("Récepteur EnOcean 868 MHz, UART ESP3", "TCM 515 (EnOcean)", 1, "Spécialiste", 28.00)
-poste_a3.add("Antenne EnOcean 868 MHz déportée", "EnOcean ANT300 ou équiv.", 1, "Spécialiste", 8.00)
+poste_a3.add("Antenne EnOcean 868 MHz déportée", "EnOcean ANT300 ou équiv.", 1, "Spécialiste", 8.00, core=False)
 poste_a3.add("Module LoRa SX1276", "RFM95W-868S2 (HopeRF)", 1, "Amazon", 10.00)
-poste_a3.add("Pigtail U.FL → SMA + antenne LoRa 2 dBi", "Amphenol + Siretta", 1, "RS", 9.00)
+poste_a3.add("Pigtail U.FL → SMA + antenne LoRa 2 dBi", "Amphenol + Siretta", 1, "RS", 9.00, core=False)
 poste_a3.add("Contrôleur Ethernet SPI + RJ45 magnétique", "WIZnet WIZ850io (W5500)", 1, "RS", 6.00)
-poste_a3.add("LED d'accusé bicolore, LED de vie, résistances", "lot", 1, "RS", 1.50)
+poste_a3.add("LED d'accusé bicolore, LED de vie, résistances", "lot", 1, "RS", 1.50, core=False)
 poste_a3.add("Bouton d'appairage + bouton reset", "Omron B3F-1000", 2, "RS", 1.00)
 poste_a3.add("Alimentation rail DIN 230 V → 24 V 15 W", "MEAN WELL HDR-15-24", 1, "RS", 14.00)
 poste_a3.add("24 V → 5 V → 3,3 V", "TSR 1-2450 + AP2112K-3.3", 1, "RS", 8.00)
 poste_a3.add("PCB 2 couches ~100 × 80 mm", "Gerber projet", 1, "PCB", 6.00)
-poste_a3.add("Boîtier mural IP54, presse-étoupes, embases SMA", "Fibox ou Hammond 1554", 1, "RS", 30.00)
+poste_a3.add("Boîtier mural IP54, presse-étoupes, embases SMA", "Fibox ou Hammond 1554", 1, "RS", 30.00, core=False)
 
 bouton_a3 = Section("**[A3]** Bouton EnOcean sans pile — l'unité")
 bouton_a3.add("Module émetteur auto-alimenté, **sans pile**", "PTM 210 (EnOcean, EU 868)", 1, "Spécialiste", 30.00)
-bouton_a3.add("Enveloppe / poussoir mural compatible PTM 210", "Eltako, NodOn ou Trio2Sys", 1, "Spécialiste", 12.00)
-bouton_a3.add("Plaque de repérage station gravée", "sur mesure", 1, "Amazon", 4.00)
+bouton_a3.add("Enveloppe / poussoir mural compatible PTM 210", "Eltako, NodOn ou Trio2Sys", 1, "Spécialiste", 12.00, core=False)
+bouton_a3.add("Plaque de repérage station gravée", "sur mesure", 1, "Amazon", 4.00, core=False)
 
 outil_lora = Section("Outillage — non récurrent")
 outil_lora.add("Dongle RTL-SDR + antenne — occupation de la bande 868 MHz", "RTL-SDR Blog V4", 1, "Amazon", 30.00)
@@ -280,7 +310,7 @@ w_carte.add("Connecteur SUB-D 25 **mâle** coudé CI (entrées)", "Amphenol DB25
 w_carte.add("Connecteur SUB-D 25 **femelle** coudé CI (sorties)", "Amphenol DB25S564GTLF (J2)", 1, "RS", 6.00)
 w_carte.add("Supports et barrettes pour les deux modules", "barrettes tulipe 2,54 mm", 1, "RS", 3.00)
 w_carte.add("PCB ~150 × 100 mm (série de 5)", "Gerber projet", 1, "PCB", 15.00)
-w_carte.add("Boîtier, entretoises, presse-étoupes, visserie", "Hammond 1590 ou Fibox", 1, "RS", 28.00)
+w_carte.add("Boîtier, entretoises, presse-étoupes, visserie", "Hammond 1590 ou Fibox", 1, "RS", 28.00, core=False)
 
 w_harnais = Section("Harnais de raccordement",
                     "La carte existe, mais son câblage vers l'automate est à refaire.\nDétail : [`docs/subd25_atmega.md`](docs/subd25_atmega.md).")
@@ -289,13 +319,13 @@ w_harnais.add("Connecteur IDC SUB-D 25 **mâle** (entrées)", "Amphenol L17D25P"
 w_harnais.add("Connecteur IDC SUB-D 25 **femelle** (sorties)", "Amphenol L17D25S", 1, "RS", 4.00)
 w_harnais.add("Capot métallisé SUB-D 25 avec serre-câble", "Amphenol 17E-1726-2", 2, "RS", 3.50)
 w_harnais.add("Cosses à sertir côté AGV (CN61 à CN64)", "selon bornier automate", 50, "RS", 0.15)
-w_harnais.add("Gaine tressée, colliers, repérage des fils", "lot", 1, "RS", 7.50)
+w_harnais.add("Gaine tressée, colliers, repérage des fils", "lot", 1, "RS", 7.50, core=False)
 
 w_antenne = Section("Antenne Wi-Fi déportée",
                     "L'antenne d'origine émet depuis l'intérieur d'un châssis métallique.\n⚠️ Vérifier au démontage que le module ESP32 dispose d'un connecteur U.FL.")
-w_antenne.add("Antenne 2,4 GHz 2 dBi, embase SMA, déportée", "Siretta DELTA-6A ou équiv.", 1, "RS", 18.00)
-w_antenne.add("Pigtail U.FL → SMA femelle + passe-cloison", "Amphenol 336312-24-0100", 1, "RS", 8.00)
-w_antenne.add("Support de fixation, visserie", "lot", 1, "RS", 4.00)
+w_antenne.add("Antenne 2,4 GHz 2 dBi, embase SMA, déportée", "Siretta DELTA-6A ou équiv.", 1, "RS", 18.00, core=False)
+w_antenne.add("Pigtail U.FL → SMA femelle + passe-cloison", "Amphenol 336312-24-0100", 1, "RS", 8.00, core=False)
+w_antenne.add("Support de fixation, visserie", "lot", 1, "RS", 4.00, core=False)
 
 w_poste = Section("Poste fixe — Unipi Gate G100",
                   "Le poste porte le récepteur EnOcean, le broker MQTT et l'interface de\n"
@@ -303,17 +333,17 @@ w_poste = Section("Poste fixe — Unipi Gate G100",
                   "la justification en fin de document.")
 w_poste.add("Passerelle Linux DIN — Debian, 16 Go eMMC, 2× Ethernet, USB 3.0, RS485", "Unipi Gate G100", 1, "Spécialiste", 200.00)
 w_poste.add("Récepteur EnOcean 868 MHz, UART ESP3", "TCM 515 (EnOcean)", 1, "Spécialiste", 28.00)
-w_poste.add("Antenne EnOcean 868 MHz déportée + pigtail", "EnOcean ANT300 ou équiv.", 1, "Spécialiste", 10.00)
+w_poste.add("Antenne EnOcean 868 MHz déportée + pigtail", "EnOcean ANT300 ou équiv.", 1, "Spécialiste", 10.00, core=False)
 w_poste.add("Adaptateur USB-série vers le TCM 515", "FTDI FT232RL", 1, "RS", 8.00)
 w_poste.add("Alimentation rail DIN 230 V → 24 V 15 W", "MEAN WELL HDR-15-24", 1, "RS", 14.00)
-w_poste.add("Coffret rail DIN, bornier, presse-étoupes", "Fibox ou Schneider", 1, "RS", 20.00)
-w_poste.add("Câble Ethernet blindé vers le réseau usine", "Cat 6 S/FTP, 5 m", 1, "RS", 6.00)
+w_poste.add("Coffret rail DIN, bornier, presse-étoupes", "Fibox ou Schneider", 1, "RS", 20.00, core=False)
+w_poste.add("Câble Ethernet blindé vers le réseau usine", "Cat 6 S/FTP, 5 m", 1, "RS", 6.00, core=False)
 
 w_boutons = Section("Boutons d'appel EnOcean — 2 stations")
 w_boutons.add("Module émetteur auto-alimenté, **sans pile**", "PTM 210 (EnOcean, EU 868)", 2, "Spécialiste", 30.00)
-w_boutons.add("Enveloppe / poussoir mural compatible PTM 210", "Eltako, NodOn ou Trio2Sys", 2, "Spécialiste", 12.00)
-w_boutons.add("Plaque de repérage station gravée", "sur mesure", 2, "Amazon", 4.00)
-w_boutons.add("Fixation, visserie, adhésif industriel", "3M VHB ou équiv.", 2, "RS", 4.00)
+w_boutons.add("Enveloppe / poussoir mural compatible PTM 210", "Eltako, NodOn ou Trio2Sys", 2, "Spécialiste", 12.00, core=False)
+w_boutons.add("Plaque de repérage station gravée", "sur mesure", 2, "Amazon", 4.00, core=False)
+w_boutons.add("Fixation, visserie, adhésif industriel", "3M VHB ou équiv.", 2, "RS", 4.00, core=False)
 
 w_outil = Section("Outillage — non récurrent")
 w_outil.add("Programmateur ISP — **sauvegarde puis flash de l'ATmega**", "USBasp ou USBtinyISP", 1, "Amazon", 8.00)
@@ -331,7 +361,7 @@ s_carte = Section("Carte AGV — variante LTE-M",
                   "Carte neuve à fabriquer. La V5.0.1 d'origine est **conservée intacte**.")
 s_carte.add("Module MCU, 8 Mo flash", "ESP32-WROOM-32E-N8", 1, "RS", 5.00)
 s_carte.add("Modem LTE-M / NB-IoT, très basse consommation", "SIM7080G (SIMCom)", 1, "Amazon", 18.00)
-s_carte.add("Antenne LTE 4 dBi déportée + pigtail U.FL → SMA", "Siretta ECHO-9 ou équiv.", 1, "RS", 12.00)
+s_carte.add("Antenne LTE 4 dBi déportée + pigtail U.FL → SMA", "Siretta ECHO-9 ou équiv.", 1, "RS", 12.00, core=False)
 s_carte.add("Support SIM nano, protection ESD", "Molex 785900001", 1, "RS", 1.50)
 s_carte.add("Optocoupleur quadruple — 43 voies", "PC847 (Sharp)", 11, "RS", 0.60)
 s_carte.add("Convertisseur DC/DC 24 V → 5 V 1 A", "TSR 1-2450 (Traco Power)", 1, "RS", 7.00)
@@ -342,23 +372,23 @@ s_carte.add("Résistances 1 %, découplages, LED d'état", "lot", 1, "RS", 8.00)
 s_carte.add("ILS (reed) + aimant — Wi-Fi de maintenance", "Standex KSK-1A66 ou équiv.", 1, "RS", 2.00)
 s_carte.add("SUB-D 25 mâle et femelle, coudés CI", "Amphenol L717SDB25xA4CH4F", 2, "RS", 3.00)
 s_carte.add("PCB 4 couches ~120 × 100 mm (série de 5)", "Gerber projet", 1, "PCB", 12.00)
-s_carte.add("Boîtier, fixation, presse-étoupes, conn. de prog.", "Hammond 1590 ou Fibox", 1, "RS", 28.00)
+s_carte.add("Boîtier, fixation, presse-étoupes, conn. de prog.", "Hammond 1590 ou Fibox", 1, "RS", 28.00, core=False)
 
 s_poste_esp = Section("Poste fixe — option A : ESP32 (recommandée)",
                       "Suffit dès lors que l'historique long terme n'est pas exigé.")
 s_poste_esp.add("Module MCU, 8 Mo flash (LittleFS + pages web)", "ESP32-WROOM-32E-N8", 1, "RS", 5.00)
 s_poste_esp.add("Modem LTE-M / NB-IoT", "SIM7080G (SIMCom)", 1, "Amazon", 18.00)
-s_poste_esp.add("Antenne LTE déportée + pigtail", "Siretta ECHO-9 ou équiv.", 1, "RS", 12.00)
+s_poste_esp.add("Antenne LTE déportée + pigtail", "Siretta ECHO-9 ou équiv.", 1, "RS", 12.00, core=False)
 s_poste_esp.add("Récepteur EnOcean 868 MHz, UART ESP3", "TCM 515 (EnOcean)", 1, "Spécialiste", 28.00)
-s_poste_esp.add("Antenne EnOcean déportée", "EnOcean ANT300 ou équiv.", 1, "Spécialiste", 8.00)
+s_poste_esp.add("Antenne EnOcean déportée", "EnOcean ANT300 ou équiv.", 1, "Spécialiste", 8.00, core=False)
 s_poste_esp.add("Ethernet SPI + RJ45 — **liaison filaire**", "WIZnet WIZ850io (W5500)", 1, "RS", 6.00)
-s_poste_esp.add("LED d'accusé, LED de vie, boutons appairage/reset", "lot", 1, "RS", 3.50)
+s_poste_esp.add("LED d'accusé, LED de vie, boutons appairage/reset", "lot", 1, "RS", 3.50, core=False)
 s_poste_esp.add("Alimentation rail DIN 230 V → 24 V 15 W", "MEAN WELL HDR-15-24", 1, "RS", 14.00)
 s_poste_esp.add("24 V → 5 V → 3,3 V", "TSR 1-2450 + AP2112K-3.3", 1, "RS", 8.00)
 s_poste_esp.add("PCB 2 couches ~100 × 80 mm", "Gerber projet", 1, "PCB", 6.00)
-s_poste_esp.add("Boîtier mural IP54, presse-étoupes, embases SMA", "Fibox ou Hammond 1554", 1, "RS", 30.00)
+s_poste_esp.add("Boîtier mural IP54, presse-étoupes, embases SMA", "Fibox ou Hammond 1554", 1, "RS", 30.00, core=False)
 s_poste_esp.add("Support SIM, passifs", "Molex 785900001 + lot", 1, "RS", 3.00)
-s_poste_esp.add("Câble Ethernet blindé", "Cat 6 S/FTP, 5 m", 1, "RS", 6.00)
+s_poste_esp.add("Câble Ethernet blindé", "Cat 6 S/FTP, 5 m", 1, "RS", 6.00, core=False)
 
 s_poste_gate = Section("Poste fixe — option B : Unipi Gate G100 (**si Ethernet disponible**)",
                   "Le modem du poste ne sert à rien dès qu'une prise réseau est à portée :\n"
@@ -366,26 +396,26 @@ s_poste_gate = Section("Poste fixe — option B : Unipi Gate G100 (**si Ethernet
                   "ouvre la gamme Gate, qui n'a pas de cellulaire. Debian d'origine.")
 s_poste_gate.add("Passerelle Linux DIN — Debian, 16 Go eMMC, 2× Ethernet, USB 3.0, RS485", "Unipi Gate G100", 1, "Spécialiste", 200.00)
 s_poste_gate.add("Récepteur EnOcean 868 MHz, UART ESP3", "TCM 515 (EnOcean)", 1, "Spécialiste", 28.00)
-s_poste_gate.add("Antenne EnOcean 868 MHz déportée + pigtail", "EnOcean ANT300 ou équiv.", 1, "Spécialiste", 10.00)
+s_poste_gate.add("Antenne EnOcean 868 MHz déportée + pigtail", "EnOcean ANT300 ou équiv.", 1, "Spécialiste", 10.00, core=False)
 s_poste_gate.add("Adaptateur USB-série vers le TCM 515", "FTDI FT232RL", 1, "RS", 8.00)
 s_poste_gate.add("Alimentation rail DIN 230 V → 24 V 15 W", "MEAN WELL HDR-15-24", 1, "RS", 14.00)
-s_poste_gate.add("Coffret rail DIN, bornier, presse-étoupes", "Fibox ou Schneider", 1, "RS", 20.00)
-s_poste_gate.add("Câble Ethernet blindé vers le réseau usine", "Cat 6 S/FTP, 5 m", 1, "RS", 6.00)
+s_poste_gate.add("Coffret rail DIN, bornier, presse-étoupes", "Fibox ou Schneider", 1, "RS", 20.00, core=False)
+s_poste_gate.add("Câble Ethernet blindé vers le réseau usine", "Cat 6 S/FTP, 5 m", 1, "RS", 6.00, core=False)
 
 s_poste_unipi = Section("Poste fixe — option C : UniPi E413 LTE (**seulement sans Ethernet**)",
                   "À ne retenir que si le poste est hors de portée d'une prise réseau. Le\n"
                   "modem intégré est alors la raison d'être du modèle — et son surcoût.")
 s_poste_unipi.add("Automate compact Linux, E/S TOR, modem LTE intégré", "UniPi E413 (variante LTE)", 1, "Spécialiste", 350.00)
-s_poste_unipi.add("Antenne LTE externe déportée", "Siretta ECHO-9 ou équiv.", 1, "RS", 15.00)
+s_poste_unipi.add("Antenne LTE externe déportée", "Siretta ECHO-9 ou équiv.", 1, "RS", 15.00, core=False)
 s_poste_unipi.add("Récepteur EnOcean + antenne", "TCM 515 + ANT300", 1, "Spécialiste", 36.00)
-s_poste_unipi.add("Coffret rail DIN, alimentation, bornier", "Fibox + MEAN WELL HDR-15-24", 1, "RS", 34.00)
-s_poste_unipi.add("Câble Ethernet blindé", "Cat 6 S/FTP, 5 m", 1, "RS", 4.00)
+s_poste_unipi.add("Coffret rail DIN, alimentation, bornier", "Fibox + MEAN WELL HDR-15-24", 1, "RS", 34.00, core=False)
+s_poste_unipi.add("Câble Ethernet blindé", "Cat 6 S/FTP, 5 m", 1, "RS", 4.00, core=False)
 
 s_boutons = Section("Boutons d'appel EnOcean — 2 stations")
 s_boutons.add("Module émetteur auto-alimenté, **sans pile**", "PTM 210 (EnOcean, EU 868)", 2, "Spécialiste", 30.00)
-s_boutons.add("Enveloppe / poussoir mural compatible PTM 210", "Eltako, NodOn ou Trio2Sys", 2, "Spécialiste", 12.00)
-s_boutons.add("Plaque de repérage station gravée", "sur mesure", 2, "Amazon", 4.00)
-s_boutons.add("Fixation, visserie", "lot", 2, "RS", 4.00)
+s_boutons.add("Enveloppe / poussoir mural compatible PTM 210", "Eltako, NodOn ou Trio2Sys", 2, "Spécialiste", 12.00, core=False)
+s_boutons.add("Plaque de repérage station gravée", "sur mesure", 2, "Amazon", 4.00, core=False)
+s_boutons.add("Fixation, visserie", "lot", 2, "RS", 4.00, core=False)
 
 s_outil = Section("Outillage — non récurrent")
 s_outil.add("Analyseur logique 8 voies — chronogrammes X/Y", "clone Saleae 24 MHz", 1, "Amazon", 15.00)
@@ -409,10 +439,51 @@ def recap(rows, title="Récapitulatif"):
     out.append(f"| **TOTAL** | **☐** | ***{eur(total_ht * TVA)}*** | ***{eur(total_ht)}*** |")
     return "\n".join(out) + "\n", total_ht
 
-def write(path, titre, cmp_path, sections, extra):
-    body = [HEADER.format(titre=titre, cmp=cmp_path)]
+def acc_de(*sections):
+    """Montant des accessoires écartés, pour une configuration DONNÉE.
+
+    À n'appeler qu'avec les postes réellement retenus ensemble : sommer toutes
+    les sections d'un document compterait deux fois des options qui s'excluent,
+    comme les trois postes fixes de l'architecture cellulaire.
+    """
+    return sum(s.ht_accessoires for s in sections)
+
+
+def bloc_total(totaux):
+    """Chiffre d'ouverture du document : le total, tout de suite.
+
+    Chaque ligne rappelle le montant des accessoires écartés. Sans lui, un
+    total amputé des antennes et des boîtiers se lirait comme un coût d'achat
+    complet, ce qu'il n'est pas.
+    """
+    out = ["", "## 💰 Total", "",
+           "| | HT | TTC | *Accessoires écartés* |", "|---|---:|---:|---:|"]
+    for label, ht, acc in totaux:
+        out.append(f"| **{label}** | **{eur(ht)}** | **{eur(ht * TVA)}** | *+ {eur(acc)} HT* |")
+    out += ["",
+            "Ces totaux ne comptent que les **composants déterminants**.",
+            "",
+            "Les accessoires arbitrables selon le budget — antennes, boîtiers,",
+            "coffrets, enveloppes murales, câbles — sont volontairement **hors",
+            "nomenclature** : ils se substituent librement d'un fournisseur à l'autre",
+            "et ne changent rien à la conception. La dernière colonne rappelle ce",
+            "qu'ils pèsent, pour que ce total ne soit jamais pris pour un coût",
+            "d'achat complet.",
+            "",
+            "⚠️ [`{cmp}`]({cmp}) et le `README.md` racine comparent les architectures",
+            "**accessoires compris** — sans quoi le classement serait faussé. Leurs",
+            "chiffres sont donc plus élevés que ceux-ci, et c'est normal.",
+            ""]
+    return "\n".join(out)
+
+
+def write(path, titre, cmp_path, sections, extra, totaux=()):
+    total = bloc_total(totaux).format(cmp=cmp_path) if totaux else ""
+    body = [HEADER.format(titre=titre, cmp=cmp_path, total=total)]
     for s in sections:
-        body.append(s.md())
+        md = s.md()
+        if md:
+            body.append(md)
     body.append(extra)
     body.append(TAIL_SOURCING.format(cmp=cmp_path))
     open(path, "w").write("\n".join(body))
@@ -437,8 +508,8 @@ r3, _ = recap([("Carte AGV **réutilisée** + radio", carte_reemploi_ht, False),
 
 cross = []
 for n in (2, 4, 6, 8, 12):
-    a1 = (carte_reemploi_ht + outil_lora.ht + bouton_a1.ht * n) * TVA
-    a3 = (carte_reemploi_ht + poste_a3.ht + outil_lora.ht + bouton_a3.ht * n) * TVA
+    a1 = (carte_reemploi_ht + outil_lora.ht + bouton_a1.ht_complet * n) * TVA
+    a3 = (carte_reemploi_ht + poste_a3.ht_complet + outil_lora.ht + bouton_a3.ht_complet * n) * TVA
     win = "**A1**" if a1 < a3 else ("**A3**" if a3 < a1 else "égalité")
     cross.append(f"| {n} | {eur(a1)} | {eur(a3)} | {win} |")
 
@@ -491,6 +562,16 @@ latch commun. Aucune raison de payer plus cher pour un résultat temporel
 inférieur.
 """
 
+def _bascule():
+    fixe_a1 = carte_reemploi_ht + outil_lora.ht
+    fixe_a3 = carte_reemploi_ht + poste_a3.ht_complet + outil_lora.ht
+    for n in range(2, 100):
+        if fixe_a3 + bouton_a3.ht_complet * n < fixe_a1 + bouton_a1.ht_complet * n:
+            return n
+    return None
+
+bascule = _bascule()
+
 c595   = eur(carte595)
 creemp = eur(carte_reemploi_ht)
 gainc  = eur(carte595 - carte_reemploi_ht)
@@ -501,20 +582,9 @@ LORA_EXTRA = f"""---
 
 {r1}
 {r3}
-## Demande de prix prête à envoyer
-
-Les deux variantes ont leur courrier, en quantités réelles et non plus en
-sous-totaux unitaires, avec l'explication du système en trois phrases et les
-substitutions acceptées :
-
-| Courrier | Ce qu'il commande |
-|---|---|
-| [`email_commande_A1.md`](email_commande_A1.md) | Une carte embarquée, **deux boutons sur pile** |
-| [`email_commande_A3.md`](email_commande_A3.md) | Une carte embarquée, **un poste fixe**, deux boutons **EnOcean sans pile** |
-
-Le second signale que la version **EU 868 MHz** du `PTM 210` est impérative :
-les déclinaisons 902 et 928 MHz ne sont pas utilisables en France, et rien dans
-la désignation ne les distingue au premier coup d'œil.
+⚠️ La version **EU 868 MHz** du `PTM 210` est impérative : les déclinaisons
+902 et 928 MHz ne sont pas utilisables en France, et rien dans la désignation
+courante ne les distingue au premier coup d'œil.
 
 ### Réutiliser la carte existante
 
@@ -681,9 +751,15 @@ par l'émetteur LoRa se traduirait par des appuis perdus, silencieusement.
 |---:|---:|---:|---|
 {chr(10).join(cross)}
 
-Le point de bascule est à **8 stations**. En dessous, A1 coûte moins **et**
-rend un accusé visuel à l'opérateur. Au-delà, A3 prend l'avantage grâce à des
-boutons à {eur(bouton_a3.ht * TVA)} au lieu de {eur(bouton_a1.ht * TVA)}, et supprime les piles.
+Le point de bascule est à **{bascule} stations**. En dessous, A1 coûte moins
+**et** rend un accusé visuel à l'opérateur. Au-delà, A3 prend l'avantage grâce
+à des boutons à {eur(bouton_a3.ht_complet * TVA)} au lieu de
+{eur(bouton_a1.ht_complet * TVA)}, et supprime les piles.
+
+⚠️ Ce tableau raisonne **accessoires compris** — boîtier IP65 et poussoir Ø22
+du bouton A1, enveloppe murale du bouton A3. C'est une comparaison économique,
+pas une liste d'achat : les retirer inverserait artificiellement le classement,
+puisque c'est précisément l'enveloppe du bouton A1 qui le rend cher.
 
 ### Coût par station supplémentaire
 
@@ -734,14 +810,17 @@ l'antenne, la puissance d'émission et le nombre de nœuds.
 
 write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/LoRa/BOM.md",
       "architecture LoRa 868 MHz (carte neuve)", "../COMPARAISON.md",
-      LORA_SECTIONS, LORA_EXTRA + ANALYSE_LORA)
+      LORA_SECTIONS, LORA_EXTRA + ANALYSE_LORA,
+      totaux=[("Variante A1 — LoRa homogène, 2 boutons", a1_ht,
+               acc_de(cartereemploi, outil_lora) + 2 * bouton_a1.ht_accessoires),
+              ("Variante A3 — EnOcean + LoRa, 2 boutons", a3_ht,
+               acc_de(cartereemploi, poste_a3, outil_lora) + 2 * bouton_a3.ht_accessoires)])
 print(f"A1 = {a1_ht:.2f} HT / {a1_ht*TVA:.2f} TTC ; A3 = {a3_ht:.2f} HT / {a3_ht*TVA:.2f} TTC")
 
 # --- Wi-Fi ------------------------------------------------------------------
 wifi_ht = sum(s.ht for s in WIFI_SECTIONS)
 rw, _ = recap([("Carte AGV (nomenclature KiCad)", w_carte.ht, True),
                ("Harnais de raccordement", w_harnais.ht, False),
-               ("Antenne Wi-Fi déportée", w_antenne.ht, False),
                ("Poste fixe UniPi", w_poste.ht, False),
                ("2 boutons EnOcean", w_boutons.ht, False),
                ("Outillage", w_outil.ht, False)])
@@ -880,7 +959,7 @@ semaines de délai, pas seulement un coût.
 
 | | TTC | HT |
 |---|---:|---:|
-| Bouton PTM 210 complet | **{eur(50 * TVA)}** | {eur(50)} |
+| Bouton PTM 210 complet | **{eur(w_boutons.ht_complet / 2 * TVA)}** | {eur(w_boutons.ht_complet / 2)} |
 | Avec accusé EnOcean par station | {eur(130 * TVA)} | {eur(130)} |
 
 ### Coûts récurrents
@@ -973,13 +1052,19 @@ change la nomenclature.
 
 write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/Wifi/BOM.md",
       "architecture Wi-Fi (carte V5.0.1 conservée)", "../COMPARAISON.md",
-      WIFI_SECTIONS, WIFI_EXTRA + ANALYSE_WIFI)
+      WIFI_SECTIONS, WIFI_EXTRA + ANALYSE_WIFI,
+      totaux=[("Architecture complète, 2 points d'appel", wifi_ht,
+               acc_de(w_carte, w_harnais, w_antenne, w_poste, w_boutons, w_outil))])
 
 # --- SMS + EnOcean ----------------------------------------------------------
 s_carte595 = s_carte.ht + bus595.ht
 sms_esp_ht = s_carte595 + s_poste_esp.ht + s_boutons.ht + s_outil.ht
 sms_uni_ht  = s_carte595 + s_poste_unipi.ht + s_boutons.ht + s_outil.ht
 sms_gate_ht = s_carte595 + s_poste_gate.ht  + s_boutons.ht + s_outil.ht
+# Comparaison au SMS : celui-ci est chiffré accessoires compris, il faut donc
+# les réintégrer ici pour que l'écart annoncé soit à base comparable.
+sms_esp_complet = sms_esp_ht + sum(x.ht_accessoires for x in
+                                   (s_carte, s_poste_esp, s_boutons))
 rs_, _ = recap([("Carte AGV (variante `shift595`)", s_carte595, False),
                 ("Poste fixe ESP32 (option A)", s_poste_esp.ht, False),
                 ("2 boutons EnOcean", s_boutons.ht, False),
@@ -1075,7 +1160,7 @@ l'historique long terme et d'un matériel référencé.
 
 | | TTC | HT |
 |---|---:|---:|
-| Bouton PTM 210 complet | **{eur(50 * TVA)}** | {eur(50)} |
+| Bouton PTM 210 complet | **{eur(s_boutons.ht_complet / 2 * TVA)}** | {eur(s_boutons.ht_complet / 2)} |
 
 ---
 
@@ -1107,6 +1192,11 @@ dépendance à un tiers. À proposer systématiquement.
 Chiffrée pour la comparaison. **Ne pas déployer** en liaison principale : ni
 latence bornée, ni ordre de remise, ni garantie de remise.
 
+⚠️ Ce tableau est chiffré **accessoires compris** — antennes, coffrets,
+câblage — contrairement au reste du document. C'est la nomenclature d'étude
+d'origine, conservée telle quelle : elle ne sert qu'à donner l'ordre de
+grandeur du récurrent, qui est l'argument décisif.
+
 | Poste | *Repère TTC* | *Repère HT* |
 |---|---:|---:|
 | Poste UniPi E413 (LTE) + antenne + boutons filaires + câblage | *{eur(439 * TVA)}* | *{eur(439)}* |
@@ -1121,7 +1211,7 @@ latence bornée, ni ordre de remise, ni garantie de remise.
 | **Total** | **~1 500 €/an** | **~{eur(1800)}/an** |
 | **Sur 10 ans, tout compris** | **~{eur(15625)}** | **~{eur(18750)}** |
 
-Le surcoût sur dix ans face à la variante B est de **~{eur(15625 - (sms_esp_ht + 960))} HT**,
+Le surcoût sur dix ans face à la variante B est de **~{eur(15625 - (sms_esp_complet + 960))} HT**,
 pour un service strictement inférieur. C'est l'argument chiffré à opposer si le
 SMS est demandé.
 
@@ -1153,10 +1243,36 @@ d'interface bus conditionne le routage du PCB.
 
 write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/SMS_EnOcean/BOM.md",
       "architecture SMS + EnOcean (carte neuve)", "../COMPARAISON.md",
-      [s_carte, bus595, busmcp, s_poste_esp, s_poste_gate, s_poste_unipi, s_boutons, s_outil], SMS_EXTRA + ANALYSE_SMS)
+      [s_carte, bus595, busmcp, s_poste_esp, s_poste_gate, s_poste_unipi, s_boutons, s_outil],
+      SMS_EXTRA + ANALYSE_SMS,
+      totaux=[("Option A — poste ESP32 (recommandée)", sms_esp_ht,
+               acc_de(s_carte, s_poste_esp, s_boutons, s_outil)),
+              ("Option B — poste Unipi Gate G100", sms_gate_ht,
+               acc_de(s_carte, s_poste_gate, s_boutons, s_outil)),
+              ("Option C — poste UniPi E413 LTE", sms_uni_ht,
+               acc_de(s_carte, s_poste_unipi, s_boutons, s_outil))])
 
 print()
-print("=== TOTAUX (HT / TTC) ===")
+def _acc(*sections):
+    return sum(x.ht_accessoires for x in sections)
+
+# Totaux « complets », accessoires compris. Ce sont EUX qui alimentent
+# README.md et COMPARAISON.md : on y compare des architectures entre elles, et
+# une comparaison amputée des boîtiers et des antennes fausserait le classement.
+a1_complet   = a1_ht   + _acc(cartereemploi, outil_lora) + 2 * bouton_a1.ht_accessoires
+a3_complet   = a3_ht   + _acc(cartereemploi, poste_a3, outil_lora) + 2 * bouton_a3.ht_accessoires
+wifi_complet = wifi_ht + _acc(w_carte, w_harnais, w_antenne, w_poste, w_boutons, w_outil)
+sms_complet  = sms_esp_ht  + _acc(s_carte, s_poste_esp, s_boutons, s_outil)
+gate_complet = sms_gate_ht + _acc(s_carte, s_poste_gate, s_boutons, s_outil)
+uni_complet  = sms_uni_ht  + _acc(s_carte, s_poste_unipi, s_boutons, s_outil)
+
+print("=== COMPLETS — accessoires compris, HT (pour README/COMPARAISON) ===")
+for nom, v in (("LoRa A1", a1_complet), ("LoRa A3", a3_complet),
+               ("Wi-Fi", wifi_complet), ("LTE-M ESP32", sms_complet),
+               ("LTE-M Gate", gate_complet), ("LTE-M UniPi", uni_complet)):
+    print(f"{nom:14} {v:8.2f}")
+print()
+print("=== TOTAUX BOM — composants déterminants seuls (HT / TTC) ===")
 print(f"LoRa A1      {a1_ht:8.2f} / {a1_ht*TVA:8.2f}")
 print(f"LoRa A3      {a3_ht:8.2f} / {a3_ht*TVA:8.2f}")
 print(f"Wi-Fi        {wifi_ht:8.2f} / {wifi_ht*TVA:8.2f}")

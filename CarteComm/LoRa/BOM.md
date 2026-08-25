@@ -1,5 +1,25 @@
 # Nomenclature — architecture LoRa 868 MHz (carte neuve)
 
+## 💰 Total
+
+| | HT | TTC | *Accessoires écartés* |
+|---|---:|---:|---:|
+| **Variante A1 — LoRa homogène, 2 boutons** | **124,60 €** | **149,52 €** | *+ 83,00 € HT* |
+| **Variante A3 — EnOcean + LoRa, 2 boutons** | **217,00 €** | **260,40 €** | *+ 89,50 € HT* |
+
+Ces totaux ne comptent que les **composants déterminants**.
+
+Les accessoires arbitrables selon le budget — antennes, boîtiers,
+coffrets, enveloppes murales, câbles — sont volontairement **hors
+nomenclature** : ils se substituent librement d'un fournisseur à l'autre
+et ne changent rien à la conception. La dernière colonne rappelle ce
+qu'ils pèsent, pour que ce total ne soit jamais pris pour un coût
+d'achat complet.
+
+⚠️ [`../COMPARAISON.md`](../COMPARAISON.md) et le `README.md` racine comparent les architectures
+**accessoires compris** — sans quoi le classement serait faussé. Leurs
+chiffres sont donc plus élevés que ceux-ci, et c'est normal.
+
 ## ⚠️ Feuille de sourcing — à compléter avant usage
 
 Ce document est une **liste d'achat à remplir**, pas un devis. Les colonnes
@@ -67,9 +87,7 @@ qu'à y greffer la radio LoRa. Voir « Réutiliser la carte existante ».
 | Carte AIO AGV Control V5.0.1 **existante** | `conservée — 0 €` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=conserv%C3%A9e+%E2%80%94+0+%E2%82%AC) | ☐ | ☐ | ☐ | *0,00 €* |
 | Module LoRa SX1276 868 MHz | `RFM95W-868S2 (HopeRF)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RFM95W-868S2) · [Amazon](https://www.amazon.fr/s?k=RFM95W-868S2) | ☐ | ☐ | ☐ | *12,00 €* |
 | Carte fille : RFM95W vers broches libres de l'ESP32 | `PCB 2 couches ~30 × 30 mm + barrettes` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *9,60 €* |
-| Pigtail U.FL → SMA femelle + passe-cloison | `Amphenol 336312-24-0100` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+336312-24-0100) | ☐ | ☐ | ☐ | *3,60 €* |
-| Antenne 868 MHz 1/4 onde 2 dBi, embase SMA | `Siretta ALPHA-1A ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Siretta+ALPHA-1A) | ☐ | ☐ | ☐ | *7,20 €* |
-| **Sous-total** | | | | | | **☐** | ***32,40 €*** |
+| **Sous-total** | | | | | | **☐** | ***21,60 €*** |
 
 ### Carte AGV neuve — **variante de repli**, commune à A1 et A3
 
@@ -80,8 +98,6 @@ c'est le retour arrière de cette architecture.
 |---|---|---:|---|---|---:|---:|---:|
 | Module MCU Wi-Fi/BT, 8 Mo flash | `ESP32-WROOM-32E-N8` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ESP32-WROOM-32E-N8) | ☐ | ☐ | ☐ | *6,00 €* |
 | Module LoRa SX1276 868 MHz | `RFM95W-868S2 (HopeRF)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RFM95W-868S2) · [Amazon](https://www.amazon.fr/s?k=RFM95W-868S2) | ☐ | ☐ | ☐ | *12,00 €* |
-| Pigtail U.FL → SMA femelle + passe-cloison | `Amphenol 336312-24-0100` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+336312-24-0100) | ☐ | ☐ | ☐ | *3,60 €* |
-| Antenne 868 MHz 1/4 onde 2 dBi, embase SMA | `Siretta ALPHA-1A ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Siretta+ALPHA-1A) | ☐ | ☐ | ☐ | *7,20 €* |
 | Optocoupleur quadruple — 43 voies | `PC847 (Sharp)` | 11 | [RS](https://fr.rs-online.com/web/c/?searchTerm=PC847) | ☐ | ☐ | ☐ | *7,92 €* |
 | Convertisseur DC/DC 24 V → 5 V 1 A | `TSR 1-2450 (Traco Power)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TSR+1-2450) | ☐ | ☐ | ☐ | *8,40 €* |
 | LDO 3,3 V 600 mA | `AP2112K-3.3TRG1 (Diodes)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=AP2112K-3.3TRG1) | ☐ | ☐ | ☐ | *0,72 €* |
@@ -90,8 +106,7 @@ c'est le retour arrière de cette architecture.
 | ILS (reed) + aimant — Wi-Fi de maintenance | `Standex KSK-1A66 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Standex+KSK-1A66) | ☐ | ☐ | ☐ | *2,40 €* |
 | SUB-D 25 mâle et femelle, coudés CI | `Amphenol L717SDB25xA4CH4F` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+L717SDB25xA4CH4F) | ☐ | ☐ | ☐ | *7,20 €* |
 | PCB 4 couches ~120 × 100 mm (série de 5) | `Gerber projet` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *14,40 €* |
-| Boîtier, fixation, presse-étoupes, conn. de prog. | `Hammond 1590 ou Fibox` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Hammond+1590+ou+Fibox) | ☐ | ☐ | ☐ | *33,60 €* |
-| **Sous-total** | | | | | | **☐** | ***114,24 €*** |
+| **Sous-total** | | | | | | **☐** | ***69,84 €*** |
 
 ### Interface bus — variante `shift595` (recommandée)
 
@@ -126,15 +141,11 @@ additionner les deux. Voir « Peut-on se passer des optocoupleurs ? ».
 |---|---|---:|---|---|---:|---:|---:|
 | MCU ultra-basse consommation | `STM32L071KBU6 (ST)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=STM32L071KBU6) | ☐ | ☐ | ☐ | *4,20 €* |
 | Module LoRa 868 MHz | `RFM95W-868S2 (HopeRF)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RFM95W-868S2) · [Amazon](https://www.amazon.fr/s?k=RFM95W-868S2) | ☐ | ☐ | ☐ | *12,00 €* |
-| Antenne 868 MHz + embase SMA | `Siretta ALPHA-1A ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Siretta+ALPHA-1A) | ☐ | ☐ | ☐ | *7,20 €* |
-| Bouton poussoir Ø22 IP65 | `Schneider XB4BA31 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Schneider+XB4BA31) | ☐ | ☐ | ☐ | *14,40 €* |
 | Pile Li-SOCl₂ 3,6 V 2,6 Ah + support | `ER14505 / Saft LS14500` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ER14505+%2F+Saft+LS14500) | ☐ | ☐ | ☐ | *7,20 €* |
 | Réservoir d'impulsion pour l'émission LoRa | `220 µF tantale + 10 µF X7R` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=220+%C2%B5F+tantale+%2B+10+%C2%B5F+X7R) | ☐ | ☐ | ☐ | *0,72 €* |
-| LED bicolore verte/rouge + résistances | `Kingbright L-59EGW` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Kingbright+L-59EGW) | ☐ | ☐ | ☐ | *1,20 €* |
 | Diode Schottky de protection pile | `BAT54 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=BAT54) | ☐ | ☐ | ☐ | *0,24 €* |
 | PCB 2 couches ~50 × 50 mm | `Gerber projet` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *3,60 €* |
-| Boîtier IP65, presse-étoupe, embase antenne | `Fibox PC 095808 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Fibox+PC+095808) | ☐ | ☐ | ☐ | *21,60 €* |
-| **Sous-total** | | | | | | **☐** | ***72,36 €*** |
+| **Sous-total** | | | | | | **☐** | ***27,96 €*** |
 
 ### **[A3]** Poste fixe EnOcean → LoRa
 
@@ -142,26 +153,20 @@ additionner les deux. Voir « Peut-on se passer des optocoupleurs ? ».
 |---|---|---:|---|---|---:|---:|---:|
 | Module MCU, 8 Mo flash (LittleFS + pages web) | `ESP32-WROOM-32E-N8` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ESP32-WROOM-32E-N8) | ☐ | ☐ | ☐ | *6,00 €* |
 | Récepteur EnOcean 868 MHz, UART ESP3 | `TCM 515 (EnOcean)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TCM+515) · [Mouser](https://www.mouser.fr/c/?q=TCM+515) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=TCM+515) | ☐ | ☐ | ☐ | *33,60 €* |
-| Antenne EnOcean 868 MHz déportée | `EnOcean ANT300 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=EnOcean+ANT300) · [Mouser](https://www.mouser.fr/c/?q=EnOcean+ANT300) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=EnOcean+ANT300) | ☐ | ☐ | ☐ | *9,60 €* |
 | Module LoRa SX1276 | `RFM95W-868S2 (HopeRF)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RFM95W-868S2) · [Amazon](https://www.amazon.fr/s?k=RFM95W-868S2) | ☐ | ☐ | ☐ | *12,00 €* |
-| Pigtail U.FL → SMA + antenne LoRa 2 dBi | `Amphenol + Siretta` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+%2B+Siretta) | ☐ | ☐ | ☐ | *10,80 €* |
 | Contrôleur Ethernet SPI + RJ45 magnétique | `WIZnet WIZ850io (W5500)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=WIZnet+WIZ850io) | ☐ | ☐ | ☐ | *7,20 €* |
-| LED d'accusé bicolore, LED de vie, résistances | `lot` | 1 | — | ☐ | ☐ | ☐ | *1,80 €* |
 | Bouton d'appairage + bouton reset | `Omron B3F-1000` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Omron+B3F-1000) | ☐ | ☐ | ☐ | *2,40 €* |
 | Alimentation rail DIN 230 V → 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MEAN+WELL+HDR-15-24) | ☐ | ☐ | ☐ | *16,80 €* |
 | 24 V → 5 V → 3,3 V | `TSR 1-2450 + AP2112K-3.3` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TSR+1-2450+%2B+AP2112K-3.3) | ☐ | ☐ | ☐ | *9,60 €* |
 | PCB 2 couches ~100 × 80 mm | `Gerber projet` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *7,20 €* |
-| Boîtier mural IP54, presse-étoupes, embases SMA | `Fibox ou Hammond 1554` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Fibox+ou+Hammond+1554) | ☐ | ☐ | ☐ | *36,00 €* |
-| **Sous-total** | | | | | | **☐** | ***153,00 €*** |
+| **Sous-total** | | | | | | **☐** | ***94,80 €*** |
 
 ### **[A3]** Bouton EnOcean sans pile — l'unité
 
 | Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
 | Module émetteur auto-alimenté, **sans pile** | `PTM 210 (EnOcean, EU 868)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=PTM+210) · [Mouser](https://www.mouser.fr/c/?q=PTM+210) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=PTM+210) | ☐ | ☐ | ☐ | *36,00 €* |
-| Enveloppe / poussoir mural compatible PTM 210 | `Eltako, NodOn ou Trio2Sys` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Eltako%2C+NodOn+ou+Trio2Sys) · [Mouser](https://www.mouser.fr/c/?q=Eltako%2C+NodOn+ou+Trio2Sys) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=Eltako%2C+NodOn+ou+Trio2Sys) | ☐ | ☐ | ☐ | *14,40 €* |
-| Plaque de repérage station gravée | `sur mesure` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=sur+mesure) · [Amazon](https://www.amazon.fr/s?k=sur+mesure) | ☐ | ☐ | ☐ | *4,80 €* |
-| **Sous-total** | | | | | | **☐** | ***55,20 €*** |
+| **Sous-total** | | | | | | **☐** | ***36,00 €*** |
 
 ### Outillage — non récurrent
 
@@ -179,35 +184,24 @@ additionner les deux. Voir « Peut-on se passer des optocoupleurs ? ».
 
 | Poste | Total TTC relevé | *Repère TTC* | *Repère HT* |
 |---|---:|---:|---:|
-| Carte AGV **réutilisée** + radio | ☐ | *32,40 €* | *27,00 €* |
-| 2 boutons sur pile | ☐ | *144,72 €* | *120,60 €* |
+| Carte AGV **réutilisée** + radio | ☐ | *21,60 €* | *18,00 €* |
+| 2 boutons sur pile | ☐ | *55,92 €* | *46,60 €* |
 | Outillage | ☐ | *72,00 €* | *60,00 €* |
-| **TOTAL** | **☐** | ***249,12 €*** | ***207,60 €*** |
+| **TOTAL** | **☐** | ***149,52 €*** | ***124,60 €*** |
 
 ## Récapitulatif — variante A3 (EnOcean + LoRa)
 
 | Poste | Total TTC relevé | *Repère TTC* | *Repère HT* |
 |---|---:|---:|---:|
-| Carte AGV **réutilisée** + radio | ☐ | *32,40 €* | *27,00 €* |
-| Poste fixe EnOcean → LoRa | ☐ | *153,00 €* | *127,50 €* |
-| 2 boutons PTM 210 | ☐ | *110,40 €* | *92,00 €* |
+| Carte AGV **réutilisée** + radio | ☐ | *21,60 €* | *18,00 €* |
+| Poste fixe EnOcean → LoRa | ☐ | *94,80 €* | *79,00 €* |
+| 2 boutons PTM 210 | ☐ | *72,00 €* | *60,00 €* |
 | Outillage | ☐ | *72,00 €* | *60,00 €* |
-| **TOTAL** | **☐** | ***367,80 €*** | ***306,50 €*** |
+| **TOTAL** | **☐** | ***260,40 €*** | ***217,00 €*** |
 
-## Demande de prix prête à envoyer
-
-Les deux variantes ont leur courrier, en quantités réelles et non plus en
-sous-totaux unitaires, avec l'explication du système en trois phrases et les
-substitutions acceptées :
-
-| Courrier | Ce qu'il commande |
-|---|---|
-| [`email_commande_A1.md`](email_commande_A1.md) | Une carte embarquée, **deux boutons sur pile** |
-| [`email_commande_A3.md`](email_commande_A3.md) | Une carte embarquée, **un poste fixe**, deux boutons **EnOcean sans pile** |
-
-Le second signale que la version **EU 868 MHz** du `PTM 210` est impérative :
-les déclinaisons 902 et 928 MHz ne sont pas utilisables en France, et rien dans
-la désignation ne les distingue au premier coup d'œil.
+⚠️ La version **EU 868 MHz** du `PTM 210` est impérative : les déclinaisons
+902 et 928 MHz ne sont pas utilisables en France, et rien dans la désignation
+courante ne les distingue au premier coup d'œil.
 
 ### Réutiliser la carte existante
 
@@ -225,12 +219,12 @@ radio change — Wi-Fi d'un côté, LoRa de l'autre.
 
 | | Carte neuve | **V5.0.1 réutilisée** |
 |---|---:|---:|
-| Coût matériel | 98,20 € HT | **27,00 € HT** |
+| Coût matériel | 61,20 € HT | **18,00 € HT** |
 | PCB à router et faire fabriquer | oui, 4 couches | **non** |
 | Délai d'approvisionnement | 3 à 5 semaines | **immédiat** |
 | Brochage du bus | à relever | **déjà relevé et testé** |
 
-**71,20 € HT d'économie par AGV**, et surtout **le chemin critique matériel
+**43,20 € HT d'économie par AGV**, et surtout **le chemin critique matériel
 disparaît** : plus de PCB à faire fabriquer avant de pouvoir essayer quoi que
 ce soit.
 
@@ -284,7 +278,7 @@ un **`Mega2560 Pro`**, exactement comme la V5.0.1.
 | Sorties X | 11× `PC847` + registres | `ULN2803A` ×3 |
 | Isolation galvanique | oui | **non** |
 | Pose du bus | chaînes de registres | **5 écritures de port, ~0,3 µs** |
-| Coût de la carte | 98,20 € HT | 110,20 € HT |
+| Coût de la carte | 61,20 € HT | 73,20 € HT |
 
 **12,00 € HT de plus, et beaucoup moins de logiciel.**
 
@@ -349,7 +343,7 @@ spécifiée :
 |---|---:|---|
 | Dongle LoRa USB | ~30,00 € + hub | L'unique port USB est déjà pris par le TCM 515 |
 | Modem LoRa UART/RS485 (`E32-868T20D`, `RAK3172`) | ~18,00 € | **Le module gère le PHY lui-même** : il faudrait réécrire `LoraTransport`, et surtout **abandonner le contrôle du budget de rapport cyclique** que le firmware applique et teste aujourd'hui. C'est une obligation réglementaire, pas un réglage |
-| Gate + carte ESP32 en frontal radio | ~393,00 € | On paie les deux |
+| Gate + carte ESP32 en frontal radio | ~334,80 € | On paie les deux |
 
 **Le poste LoRa n'a d'ailleurs pas besoin de Linux.** Son travail est une
 traduction de protocole : EnOcean entre, LoRa sort. Il n'héberge pas de broker,
@@ -362,7 +356,7 @@ L'asymétrie avec l'architecture Wi-Fi est donc logique :
 | Doit héberger un broker MQTT | **oui** | non |
 | Doit piloter une radio au niveau PHY | non — le réseau est Ethernet | **oui** — SX1276 sur SPI |
 | Matériel qui en découle | boîtier Linux industriel | microcontrôleur avec SPI |
-| Retenu | Unipi Gate G100 (~240,00 € TTC) | carte ESP32 (~153,00 € TTC) |
+| Retenu | Unipi Gate G100 (~240,00 € TTC) | carte ESP32 (~94,80 € TTC) |
 
 ⚠️ **Deux antennes 868 MHz sur le même boîtier** — EnOcean et LoRa. Les espacer
 d'au moins 20 cm, ou en déporter une. Une désensibilisation du récepteur EnOcean
@@ -372,22 +366,28 @@ par l'émetteur LoRa se traduirait par des appuis perdus, silencieusement.
 
 | Stations | A1 (TTC) | A3 (TTC) | Moins cher |
 |---:|---:|---:|---|
-| 2 | 249,12 € | 367,80 € | **A1** |
-| 4 | 393,84 € | 478,20 € | **A1** |
-| 6 | 538,56 € | 588,60 € | **A1** |
-| 8 | 683,28 € | 699,00 € | **A1** |
-| 12 | 972,72 € | 919,80 € | **A3** |
+| 2 | 238,32 € | 357,00 € | **A1** |
+| 4 | 383,04 € | 467,40 € | **A1** |
+| 6 | 527,76 € | 577,80 € | **A1** |
+| 8 | 672,48 € | 688,20 € | **A1** |
+| 12 | 961,92 € | 909,00 € | **A3** |
 
-Le point de bascule est à **8 stations**. En dessous, A1 coûte moins **et**
-rend un accusé visuel à l'opérateur. Au-delà, A3 prend l'avantage grâce à des
-boutons à 55,20 € au lieu de 72,36 €, et supprime les piles.
+Le point de bascule est à **9 stations**. En dessous, A1 coûte moins
+**et** rend un accusé visuel à l'opérateur. Au-delà, A3 prend l'avantage grâce
+à des boutons à 55,20 € au lieu de
+72,36 €, et supprime les piles.
+
+⚠️ Ce tableau raisonne **accessoires compris** — boîtier IP65 et poussoir Ø22
+du bouton A1, enveloppe murale du bouton A3. C'est une comparaison économique,
+pas une liste d'achat : les retirer inverserait artificiellement le classement,
+puisque c'est précisément l'enveloppe du bouton A1 qui le rend cher.
 
 ### Coût par station supplémentaire
 
 | | TTC | HT |
 |---|---:|---:|
-| **[A1]** bouton sur pile | **72,36 €** | 60,30 € |
-| **[A3]** bouton PTM 210 | **55,20 €** | 46,00 € |
+| **[A1]** bouton sur pile | **27,96 €** | 23,30 € |
+| **[A3]** bouton PTM 210 | **36,00 €** | 30,00 € |
 
 ### Coûts récurrents
 
@@ -424,7 +424,7 @@ l'antenne, la puissance d'émission et le nombre de nœuds.
 - **La conformité RED** : si les cartes sont produites en série et mises sur le
   marché, dossier technique, marquage CE et déclaration UE de conformité à
   conserver 10 ans. Compter 3 à 5 jours-homme. Sans objet en usage interne.
-- **La carte de rechange** : ~117,84 € pour un échange standard. Recommandé.
+- **La carte de rechange** : ~73,44 € pour un échange standard. Recommandé.
 - **Un éventuel relais LoRa** si le relevé révèle une zone morte : ~48,00 €,
   mais surtout une complexité applicative hors périmètre actuel.
 ---

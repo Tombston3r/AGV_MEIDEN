@@ -1,5 +1,24 @@
 # Nomenclature — architecture Wi-Fi (carte V5.0.1 conservée)
 
+## 💰 Total
+
+| | HT | TTC | *Accessoires écartés* |
+|---|---:|---:|---:|
+| **Architecture complète, 2 points d'appel** | **550,65 €** | **660,78 €** | *+ 141,50 € HT* |
+
+Ces totaux ne comptent que les **composants déterminants**.
+
+Les accessoires arbitrables selon le budget — antennes, boîtiers,
+coffrets, enveloppes murales, câbles — sont volontairement **hors
+nomenclature** : ils se substituent librement d'un fournisseur à l'autre
+et ne changent rien à la conception. La dernière colonne rappelle ce
+qu'ils pèsent, pour que ce total ne soit jamais pris pour un coût
+d'achat complet.
+
+⚠️ [`../COMPARAISON.md`](../COMPARAISON.md) et le `README.md` racine comparent les architectures
+**accessoires compris** — sans quoi le classement serait faussé. Leurs
+chiffres sont donc plus élevés que ceux-ci, et c'est normal.
+
 ## ⚠️ Feuille de sourcing — à compléter avant usage
 
 Ce document est une **liste d'achat à remplir**, pas un devis. Les colonnes
@@ -80,8 +99,7 @@ document était donc fausse.
 | Connecteur SUB-D 25 **femelle** coudé CI (sorties) | `Amphenol DB25S564GTLF (J2)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+DB25S564GTLF) | ☐ | ☐ | ☐ | *7,20 €* |
 | Supports et barrettes pour les deux modules | `barrettes tulipe 2,54 mm` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=barrettes+tulipe+2%2C54+mm) | ☐ | ☐ | ☐ | *3,60 €* |
 | PCB ~150 × 100 mm (série de 5) | `Gerber projet` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *18,00 €* |
-| Boîtier, entretoises, presse-étoupes, visserie | `Hammond 1590 ou Fibox` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Hammond+1590+ou+Fibox) | ☐ | ☐ | ☐ | *33,60 €* |
-| **Sous-total** | | | | | | **☐** | ***154,98 €*** |
+| **Sous-total** | | | | | | **☐** | ***121,38 €*** |
 
 ### Harnais de raccordement
 
@@ -95,20 +113,7 @@ Détail : [`docs/subd25_atmega.md`](docs/subd25_atmega.md).
 | Connecteur IDC SUB-D 25 **femelle** (sorties) | `Amphenol L17D25S` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+L17D25S) | ☐ | ☐ | ☐ | *4,80 €* |
 | Capot métallisé SUB-D 25 avec serre-câble | `Amphenol 17E-1726-2` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+17E-1726-2) | ☐ | ☐ | ☐ | *8,40 €* |
 | Cosses à sertir côté AGV (CN61 à CN64) | `selon bornier automate` | 50 | [RS](https://fr.rs-online.com/web/c/?searchTerm=selon+bornier+automate) | ☐ | ☐ | ☐ | *9,00 €* |
-| Gaine tressée, colliers, repérage des fils | `lot` | 1 | — | ☐ | ☐ | ☐ | *9,00 €* |
-| **Sous-total** | | | | | | **☐** | ***50,40 €*** |
-
-### Antenne Wi-Fi déportée
-
-L'antenne d'origine émet depuis l'intérieur d'un châssis métallique.
-⚠️ Vérifier au démontage que le module ESP32 dispose d'un connecteur U.FL.
-
-| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
-|---|---|---:|---|---|---:|---:|---:|
-| Antenne 2,4 GHz 2 dBi, embase SMA, déportée | `Siretta DELTA-6A ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Siretta+DELTA-6A) | ☐ | ☐ | ☐ | *21,60 €* |
-| Pigtail U.FL → SMA femelle + passe-cloison | `Amphenol 336312-24-0100` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Amphenol+336312-24-0100) | ☐ | ☐ | ☐ | *9,60 €* |
-| Support de fixation, visserie | `lot` | 1 | — | ☐ | ☐ | ☐ | *4,80 €* |
-| **Sous-total** | | | | | | **☐** | ***36,00 €*** |
+| **Sous-total** | | | | | | **☐** | ***41,40 €*** |
 
 ### Poste fixe — Unipi Gate G100
 
@@ -120,22 +125,16 @@ la justification en fin de document.
 |---|---|---:|---|---|---:|---:|---:|
 | Passerelle Linux DIN — Debian, 16 Go eMMC, 2× Ethernet, USB 3.0, RS485 | `Unipi Gate G100` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Unipi+Gate+G100) · [Unipi](https://www.unipi.technology/search?query=Unipi+Gate+G100) | ☐ | ☐ | ☐ | *240,00 €* |
 | Récepteur EnOcean 868 MHz, UART ESP3 | `TCM 515 (EnOcean)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TCM+515) · [Mouser](https://www.mouser.fr/c/?q=TCM+515) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=TCM+515) | ☐ | ☐ | ☐ | *33,60 €* |
-| Antenne EnOcean 868 MHz déportée + pigtail | `EnOcean ANT300 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=EnOcean+ANT300) · [Mouser](https://www.mouser.fr/c/?q=EnOcean+ANT300) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=EnOcean+ANT300) | ☐ | ☐ | ☐ | *12,00 €* |
 | Adaptateur USB-série vers le TCM 515 | `FTDI FT232RL` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=FTDI+FT232RL) | ☐ | ☐ | ☐ | *9,60 €* |
 | Alimentation rail DIN 230 V → 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MEAN+WELL+HDR-15-24) | ☐ | ☐ | ☐ | *16,80 €* |
-| Coffret rail DIN, bornier, presse-étoupes | `Fibox ou Schneider` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Fibox+ou+Schneider) | ☐ | ☐ | ☐ | *24,00 €* |
-| Câble Ethernet blindé vers le réseau usine | `Cat 6 S/FTP, 5 m` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Cat+6+S%2FFTP%2C+5+m) | ☐ | ☐ | ☐ | *7,20 €* |
-| **Sous-total** | | | | | | **☐** | ***343,20 €*** |
+| **Sous-total** | | | | | | **☐** | ***300,00 €*** |
 
 ### Boutons d'appel EnOcean — 2 stations
 
 | Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
 | Module émetteur auto-alimenté, **sans pile** | `PTM 210 (EnOcean, EU 868)` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=PTM+210) · [Mouser](https://www.mouser.fr/c/?q=PTM+210) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=PTM+210) | ☐ | ☐ | ☐ | *72,00 €* |
-| Enveloppe / poussoir mural compatible PTM 210 | `Eltako, NodOn ou Trio2Sys` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Eltako%2C+NodOn+ou+Trio2Sys) · [Mouser](https://www.mouser.fr/c/?q=Eltako%2C+NodOn+ou+Trio2Sys) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=Eltako%2C+NodOn+ou+Trio2Sys) | ☐ | ☐ | ☐ | *28,80 €* |
-| Plaque de repérage station gravée | `sur mesure` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=sur+mesure) · [Amazon](https://www.amazon.fr/s?k=sur+mesure) | ☐ | ☐ | ☐ | *9,60 €* |
-| Fixation, visserie, adhésif industriel | `3M VHB ou équiv.` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=3M+VHB) | ☐ | ☐ | ☐ | *9,60 €* |
-| **Sous-total** | | | | | | **☐** | ***120,00 €*** |
+| **Sous-total** | | | | | | **☐** | ***72,00 €*** |
 
 ### Outillage — non récurrent
 
@@ -215,13 +214,12 @@ semaines de délai, pas seulement un coût.
 
 | Poste | Total TTC relevé | *Repère TTC* | *Repère HT* |
 |---|---:|---:|---:|
-| **Carte AGV (nomenclature KiCad)** | ☐ | *154,98 €* | *129,15 €* |
-| Harnais de raccordement | ☐ | *50,40 €* | *42,00 €* |
-| Antenne Wi-Fi déportée | ☐ | *36,00 €* | *30,00 €* |
-| Poste fixe UniPi | ☐ | *343,20 €* | *286,00 €* |
-| 2 boutons EnOcean | ☐ | *120,00 €* | *100,00 €* |
+| **Carte AGV (nomenclature KiCad)** | ☐ | *121,38 €* | *101,15 €* |
+| Harnais de raccordement | ☐ | *41,40 €* | *34,50 €* |
+| Poste fixe UniPi | ☐ | *300,00 €* | *250,00 €* |
+| 2 boutons EnOcean | ☐ | *72,00 €* | *60,00 €* |
 | Outillage | ☐ | *126,00 €* | *105,00 €* |
-| **TOTAL** | **☐** | ***830,58 €*** | ***692,15 €*** |
+| **TOTAL** | **☐** | ***660,78 €*** | ***550,65 €*** |
 
 ### Coût par station supplémentaire
 
@@ -286,8 +284,8 @@ formelle.
 ### Alternative encore moins chère
 
 Si aucun historique long terme n'est attendu, un ESP32 avec module Ethernet
-remplit la même fonction pour ~102,00 € au lieu de 343,20 € — soit
-**241,20 € d'économie**. Le Gate ne se justifie que par la
+remplit la même fonction pour ~102,00 € au lieu de 300,00 € — soit
+**198,00 € d'économie**. Le Gate ne se justifie que par la
 persistance, l'hébergement du broker et le fait d'être un matériel industriel
 référencé.
 
