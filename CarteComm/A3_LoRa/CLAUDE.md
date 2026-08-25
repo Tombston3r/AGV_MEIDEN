@@ -1,4 +1,4 @@
-# AGV MEIDEN — A2 — LoRa P2P 868 MHz, boutons sur pile
+# AGV MEIDEN — A3 — LoRa P2P 868 MHz, boutons sur pile
 
 > **Dossier d'architecture autonome.** Des boutons sur pile émettent
 > directement en LoRa vers la carte V6.0 : **ni poste fixe, ni réseau, ni abonnement**.
@@ -8,7 +8,7 @@
 > Index des architectures : `../README.md`.
 >
 > Brief complet : `CLAUDE_CODE_BRIEF_AGV_MEIDEN.md`
-> Spécification de cette architecture : `docs/Archi_2_LoRa_P2P_homogene.md`
+> Spécification de cette architecture : `docs/Archi_3_LoRa_P2P_homogene.md`
 > Les références `§N` renvoient au brief, les « planification §N » au document
 > d'architecture Wi-Fi.
 >

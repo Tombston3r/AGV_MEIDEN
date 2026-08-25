@@ -11,8 +11,8 @@ et son matériel. Un dossier peut donc être zippé et transmis seul.
 | Dossier | Carte AGV | Liaison | Boutons | Autonome ? |
 |---|---|---|---|---|
 | [`A1_Cellulaire/`](A1_Cellulaire/) | **neuve** | SMS ou LTE-M/MQTT, réseau opérateur | EnOcean au poste | ✅ 112 tests |
-| [`A2_LoRa/`](A2_LoRa/) | **V6.0** | LoRa P2P 868 MHz, sans infrastructure | **LoRa sur pile**, accusé visuel | ✅ 119 tests |
-| [`A3_Hybride/`](A3_Hybride/) | **V6.0** | LoRa P2P 868 MHz + poste relais | EnOcean **sans pile** | ✅ 130 tests |
+| [`A2_Hybride/`](A2_Hybride/) | **V6.0** | LoRa P2P 868 MHz + poste relais | EnOcean **sans pile** | ✅ 130 tests |
+| [`A3_LoRa/`](A3_LoRa/) | **V6.0** | LoRa P2P 868 MHz, sans infrastructure | **LoRa sur pile**, accusé visuel | ✅ 119 tests |
 | [`A4_Wifi/`](A4_Wifi/) | **V5.0.1** | Wi-Fi d'entreprise / MQTT | EnOcean au poste | ✅ 109 tests + 17 Python |
 
 ### Quelle carte pour quelle architecture
@@ -20,7 +20,7 @@ et son matériel. Un dossier peut donc être zippé et transmis seul.
 | Projet KiCad | Sert à | Ce qui la distingue |
 |---|---|---|
 | `AIO_AGV_Control_V5.0.1` | **A4** | Mega2560 Pro + ESP32, étage à 23 MOSFET |
-| `AIO_AGV_Control_V6.0` | **A2** et **A3** | La même, **plus un `RFM95W-868S2`** câblé sur le SPI libre de l'ESP32 |
+| `AIO_AGV_Control_V6.0` | **A3** et **A2** | La même, **plus un `RFM95W-868S2`** câblé sur le SPI libre de l'ESP32 |
 
 La V6.0 est donc la V5.0.1 augmentée d'une radio LoRa — 58 empreintes contre 57.
 Le relevé du projet confirme le brochage : `NSS`→`IO5`, `SCK`→`IO18`,
@@ -50,8 +50,8 @@ en tête le montant des accessoires écartés.
 
 | Architecture | Matériel | Récurrent | **10 ans** | Par station de plus |
 |---|---:|---:|---:|---:|
-| [`A2_LoRa/`](A2_LoRa/BOM.md) **A2** — LoRa homogène | 208 € | 0 €/an | **~220 €** | +60 € |
-| [`A3_Hybride/`](A3_Hybride/BOM.md) **A3** — EnOcean + LoRa | 307 € | 0 €/an | **~307 €** | +46 € |
+| [`A3_LoRa/`](A3_LoRa/BOM.md) **A3** — LoRa homogène | 208 € | 0 €/an | **~220 €** | +60 € |
+| [`A2_Hybride/`](A2_Hybride/BOM.md) **A2** — EnOcean + LoRa | 307 € | 0 €/an | **~307 €** | +46 € |
 | [`A4_Wifi/`](A4_Wifi/BOM.md) **A4** — Wi-Fi entreprise | 692 € | 0 €/an | **~692 €** | +50 € |
 | [`A1_Cellulaire/`](A1_Cellulaire/BOM.md) **A1** — LTE-M/MQTT | 406 € | 96 €/an | **~1 366 €** | +50 € |
 | [`A1_Cellulaire/`](A1_Cellulaire/BOM.md) **A1** — SMS *(déconseillé)* | 625 € | 1 500 €/an | **~15 625 €** | +50 € |
@@ -117,7 +117,7 @@ prix de la zippabilité indépendante, et il faut le savoir :
 > reportée dans chaque dossier d'architecture.** Un correctif appliqué à un seul
 > dossier crée une divergence silencieuse.
 
-En pratique, les **quatre** dossiers portent chacun une copie du cœur. A2 et A3
+En pratique, les **quatre** dossiers portent chacun une copie du cœur. A3 et A2
 sont les plus proches — même carte V6.0, même firmware AGV, même transport LoRa
 — et ne diffèrent que par la couche d'appel : boutons sur pile d'un côté,
 EnOcean plus poste relais de l'autre. **Une correction du séquenceur doit donc

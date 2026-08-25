@@ -90,7 +90,7 @@ Durée : une demi-journée. Carte d'origine **encore en place et fonctionnelle**
 Automate sous tension, AGV en fonctionnement normal.
 
 ```
-Sonde sur Y05 (CN62 A3) — voir docs/subd25_atmega.md
+Sonde sur Y05 (CN62 A2) — voir docs/subd25_atmega.md
 ```
 
 - [ ] Amplitude mesurée au niveau haut : ______ V
@@ -437,7 +437,7 @@ Seuils à faire fixer **par le client, avant les essais** :
 |---|---|
 | Problème logiciel, sauvegardes disponibles | Reflasher `mega_origine.hex` et `esp32_origine.bin`, restaurer les fusibles |
 | Problème logiciel, sauvegardes indisponibles | **Aucun retour possible.** Prévoir une carte de rechange avant la phase 8 |
-| Réseau d'entreprise indisponible durablement | L'AGV reste en `safe_stop` : sûr, mais inexploitable. Repli documenté : architectures `../A2_LoRa/` ou `../A1_Cellulaire/`, sans dépendance à l'infrastructure du client |
+| Réseau d'entreprise indisponible durablement | L'AGV reste en `safe_stop` : sûr, mais inexploitable. Repli documenté : architectures `../A3_LoRa/` ou `../A1_Cellulaire/`, sans dépendance à l'infrastructure du client |
 
 ```bash
 avrdude -c usbasp -p m2560 -U flash:w:sauvegarde-origine/mega_origine.hex:i

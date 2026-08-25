@@ -1,4 +1,4 @@
-# AGV MEIDEN — A3 — Hybride EnOcean + LoRa
+# AGV MEIDEN — A2 — Hybride EnOcean + LoRa
 
 > **Dossier d'architecture autonome.** Des boutons EnOcean **sans pile** émettent vers un poste fixe, qui relaie
 > en LoRa vers la carte V6.0. **Architecture retenue.**
@@ -8,7 +8,7 @@
 > Index des architectures : `../README.md`.
 >
 > Brief complet : `CLAUDE_CODE_BRIEF_AGV_MEIDEN.md`
-> Spécification de cette architecture : `docs/Archi_3_Hybride_EnOcean_LoRa.md`
+> Spécification de cette architecture : `docs/Archi_2_Hybride_EnOcean_LoRa.md`
 > Les références `§N` renvoient au brief, les « planification §N » au document
 > d'architecture Wi-Fi.
 >

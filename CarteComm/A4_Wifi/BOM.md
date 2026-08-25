@@ -269,7 +269,7 @@ Trois gains au-delà du prix :
 
 Ce raisonnement ne vaut que pour **cette** architecture : le poste LoRa, lui,
 doit piloter une radio SX1276 en SPI, ce qu'un boîtier DIN fermé ne permet pas.
-Voir [`../A2_LoRa/BOM.md`](../A2_LoRa/BOM.md), section « Pourquoi pas un Unipi Gate
+Voir [`../A3_LoRa/BOM.md`](../A3_LoRa/BOM.md), section « Pourquoi pas un Unipi Gate
 pour ce poste ? ».
 
 Le seul port USB est à surveiller : il est pris par l'adaptateur série du

@@ -1,4 +1,4 @@
-# A2 — LoRa P2P 868 MHz, boutons sur pile
+# A3 — LoRa P2P 868 MHz, boutons sur pile
 
 > **Dossier autonome.** Il se construit et se teste sans rien emprunter aux
 > autres dossiers de `CarteComm/`, et peut être zippé seul.

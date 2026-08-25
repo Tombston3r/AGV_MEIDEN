@@ -1,10 +1,10 @@
-# Nomenclature — A2 — LoRa P2P homogène, boutons sur pile
+# Nomenclature — A2 — Hybride EnOcean + LoRa
 
 ## 💰 Total
 
 | | HT | TTC | *Accessoires écartés* |
 |---|---:|---:|---:|
-| **A2 — LoRa homogène, 2 boutons sur pile** | **124,60 €** | **149,52 €** | *+ 83,00 € HT* |
+| **A2 — EnOcean + LoRa, 2 boutons sans pile** | **217,00 €** | **260,40 €** | *+ 89,50 € HT* |
 
 Ces totaux ne comptent que les **composants déterminants**.
 
@@ -88,7 +88,7 @@ qu'à y greffer la radio LoRa. Voir « Réutiliser la carte existante ».
 | Carte fille : RFM95W vers broches libres de l'ESP32 | `PCB 2 couches ~30 × 30 mm + barrettes` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *9,60 €* |
 | **Sous-total** | | | | | | **☐** | ***21,60 €*** |
 
-### Carte AGV neuve — **variante de repli**, commune à A2 et A3
+### Carte AGV neuve — **variante de repli**, commune à A3 et A2
 
 Carte neuve à fabriquer. La V5.0.1 d'origine est **conservée intacte** :
 c'est le retour arrière de cette architecture.
@@ -134,17 +134,26 @@ additionner les deux. Voir « Peut-on se passer des optocoupleurs ? ».
 | Réseau Darlington collecteur ouvert — étage des 22 sorties X | `ULN2803A (TI)` | 3 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ULN2803A) | ☐ | ☐ | ☐ | *4,32 €* |
 | **Sous-total** | | | | | | **☐** | ***25,92 €*** |
 
-### **[A2]** Bouton d'appel sur pile — l'unité
+### **[A2]** Poste fixe EnOcean → LoRa
 
 | Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| MCU ultra-basse consommation | `STM32L071KBU6 (ST)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=STM32L071KBU6) | ☐ | ☐ | ☐ | *4,20 €* |
-| Module LoRa 868 MHz | `RFM95W-868S2 (HopeRF)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RFM95W-868S2) · [Amazon](https://www.amazon.fr/s?k=RFM95W-868S2) | ☐ | ☐ | ☐ | *12,00 €* |
-| Pile Li-SOCl₂ 3,6 V 2,6 Ah + support | `ER14505 / Saft LS14500` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ER14505+%2F+Saft+LS14500) | ☐ | ☐ | ☐ | *7,20 €* |
-| Réservoir d'impulsion pour l'émission LoRa | `220 µF tantale + 10 µF X7R` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=220+%C2%B5F+tantale+%2B+10+%C2%B5F+X7R) | ☐ | ☐ | ☐ | *0,72 €* |
-| Diode Schottky de protection pile | `BAT54 ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=BAT54) | ☐ | ☐ | ☐ | *0,24 €* |
-| PCB 2 couches ~50 × 50 mm | `Gerber projet` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *3,60 €* |
-| **Sous-total** | | | | | | **☐** | ***27,96 €*** |
+| Module MCU, 8 Mo flash (LittleFS + pages web) | `ESP32-WROOM-32E-N8` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ESP32-WROOM-32E-N8) | ☐ | ☐ | ☐ | *6,00 €* |
+| Récepteur EnOcean 868 MHz, UART ESP3 | `TCM 515 (EnOcean)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TCM+515) · [Mouser](https://www.mouser.fr/c/?q=TCM+515) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=TCM+515) | ☐ | ☐ | ☐ | *33,60 €* |
+| Module LoRa SX1276 | `RFM95W-868S2 (HopeRF)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RFM95W-868S2) · [Amazon](https://www.amazon.fr/s?k=RFM95W-868S2) | ☐ | ☐ | ☐ | *12,00 €* |
+| Contrôleur Ethernet SPI + RJ45 magnétique | `WIZnet WIZ850io (W5500)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=WIZnet+WIZ850io) | ☐ | ☐ | ☐ | *7,20 €* |
+| Bouton d'appairage + bouton reset | `Omron B3F-1000` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Omron+B3F-1000) | ☐ | ☐ | ☐ | *2,40 €* |
+| Alimentation rail DIN 230 V → 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MEAN+WELL+HDR-15-24) | ☐ | ☐ | ☐ | *16,80 €* |
+| 24 V → 5 V → 3,3 V | `TSR 1-2450 + AP2112K-3.3` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TSR+1-2450+%2B+AP2112K-3.3) | ☐ | ☐ | ☐ | *9,60 €* |
+| PCB 2 couches ~100 × 80 mm | `Gerber projet` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *7,20 €* |
+| **Sous-total** | | | | | | **☐** | ***94,80 €*** |
+
+### **[A2]** Bouton EnOcean sans pile — l'unité
+
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+|---|---|---:|---|---|---:|---:|---:|
+| Module émetteur auto-alimenté, **sans pile** | `PTM 210 (EnOcean, EU 868)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=PTM+210) · [Mouser](https://www.mouser.fr/c/?q=PTM+210) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=PTM+210) | ☐ | ☐ | ☐ | *36,00 €* |
+| **Sous-total** | | | | | | **☐** | ***36,00 €*** |
 
 ### Outillage — non récurrent
 
@@ -153,12 +162,12 @@ additionner les deux. Voir « Peut-on se passer des optocoupleurs ? ».
 | Dongle RTL-SDR + antenne — occupation de la bande 868 MHz | `RTL-SDR Blog V4` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RTL-SDR+Blog+V4) · [Amazon](https://www.amazon.fr/s?k=RTL-SDR+Blog+V4) | ☐ | ☐ | ☐ | *36,00 €* |
 | Analyseur logique 8 voies — chronogrammes X/Y | `clone Saleae 24 MHz` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=clone+Saleae+24+MHz) · [Amazon](https://www.amazon.fr/s?k=clone+Saleae+24+MHz) | ☐ | ☐ | ☐ | *18,00 €* |
 | Adaptateur USB-série 3,3 V | `FTDI FT232RL ou CP2102` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=FTDI+FT232RL+ou+CP2102) · [Amazon](https://www.amazon.fr/s?k=FTDI+FT232RL+ou+CP2102) | ☐ | ☐ | ☐ | *7,20 €* |
-| Mesure de courant µA — sommeil profond **[A2]** | `multimètre à faible burden voltage` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=multim%C3%A8tre+%C3%A0+faible+burden+voltage) · [Amazon](https://www.amazon.fr/s?k=multim%C3%A8tre+%C3%A0+faible+burden+voltage) | ☐ | ☐ | ☐ | *10,80 €* |
+| Mesure de courant µA — sommeil profond **[A3]** | `multimètre à faible burden voltage` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=multim%C3%A8tre+%C3%A0+faible+burden+voltage) · [Amazon](https://www.amazon.fr/s?k=multim%C3%A8tre+%C3%A0+faible+burden+voltage) | ☐ | ☐ | ☐ | *10,80 €* |
 | **Sous-total** | | | | | | **☐** | ***72,00 €*** |
 
 ---
 
-## Récapitulatif — variante A2 (LoRa homogène)
+## Récapitulatif — variante A3 (LoRa homogène)
 
 | Poste | Total TTC relevé | *Repère TTC* | *Repère HT* |
 |---|---:|---:|---:|
@@ -167,7 +176,7 @@ additionner les deux. Voir « Peut-on se passer des optocoupleurs ? ».
 | Outillage | ☐ | *72,00 €* | *60,00 €* |
 | **TOTAL** | **☐** | ***149,52 €*** | ***124,60 €*** |
 
-## Récapitulatif — variante A3 (EnOcean + LoRa)
+## Récapitulatif — variante A2 (EnOcean + LoRa)
 
 | Poste | Total TTC relevé | *Repère TTC* | *Repère HT* |
 |---|---:|---:|---:|
@@ -342,30 +351,30 @@ par l'émetteur LoRa se traduirait par des appuis perdus, silencieusement.
 
 ### Où se croisent les deux courbes
 
-| Stations | A2 (TTC) | A3 (TTC) | Moins cher |
+| Stations | A3 (TTC) | A2 (TTC) | Moins cher |
 |---:|---:|---:|---|
-| 2 | 238,32 € | 357,00 € | **A2** |
-| 4 | 383,04 € | 467,40 € | **A2** |
-| 6 | 527,76 € | 577,80 € | **A2** |
-| 8 | 672,48 € | 688,20 € | **A2** |
-| 12 | 961,92 € | 909,00 € | **A3** |
+| 2 | 238,32 € | 357,00 € | **A3** |
+| 4 | 383,04 € | 467,40 € | **A3** |
+| 6 | 527,76 € | 577,80 € | **A3** |
+| 8 | 672,48 € | 688,20 € | **A3** |
+| 12 | 961,92 € | 909,00 € | **A2** |
 
-Le point de bascule est à **9 stations**. En dessous, A2 coûte moins
-**et** rend un accusé visuel à l'opérateur. Au-delà, A3 prend l'avantage grâce
+Le point de bascule est à **9 stations**. En dessous, A3 coûte moins
+**et** rend un accusé visuel à l'opérateur. Au-delà, A2 prend l'avantage grâce
 à des boutons à 55,20 € au lieu de
 72,36 €, et supprime les piles.
 
 ⚠️ Ce tableau raisonne **accessoires compris** — boîtier IP65 et poussoir Ø22
-du bouton A2, enveloppe murale du bouton A3. C'est une comparaison économique,
+du bouton A3, enveloppe murale du bouton A2. C'est une comparaison économique,
 pas une liste d'achat : les retirer inverserait artificiellement le classement,
-puisque c'est précisément l'enveloppe du bouton A2 qui le rend cher.
+puisque c'est précisément l'enveloppe du bouton A3 qui le rend cher.
 
 ### Coût par station supplémentaire
 
 | | TTC | HT |
 |---|---:|---:|
-| **[A2]** bouton sur pile | **27,96 €** | 23,30 € |
-| **[A3]** bouton PTM 210 | **36,00 €** | 30,00 € |
+| **[A3]** bouton sur pile | **27,96 €** | 23,30 € |
+| **[A2]** bouton PTM 210 | **36,00 €** | 30,00 € |
 
 ### Coûts récurrents
 
@@ -373,8 +382,8 @@ puisque c'est précisément l'enveloppe du bouton A2 qui le rend cher.
 |---|---:|
 | Abonnement opérateur | **0 €** — bande ISM libre |
 | Infrastructure | **0 €** — aucune |
-| **[A2]** Remplacement des piles | ~7,20 € par bouton tous les 5 à 8 ans |
-| **[A3]** Piles | **0 €** — PTM 210 auto-alimentés |
+| **[A3]** Remplacement des piles | ~7,20 € par bouton tous les 5 à 8 ans |
+| **[A2]** Piles | **0 €** — PTM 210 auto-alimentés |
 
 **C'est l'architecture la moins chère des trois sur dix ans.**
 
@@ -385,7 +394,7 @@ puisque c'est précisément l'enveloppe du bouton A2 qui le rend cher.
 | Élément | Délai typique | Risque |
 |---|---|---|
 | PCB 4 couches + assemblage | 3 à 5 semaines | **Chemin critique matériel** |
-| **[A2]** PCB bouton + boîtiers IP65 | 3 à 5 semaines | En parallèle de la carte AGV |
+| **[A3]** PCB bouton + boîtiers IP65 | 3 à 5 semaines | En parallèle de la carte AGV |
 | `RFM95W-868S2` | 1 à 3 semaines | **Contrefaçons fréquentes** — acheter chez un distributeur référencé, pas sur une place de marché |
 | `PTM 210` / `TCM 515` | 1 à 2 semaines | Peu distribués par RS : prévoir un distributeur EnOcean |
 | `ER14505` Li-SOCl₂ | 1 à 2 semaines | **Restrictions de transport aérien** sur le lithium |

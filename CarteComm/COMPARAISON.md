@@ -4,7 +4,7 @@
 > AIO AGV Control V5.0.1, critère par critère, pour permettre un arbitrage
 > argumenté avec le client.
 >
-> Chiffres issus des nomenclatures du dépôt : [`LoRa/BOM.md`](A2_LoRa/BOM.md),
+> Chiffres issus des nomenclatures du dépôt : [`LoRa/BOM.md`](A3_LoRa/BOM.md),
 > [`A1_Cellulaire/BOM.md`](A1_Cellulaire/BOM.md), [`Wifi/BOM.md`](A4_Wifi/BOM.md).
 
 ## Note de lecture — ce qui est mesuré et ce qui ne l'est pas
@@ -26,8 +26,8 @@ aujourd'hui ; **un seul relevé défavorable peut en disqualifier une**.
 
 | | Recommandation |
 |---|---|
-| **Si le sans-pile est une exigence réelle** | **Hybride LoRa + EnOcean (A3)** |
-| **Si le sans-pile est un confort** | **LoRa pur (A2)** — moins cher jusqu’à 9 stations, et seul à rendre un accusé visuel à l'opérateur |
+| **Si le sans-pile est une exigence réelle** | **Hybride LoRa + EnOcean (A2)** |
+| **Si le sans-pile est un confort** | **LoRa pur (A3)** — moins cher jusqu’à 9 stations, et seul à rendre un accusé visuel à l'opérateur |
 | **Si le client refuse toute nouvelle carte** | **Wi-Fi + EnOcean** — mais son coût dépasse celui du LoRa |
 | **Si le cellulaire est imposé** | **LTE-M/MQTT**, jamais le SMS |
 
@@ -39,7 +39,7 @@ non bornée, l'absence de garantie d'ordre, et un coût récurrent de ~1 500 €
 
 ## 2. Les quatre solutions en un coup d'œil
 
-### LoRa pur (A2)
+### LoRa pur (A3)
 
 ```
 Bouton sur pile ──868 MHz LoRa P2P──▶ Carte AGV neuve ──▶ automate
@@ -49,7 +49,7 @@ Bouton sur pile ──868 MHz LoRa P2P──▶ Carte AGV neuve ──▶ automa
 Aucune infrastructure. Le bouton parle directement à l'AGV et **affiche
 lui-même** si l'ordre est passé.
 
-### Hybride LoRa + EnOcean (A3) — *architecture retenue*
+### Hybride LoRa + EnOcean (A2) — *architecture retenue*
 
 ```
 Bouton PTM 210 ──868 MHz EnOcean──▶ Poste fixe ──868 MHz LoRa──▶ Carte AGV neuve
@@ -115,8 +115,8 @@ multiplier par 1,20 pour retrouver leurs totaux.
 
 | | Matériel | Récurrent | **10 ans** | Par station |
 |---|---:|---:|---:|---:|
-| LoRa pur (A2) | 208 € | 0 €/an | **220 €** | +60 € |
-| LoRa + EnOcean (A3) | 307 € | 0 €/an | **307 €** | +46 € |
+| LoRa pur (A3) | 208 € | 0 €/an | **220 €** | +60 € |
+| LoRa + EnOcean (A2) | 307 € | 0 €/an | **307 €** | +46 € |
 | Wi-Fi + EnOcean (A4) | 692 € | 0 €/an | **692 €** | +50 € |
 | LTE-M / MQTT (A1) | 406 € | 96 €/an | **1 366 €** | +50 € |
 | SMS (A1) | 625 € | 1 500 €/an | **15 625 €** | +50 € |
@@ -130,8 +130,8 @@ Trois observations qui ne sautent pas aux yeux :
    automate à entrées/sorties inutilisées, puisque les boutons sont EnOcean.
 2. **Le récurrent domine dès qu'un opérateur entre dans la boucle.** Le SMS
    coûte 56 fois le LoRa pur sur dix ans, pour un service inférieur.
-3. **A2 et A3 se croisent à 9 stations** : en dessous A2 est moins chère, au-delà
-   A3 prend l'avantage grâce à des boutons à 46 € au lieu de 60 €.
+3. **A3 et A2 se croisent à 9 stations** : en dessous A3 est moins chère, au-delà
+   A2 prend l'avantage grâce à des boutons à 46 € au lieu de 60 €.
 
 Poste évitable dans trois solutions : remplacer l'UniPi (439–461 €) par un poste
 ESP32 (~148 €) économise ~300 €, au prix de l'historique long terme.
@@ -150,7 +150,7 @@ ESP32 (~148 €) économise ~300 €, au prix de l'historique long terme.
 Le temps d'antenne LoRa est calculé par le code (formule Semtech AN1200.13) et
 vérifié par test. **SF9 ne tient pas la cible de 200 ms** annoncée au brief ;
 SF7 la tient, au prix de la portée. C'est un arbitrage à trancher — voir
-[`LoRa/docs/latence_lora.md`](A2_LoRa/docs/latence_lora.md).
+[`LoRa/docs/latence_lora.md`](A3_LoRa/docs/latence_lora.md).
 
 Le SMS n'a pas seulement une mauvaise latence : **il n'a aucun ordre de remise**.
 Un `STOP` peut arriver avant le `GOTO` qu'il annule. Sur un engin mobile, c'est
@@ -174,7 +174,7 @@ Trois conséquences pratiques :
 - **Le LoRa est la seule technologie qui progresse avec la distance** au prix de
   la latence : passer de SF7 à SF12 multiplie la portée, et le temps d'antenne
   par 28. Le logiciel gère les deux.
-- **L'EnOcean est le maillon court** des architectures A3 et Wi-Fi : 30 m entre
+- **L'EnOcean est le maillon court** des architectures A2 et Wi-Fi : 30 m entre
   le bouton et le poste, pas entre le bouton et l'AGV. Si les points d'appel sont
   dispersés, il faut plusieurs postes ou des répéteurs.
 - **Le cellulaire est le seul cas où l'on ne peut rien faire.** Une zone morte
@@ -198,7 +198,7 @@ pas celle qu'on croit.
 
 | Solution | Chiffrement | Authentification | Anti-rejeu | Surface exposée |
 |---|---|---|---|---|
-| LoRa (A2, A3) | AES-128-CTR applicatif | clé partagée | fenêtre `seq` 16 | Portée radio du site |
+| LoRa (A3, A2) | AES-128-CTR applicatif | clé partagée | fenêtre `seq` 16 | Portée radio du site |
 | Wi-Fi | **TLS** + WPA2 ou 802.1X | certificats + ACL par topic | fenêtre `seq` + horodatage | **Réseau d'entreprise** |
 | LTE-M / MQTT | **TLS** | certificats + ACL | idem | Internet, si broker sur VPS |
 | SMS | AES-128-CTR applicatif | clé partagée | fenêtre `seq` + péremption | **Tout le réseau mobile** |
@@ -231,14 +231,14 @@ capter l'appui d'un bouton, puis le rejouer plus tard pour appeler l'AGV.** La
 déduplication du logiciel ne filtre que les copies dans une fenêtre de 100 ms ;
 un rejeu différé est indiscernable d'un appui légitime.
 
-Cela concerne **les trois architectures à boutons EnOcean** : A3, Wi-Fi et
+Cela concerne **les trois architectures à boutons EnOcean** : A2, Wi-Fi et
 cellulaire. Ce n'est pas un défaut du logiciel — c'est le protocole du bouton.
 
 | Parade | Effet | Coût |
 |---|---|---|
 | Accepter le risque | Il faut être à ~30 m avec du matériel dédié pour appeler un chariot | 0 € |
 | Émetteurs à sécurité EnOcean (rolling code AES) | Ferme la brèche | +~15 €/bouton, à valider avec le TCM 515 |
-| Boutons LoRa (**A2**) | **Chiffrés et anti-rejeu de bout en bout** | inclus |
+| Boutons LoRa (**A3**) | **Chiffrés et anti-rejeu de bout en bout** | inclus |
 
 **C'est un argument de sécurité en faveur du LoRa pur** qui n'apparaît dans
 aucune autre comparaison : c'est la seule solution où le bouton lui-même est
@@ -248,7 +248,7 @@ authentifié.
 
 | Solution | Ce qui peut couper le service depuis l'extérieur |
 |---|---|
-| LoRa (A2, A3) | Brouillage 868 MHz volontaire — détectable, et le repli s'active |
+| LoRa (A3, A2) | Brouillage 868 MHz volontaire — détectable, et le repli s'active |
 | Wi-Fi | Panne réseau, **maintenance IT non notifiée**, changement de politique |
 | Cellulaire | Panne opérateur, saturation locale, résiliation, changement tarifaire |
 
@@ -319,7 +319,7 @@ une assurance à chiffrer.
 Les quatre servent la page `/agvdump` au format historique du client, ce qui
 préserve les procédures d'atelier existantes.
 
-Le remplacement des piles de A2 est peu contraignant — 6 € et cinq minutes tous
+Le remplacement des piles de A3 est peu contraignant — 6 € et cinq minutes tous
 les 5 à 8 ans — mais c'est une **tâche récurrente à ne pas oublier**, et un
 bouton à pile morte est muet. La LED rouge et le compteur au poste le rendent
 détectable.
@@ -379,7 +379,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 
 ## 5. Fiches par solution
 
-### 5.1 LoRa pur (A2)
+### 5.1 LoRa pur (A3)
 
 **Points forts**
 
@@ -400,13 +400,13 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 - Dossier logiciel **à compléter** avant de pouvoir construire.
 - Dossier RED à monter si les cartes sont mises sur le marché.
 
-### 5.2 Hybride LoRa + EnOcean (A3) — *retenue*
+### 5.2 Hybride LoRa + EnOcean (A2) — *retenue*
 
 **Points forts**
 
 - **Boutons sans pile, sans maintenance**, à vie.
 - Coût très bas : 307 € sur dix ans, et **le moins cher par station ajoutée**.
-- Indépendance totale, comme A2.
+- Indépendance totale, comme A3.
 - Latence bornée, portée sub-GHz sur le tronçon long.
 - Boutons du commerce disponibles, pas de PCB bouton à faire.
 
@@ -420,7 +420,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 - Un **poste fixe supplémentaire** à alimenter et à maintenir.
 - **Deux antennes 868 MHz** sur le même boîtier : à espacer, sous peine de
   désensibiliser le récepteur EnOcean.
-- Même dossier logiciel à compléter que A2.
+- Même dossier logiciel à compléter que A3.
 
 ### 5.3 Wi-Fi + EnOcean
 
@@ -490,13 +490,13 @@ Le client refuse-t-il toute nouvelle carte ?
             ├── OUI ──▶ Plus de 8 points d'appel ?
             │           ├── OUI ──▶ HYBRIDE LORA + ENOCEAN
             │           └── NON ──▶ HYBRIDE LORA + ENOCEAN
-            │                       (A2 serait moins cher, mais l'exigence tranche)
+            │                       (A3 serait moins cher, mais l'exigence tranche)
             │
             └── NON ──▶ Un accusé visuel à l'opérateur est-il utile ?
-                        ├── OUI ──▶ LORA PUR (A2)
+                        ├── OUI ──▶ LORA PUR (A3)
                         └── NON ──▶ Plus de 8 points d'appel ?
-                                    ├── OUI ──▶ HYBRIDE (A3)
-                                    └── NON ──▶ LORA PUR (A2)
+                                    ├── OUI ──▶ HYBRIDE (A2)
+                                    └── NON ──▶ LORA PUR (A3)
 
 Le cellulaire est-il imposé par le client ?
 └── OUI ──▶ LTE-M / MQTT, jamais le SMS
@@ -512,10 +512,10 @@ disqualifier une solution.
 
 | # | Mesure | Disqualifie | Charge |
 |---|---|---|---|
-| 1 | **Couverture LoRa** le long du parcours, à hauteur d'antenne AGV | A2, A3 si trous | 0,5 j |
+| 1 | **Couverture LoRa** le long du parcours, à hauteur d'antenne AGV | A3, A2 si trous | 0,5 j |
 | 2 | **Couverture Wi-Fi** idem, plus comptage des handovers | Wi-Fi | 1 j |
 | 3 | **Couverture cellulaire** RSRP/RSRQ — un point sous −110 dBm suffit | Cellulaire | 0,5 j |
-| 4 | **Portée EnOcean** depuis chaque emplacement définitif de bouton | A3, Wi-Fi, cellulaire | 0,5 j |
+| 4 | **Portée EnOcean** depuis chaque emplacement définitif de bouton | A2, Wi-Fi, cellulaire | 0,5 j |
 | 5 | **Occupation de la bande 868 MHz** (RTL-SDR, 30 €) | objective la crainte de collision | 0,5 j |
 | 6 | **Amplitude des lignes Y et chronogrammes du bus** | aucune — commun aux quatre | 1 j |
 | 7 | **Accord de principe du service informatique** | Wi-Fi | 2 à 15 j calendaires |
@@ -530,8 +530,8 @@ choisir une architecture qui ne fonctionnera pas sur ce site.
 ## 8. Questions à faire trancher par le client
 
 1. **Le sans-pile est-il une exigence contractuelle, ou un confort ?** C'est la
-   question qui départage A2 et A3, et elle vaut ~84 € plus un accusé opérateur.
-2. **Un opérateur doit-il savoir que son appel est parti ?** Si oui, seul A2 le
+   question qui départage A3 et A2, et elle vaut ~84 € plus un accusé opérateur.
+2. **Un opérateur doit-il savoir que son appel est parti ?** Si oui, seul A3 le
    rend nativement ; les autres imposent un voyant au poste ou un actionneur
    EnOcean (+100 à 160 €).
 3. **Quel seuil de latence rend un appel « raté » aux yeux d'un opérateur ?**
@@ -545,7 +545,7 @@ choisir une architecture qui ne fonctionnera pas sur ce site.
    **Unipi Gate G100** (~200 €) suffit dès que le poste dispose d'une prise
    réseau — y compris en cellulaire, où elle supprime une SIM sur deux.
 6. **Combien de points d'appel à terme ?** C'est ce qui place le curseur entre
-   A2 et A3.
+   A3 et A2.
 7. **Le coût récurrent du cellulaire est-il accepté ?** 15 625 € sur dix ans en
    SMS, 1 366 € en LTE-M, contre 220 € sans opérateur.
 

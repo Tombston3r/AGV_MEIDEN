@@ -66,7 +66,7 @@ Combiner l'avantage propre à chaque technologie plutôt que d'en imposer une se
 | Identifiant émetteur | 32 bits, gravé en usine, non modifiable |
 | Sens | **Unidirectionnel** — le PTM 210 émet, il ne reçoit rien |
 
-**Chaîne de réception.** Le TCM 515 reçoit le télégramme et le remonte à l'ESP32 en UART à 57600 bauds au format **ESP3** (EnOcean Serial Protocol 3) : trame `0x55` + en-tête + CRC8 en-tête + données + CRC8 données. L'ESP32 parse, extrait l'ID 32 bits et le code de touche (le PTM 210 a 4 contacts : A0, A2, B0, B1).
+**Chaîne de réception.** Le TCM 515 reçoit le télégramme et le remonte à l'ESP32 en UART à 57600 bauds au format **ESP3** (EnOcean Serial Protocol 3) : trame `0x55` + en-tête + CRC8 en-tête + données + CRC8 données. L'ESP32 parse, extrait l'ID 32 bits et le code de touche (le PTM 210 a 4 contacts : A0, A3, B0, B1).
 
 **Table de correspondance et appairage.** Le PTM 210 envoie un **identifiant d'émetteur**, pas un numéro de station. Il faut donc une table `ID EnOcean (32 bits) → numéro de station` sur l'ESP32 poste, persistée en NVS. Deux modes d'apprentissage complémentaires :
 

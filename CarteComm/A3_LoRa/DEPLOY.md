@@ -5,8 +5,8 @@
 > tant qu'elle n'est pas faite, aucune des commandes suivantes ne fonctionne.
 >
 > Contenu et recette de complétion : [`README.md`](README.md).
-> Documents de référence : [`docs/Archi_2_LoRa_P2P_homogene.md`](docs/Archi_2_LoRa_P2P_homogene.md)
-> et [`docs/Archi_3_Hybride_EnOcean_LoRa.md`](docs/Archi_3_Hybride_EnOcean_LoRa.md).
+> Document de référence : [`docs/Archi_3_LoRa_P2P_homogene.md`](docs/Archi_3_LoRa_P2P_homogene.md).
+> La variante à boutons sans pile vit dans [`../A2_Hybride/`](../A2_Hybride/).
 
 **Charge estimée** : 1 jour pour la phase 0, puis 5 à 8 jours-homme hors
 fabrication de carte.
@@ -17,19 +17,19 @@ fabrication de carte.
 
 ### 1. Deux architectures partagent ce dossier
 
-| | A2 — LoRa homogène | A3 — Hybride EnOcean + LoRa |
+| | A3 — LoRa homogène | A2 — Hybride EnOcean + LoRa |
 |---|---|---|
 | Boutons | sur pile, radio LoRa intégrée | **PTM 210 sans pile** |
 | Retour visuel au bouton | **oui** — LED verte = ACK reçu | **non**, le TCM 515 est en réception seule |
 | Poste fixe | facultatif | obligatoire (récepteur EnOcean → LoRa) |
 | Ajout d'un bouton | flasher un `node_id` + une station | appairage depuis l'IHM, sans flash |
 
-**A3 est l'architecture retenue**, sous réserve que le « sans-pile » soit une
-exigence réelle. Si ce n'en est pas une, A2 est plus simple et rend le retour
+**A2 est l'architecture retenue**, sous réserve que le « sans-pile » soit une
+exigence réelle. Si ce n'en est pas une, A3 est plus simple et rend le retour
 visuel à l'opérateur — argument à ne pas perdre.
 
 Les phases ci-dessous couvrent les deux ; les étapes propres à chacune sont
-marquées **[A2]** ou **[A3]**.
+marquées **[A3]** ou **[A2]**.
 
 ### 2. Le rapport cyclique est une obligation réglementaire
 
@@ -60,7 +60,7 @@ Le cœur métier (séquenceur, file, protocole, simulateur) vit dans les autres
 dossiers d'architecture. Il faut en greffer une copie ici.
 
 ```bash
-cd CarteComm/A2_LoRa
+cd CarteComm/A3_LoRa
 cp -rn ../A1_Cellulaire/{firmware,sim,test,tools,web,profiles,docs,Makefile,platformio.ini} .
 cat profiles/lora_fragment.yaml >> profiles/default.yaml
 ```
@@ -73,7 +73,7 @@ Puis :
       (`LoraTransport` prend sa `LoraConfig` en **second argument**)
 - [ ] Rétablir `FakeRadio` dans `test/native/fakes.h` (il est en tête de
       `test/native/test_lora.cpp`)
-- [ ] **[A2]** Ajouter l'environnement `[env:bouton]` dans `platformio.ini`
+- [ ] **[A3]** Ajouter l'environnement `[env:bouton]` dans `platformio.ini`
       (framework `arduino`)
 - [ ] Implémenter `radio_begin` / `radio_send` / `radio_wait_ack` du nœud
       bouton, déclarés `extern` dans `firmware/bouton-lora/src/main.cpp`
@@ -125,7 +125,7 @@ ensuite. Détail : `docs/procedures_essai.md` (présent après la phase 0).
 - [ ] Durée de course la plus longue : ______ s
 - [ ] Sortie `agvdump` complète archivée
 
-### 1.4 **[A3]** Portée EnOcean
+### 1.4 **[A2]** Portée EnOcean
 
 - [ ] Marge RSSI ≥ 10 dB à chaque poste, **depuis son emplacement définitif**
 - [ ] Répéteur nécessaire : ☐ non ☐ oui, aux emplacements ______
@@ -134,7 +134,7 @@ ensuite. Détail : `docs/procedures_essai.md` (présent après la phase 0).
 
 ## Phase 2 — Fabrication et contrôle de la carte
 
-Nomenclature : `docs/Archi_2_LoRa_P2P_homogene.md`. Schémas détaillés :
+Nomenclature : `docs/Archi_3_LoRa_P2P_homogene.md`. Schémas détaillés :
 [`hardware/schema_detail_voies.svg`](hardware/schema_detail_voies.svg).
 
 - [ ] Variante d'interface bus arrêtée (`bus.driver_variant`) — `shift595`
@@ -219,7 +219,7 @@ python3 tools/provision_key.py generate --namespace poste --out build/nvs_poste.
 
 - [ ] Clé générée, archivée **hors du dépôt**, remise au client
 - [ ] NVS écrite sur l'AGV et sur le poste
-- [ ] **[A2]** La même clé est inscrite dans le firmware de **chaque bouton**
+- [ ] **[A3]** La même clé est inscrite dans le firmware de **chaque bouton**
 
 La reperdre impose de reflasher tous les nœuds, boutons compris.
 
@@ -257,7 +257,7 @@ Sur la liaison radio, deux cartes en vis-à-vis :
 
 `flash.sh` régénère la configuration **et lance les tests** avant chaque flash.
 
-### **[A2]** Un flash par bouton
+### **[A3]** Un flash par bouton
 
 Modifier avant chaque flash, dans `firmware/bouton-lora/src/main.cpp` :
 
@@ -273,7 +273,7 @@ constexpr uint16_t kStation = 2;        // station appelée
 
 Aucune modification côté AGV n'est nécessaire pour ajouter un bouton.
 
-### **[A3]** Aucun flash de bouton
+### **[A2]** Aucun flash de bouton
 
 Les PTM 210 n'ont pas de firmware. L'appairage se fait à la phase 8.
 
@@ -281,7 +281,7 @@ Les PTM 210 n'ont pas de firmware. L'appairage se fait à la phase 8.
 
 ## Phase 8 — Mise en service
 
-### **[A3]** Appairage des boutons EnOcean
+### **[A2]** Appairage des boutons EnOcean
 
 Pour chaque point d'appel, **depuis son emplacement définitif**.
 
@@ -292,7 +292,7 @@ Pour chaque point d'appel, **depuis son emplacement définitif**.
 retour opérateur est exigé, il faut un TCM 310 ou un voyant déporté câblé — à
 trancher avant de figer l'IHM (§12.8).
 
-### **[A2]** Vérification des boutons
+### **[A3]** Vérification des boutons
 
 - [ ] Appui → **LED verte fixe 2 s** = ACK reçu
 - [ ] Bouton hors portée → **LED rouge clignotante** après 3 essais
@@ -319,8 +319,8 @@ C'est le retour visuel que la solution EnOcean pure ne sait pas rendre.
 | 6 | Brouiller la trame (corruption volontaire) | Comptée en `rx_bad_crc`, ignorée | ☐ |
 | 7 | Coupure d'alimentation AGV en pleine course | File restaurée depuis la NVS ; course de plus de 30 min écartée | ☐ |
 | 8 | Empiler 6 courses | 5 acceptées, la 6ᵉ refusée | ☐ |
-| 9 | **[A2]** Retirer la pile d'un bouton | Bouton muet ; absence détectable au poste | ☐ |
-| 10 | **[A3]** Deux appuis très rapprochés | Une seule course (déduplication des sous-télégrammes) | ☐ |
+| 9 | **[A3]** Retirer la pile d'un bouton | Bouton muet ; absence détectable au poste | ☐ |
+| 10 | **[A2]** Deux appuis très rapprochés | Une seule course (déduplication des sous-télégrammes) | ☐ |
 | 11 | Parcours complet en production | Latence P50/P95/P99, taux d'appels perdus, `duty_used_permille` maximum relevé | ☐ |
 
 Seuils à faire fixer **par le client, avant les essais** :
@@ -353,8 +353,8 @@ arrière consiste à la reposer.
 | Latence supérieure à l'attendu | SF retenu, `retries` | Retransmissions — voir `docs/latence_lora.md` |
 | Trames reçues mais illisibles | `rx_bad_crc` | Clé AES différente entre nœuds, ou interférence |
 | L'AGV ne part pas | `write_op_return`, `start_op_return` | Timeouts (1.3) ou câblage (2) |
-| **[A2]** Bouton muet | pile, LED rouge | Pile morte ou hors portée |
-| **[A3]** Appui sans effet | `enocean_unpaired` | Bouton non appairé ou hors portée |
+| **[A3]** Bouton muet | pile, LED rouge | Pile morte ou hors portée |
+| **[A2]** Appui sans effet | `enocean_unpaired` | Bouton non appairé ou hors portée |
 
 ---
 
@@ -362,7 +362,7 @@ arrière consiste à la reposer.
 
 | Élément | Valeur relevée | Date | Visa |
 |---|---|---|---|
-| Architecture retenue | ☐ A2 ☐ A3 | | |
+| Architecture retenue | ☐ A3 ☐ A2 | | |
 | RSSI / SNR minimum sur le parcours | | | |
 | Facteur d'étalement retenu | | | |
 | Période de télémétrie retenue | | | |
@@ -370,7 +370,7 @@ arrière consiste à la reposer.
 | `sync_word` retenu (≠ 0x34) | | | |
 | `t_setup_us` mesuré | | | |
 | Clé AES provisionnée sur tous les nœuds | ☐ | | |
-| **[A2]** Table des `node_id` archivée | ☐ | | |
+| **[A3]** Table des `node_id` archivée | ☐ | | |
 | Essais de dégradation | ☐ 11/11 | | |
 | Format `agvdump` validé par l'atelier | ☐ | | |
 

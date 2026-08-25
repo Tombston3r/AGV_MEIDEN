@@ -1,4 +1,4 @@
-# A3 — Hybride EnOcean + LoRa
+# A2 — Hybride EnOcean + LoRa
 
 > **Dossier autonome.** Il se construit et se teste sans rien emprunter aux
 > autres dossiers de `CarteComm/`, et peut être zippé seul.
@@ -16,7 +16,7 @@ Bouton PTM 210 ──EnOcean──▶ Poste fixe ──LoRa 868 MHz──▶ Car
 ```
 
 C'est **l'architecture retenue**, sous réserve que l'exigence « sans pile » soit
-réelle : elle coûte 90 € de plus que [A2](../A2_LoRa/) à deux stations, et le
+réelle : elle coûte 90 € de plus que [A3](../A3_LoRa/) à deux stations, et le
 devient moins cher au-delà de **9 stations**.
 
 ## Le compromis à connaître
@@ -26,13 +26,13 @@ Le sans-pile se paie sur deux points, et ils sont documentés plutôt qu'esquiv�
 - ⚠️ **Le bouton n'est pas authentifié.** Un télégramme `PTM 210` est en clair
   et rejouable dans un rayon d'une trentaine de mètres. Le chiffrement AES ne
   commence qu'au poste fixe. C'est le maillon faible de toutes les variantes
-  EnOcean — A3 comme [A4](../A4_Wifi/).
+  EnOcean — A2 comme [A4](../A4_Wifi/).
 - **Pas d'accusé visuel** à l'opérateur : le `PTM 210` n'a pas de LED, il ne
   peut rien afficher. L'opérateur appuie sans savoir si l'ordre est passé.
 
 ## Matériel
 
-**Carte `AIO_AGV_Control_V6.0`** — identique à [A2](../A2_LoRa/) : la V5.0.1
+**Carte `AIO_AGV_Control_V6.0`** — identique à [A3](../A3_LoRa/) : la V5.0.1
 augmentée d'un `RFM95W-868S2` sur le SPI libre de l'ESP32 (`NSS`→`IO5`,
 `SCK`→`IO18`, `MISO`→`IO19`, `MOSI`→`IO23`, `DIO0`→`IO26`, `RESET` **non
 câblée**).
@@ -57,7 +57,7 @@ pio run -e poste             # poste fixe : TCM 515 -> LoRa
 
 ## ⚠️ Ce qui reste à faire
 
-Comme [A2](../A2_LoRa/), le firmware ESP32 hérité de A4 porte encore la
+Comme [A3](../A3_LoRa/), le firmware ESP32 hérité de A4 porte encore la
 **passerelle MQTT** (`firmware/common/app/gateway_app.{h,cpp}`). Il faut lui
 substituer un `LoraGatewayApp` bâti sur `LoraTransport`. Le transport, le pilote
 radio, le décodage ESP3 et le budget légal sont là et testés ; c'est la couche

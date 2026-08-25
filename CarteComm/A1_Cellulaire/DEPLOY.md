@@ -108,7 +108,7 @@ de l'AGV.
 - [ ] RSRP minimum relevé : ______ dBm
 
 **Un seul point sous −110 dBm disqualifie l'architecture.** Arrêter ici et
-basculer sur `../A2_LoRa/` ou `../A4_Wifi/`.
+basculer sur `../A3_LoRa/` ou `../A4_Wifi/`.
 
 ### 1.2 Essai de latence réel
 
@@ -311,7 +311,7 @@ journalctl -u agv-poste -f
 - [ ] `transport.kind = "mqtt"` — **pas `sms`**
 - [ ] Service démarré sans erreur
 
-### 6.3 Poste fixe ESP32 (variante A3)
+### 6.3 Poste fixe ESP32 (variante A2)
 
 Si le poste est un ESP32 avec TCM 515 et Ethernet filaire :
 
@@ -414,7 +414,7 @@ Seuils à faire fixer **par le client, avant les essais** :
 | Situation | Action |
 |---|---|
 | Carte neuve défaillante | Reposer la carte V5.0.1 d'origine, conservée intacte |
-| Couverture cellulaire insuffisante | Basculer sur `../A2_LoRa/` (aucun opérateur) ou `../A4_Wifi/` |
+| Couverture cellulaire insuffisante | Basculer sur `../A3_LoRa/` (aucun opérateur) ou `../A4_Wifi/` |
 | Coût récurrent refusé | Idem |
 
 La carte d'origine **n'est pas modifiée** par cette architecture : le retour
