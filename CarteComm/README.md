@@ -1,18 +1,32 @@
 # CarteComm — un dossier par architecture
 
 Remplacement de la carte **AIO AGV Control V5.0.1** d'un AGV MEIDEN à guidage
-magnétique. Trois architectures de liaison ont été étudiées ; le choix final
-n'est pas tranché avec le client.
+magnétique. **Quatre architectures** ont été étudiées ; le choix final n'est pas
+tranché avec le client.
 
 Chaque architecture vit dans **son propre dossier, complet et autonome** : il
 contient son firmware, son simulateur, ses tests, ses outils, sa documentation
 et son matériel. Un dossier peut donc être zippé et transmis seul.
 
-| Dossier | Code | Architecture | Matériel AGV | Statut | Autonome ? |
-|---|:-:|---|---|---|---|
-| [`Wifi/`](Wifi/) | **A4** | Boutons EnOcean → poste UniPi → **Wi-Fi d'entreprise / MQTT** → carte V5.0.1 | **Carte conservée**, deux firmwares réécrits | Spécifiée en détail | ✅ oui — 101 tests C++ + 17 Python |
-| [`SMS_EnOcean/`](SMS_EnOcean/) | **A1** | Boutons EnOcean au poste + liaison cellulaire (SMS ou LTE-M/MQTT) | Nouvelle carte | Étudiée à la demande du client | ✅ oui — 112 tests |
-| [`LoRa/`](LoRa/) | **A2**<br>**A3** | LoRa P2P 868 MHz, seul (A2) ou hybride EnOcean (A3) | **Carte V5.0.1 réutilisée** | Sources extraites, **pas encore un projet complet** | ❌ pas encore |
+| Dossier | Carte AGV | Liaison | Boutons | Autonome ? |
+|---|---|---|---|---|
+| [`A1_Cellulaire/`](A1_Cellulaire/) | **neuve** | SMS ou LTE-M/MQTT, réseau opérateur | EnOcean au poste | ✅ 112 tests |
+| [`A2_LoRa/`](A2_LoRa/) | **V6.0** | LoRa P2P 868 MHz, sans infrastructure | **LoRa sur pile**, accusé visuel | ✅ 119 tests |
+| [`A3_Hybride/`](A3_Hybride/) | **V6.0** | LoRa P2P 868 MHz + poste relais | EnOcean **sans pile** | ✅ 130 tests |
+| [`A4_Wifi/`](A4_Wifi/) | **V5.0.1** | Wi-Fi d'entreprise / MQTT | EnOcean au poste | ✅ 109 tests + 17 Python |
+
+### Quelle carte pour quelle architecture
+
+| Projet KiCad | Sert à | Ce qui la distingue |
+|---|---|---|
+| `AIO_AGV_Control_V5.0.1` | **A4** | Mega2560 Pro + ESP32, étage à 23 MOSFET |
+| `AIO_AGV_Control_V6.0` | **A2** et **A3** | La même, **plus un `RFM95W-868S2`** câblé sur le SPI libre de l'ESP32 |
+
+La V6.0 est donc la V5.0.1 augmentée d'une radio LoRa — 58 empreintes contre 57.
+Le relevé du projet confirme le brochage : `NSS`→`IO5`, `SCK`→`IO18`,
+`MISO`→`IO19`, `MOSI`→`IO23`, `DIO0`→`IO26`. ⚠️ **La broche `RESET` du module
+n'est pas câblée** : un module figé ne se récupère qu'en coupant l'alimentation
+de la carte.
 
 ## Choisir une architecture
 
@@ -36,11 +50,11 @@ en tête le montant des accessoires écartés.
 
 | Architecture | Matériel | Récurrent | **10 ans** | Par station de plus |
 |---|---:|---:|---:|---:|
-| [`LoRa/`](LoRa/BOM.md) **A2** — LoRa homogène | 208 € | 0 €/an | **~220 €** | +60 € |
-| [`LoRa/`](LoRa/BOM.md) **A3** — EnOcean + LoRa | 307 € | 0 €/an | **~307 €** | +46 € |
-| [`Wifi/`](Wifi/BOM.md) **A4** — Wi-Fi entreprise | 692 € | 0 €/an | **~692 €** | +50 € |
-| [`SMS_EnOcean/`](SMS_EnOcean/BOM.md) **A1** — LTE-M/MQTT | 406 € | 96 €/an | **~1 366 €** | +50 € |
-| [`SMS_EnOcean/`](SMS_EnOcean/BOM.md) **A1** — SMS *(déconseillé)* | 625 € | 1 500 €/an | **~15 625 €** | +50 € |
+| [`A2_LoRa/`](A2_LoRa/BOM.md) **A2** — LoRa homogène | 208 € | 0 €/an | **~220 €** | +60 € |
+| [`A3_Hybride/`](A3_Hybride/BOM.md) **A3** — EnOcean + LoRa | 307 € | 0 €/an | **~307 €** | +46 € |
+| [`A4_Wifi/`](A4_Wifi/BOM.md) **A4** — Wi-Fi entreprise | 692 € | 0 €/an | **~692 €** | +50 € |
+| [`A1_Cellulaire/`](A1_Cellulaire/BOM.md) **A1** — LTE-M/MQTT | 406 € | 96 €/an | **~1 366 €** | +50 € |
+| [`A1_Cellulaire/`](A1_Cellulaire/BOM.md) **A1** — SMS *(déconseillé)* | 625 € | 1 500 €/an | **~15 625 €** | +50 € |
 
 Deux lectures de ce tableau :
 
@@ -51,13 +65,13 @@ Deux lectures de ce tableau :
   contre 208 €. Sa carte AGV est **fabriquée**, pas réutilisée — 155 € TTC de
   composants d'après le projet KiCad.
 
-Chaque dossier porte son propre [`DEPLOY.md`](Wifi/DEPLOY.md) : les procédures
+Chaque dossier porte son propre [`DEPLOY.md`](A4_Wifi/DEPLOY.md) : les procédures
 n'ont presque rien en commun. Le Wi-Fi impose de sauvegarder puis d'écraser les
 firmwares existants ; le cellulaire commence par un relevé de couverture
 éliminatoire et une décision de coût ; le LoRa par un arbitrage portée/latence
 et un budget d'émission réglementaire.
 
-L'architecture `Wifi/` se distingue des deux autres sur un point décisif : elle
+L'architecture `A4_Wifi/` se distingue des deux autres sur un point décisif : elle
 **ne change aucun matériel**. Le coût se déplace entièrement vers le logiciel et
 vers la négociation avec le service informatique du client — qui devient le
 chemin critique du projet.
@@ -86,7 +100,7 @@ dans le script, puis `python3 CarteComm/tools/generer_bom.py`.
 ## Ce qui est commun aux deux
 
 Le brief du projet est la référence unique et s'applique à toutes les
-architectures : [`SMS_EnOcean/CLAUDE_CODE_BRIEF_AGV_MEIDEN.md`](SMS_EnOcean/CLAUDE_CODE_BRIEF_AGV_MEIDEN.md).
+architectures : [`A1_Cellulaire/CLAUDE_CODE_BRIEF_AGV_MEIDEN.md`](A1_Cellulaire/CLAUDE_CODE_BRIEF_AGV_MEIDEN.md).
 Les références `§N` de tous les documents y renvoient.
 
 Le **cœur métier est identique dans toutes les architectures** — c'est une
@@ -103,11 +117,16 @@ prix de la zippabilité indépendante, et il faut le savoir :
 > reportée dans chaque dossier d'architecture.** Un correctif appliqué à un seul
 > dossier crée une divergence silencieuse.
 
-En pratique, `SMS_EnOcean/` et `Wifi/` portent chacun une copie à jour du cœur.
-Un nouveau dossier d'architecture se crée en copiant l'arborescence de l'un
-d'eux, puis en remplaçant la couche de liaison.
+En pratique, les **quatre** dossiers portent chacun une copie du cœur. A2 et A3
+sont les plus proches — même carte V6.0, même firmware AGV, même transport LoRa
+— et ne diffèrent que par la couche d'appel : boutons sur pile d'un côté,
+EnOcean plus poste relais de l'autre. **Une correction du séquenceur doit donc
+être reportée quatre fois.**
 
-⚠️ `Wifi/` a fait diverger le cœur sur un point : le séquenceur y tourne sur
+Un nouveau dossier d'architecture se crée en copiant l'arborescence du plus
+proche, puis en remplaçant la couche de liaison.
+
+⚠️ `A4_Wifi/` a fait diverger le cœur sur un point : le séquenceur y tourne sur
 l'ATmega, ce qui a imposé d'en retirer toute dépendance à `snprintf` et aux
 transports. Les corrections de séquenceur restent portables entre les deux
 dossiers ; les ajouts de dépendances, non.

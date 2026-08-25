@@ -4,8 +4,8 @@
 > AIO AGV Control V5.0.1, critère par critère, pour permettre un arbitrage
 > argumenté avec le client.
 >
-> Chiffres issus des nomenclatures du dépôt : [`LoRa/BOM.md`](LoRa/BOM.md),
-> [`SMS_EnOcean/BOM.md`](SMS_EnOcean/BOM.md), [`Wifi/BOM.md`](Wifi/BOM.md).
+> Chiffres issus des nomenclatures du dépôt : [`LoRa/BOM.md`](A2_LoRa/BOM.md),
+> [`A1_Cellulaire/BOM.md`](A1_Cellulaire/BOM.md), [`Wifi/BOM.md`](A4_Wifi/BOM.md).
 
 ## Note de lecture — ce qui est mesuré et ce qui ne l'est pas
 
@@ -150,7 +150,7 @@ ESP32 (~148 €) économise ~300 €, au prix de l'historique long terme.
 Le temps d'antenne LoRa est calculé par le code (formule Semtech AN1200.13) et
 vérifié par test. **SF9 ne tient pas la cible de 200 ms** annoncée au brief ;
 SF7 la tient, au prix de la portée. C'est un arbitrage à trancher — voir
-[`LoRa/docs/latence_lora.md`](LoRa/docs/latence_lora.md).
+[`LoRa/docs/latence_lora.md`](A2_LoRa/docs/latence_lora.md).
 
 Le SMS n'a pas seulement une mauvaise latence : **il n'a aucun ordre de remise**.
 Un `STOP` peut arriver avant le `GOTO` qu'il annule. Sur un engin mobile, c'est
@@ -304,7 +304,7 @@ laissent la carte d'origine intacte comme filet de sécurité. Le Wi-Fi l'écras
 
 Si les bits de protection interdisent la relecture des flash, **le retour arrière
 n'existe plus**. La procédure impose une décision écrite du client à ce stade
-(phase 2 de [`Wifi/DEPLOY.md`](Wifi/DEPLOY.md)), et une carte de rechange devient
+(phase 2 de [`Wifi/DEPLOY.md`](A4_Wifi/DEPLOY.md)), et une carte de rechange devient
 une assurance à chiffrer.
 
 ### 4.8 Maintenance et diagnostic

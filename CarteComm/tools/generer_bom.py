@@ -808,12 +808,21 @@ l'antenne, la puissance d'émission et le nombre de nœuds.
   mais surtout une complexité applicative hors périmètre actuel.
 """
 
-write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/LoRa/BOM.md",
-      "A2 · A3 — LoRa 868 MHz", "../COMPARAISON.md",
-      LORA_SECTIONS, LORA_EXTRA + ANALYSE_LORA,
-      totaux=[("A2 — LoRa homogène, boutons sur pile", a1_ht,
-               acc_de(cartereemploi, outil_lora) + 2 * bouton_a1.ht_accessoires),
-              ("A3 — Hybride EnOcean + LoRa", a3_ht,
+# Un dossier par architecture : A2 et A3 ont chacun leur nomenclature. Les
+# sections communes — carte V6.0, variantes d'interface bus, outillage — sont
+# répétées dans les deux, comme le reste du dossier autonome.
+COMMUN_LORA = [cartereemploi, carte, bus595, busmcp, busavr]
+
+write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/A2_LoRa/BOM.md",
+      "A2 — LoRa P2P homogène, boutons sur pile", "../COMPARAISON.md",
+      COMMUN_LORA + [bouton_a1, outil_lora], LORA_EXTRA + ANALYSE_LORA,
+      totaux=[("A2 — LoRa homogène, 2 boutons sur pile", a1_ht,
+               acc_de(cartereemploi, outil_lora) + 2 * bouton_a1.ht_accessoires)])
+
+write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/A3_Hybride/BOM.md",
+      "A3 — Hybride EnOcean + LoRa", "../COMPARAISON.md",
+      COMMUN_LORA + [poste_a3, bouton_a3, outil_lora], LORA_EXTRA + ANALYSE_LORA,
+      totaux=[("A3 — EnOcean + LoRa, 2 boutons sans pile", a3_ht,
                acc_de(cartereemploi, poste_a3, outil_lora) + 2 * bouton_a3.ht_accessoires)])
 print(f"A2 = {a1_ht:.2f} HT / {a1_ht*TVA:.2f} TTC ; A3 = {a3_ht:.2f} HT / {a3_ht*TVA:.2f} TTC")
 
@@ -1003,7 +1012,7 @@ Trois gains au-delà du prix :
 
 Ce raisonnement ne vaut que pour **cette** architecture : le poste LoRa, lui,
 doit piloter une radio SX1276 en SPI, ce qu'un boîtier DIN fermé ne permet pas.
-Voir [`../LoRa/BOM.md`](../LoRa/BOM.md), section « Pourquoi pas un Unipi Gate
+Voir [`../A2_LoRa/BOM.md`](../A2_LoRa/BOM.md), section « Pourquoi pas un Unipi Gate
 pour ce poste ? ».
 
 Le seul port USB est à surveiller : il est pris par l'adaptateur série du
@@ -1050,7 +1059,7 @@ change la nomenclature.
   de rechange devient une assurance à chiffrer avec le client.
 """
 
-write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/Wifi/BOM.md",
+write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/A4_Wifi/BOM.md",
       "A4 — Wi-Fi + EnOcean (carte V5.0.1 conservée)", "../COMPARAISON.md",
       WIFI_SECTIONS, WIFI_EXTRA + ANALYSE_WIFI,
       totaux=[("A4 — Wi-Fi + EnOcean", wifi_ht,
@@ -1241,7 +1250,7 @@ d'interface bus conditionne le routage du PCB.
 - **La carte de rechange** : ~{eur(s_carte595 * TVA)} pour un échange standard.
 """
 
-write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/SMS_EnOcean/BOM.md",
+write("/home/mathieu/AIO/AGV_MEIDEN/CarteComm/A1_Cellulaire/BOM.md",
       "A1 — Cellulaire + EnOcean (SMS ou LTE-M)", "../COMPARAISON.md",
       [s_carte, bus595, busmcp, s_poste_esp, s_poste_gate, s_poste_unipi, s_boutons, s_outil],
       SMS_EXTRA + ANALYSE_SMS,

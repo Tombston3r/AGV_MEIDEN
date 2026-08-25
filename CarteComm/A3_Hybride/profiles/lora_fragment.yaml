@@ -1,0 +1,19 @@
+# Fragment à réintégrer dans profiles/*.yaml lorsque ce dossier devient un
+# projet d'architecture complet (voir ../README.md).
+#
+# `tools/genconfig.py` le transforme en macros CFG_LORA_*, consommées par
+# `lora_config_from_profile()`.
+
+lora:
+  frequency_hz: 868100000
+  spreading_factor: 9          # arbitrage portée/latence — voir docs/latence_lora.md
+  bandwidth_hz: 125000
+  coding_rate: 5               # 4/5
+  sync_word: 0x12              # privé, != 0x34 (réservé LoRaWAN)
+  tx_power_dbm: 14
+  ack_timeout_ms: 400
+  max_tries: 3
+  # EN 300 220 / ERC 70-03 : 1 % de rapport cyclique sur 1 h glissante.
+  # Obligation réglementaire : le transport REFUSE d'émettre au-delà.
+  duty_cycle_permille: 10
+  duty_window_ms: 3600000
