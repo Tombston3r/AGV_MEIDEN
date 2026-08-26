@@ -41,13 +41,36 @@ d'essai parlent vraiment la même langue.
 Les deux dernières sont celles qui comptent. Les deux premières ne prouvent que
 la cohérence d'une implémentation avec elle-même.
 
-## Côté ESP32
+## Côté ESP32 — deux cartes possibles
 
 ```bash
 cd esp32
-pio run -e tx -t upload -t monitor      # émet et attend l'accusé
-pio run -e rx -t upload -t monitor      # écoute et acquitte
+pio run -e v6_tx    -t upload -t monitor    # carte V6.0, émission
+pio run -e v6_rx    -t upload -t monitor    # carte V6.0, écoute
+pio run -e tbeam_tx -t upload -t monitor    # LILYGO T-Beam, émission
+pio run -e tbeam_rx -t upload -t monitor    # LILYGO T-Beam, écoute
 ```
+
+Une **LILYGO T-Beam 868 MHz** porte le **même SX1276** que le `RFM95W` de la
+carte V6.0 — le `RFM95W` n'est qu'un module HopeRF enveloppant cette puce. Le
+pilote du projet fonctionne donc tel quel ; seul le brochage change, et il est
+décrit dans `include/test_config.h`.
+
+Elle a même deux avantages au banc : **elle est sur batterie**, donc on peut la
+promener le long du parcours sans traîner un ordinateur, et **sa broche `RESET`
+est câblée**, contrairement à la V6.0 — un module figé s'y récupère sans couper
+l'alimentation.
+
+⚠️ **Sur T-Beam, la radio est alimentée par un gestionnaire AXP192**, pas
+directement. Sans l'avoir activée, le SX1276 est hors tension et `RegVersion`
+lit `0x00` : on cherche alors un défaut de câblage SPI qui n'existe pas. C'est
+la cause n°1 des « la radio est morte » sur cette carte. `src/tbeam_power.cpp`
+s'en charge et le dit à l'écran.
+
+⚠️ **Le brochage change d'une révision à l'autre.** Le profil fourni est celui
+de la **v1.1**, la plus répandue. Sur une v0.7 (sans AXP192) ou une v1.2
+(AXP2101, registres différents), vérifier avant de flasher — le numéro est
+sérigraphié près du connecteur USB.
 
 Brochage par défaut — les broches **libres** relevées au projet KiCad de la
 carte V5.0.1, dont l'`ESP32-DEVKITC` n'utilise que 4 broches sur 38 :
@@ -104,3 +127,37 @@ Ce n'est pas un réglage : c'est l'EN 300 220 / ERC 70-03.
 d'émissions possibles et une latence bien plus basse — au prix de la portée.
 C'est l'arbitrage décrit dans [`../../architectures/A3_LoRa/docs/latence_lora.md`](../../architectures/A3_LoRa/docs/latence_lora.md),
 et ces essais sont faits pour le trancher sur le terrain plutôt qu'au bureau.
+
+## La T-Beam peut-elle servir de télécommande finale ?
+
+**Comme prototype, oui et c'est même recommandé.** Elle permet d'éprouver tout
+le comportement du bouton A3 — protocole, latence, accusé, budget légal — et de
+le faire essayer par un opérateur pendant quelques semaines, **avant** d'engager
+un circuit imprimé. C'est le meilleur moyen de dérisquer la carte définitive.
+
+**En production, non.** La raison tient en une ligne :
+
+| | Sommeil | Réserve | Autonomie |
+|---|---:|---:|---:|
+| T-Beam, sommeil soigné | 0,3 mA | 18650, 3 000 mAh | **~14 mois** |
+| T-Beam, sommeil courant | 1,0 mA | 18650, 3 000 mAh | **~4 mois** |
+| Bouton A3 (`STM32L071` + `ER14505`) | 0,002 mA | Li-SOCl₂, 2 600 mAh | **5 à 8 ans** |
+
+L'écart n'est pas un défaut de réglage : un ESP32 avec son gestionnaire
+d'alimentation, sa puce USB-série et son écran consomme au repos mille fois ce
+que consomme un microcontrôleur de la famille L0. Il ne se rattrape pas.
+
+Trois autres points, moins spectaculaires mais réels :
+
+- **Ce n'est pas un bouton.** C'est une carte de développement avec un accu
+  18650 qui dépasse. Il faudrait lui ajouter un boîtier IP65 et un poussoir Ø22
+  câblé sur une entrée — soit l'essentiel de la nomenclature du bouton A3, sans
+  en avoir l'autonomie.
+- **Ce n'est pas du matériel industriel** : connecteur USB exposé, pas de
+  vernis, qualité grand public, dans un atelier à poussière et vibrations.
+- **Les révisions changent de brochage** et sortent du catalogue. Pour une
+  installation prévue pour dix ans, c'est un risque d'approvisionnement.
+
+En revanche, **rien ne s'oppose à ce qu'elle serve de poste fixe d'essai** dans
+l'architecture A2 : sur secteur, la consommation n'a plus d'importance, et son
+écran affiche l'état de la liaison.

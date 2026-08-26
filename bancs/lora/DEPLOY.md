@@ -26,6 +26,26 @@ encodent la trame applicative **octet pour octet à l'identique**. C'est le seul
 essai qui tourne sans matériel, et le premier à passer : une radio qui porte
 avec des trames divergentes donne un banc parfait et une panne en atelier.
 
+## 1 bis. Cas d'une LILYGO T-Beam
+
+Rien à câbler : la radio et l'antenne sont déjà sur la carte. Deux points
+propres à cette carte, à connaître avant de conclure à une panne.
+
+**La radio est hors tension au démarrage.** Elle passe par un gestionnaire
+AXP192 sur l'I²C. Le firmware l'active et l'annonce :
+
+```
+alimentation : AXP192 initialise, radio sous tension
+LILYGO T-Beam v1.1 — SX1276 detecte (RegVersion 0x12)
+```
+
+Si la première ligne dit `aucun AXP192 a l'adresse 0x34`, la carte n'est pas
+une v1.0/v1.1 : une v0.7 n'a pas de gestionnaire, une v1.2 embarque un AXP2101
+dont les registres diffèrent.
+
+**Le GPS est coupé** par le firmware : il ne sert à rien pour un essai de
+portée et consomme plusieurs dizaines de milliampères sur batterie.
+
 ## 2. Câbler
 
 | RFM95W | ESP32 |

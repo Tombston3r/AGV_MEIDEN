@@ -17,6 +17,7 @@
 #include "platform/esp32/esp_ports.h"
 #include "platform/esp32/sx1276_radio.h"
 #include "proto/frame.h"
+#include "tbeam_power.h"
 #include "test_config.h"
 #include "transport/duty_cycle.h"
 
@@ -34,7 +35,17 @@ agv::esp32::EspClock g_clock;
 }  // namespace
 
 extern "C" void app_main() {
-  const agv::LoraConfig cfg;  // valeurs par défaut du projet : 868,1 MHz SF9
+  const agv::LoraConfig cfg;
+
+  // Sur une carte à gestionnaire d'alimentation (T-Beam), la radio est hors
+  // tension au démarrage. L'interroger avant de l'alimenter fait lire
+  // RegVersion = 0x00 et cherche un défaut de câblage qui n'existe pas.
+  if (test::kAlimentationGeree) {
+    const tbeam::Etat etat = tbeam::alimenter_radio();
+    printf("alimentation : %s\n", tbeam::message(etat));
+    if (etat != tbeam::Etat::Ok) return;
+    tbeam::couper_gps();          // inutile ici, et coûteux sur batterie
+  }  // valeurs par défaut du projet : 868,1 MHz SF9
 
   if (!g_spi.begin(test::kSpiHost, test::kPinSck, test::kPinMosi, test::kPinMiso,
                    test::kPinNss, test::kSpiFreqHz)) {
@@ -44,8 +55,11 @@ extern "C" void app_main() {
 
   agv::esp32::Sx1276Radio radio(g_spi, g_gpio, g_clock, test::kPinReset, test::kPinDio0);
   if (!radio.begin(cfg)) {
-    printf("[ECHEC] RFM95W muet (RegVersion 0x%02X, attendu 0x12).\n", radio.version());
+    printf("[ECHEC] SX1276 muet (RegVersion 0x%02X, attendu 0x12).\n", radio.version());
     printf("        Verifier cablage SPI, alimentation 3,3 V et NSS.\n");
+    if (test::kAlimentationGeree) {
+      printf("        Sur T-Beam : verifier la revision, le brochage change.\n");
+    }
     return;
   }
 
@@ -53,7 +67,7 @@ extern "C" void app_main() {
       agv::lora_airtime_us(agv::kFrameBaseSize, cfg.spreading_factor,
                            cfg.bandwidth_hz, cfg.coding_rate);
   const uint32_t attendu_ms = attendu_us / 1000;
-  printf("RFM95W detecte (RegVersion 0x%02X)\n", radio.version());
+  printf("%s — SX1276 detecte (RegVersion 0x%02X)\n", test::kNomCarte, radio.version());
   printf("%.1f MHz  SF%u  BW%u  CR4/%u  sync 0x%02X  %d dBm\n",
          cfg.frequency_hz / 1e6, cfg.spreading_factor, cfg.bandwidth_hz / 1000,
          cfg.coding_rate, cfg.sync_word, cfg.tx_power_dbm);
