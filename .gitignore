@@ -34,3 +34,6 @@ _autosave-*
 # Caches Python des scripts d'essai
 __pycache__/
 *.pyc
+
+# Exports produits par outils/exporter_architecture.sh
+A?_*_20*.zip

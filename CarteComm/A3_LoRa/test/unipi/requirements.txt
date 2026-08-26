@@ -1,4 +1,0 @@
-# Accès SPI et GPIO sous Linux. Sur Debian, préférer les paquets système :
-#   sudo apt install python3-spidev python3-libgpiod
-spidev>=3.5
-gpiod>=1.5.4
