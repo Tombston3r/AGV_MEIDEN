@@ -132,6 +132,7 @@ async function majEtat() {
   try {
     const s = await api('GET', '/api/etat');
     $('etat-port').textContent = s.port;
+    $('etat-version').textContent = 'v' + (s.version || '?');
     $('etat-appuis').textContent =
       `${s.appuis} appui${s.appuis > 1 ? 's' : ''}` +
       (s.inconnus ? ` · ${s.inconnus} non reconnu${s.inconnus > 1 ? 's' : ''}` : '');
@@ -147,6 +148,18 @@ function validerActif() {
   $('btn-valider').disabled = !(nom && id);
 }
 
+// La visibilité de la fenêtre est portée par un style EN LIGNE, et non par
+// l'attribut `hidden` seul. Raison : `hidden` n'est qu'un `display: none` de
+// la feuille par défaut, que la moindre règle d'auteur déclarant `display`
+// écrase — c'est ce qui laissait la boîte ouverte en permanence. Un style en
+// ligne, lui, l'emporte sur toute règle de feuille sans `!important`, y compris
+// sur une CSS périmée servie par le cache du navigateur.
+function afficherModale(visible) {
+  const m = $('modale');
+  m.hidden = !visible;
+  m.style.display = visible ? 'flex' : 'none';
+}
+
 function ouvrirModale() {
   etat.capture = null;
   $('erreur').hidden = true;
@@ -154,7 +167,7 @@ function ouvrirModale() {
   $('champ-nom').value = '';
   $('capture').hidden = true;
   $('attente').hidden = false;
-  $('modale').hidden = false;
+  afficherModale(true);
   choisirOnglet('detecter');
 
   armer().then((r) => {
@@ -199,7 +212,7 @@ function demarrerRenouvellement() {
 
 function fermerModale() {
   clearInterval(etat.renouvellement);
-  $('modale').hidden = true;
+  afficherModale(false);
   api('POST', '/api/apprentissage/annuler').catch(() => {});
 }
 
@@ -239,6 +252,7 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape' && !$('modale').hidden) fermerModale();
 });
 
+afficherModale(false);   // état initial explicite, avant tout rendu
 rafraichir();
 majEtat();
 ecouter();

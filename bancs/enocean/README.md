@@ -35,8 +35,17 @@ bouton connu et un inconnu. Ouvrir <http://localhost:8080>.
 
 ## Déploiement
 
-Voir [`DEPLOY.md`](DEPLOY.md) — installation sur la UniPi, recette en sept
-points et relevé de portée.
+```bash
+./deployer.sh unipi@<IP-UNIPI>     # depuis un poste de développement
+./deployer.sh                      # sur la UniPi elle-même
+```
+
+Le script contrôle en fin de course que **la version servie est bien celle du
+dépôt**, et le bandeau de l'interface l'affiche. Voir [`DEPLOY.md`](DEPLOY.md)
+pour l'installation complète, la recette en sept points et le relevé de portée.
+
+⚠️ **Ne pas copier les fichiers à la main** : un correctif présent dans le dépôt
+mais absent de `/opt` donne exactement les symptômes du défaut qu'il corrige.
 
 ## Ce qu'on doit obtenir
 

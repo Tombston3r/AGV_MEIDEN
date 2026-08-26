@@ -84,7 +84,9 @@ button:disabled { opacity: .45; cursor: not-allowed; }
 /* --- Fenêtre d'ajout ---------------------------------------------------- */
 .voile {
   position: fixed; inset: 0; background: rgba(0,0,0,.65);
-  display: flex; align-items: center; justify-content: center; padding: 1rem; z-index: 50;
+  /* `display` est posé EN LIGNE par app.js — voir afficherModale(). Le laisser
+     ici en `flex` inconditionnel écrasait l'attribut `hidden`. */
+  display: none; align-items: center; justify-content: center; padding: 1rem; z-index: 50;
 }
 .modale {
   background: var(--carte); border: 1px solid var(--bord); border-radius: 14px;

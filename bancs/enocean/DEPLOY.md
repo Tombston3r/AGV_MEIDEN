@@ -20,18 +20,26 @@ ls -l /dev/serial/by-id/
 **Attendu** : une entrée contenant `EnOcean` ou `FT232`.
 Si rien n'apparaît, `dmesg | tail -20` dira si le noyau a vu le périphérique.
 
-## 2. Installer
+## 2. Installer — et mettre à jour
 
 ```bash
-sudo apt install python3-serial
+sudo apt install python3-serial      # une seule fois
 
-sudo mkdir -p /opt/banc-enocean
-sudo cp -r banc_enocean web /opt/banc-enocean/
+# Depuis un poste de développement :
+./deployer.sh unipi@<IP-UNIPI>
 
-sudo useradd --system --no-create-home --shell /usr/sbin/nologin -G dialout banc
-sudo cp systemd/banc-enocean.service /etc/systemd/system/
-sudo systemctl enable --now banc-enocean
+# Ou directement sur la UniPi, dans le dossier du banc :
+./deployer.sh
 ```
+
+`deployer.sh` fait tout : envoi, copie dans `/opt`, compte de service, unité
+systemd, redémarrage, puis **contrôle que la version servie est bien celle du
+dépôt**.
+
+⚠️ **Ne pas copier les fichiers à la main.** Un correctif présent dans le dépôt
+mais absent de `/opt` donne exactement les symptômes du défaut qu'il corrige, et
+l'on cherche longtemps. Le script utilise `rsync --delete` : un fichier retiré
+du dépôt disparaît aussi de la cible.
 
 Le groupe `dialout` est ce qui autorise le service à ouvrir le port série.
 Sans lui, le démarrage échoue sur un `Permission denied`.
@@ -86,7 +94,7 @@ l'emplacement du poste fixe.
 
 | Symptôme | Cause probable |
 |---|---|
-| La fenêtre d'ajout reste affichée en permanence | feuille de style périmée en cache — recharger avec `Ctrl+Maj+R` |
+| La fenêtre d'ajout reste affichée en permanence | **version déployée périmée** — relancer `./deployer.sh` et comparer la version du bandeau à celle du dépôt |
 | Fenêtre ambre alors que la boîte d'ajout est ouverte | l'écoute n'est plus armée : le navigateur ne joint plus le banc, vérifier la pastille |
 | `Permission denied` sur le port | l'utilisateur `banc` n'est pas dans `dialout` |
 | Trois fenêtres par appui | déduplication inopérante — ouvrir une anomalie |
