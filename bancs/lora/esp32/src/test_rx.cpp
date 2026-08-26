@@ -17,6 +17,7 @@
 #include "platform/esp32/esp_ports.h"
 #include "platform/esp32/sx1276_radio.h"
 #include "proto/frame.h"
+#include "oled.h"
 #include "tbeam_power.h"
 #include "test_config.h"
 #include "transport/duty_cycle.h"
@@ -60,6 +61,8 @@ extern "C" void app_main() {
     printf("alimentation : %s\n", tbeam::message(etat));
     if (etat != tbeam::Etat::Ok) return;
     tbeam::couper_gps();          // inutile ici, et coûteux sur batterie
+    oled::begin();
+    oled::page("Banc LoRa - ecoute", "", "en attente...", "");
   }
 
   if (!g_spi.begin(test::kSpiHost, test::kPinSck, test::kPinMosi, test::kPinMiso,
@@ -114,6 +117,17 @@ extern "C" void app_main() {
         if (rssi < rssi_min) rssi_min = rssi;
         if (rssi > rssi_max) rssi_max = rssi;
         rssi_somme += rssi;
+
+        // L'écran est ce qui rend le relevé de portée praticable : on lit le
+        // niveau reçu en marchant, sans ordinateur au bout d'un câble.
+        if (oled::present()) {
+          char l1[24], l2[24], l3[24], l4[24];
+          snprintf(l1, sizeof(l1), "RSSI  %5d dBm", rssi);
+          snprintf(l2, sizeof(l2), "SNR   %+5d dB", snr);
+          snprintf(l3, sizeof(l3), "recues %u  rej %u", valides, rejetees);
+          snprintf(l4, sizeof(l4), "%s", rssi < -115 ? "!! MARGE FAIBLE" : "marge correcte");
+          oled::page("Banc LoRa - ecoute", "", l1, l2, l3, l4);
+        }
 
         const bool doublon = deja_vue(trame.node_id, trame.seq);
         if (doublon) ++doublons;

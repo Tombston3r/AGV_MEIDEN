@@ -17,6 +17,7 @@
 #include "platform/esp32/esp_ports.h"
 #include "platform/esp32/sx1276_radio.h"
 #include "proto/frame.h"
+#include "oled.h"
 #include "tbeam_power.h"
 #include "test_config.h"
 #include "transport/duty_cycle.h"
@@ -25,6 +26,30 @@ namespace {
 
 constexpr int kNbTrames = 20;
 constexpr uint32_t kIntervalleMs = 2000;
+
+#if defined(CARTE_TBEAM)
+// Sur T-Beam, le bouton de la carte déclenche une émission à la demande : au
+// relevé de portée, on veut mesurer AU POINT où l'on se trouve, pas au rythme
+// d'une boucle. Il est actif à l'état bas, avec tirage interne.
+#include <driver/gpio.h>
+bool bouton_presse() {
+  static bool arme = true;
+  const bool bas = gpio_get_level(test::kPinBouton) == 0;
+  if (bas && arme) { arme = false; return true; }
+  if (!bas) arme = true;
+  return false;
+}
+void preparer_bouton() {
+  gpio_config_t c = {};
+  c.pin_bit_mask = 1ULL << test::kPinBouton;
+  c.mode = GPIO_MODE_INPUT;
+  c.pull_up_en = GPIO_PULLUP_ENABLE;
+  gpio_config(&c);
+}
+#else
+bool bouton_presse() { return false; }
+void preparer_bouton() {}
+#endif
 constexpr uint32_t kAckTimeoutMs = 400;
 constexpr uint16_t kStation = 42;
 
@@ -45,6 +70,9 @@ extern "C" void app_main() {
     printf("alimentation : %s\n", tbeam::message(etat));
     if (etat != tbeam::Etat::Ok) return;
     tbeam::couper_gps();          // inutile ici, et coûteux sur batterie
+    oled::begin();
+    preparer_bouton();
+    oled::page("Banc LoRa - emission", "", "bouton = 1 emission", "");
   }  // valeurs par défaut du projet : 868,1 MHz SF9
 
   if (!g_spi.begin(test::kSpiHost, test::kPinSck, test::kPinMosi, test::kPinMiso,
@@ -136,7 +164,22 @@ extern "C" void app_main() {
              i, trame.seq, static_cast<unsigned>(len), mesure);
     }
 
-    vTaskDelay(pdMS_TO_TICKS(kIntervalleMs));
+    if (oled::present()) {
+      char l1[24], l2[24], l3[24], l4[24];
+      const int taux = envoyees ? (100 * acquittees / envoyees) : 0;
+      snprintf(l1, sizeof(l1), "emises  %d", envoyees);
+      snprintf(l2, sizeof(l2), "ACK     %d  %d%%", acquittees, taux);
+      snprintf(l3, sizeof(l3), "%s", acquittee ? "dernier: OK" : "dernier: PERDU");
+      snprintf(l4, sizeof(l4), "batt %.2f V", tbeam::tension_batterie_v());
+      oled::page("Banc LoRa - emission", "", l1, l2, l3, l4);
+    }
+
+    // Sur T-Beam on attend le bouton ; ailleurs, la cadence fixe suffit.
+    if (test::kAlimentationGeree) {
+      while (!bouton_presse()) vTaskDelay(pdMS_TO_TICKS(20));
+    } else {
+      vTaskDelay(pdMS_TO_TICKS(kIntervalleMs));
+    }
   }
 
   printf("\n--- Bilan ---\n");

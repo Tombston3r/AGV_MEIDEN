@@ -46,6 +46,11 @@ dont les registres diffèrent.
 **Le GPS est coupé** par le firmware : il ne sert à rien pour un essai de
 portée et consomme plusieurs dizaines de milliampères sur batterie.
 
+**L'écran et le bouton sont utilisés.** En réception, l'écran affiche RSSI, SNR,
+compteurs et tension batterie ; en émission, chaque appui sur le bouton de la
+carte envoie **une** trame. C'est ce qui rend le relevé de l'étape 5 possible
+sans ordinateur.
+
 ## 2. Câbler
 
 | RFM95W | ESP32 |
@@ -93,8 +98,13 @@ c'est un problème d'antenne, d'alimentation ou de paramètres.
 Promener l'émetteur le long du parcours, chariot **chargé**, en lisant le RSSI.
 
 ```bash
-cd linux && ./test_rx.py --survey
+cd linux && ./test_rx.py --survey        # côté Linux, avec un ordinateur
+pio run -e tbeam_rx -t upload            # côté T-Beam, lecture sur l'écran
 ```
+
+Avec deux T-Beam, le relevé se fait à deux personnes et sans matériel
+informatique : l'une appuie sur le bouton au point à mesurer, l'autre lit le
+niveau reçu sur l'écran.
 
 | RSSI | Verdict |
 |---|---|

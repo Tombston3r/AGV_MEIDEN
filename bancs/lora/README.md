@@ -56,10 +56,32 @@ carte V6.0 — le `RFM95W` n'est qu'un module HopeRF enveloppant cette puce. Le
 pilote du projet fonctionne donc tel quel ; seul le brochage change, et il est
 décrit dans `include/test_config.h`.
 
-Elle a même deux avantages au banc : **elle est sur batterie**, donc on peut la
-promener le long du parcours sans traîner un ordinateur, et **sa broche `RESET`
-est câblée**, contrairement à la V6.0 — un module figé s'y récupère sans couper
-l'alimentation.
+### Ce qu'elle apporte au banc
+
+**Son écran affiche le relevé en direct.** C'est ce qui rend le relevé de portée
+praticable : la carte tient dans une main, on marche le long du parcours et on
+lit le niveau reçu, sans ordinateur au bout d'un câble USB.
+
+```
+Banc LoRa - ecoute
+
+RSSI    -87 dBm
+SNR      +9 dB
+recues 42  rej 0
+marge correcte
+```
+
+Sous −115 dBm, la dernière ligne passe à `!! MARGE FAIBLE`.
+
+**Son bouton déclenche une émission à la demande.** Au relevé, on veut mesurer
+*au point où l'on se trouve*, pas au rythme d'une boucle : l'environnement
+`tbeam_tx` attend un appui avant chaque trame.
+
+**Elle est sur batterie**, et affiche sa tension — un relevé qui s'arrête est
+alors une liaison perdue ou une batterie vide, et on sait laquelle.
+
+**Sa broche `RESET` est câblée**, contrairement à la V6.0 : un module figé s'y
+récupère sans couper l'alimentation.
 
 ⚠️ **Sur T-Beam, la radio est alimentée par un gestionnaire AXP192**, pas
 directement. Sans l'avoir activée, le SX1276 est hors tension et `RegVersion`
