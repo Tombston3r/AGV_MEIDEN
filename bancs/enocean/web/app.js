@@ -2,7 +2,7 @@
 // Banc EnOcean — aucune bibliothèque : la UniPi peut être hors réseau.
 
 const $ = (id) => document.getElementById(id);
-const etat = { boutons: [], capture: null, onglet: 'detecter', rebours: null };
+const etat = { boutons: [], capture: null, onglet: 'detecter', renouvellement: null };
 
 // --- API --------------------------------------------------------------------
 async function api(methode, url, corps) {
@@ -105,16 +105,27 @@ function ecouter() {
   });
 
   src.addEventListener('apprentissage', (e) => {
-    const d = JSON.parse(e.data);
-    etat.capture = d;
-    $('attente').hidden = true;
-    $('capture').hidden = false;
-    $('capture-code').textContent = d.code;
-    $('capture-rssi').textContent = `${d.rssi_dbm} dBm — ${heure(d.heure)}`;
-    $('dernier').hidden = true;
-    validerActif();
-    if (!$('champ-nom').value) $('champ-nom').focus();
+    appliquerCapture(JSON.parse(e.data));
   });
+}
+
+function appliquerCapture(d) {
+  etat.capture = d;
+  $('attente').hidden = true;
+  $('capture').hidden = false;
+  $('capture-code').textContent = d.code;
+  $('capture-rssi').textContent = `${d.rssi_dbm} dBm — ${heure(d.heure)}`;
+  $('dernier').hidden = true;
+  // L'identifiant est aussi déposé dans le champ de saisie : il devient
+  // visible et corrigeable, et l'onglet « Saisir » montre la même chose.
+  $('champ-id').value = d.code;
+  // Un remplacement silencieux ferait nommer le mauvais bouton : on le montre.
+  const c = $('capture');
+  c.classList.remove('maj');
+  void c.offsetWidth;              // force le redémarrage de l'animation
+  c.classList.add('maj');
+  validerActif();
+  if (!$('champ-nom').value) $('champ-nom').focus();
 }
 
 async function majEtat() {
@@ -146,7 +157,7 @@ function ouvrirModale() {
   $('modale').hidden = false;
   choisirOnglet('detecter');
 
-  api('POST', '/api/apprentissage', { duree_s: 30 }).then((r) => {
+  armer().then((r) => {
     // Un bouton pressé juste AVANT l'ouverture est proposé : c'est le cas
     // courant au banc, on appuie puis on va l'enregistrer.
     if (r.dernier_appui && Date.now() / 1000 - r.dernier_appui.heure < 120) {
@@ -156,33 +167,38 @@ function ouvrirModale() {
       const b = document.createElement('button');
       b.className = 'secondaire';
       b.textContent = 'Utiliser';
-      b.onclick = () => {
-        etat.capture = d;
-        $('attente').hidden = true;
-        $('capture').hidden = false;
-        $('capture-code').textContent = d.code;
-        $('capture-rssi').textContent = `${d.rssi_dbm} dBm — ${heure(d.heure)}`;
-        $('dernier').hidden = true;
-        validerActif();
-      };
+      b.onclick = () => appliquerCapture(d);
       $('dernier').appendChild(b);
     }
-    rebours(30);
   });
+  demarrerRenouvellement();
 }
 
-function rebours(s) {
-  clearInterval(etat.rebours);
-  $('compte-a-rebours').textContent = s;
-  etat.rebours = setInterval(() => {
-    s -= 1;
-    $('compte-a-rebours').textContent = Math.max(0, s);
-    if (s <= 0) clearInterval(etat.rebours);
-  }, 1000);
+// La fenêtre d'écoute est courte côté serveur mais RENOUVELÉE tant que la
+// boîte de dialogue est ouverte. Deux raisons de ne pas l'armer une fois pour
+// toutes : l'utilisateur peut mettre plus de trente secondes à traverser
+// l'atelier, et si le navigateur meurt l'écoute doit s'éteindre seule plutôt
+// que de détourner les appuis d'un formulaire fermé.
+const ECOUTE_S = 20;
+const RENOUVELLEMENT_MS = 8000;
+
+function armer() {
+  return api('POST', '/api/apprentissage', { duree_s: ECOUTE_S });
+}
+
+function demarrerRenouvellement() {
+  clearInterval(etat.renouvellement);
+  etat.renouvellement = setInterval(() => {
+    if ($('modale').hidden) {
+      clearInterval(etat.renouvellement);
+      return;
+    }
+    armer().catch(() => {});
+  }, RENOUVELLEMENT_MS);
 }
 
 function fermerModale() {
-  clearInterval(etat.rebours);
+  clearInterval(etat.renouvellement);
   $('modale').hidden = true;
   api('POST', '/api/apprentissage/annuler').catch(() => {});
 }

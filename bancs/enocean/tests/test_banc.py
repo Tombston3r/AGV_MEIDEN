@@ -135,6 +135,25 @@ class TestApprentissage(unittest.TestCase):
         pousser(self.lec, trame_rps(ID_A))
         self.assertIn("event: apprentissage", self.file.get_nowait())
 
+    def test_un_reamorcage_prolonge_la_fenetre(self):
+        # L'interface réarme toutes les 8 s tant que la boîte d'ajout est
+        # ouverte : traverser l'atelier prend plus que la fenêtre initiale.
+        self.lec.armer_apprentissage(0.05)
+        fin_1 = self.lec._apprentissage_jusqu_a
+        self.lec.armer_apprentissage(20)
+        self.assertGreater(self.lec._apprentissage_jusqu_a, fin_1)
+        pousser(self.lec, trame_rps(ID_B))
+        self.assertIn("event: apprentissage", self.file.get_nowait())
+
+    def test_l_annulation_eteint_l_ecoute_immediatement(self):
+        # Fermer la boîte doit rendre la main : sinon les appuis suivants
+        # alimenteraient un formulaire qui n'est plus affiché.
+        self.lec.armer_apprentissage(30)
+        self.lec.desarmer_apprentissage()
+        self.assertFalse(self.lec.apprentissage_actif())
+        pousser(self.lec, trame_rps(ID_B))
+        self.assertIn("event: inconnu", self.file.get_nowait())
+
     def test_la_fenetre_expiree_rend_la_main_au_mode_normal(self):
         self.lec.armer_apprentissage(-1)          # déjà expirée
         pousser(self.lec, trame_rps(ID_B))

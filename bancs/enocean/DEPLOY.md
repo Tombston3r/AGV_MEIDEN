@@ -59,7 +59,7 @@ Ouvrir `http://<IP-UNIPI>:8080`.
 | 1 | Charger la page | Pastille **verte**, « à l'écoute », le port affiché |
 | 2 | Appuyer sur un bouton non enregistré | Fenêtre **ambre** « Bouton non enregistré » avec un code à 8 chiffres hexadécimaux |
 | 3 | Appuyer **une** fois | **Une seule** fenêtre — pas trois |
-| 4 | « Ajouter un bouton », puis appuyer | Le code s'affiche en vert dans la fenêtre d'ajout |
+| 4 | « Ajouter un bouton », puis appuyer | Le code **se remplit seul**, en vert et dans le champ de saisie. Aucune fenêtre ambre |
 | 5 | Nommer et enregistrer | Le bouton apparaît dans la liste |
 | 6 | Réappuyer dessus | Fenêtre **verte** : nom, code, heure, niveau reçu |
 | 7 | Relâcher le bouton | **Aucune** fenêtre supplémentaire |
@@ -86,6 +86,8 @@ l'emplacement du poste fixe.
 
 | Symptôme | Cause probable |
 |---|---|
+| La fenêtre d'ajout reste affichée en permanence | feuille de style périmée en cache — recharger avec `Ctrl+Maj+R` |
+| Fenêtre ambre alors que la boîte d'ajout est ouverte | l'écoute n'est plus armée : le navigateur ne joint plus le banc, vérifier la pastille |
 | `Permission denied` sur le port | l'utilisateur `banc` n'est pas dans `dialout` |
 | Trois fenêtres par appui | déduplication inopérante — ouvrir une anomalie |
 | Aucune fenêtre, pastille verte | mauvais dongle, ou bouton hors bande 868 MHz |

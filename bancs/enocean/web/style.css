@@ -17,6 +17,12 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* L'attribut `hidden` du HTML n'est qu'un `display: none` de la feuille par
+   défaut du navigateur : LA MOINDRE règle d'auteur déclarant `display` le bat.
+   `.voile` déclare `display: flex`, ce qui rendait la fenêtre d'ajout visible
+   en permanence. Cette règle rétablit l'attribut pour tout le document. */
+[hidden] { display: none !important; }
+
 body {
   background: var(--fond);
   color: var(--texte);
@@ -112,6 +118,10 @@ input:focus { outline: 2px solid var(--bleu); outline-offset: -1px; }
 @media (prefers-reduced-motion: reduce) { .onde { animation: none; opacity: .7; } }
 
 .capture { text-align: center; padding: 1.1rem; background: #14251a; border: 1px solid var(--vert); border-radius: var(--rayon); }
+.capture.maj { animation: flash .5s ease-out; }
+@keyframes flash { from { background: rgba(63,185,80,.35); } }
+@media (prefers-reduced-motion: reduce) { .capture.maj { animation: none; } }
+
 .capture .code {
   font-family: ui-monospace, Menlo, Consolas, monospace;
   font-size: 1.6rem; font-weight: 600; color: var(--vert-clair); letter-spacing: .06em;

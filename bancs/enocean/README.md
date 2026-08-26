@@ -15,7 +15,9 @@ des `PTM 210`.
 - **Liste des boutons enregistrés**, avec nom, identifiant et heure du dernier
   appui vu ;
 - **Ajout d'un bouton** de deux façons — saisir l'identifiant, ou **le détecter
-  en appuyant dessus** ;
+  en appuyant dessus**. Tant que la fenêtre d'ajout est ouverte, le banc écoute :
+  l'appui d'un bouton **remplit l'identifiant tout seul**, dans le panneau de
+  détection comme dans le champ de saisie ;
 - **Fenêtre verte à chaque appui** : nom, code, heure et niveau reçu.
 
 Un appui d'un bouton **non enregistré** ouvre une fenêtre **ambre** plutôt que
@@ -45,6 +47,7 @@ points et relevé de portée.
 | Appui sur un bouton **inconnu** | Fenêtre **ambre** « Bouton non enregistré » |
 | **Un** appui | **Une seule** fenêtre — jamais trois |
 | Relâchement | Aucune fenêtre supplémentaire |
+| Fenêtre d'ajout ouverte, puis appui | L'identifiant **se remplit seul** — aucune fenêtre ambre |
 
 Un appui qui produit trois fenêtres, ou deux fenêtres par pression, est un
 défaut : voir la section suivante.
