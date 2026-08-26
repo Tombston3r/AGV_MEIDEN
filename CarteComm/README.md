@@ -28,6 +28,14 @@ Le relevé du projet confirme le brochage : `NSS`→`IO5`, `SCK`→`IO18`,
 n'est pas câblée** : un module figé ne se récupère qu'en coupant l'alimentation
 de la carte.
 
+## Bancs d'essai
+
+[`banc_enocean/`](banc_enocean/) — service web à déployer sur une **UniPi E413**
+avec dongle EnOcean USB : enregistre les boutons `PTM 210`, les détecte à
+l'appui, et affiche une fenêtre verte à chaque pression. Il ne dépend d'aucune
+architecture et sert à valider les boutons **avant** que le choix ne soit
+tranché. 17 tests, exécutables sans matériel.
+
 ## Choisir une architecture
 
 📊 **[`COMPARAISON.md`](COMPARAISON.md) — document d'aide à la décision.**

@@ -1,0 +1,29 @@
+[Unit]
+Description=Banc d'essai des boutons EnOcean (AGV MEIDEN)
+Documentation=file:/opt/banc-enocean/README.md
+After=network.target
+# Le dongle est un port série USB : on attend qu'il soit là plutôt que
+# d'échouer au démarrage si la UniPi boote avant l'énumération USB.
+Wants=dev-serial-by\x2did.device
+
+[Service]
+Type=exec
+User=banc
+Group=dialout
+WorkingDirectory=/opt/banc-enocean
+ExecStart=/usr/bin/python3 -m banc_enocean --http-port 8080
+Restart=always
+RestartSec=3
+
+# Le service n'a besoin que de son registre et du port série.
+StateDirectory=banc-enocean
+Environment=HOME=/var/lib/banc-enocean
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/var/lib/banc-enocean
+DeviceAllow=char-ttyUSB rw
+
+[Install]
+WantedBy=multi-user.target

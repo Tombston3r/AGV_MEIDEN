@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "banc-enocean"
+version = "1.0.0"
+description = "Banc d'essai des boutons EnOcean pour l'AGV MEIDEN"
+requires-python = ">=3.9"
+# Aucune dépendance obligatoire : le banc démarre en simulation sur n'importe
+# quelle machine. pyserial n'est requis que pour lire le vrai dongle.
+dependencies = []
+
+[project.optional-dependencies]
+dongle = ["pyserial>=3.5"]
+
+[project.scripts]
+banc-enocean = "banc_enocean.__main__:main"
+
+[tool.setuptools]
+packages = ["banc_enocean"]

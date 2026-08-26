@@ -7220,748 +7220,754 @@
 		)
 	)
 	(junction
-		(at 264.16 88.9)
+		(at 273.05 95.25)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "04056ee4-7d95-4265-a41b-fb5ebfb39fc2")
 	)
 	(junction
-		(at 229.87 78.74)
+		(at 238.76 85.09)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "05035413-36ec-455e-a6da-7d1eed03ef31")
 	)
 	(junction
-		(at 194.31 119.38)
+		(at 203.2 125.73)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "057e1ba5-8f18-4362-87c9-b385e7d41110")
 	)
 	(junction
-		(at 267.97 137.16)
+		(at 276.86 143.51)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "06d6d4cb-eccc-4d16-bde5-b3c70434b247")
 	)
 	(junction
-		(at 233.68 91.44)
+		(at 242.57 97.79)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "09045929-da4d-4c67-b996-44ca1efb3cb4")
 	)
 	(junction
-		(at 233.68 125.73)
+		(at 242.57 132.08)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "0a762877-e11a-43dc-be19-c34edf50ade5")
 	)
 	(junction
-		(at 179.07 119.38)
+		(at 187.96 125.73)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "1133ff84-7541-4a6f-bfae-6cdb8380d75f")
 	)
 	(junction
-		(at 182.88 73.66)
+		(at 191.77 80.01)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "11d695d8-562f-486c-bf59-5bf8ca64af4a")
 	)
 	(junction
-		(at 34.29 171.45)
+		(at 43.18 177.8)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "1228d391-9193-48ff-b5f7-319366825678")
 	)
 	(junction
-		(at 251.46 27.94)
+		(at 260.35 34.29)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "12932bac-51cb-46cb-afbf-506e41aa77b7")
 	)
 	(junction
-		(at 246.38 114.3)
+		(at 255.27 120.65)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "15aef058-3114-44b5-b17e-f0ea1984ae00")
 	)
 	(junction
-		(at 185.42 119.38)
+		(at 194.31 125.73)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "17e87067-6dd3-4350-afdd-587f19f27dac")
 	)
 	(junction
-		(at 226.06 88.9)
+		(at 234.95 95.25)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "1852c6a9-2559-4dbb-a1d3-f587b962361f")
 	)
 	(junction
-		(at 215.9 121.92)
+		(at 224.79 128.27)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "18842a40-3eae-4dd4-a349-66fac69c464d")
 	)
 	(junction
-		(at 179.07 102.87)
+		(at 187.96 109.22)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "21ef9272-8ad2-4675-843c-0be7c6bd1378")
 	)
 	(junction
-		(at 167.64 88.9)
+		(at 176.53 95.25)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "29f57d4a-c8a3-4c99-8418-83bbc77d3cc5")
 	)
 	(junction
-		(at 162.56 139.7)
+		(at 171.45 146.05)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "2a91e918-bf84-417f-899e-80fbad466193")
 	)
 	(junction
-		(at 248.92 137.16)
+		(at 257.81 143.51)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "2ee11b30-77eb-4463-a09f-c1f2a9b5febf")
 	)
 	(junction
-		(at 179.07 96.52)
+		(at 187.96 102.87)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "3b08945d-5c1c-4a64-a1b2-3439a7476e8c")
 	)
 	(junction
-		(at 261.62 137.16)
+		(at 270.51 143.51)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "3dbead6b-a163-4d8f-a7ef-6d2e71ef95a5")
 	)
 	(junction
-		(at 256.54 139.7)
+		(at 265.43 146.05)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "3def7965-d8fb-45ea-8f20-d957d741d91f")
 	)
 	(junction
-		(at 271.78 109.22)
+		(at 280.67 115.57)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4587d8c9-6d7c-4490-ad7e-12be7561b052")
 	)
 	(junction
-		(at 223.52 132.08)
+		(at 232.41 138.43)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "502ad416-7e1f-400f-b7c0-c0ee7f68ac0c")
 	)
 	(junction
-		(at 274.32 116.84)
+		(at 283.21 123.19)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "52342dc6-91eb-4176-a88c-615633d30c1a")
 	)
 	(junction
-		(at 236.22 80.01)
+		(at 245.11 86.36)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "54d691be-e055-469c-8415-78ce3f3689a6")
 	)
 	(junction
-		(at 248.92 129.54)
+		(at 257.81 135.89)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "554cfdb8-cc6d-4938-9c3e-69114515e8ca")
 	)
 	(junction
-		(at 171.45 86.36)
+		(at 180.34 92.71)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "57bd1123-4876-4c75-84d2-aa5ebe1f7117")
 	)
 	(junction
-		(at 189.23 68.58)
+		(at 198.12 74.93)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "590ee91d-5bc6-41db-ac56-16eee485906e")
 	)
 	(junction
-		(at 55.88 128.27)
+		(at 64.77 134.62)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "5935eb17-a953-4184-9cbb-c7bd52ae39c8")
 	)
 	(junction
-		(at 271.78 134.62)
+		(at 280.67 140.97)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "59eb8f29-a54f-4fd8-b64f-e2b163c64491")
 	)
 	(junction
-		(at 234.95 99.06)
+		(at 243.84 105.41)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "5a2a510c-0186-4e16-a21d-251615a1bfaf")
 	)
 	(junction
-		(at 264.16 106.68)
+		(at 273.05 113.03)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "5b24f8f2-9786-4b34-b3bf-5ba312c13bfb")
 	)
 	(junction
-		(at 242.57 109.22)
+		(at 251.46 115.57)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "5c4824d4-ce95-4a15-8011-56e19ff8886c")
 	)
 	(junction
-		(at 234.95 106.68)
+		(at 243.84 113.03)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "5d3e3450-45b6-4cf6-922a-afb6a8dc5934")
 	)
 	(junction
-		(at 160.02 78.74)
+		(at 168.91 85.09)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "6769029d-00d6-40df-a890-2a05f3c1aff2")
 	)
 	(junction
-		(at 168.91 133.35)
+		(at 177.8 139.7)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "6ad29d88-2381-4721-af3b-9c14633b4d9c")
 	)
 	(junction
-		(at 209.55 78.74)
+		(at 218.44 85.09)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "6bf8cfa7-9d8c-4c77-b440-aeaeb170cca8")
 	)
 	(junction
-		(at 179.07 114.3)
+		(at 187.96 120.65)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "6e6c287a-ce51-43da-be82-11bc67de377b")
 	)
 	(junction
-		(at 201.93 76.2)
+		(at 210.82 82.55)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "6e7c1f5f-50f6-42da-b440-86bb5ddc0a41")
 	)
 	(junction
-		(at 259.08 88.9)
+		(at 267.97 95.25)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "709b0a94-a27a-4da1-a2ee-e7d9c1624a44")
 	)
 	(junction
-		(at 241.3 135.89)
+		(at 250.19 142.24)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "73e92fc9-1d0b-43ae-9134-85f9e6263fd5")
 	)
 	(junction
-		(at 59.69 162.56)
+		(at 68.58 168.91)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "75b2cbd2-ae58-4221-992b-3f5db50bf657")
 	)
 	(junction
-		(at 266.7 99.06)
+		(at 275.59 105.41)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "7eb3f20f-93fa-4156-b0ca-023df6ccb476")
 	)
 	(junction
-		(at 182.88 66.04)
+		(at 191.77 72.39)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "80025aa6-5283-486f-a8ff-6dfe17f1edcf")
 	)
 	(junction
-		(at 264.16 99.06)
+		(at 273.05 105.41)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "807beeca-b2f6-44f8-9a3f-cc42681061d5")
 	)
 	(junction
-		(at 185.42 133.35)
+		(at 194.31 139.7)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "80f13d4e-5693-44af-b38f-9d53fbca702c")
 	)
 	(junction
-		(at 201.93 129.54)
+		(at 210.82 135.89)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "82eb1a8c-9db5-4bc4-b64d-a16904c3f5ca")
 	)
 	(junction
-		(at 278.13 86.36)
+		(at 287.02 92.71)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "84720da1-8aa0-47ab-a013-6f98ec170a5f")
 	)
 	(junction
-		(at 44.45 184.15)
+		(at 53.34 190.5)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "8a6e1c4d-a960-4406-86a9-de3fd685b95e")
 	)
 	(junction
-		(at 271.78 142.24)
+		(at 280.67 148.59)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "8a6fdfd9-47a4-4f5f-8770-99fbab4b9295")
 	)
 	(junction
-		(at 273.05 83.82)
+		(at 281.94 90.17)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "8f920dc4-71f2-4beb-bb2e-36fbfcab9ab8")
 	)
 	(junction
-		(at 194.31 127)
+		(at 203.2 133.35)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "910d28e3-d6c2-4e86-9d52-6170813f30bb")
 	)
 	(junction
-		(at 201.93 68.58)
+		(at 210.82 74.93)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "959ee340-7604-4bb7-89a3-f25cfaab6738")
 	)
 	(junction
-		(at 232.41 80.01)
+		(at 241.3 86.36)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "99ccb65a-5a48-4123-a8fd-c953e8627444")
 	)
 	(junction
-		(at 274.32 109.22)
+		(at 283.21 115.57)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "9bcb4e6f-4843-4a78-89e4-8dd837362deb")
 	)
 	(junction
-		(at 165.1 111.76)
+		(at 173.99 118.11)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "9da2cb70-c5e5-4ac6-996d-8a3b2cb6f1bf")
 	)
 	(junction
-		(at 259.08 96.52)
+		(at 267.97 102.87)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a6f5430e-453d-4089-a01f-49f3ef350c79")
 	)
 	(junction
-		(at 179.07 132.08)
+		(at 187.96 138.43)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "aa13f11c-9c2a-4d5d-88c9-015d05c57d53")
 	)
 	(junction
-		(at 276.86 76.2)
+		(at 285.75 82.55)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b0968228-e4c1-4891-9bec-add03d3cf12a")
 	)
 	(junction
-		(at 52.07 162.56)
+		(at 60.96 168.91)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b5562aae-964a-4e01-91fb-c1c0f595594d")
 	)
 	(junction
-		(at 171.45 93.98)
+		(at 180.34 100.33)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b82e2bc8-f21e-410d-9a1a-78405018840e")
 	)
 	(junction
-		(at 261.62 144.78)
+		(at 270.51 151.13)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b8aa159e-3440-464e-b79d-3c9dcff61239")
 	)
 	(junction
-		(at 210.82 91.44)
+		(at 219.71 97.79)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b9dcca7f-e452-498c-9476-9f8c2d6b3a6f")
 	)
 	(junction
-		(at 173.99 139.7)
+		(at 182.88 146.05)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "bc5e44e2-fbad-4b2e-9fdd-6222174cca53")
 	)
 	(junction
-		(at 246.38 121.92)
+		(at 255.27 128.27)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c6c9ab14-f5b4-4d03-91b3-120b377a12cb")
 	)
 	(junction
-		(at 226.06 80.01)
+		(at 234.95 86.36)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c835fcef-5fe3-44b5-af66-4ca691f6c52c")
 	)
 	(junction
-		(at 160.02 86.36)
+		(at 168.91 92.71)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "cb017251-ccba-4877-9e6a-0c1929c44a17")
 	)
 	(junction
-		(at 59.69 184.15)
+		(at 68.58 190.5)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "cd568b89-2cf2-4161-a6a6-aa0e6a55fe74")
 	)
 	(junction
-		(at 233.68 133.35)
+		(at 242.57 139.7)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d11076fe-68cf-40d1-9aca-6472fc5be886")
 	)
 	(junction
-		(at 173.99 147.32)
+		(at 182.88 153.67)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "dd15116d-95de-4079-82bf-405abf1f1645")
 	)
 	(junction
-		(at 92.71 184.15)
+		(at 101.6 190.5)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "dd532f60-b1af-42c8-857a-239641d63c2d")
 	)
 	(junction
-		(at 29.21 128.27)
+		(at 38.1 134.62)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "dd5dcee5-13d1-45c6-a436-3c0c9e9d2318")
 	)
 	(junction
-		(at 229.87 71.12)
+		(at 238.76 77.47)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e0766560-d8ea-45a0-abb0-7fce82321a23")
 	)
 	(junction
-		(at 215.9 83.82)
+		(at 224.79 90.17)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e4c0ec46-8f32-4e4d-8fb5-6e8c1c0a0bfe")
 	)
 	(junction
-		(at 170.18 142.24)
+		(at 179.07 148.59)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e6fa8a91-278d-4e8e-b338-3e9407ef1dad")
 	)
 	(junction
-		(at 215.9 129.54)
+		(at 224.79 135.89)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "f98e5308-7316-4c85-90eb-37843fbc90d0")
 	)
 	(no_connect
-		(at 139.7 104.14)
+		(at 148.59 110.49)
 		(uuid "0731cd47-0144-4514-8965-4b0eeb21e76e")
 	)
 	(no_connect
-		(at 73.66 55.88)
+		(at 82.55 62.23)
 		(uuid "0769036c-c5c6-4b5c-ae0b-8310e4d42ad9")
 	)
 	(no_connect
-		(at 73.66 43.18)
+		(at 82.55 49.53)
 		(uuid "08c3d62b-3ce1-461d-9c92-3532867bb4ee")
 	)
 	(no_connect
-		(at 73.66 124.46)
+		(at 82.55 130.81)
 		(uuid "0f6f0efc-9870-4bb3-b695-b35d29eba287")
 	)
 	(no_connect
-		(at 13.97 68.58)
+		(at 22.86 77.47)
 		(uuid "116adcb9-440c-4f5d-90d7-1c9569c9477b")
 	)
 	(no_connect
-		(at 13.97 86.36)
+		(at 22.86 95.25)
 		(uuid "157bf619-8587-4887-b582-97ca4e342f4a")
 	)
 	(no_connect
-		(at 139.7 71.12)
+		(at 148.59 77.47)
 		(uuid "19766c25-c9fb-4038-ad08-22d70d43f094")
 	)
 	(no_connect
-		(at 39.37 31.75)
+		(at 48.26 38.1)
 		(uuid "1a816416-a66c-4ee5-8928-2a817762fbcd")
 	)
 	(no_connect
-		(at 13.97 101.6)
+		(at 22.86 110.49)
 		(uuid "1a862183-c611-4740-b7ca-284e75b8461f")
 	)
 	(no_connect
-		(at 73.66 101.6)
+		(at 82.55 107.95)
 		(uuid "235c523e-4c9f-4538-be7f-281450b86ab2")
 	)
 	(no_connect
-		(at 113.03 31.75)
+		(at 121.92 38.1)
 		(uuid "2598b7b2-a197-4b48-8060-eb889a832eb9")
 	)
 	(no_connect
-		(at 13.97 106.68)
+		(at 22.86 115.57)
 		(uuid "2f8ea25c-72fd-407b-81a2-c57f9f5c025c")
 	)
 	(no_connect
-		(at 49.53 44.45)
+		(at 58.42 50.8)
 		(uuid "31da27b6-aca0-4d0e-84f9-a9a89d08d368")
 	)
 	(no_connect
-		(at 139.7 109.22)
+		(at 148.59 115.57)
 		(uuid "37550935-3ac4-4b0c-8261-b7532bd19faa")
 	)
 	(no_connect
-		(at 34.29 31.75)
+		(at 43.18 38.1)
 		(uuid "3808c98e-5fd3-426f-b97d-d16ec6a76538")
 	)
 	(no_connect
-		(at 139.7 99.06)
+		(at 148.59 105.41)
 		(uuid "392df707-3510-4574-bdcc-863ba02ccf22")
 	)
 	(no_connect
-		(at 139.7 119.38)
+		(at 148.59 125.73)
 		(uuid "3da40e59-b143-48bf-a2d6-a963367e9d01")
 	)
 	(no_connect
-		(at 54.61 109.22)
+		(at 63.5 118.11)
 		(uuid "3f72cc34-1a82-4bbc-8956-80ffe0f760a6")
 	)
 	(no_connect
-		(at 13.97 73.66)
+		(at 22.86 82.55)
 		(uuid "4402cf8e-853c-4659-bba8-7814965d4bc5")
 	)
 	(no_connect
-		(at 54.61 78.74)
+		(at 63.5 87.63)
 		(uuid "48a7abfe-b91b-4e0a-a92a-11c18b49d8eb")
 	)
 	(no_connect
-		(at 73.66 111.76)
+		(at 82.55 118.11)
 		(uuid "4b922ece-f014-48f3-82ca-d34dc651257d")
 	)
 	(no_connect
-		(at 54.61 73.66)
+		(at 63.5 82.55)
 		(uuid "4eb802ce-58a8-4a3b-90f1-9d44f6161bdb")
 	)
 	(no_connect
-		(at 73.66 142.24)
+		(at 82.55 148.59)
 		(uuid "4f9a0654-f4fc-4645-91b0-c73236eee62c")
 	)
 	(no_connect
-		(at 139.7 114.3)
+		(at 148.59 120.65)
 		(uuid "5090ecd9-f17c-444f-9783-a7c945266bca")
 	)
 	(no_connect
-		(at 36.83 31.75)
+		(at 45.72 38.1)
 		(uuid "5181864d-34a3-4d56-a8d5-7d65a8347841")
 	)
 	(no_connect
-		(at 100.33 31.75)
+		(at 109.22 38.1)
 		(uuid "5a3d03e8-b3b7-406a-af02-33def86023b2")
 	)
 	(no_connect
-		(at 73.66 134.62)
+		(at 82.55 140.97)
 		(uuid "5b436b5b-fd89-4198-adbc-281d5bf7ba2a")
 	)
 	(no_connect
-		(at 73.66 137.16)
+		(at 82.55 143.51)
 		(uuid "5caa84b6-8a89-456f-b1de-628f96076d7a")
 	)
 	(no_connect
-		(at 73.66 96.52)
+		(at 82.55 102.87)
 		(uuid "5df59c36-ca0e-416e-9cd1-0f87bd314bf1")
 	)
 	(no_connect
-		(at 13.97 93.98)
+		(at 22.86 102.87)
 		(uuid "5e9a7e22-e4a3-4776-a5f7-4fc965475026")
 	)
 	(no_connect
-		(at 13.97 71.12)
+		(at 22.86 80.01)
 		(uuid "618b06fe-1615-4720-9b43-bd4b826a024d")
 	)
 	(no_connect
-		(at 54.61 99.06)
+		(at 63.5 107.95)
 		(uuid "65af6a98-d92e-45d2-bf31-c699807b3246")
 	)
 	(no_connect
-		(at 13.97 76.2)
+		(at 22.86 85.09)
 		(uuid "6ba91d62-dc39-4124-9c35-d224c82b2124")
 	)
 	(no_connect
-		(at 105.41 31.75)
+		(at 114.3 38.1)
 		(uuid "812f413a-b9ae-4c99-b023-7171e701a638")
 	)
 	(no_connect
-		(at 13.97 96.52)
+		(at 22.86 105.41)
 		(uuid "816936a2-b741-4445-b697-72571b6b4b18")
 	)
 	(no_connect
-		(at 110.49 31.75)
+		(at 119.38 38.1)
 		(uuid "8628fd97-2f66-4e3c-bae8-af7ba6147f51")
 	)
 	(no_connect
-		(at 54.61 104.14)
+		(at 63.5 113.03)
 		(uuid "88a4e898-a843-45ff-b6ce-688740e70607")
 	)
 	(no_connect
-		(at 73.66 123.19)
+		(at 82.55 129.54)
 		(uuid "8eb71f90-6d2f-40f8-80e9-1238513c523a")
 	)
 	(no_connect
-		(at 73.66 144.78)
+		(at 82.55 151.13)
 		(uuid "96561200-f13a-4e34-a96b-8d0ca588e687")
 	)
 	(no_connect
-		(at 73.66 63.5)
+		(at 82.55 69.85)
 		(uuid "9660eb6b-c669-49aa-854e-1776d327deb8")
 	)
 	(no_connect
-		(at 102.87 31.75)
+		(at 111.76 38.1)
 		(uuid "9b83623c-7024-4da2-84ab-cf9872baae58")
 	)
 	(no_connect
-		(at 54.61 81.28)
+		(at 63.5 90.17)
 		(uuid "a129e9b9-67fc-499c-85ef-f2cf4c4355c5")
 	)
 	(no_connect
-		(at 54.61 111.76)
+		(at 63.5 120.65)
 		(uuid "a2b47386-849a-4ed9-9aaf-7f4356fbf119")
 	)
 	(no_connect
-		(at 54.61 106.68)
+		(at 63.5 115.57)
 		(uuid "a2cc0d92-e134-43a3-9c84-77bd3795bc10")
 	)
 	(no_connect
-		(at 54.61 101.6)
+		(at 63.5 110.49)
 		(uuid "a2e006ac-a7ae-467a-85c9-0e825868d18a")
 	)
 	(no_connect
-		(at 73.66 104.14)
+		(at 82.55 110.49)
 		(uuid "a81d135e-5fcb-4267-aa2c-b151b67b47a7")
 	)
 	(no_connect
-		(at 73.66 93.98)
+		(at 82.55 100.33)
 		(uuid "a9e6063a-3762-49c3-ab96-636358c91c6a")
 	)
 	(no_connect
-		(at 54.61 96.52)
+		(at 63.5 105.41)
 		(uuid "aa1b824f-7e92-4b77-8196-9e550aa3c968")
 	)
 	(no_connect
-		(at 139.7 124.46)
+		(at 148.59 130.81)
 		(uuid "ac133f80-2a9c-412d-9f9a-3a65e3026eb8")
 	)
 	(no_connect
-		(at 73.66 60.96)
+		(at 82.55 67.31)
 		(uuid "b3b56171-c949-46a5-96f5-053b45ef56c7")
 	)
 	(no_connect
-		(at 73.66 45.72)
+		(at 82.55 52.07)
 		(uuid "b4d7a592-6e61-465d-b803-076e0b19e3ee")
 	)
 	(no_connect
-		(at 73.66 109.22)
+		(at 82.55 115.57)
 		(uuid "bb9ea2f9-a7af-45a8-9eb6-17930f012ebf")
 	)
 	(no_connect
-		(at 39.37 57.15)
+		(at 48.26 63.5)
 		(uuid "bf2d8cce-f2a2-44b5-8930-ccb70de91ab8")
 	)
 	(no_connect
-		(at 54.61 71.12)
+		(at 63.5 80.01)
 		(uuid "c4505d40-ba37-4d49-9bf7-0128bc807381")
 	)
 	(no_connect
-		(at 13.97 109.22)
+		(at 22.86 118.11)
 		(uuid "c48cdbcf-cf3c-46d3-90e7-484e12e801db")
 	)
 	(no_connect
-		(at 73.66 116.84)
+		(at 82.55 123.19)
 		(uuid "c56ae19c-7f3e-4403-840b-124f39b8b00e")
 	)
 	(no_connect
-		(at 73.66 106.68)
+		(at 82.55 113.03)
 		(uuid "c66dc823-a02b-4c19-8d72-ef991291ae74")
 	)
 	(no_connect
-		(at 73.66 91.44)
+		(at 82.55 97.79)
 		(uuid "c9316017-e159-4eb2-a523-b9bfdc369c93")
 	)
 	(no_connect
-		(at 41.91 31.75)
+		(at 50.8 38.1)
 		(uuid "d7a3aee3-9d28-46a0-b399-c770767ea96e")
 	)
 	(no_connect
-		(at 31.75 31.75)
+		(at 40.64 38.1)
 		(uuid "e0285309-b887-40d4-bdb1-7356c29c82f5")
 	)
 	(no_connect
-		(at 73.66 114.3)
+		(at 82.55 120.65)
 		(uuid "e07f7927-ae91-45e5-8722-b6cb310f0fcb")
 	)
 	(no_connect
-		(at 13.97 78.74)
+		(at 22.86 87.63)
 		(uuid "e42689d1-441c-4097-86f0-ec45b7df9798")
 	)
 	(no_connect
-		(at 73.66 139.7)
+		(at 82.55 146.05)
 		(uuid "e8bed8e7-622d-4baa-bff9-0b12ee870d88")
 	)
 	(no_connect
-		(at 13.97 81.28)
-		(uuid "ece38b78-5218-423e-812d-f62130a666ab")
-	)
-	(no_connect
-		(at 73.66 99.06)
+		(at 82.55 105.41)
 		(uuid "ef6829bd-63ba-4754-8ea3-f02b523eac79")
 	)
 	(no_connect
-		(at 54.61 76.2)
+		(at 63.5 85.09)
 		(uuid "f0b0e7da-e174-4e6b-ae5f-03bde5441da3")
 	)
 	(no_connect
-		(at 13.97 91.44)
+		(at 22.86 100.33)
 		(uuid "f81238b8-0e87-420c-a6f4-3dec551d893a")
 	)
 	(no_connect
-		(at 13.97 104.14)
+		(at 22.86 113.03)
 		(uuid "f837e78f-e390-4b0f-8bba-5e73539dc12d")
 	)
 	(no_connect
-		(at 73.66 50.8)
+		(at 82.55 57.15)
 		(uuid "f9ce5be0-b551-421d-ae52-28e7cc700ef4")
 	)
 	(no_connect
-		(at 107.95 31.75)
+		(at 116.84 38.1)
 		(uuid "feafbc76-28c2-408f-bef2-862c37984da1")
 	)
 	(no_connect
-		(at 13.97 83.82)
+		(at 22.86 92.71)
 		(uuid "ff4224f3-49c4-454d-9cc4-029a576f7ce4")
 	)
 	(wire
 		(pts
-			(xy 167.64 143.51) (xy 172.72 143.51)
+			(xy 48.26 63.5) (xy 48.26 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "013a5a59-4dca-48ac-b552-5e6b4b2e5411")
+	)
+	(wire
+		(pts
+			(xy 176.53 149.86) (xy 181.61 149.86)
 		)
 		(stroke
 			(width 0)
@@ -7971,7 +7977,7 @@
 	)
 	(wire
 		(pts
-			(xy 173.99 132.08) (xy 179.07 132.08)
+			(xy 182.88 138.43) (xy 187.96 138.43)
 		)
 		(stroke
 			(width 0)
@@ -7981,7 +7987,7 @@
 	)
 	(wire
 		(pts
-			(xy 213.36 34.29) (xy 213.36 27.94)
+			(xy 222.25 40.64) (xy 222.25 34.29)
 		)
 		(stroke
 			(width 0)
@@ -7991,7 +7997,7 @@
 	)
 	(wire
 		(pts
-			(xy 200.66 129.54) (xy 201.93 129.54)
+			(xy 209.55 135.89) (xy 210.82 135.89)
 		)
 		(stroke
 			(width 0)
@@ -8002,7 +8008,7 @@
 	)
 	(wire
 		(pts
-			(xy 232.41 132.08) (xy 232.41 125.73)
+			(xy 241.3 138.43) (xy 241.3 132.08)
 		)
 		(stroke
 			(width 0)
@@ -8013,7 +8019,7 @@
 	)
 	(wire
 		(pts
-			(xy 236.22 33.02) (xy 280.67 33.02)
+			(xy 245.11 39.37) (xy 289.56 39.37)
 		)
 		(stroke
 			(width 0)
@@ -8023,7 +8029,7 @@
 	)
 	(wire
 		(pts
-			(xy 265.43 125.73) (xy 241.3 125.73)
+			(xy 274.32 132.08) (xy 250.19 132.08)
 		)
 		(stroke
 			(width 0)
@@ -8033,7 +8039,7 @@
 	)
 	(wire
 		(pts
-			(xy 146.05 160.02) (xy 146.05 53.34)
+			(xy 154.94 166.37) (xy 154.94 59.69)
 		)
 		(stroke
 			(width 0)
@@ -8043,7 +8049,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 78.74) (xy 158.75 78.74)
+			(xy 148.59 85.09) (xy 167.64 85.09)
 		)
 		(stroke
 			(width 0)
@@ -8053,7 +8059,7 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 147.32) (xy 34.29 147.32)
+			(xy 82.55 153.67) (xy 43.18 153.67)
 		)
 		(stroke
 			(width 0)
@@ -8063,7 +8069,7 @@
 	)
 	(wire
 		(pts
-			(xy 182.88 134.62) (xy 182.88 135.89)
+			(xy 191.77 140.97) (xy 191.77 142.24)
 		)
 		(stroke
 			(width 0)
@@ -8073,7 +8079,7 @@
 	)
 	(wire
 		(pts
-			(xy 276.86 27.94) (xy 251.46 27.94)
+			(xy 285.75 34.29) (xy 260.35 34.29)
 		)
 		(stroke
 			(width 0)
@@ -8084,7 +8090,7 @@
 	)
 	(wire
 		(pts
-			(xy 233.68 133.35) (xy 233.68 134.62)
+			(xy 242.57 139.7) (xy 242.57 140.97)
 		)
 		(stroke
 			(width 0)
@@ -8094,7 +8100,7 @@
 	)
 	(wire
 		(pts
-			(xy 186.69 62.23) (xy 218.44 62.23)
+			(xy 195.58 68.58) (xy 227.33 68.58)
 		)
 		(stroke
 			(width 0)
@@ -8104,7 +8110,7 @@
 	)
 	(wire
 		(pts
-			(xy 168.91 88.9) (xy 226.06 88.9)
+			(xy 177.8 95.25) (xy 234.95 95.25)
 		)
 		(stroke
 			(width 0)
@@ -8114,7 +8120,7 @@
 	)
 	(wire
 		(pts
-			(xy 260.35 137.16) (xy 261.62 137.16)
+			(xy 269.24 143.51) (xy 270.51 143.51)
 		)
 		(stroke
 			(width 0)
@@ -8125,7 +8131,7 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 153.67) (xy 139.7 153.67)
+			(xy 64.77 160.02) (xy 148.59 160.02)
 		)
 		(stroke
 			(width 0)
@@ -8135,7 +8141,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 48.26) (xy 147.32 48.26)
+			(xy 148.59 54.61) (xy 156.21 54.61)
 		)
 		(stroke
 			(width 0)
@@ -8145,7 +8151,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 153.67) (xy 139.7 152.4)
+			(xy 148.59 160.02) (xy 148.59 158.75)
 		)
 		(stroke
 			(width 0)
@@ -8155,7 +8161,7 @@
 	)
 	(wire
 		(pts
-			(xy 255.27 139.7) (xy 256.54 139.7)
+			(xy 264.16 146.05) (xy 265.43 146.05)
 		)
 		(stroke
 			(width 0)
@@ -8166,7 +8172,7 @@
 	)
 	(wire
 		(pts
-			(xy 156.21 66.04) (xy 156.21 170.18)
+			(xy 165.1 72.39) (xy 165.1 176.53)
 		)
 		(stroke
 			(width 0)
@@ -8176,7 +8182,7 @@
 	)
 	(wire
 		(pts
-			(xy 154.94 60.96) (xy 154.94 168.91)
+			(xy 163.83 67.31) (xy 163.83 175.26)
 		)
 		(stroke
 			(width 0)
@@ -8186,7 +8192,7 @@
 	)
 	(wire
 		(pts
-			(xy 120.65 165.1) (xy 72.39 165.1)
+			(xy 129.54 171.45) (xy 81.28 171.45)
 		)
 		(stroke
 			(width 0)
@@ -8196,7 +8202,7 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 77.47) (xy 191.77 77.47)
+			(xy 196.85 83.82) (xy 200.66 83.82)
 		)
 		(stroke
 			(width 0)
@@ -8206,7 +8212,7 @@
 	)
 	(wire
 		(pts
-			(xy 148.59 162.56) (xy 148.59 43.18)
+			(xy 157.48 168.91) (xy 157.48 49.53)
 		)
 		(stroke
 			(width 0)
@@ -8216,7 +8222,7 @@
 	)
 	(wire
 		(pts
-			(xy 168.91 77.47) (xy 168.91 78.74)
+			(xy 177.8 83.82) (xy 177.8 85.09)
 		)
 		(stroke
 			(width 0)
@@ -8226,7 +8232,7 @@
 	)
 	(wire
 		(pts
-			(xy 234.95 106.68) (xy 237.49 106.68)
+			(xy 243.84 113.03) (xy 246.38 113.03)
 		)
 		(stroke
 			(width 0)
@@ -8236,7 +8242,7 @@
 	)
 	(wire
 		(pts
-			(xy 171.45 86.36) (xy 177.8 86.36)
+			(xy 180.34 92.71) (xy 186.69 92.71)
 		)
 		(stroke
 			(width 0)
@@ -8247,7 +8253,7 @@
 	)
 	(wire
 		(pts
-			(xy 138.43 167.64) (xy 153.67 167.64)
+			(xy 147.32 173.99) (xy 162.56 173.99)
 		)
 		(stroke
 			(width 0)
@@ -8257,7 +8263,7 @@
 	)
 	(wire
 		(pts
-			(xy 52.07 162.56) (xy 52.07 176.53)
+			(xy 60.96 168.91) (xy 60.96 182.88)
 		)
 		(stroke
 			(width 0)
@@ -8267,7 +8273,7 @@
 	)
 	(wire
 		(pts
-			(xy 247.65 135.89) (xy 247.65 129.54)
+			(xy 256.54 142.24) (xy 256.54 135.89)
 		)
 		(stroke
 			(width 0)
@@ -8278,7 +8284,7 @@
 	)
 	(wire
 		(pts
-			(xy 212.09 78.74) (xy 229.87 78.74)
+			(xy 220.98 85.09) (xy 238.76 85.09)
 		)
 		(stroke
 			(width 0)
@@ -8288,7 +8294,7 @@
 	)
 	(wire
 		(pts
-			(xy 59.69 88.9) (xy 54.61 88.9)
+			(xy 68.58 97.79) (xy 63.5 97.79)
 		)
 		(stroke
 			(width 0)
@@ -8298,7 +8304,7 @@
 	)
 	(wire
 		(pts
-			(xy 212.09 80.01) (xy 212.09 78.74)
+			(xy 220.98 86.36) (xy 220.98 85.09)
 		)
 		(stroke
 			(width 0)
@@ -8308,7 +8314,7 @@
 	)
 	(wire
 		(pts
-			(xy 179.07 33.02) (xy 195.58 33.02)
+			(xy 187.96 39.37) (xy 204.47 39.37)
 		)
 		(stroke
 			(width 0)
@@ -8318,7 +8324,7 @@
 	)
 	(wire
 		(pts
-			(xy 236.22 80.01) (xy 232.41 80.01)
+			(xy 245.11 86.36) (xy 241.3 86.36)
 		)
 		(stroke
 			(width 0)
@@ -8329,7 +8335,7 @@
 	)
 	(wire
 		(pts
-			(xy 63.5 172.72) (xy 140.97 172.72)
+			(xy 72.39 179.07) (xy 149.86 179.07)
 		)
 		(stroke
 			(width 0)
@@ -8339,7 +8345,7 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 134.62) (xy 233.68 134.62)
+			(xy 196.85 140.97) (xy 242.57 140.97)
 		)
 		(stroke
 			(width 0)
@@ -8349,7 +8355,7 @@
 	)
 	(wire
 		(pts
-			(xy 261.62 106.68) (xy 261.62 101.6)
+			(xy 270.51 113.03) (xy 270.51 107.95)
 		)
 		(stroke
 			(width 0)
@@ -8359,7 +8365,7 @@
 	)
 	(wire
 		(pts
-			(xy 280.67 109.22) (xy 280.67 119.38)
+			(xy 289.56 115.57) (xy 289.56 125.73)
 		)
 		(stroke
 			(width 0)
@@ -8370,7 +8376,7 @@
 	)
 	(wire
 		(pts
-			(xy 62.23 48.26) (xy 73.66 48.26)
+			(xy 71.12 54.61) (xy 82.55 54.61)
 		)
 		(stroke
 			(width 0)
@@ -8380,7 +8386,7 @@
 	)
 	(wire
 		(pts
-			(xy 201.93 76.2) (xy 204.47 76.2)
+			(xy 210.82 82.55) (xy 213.36 82.55)
 		)
 		(stroke
 			(width 0)
@@ -8390,7 +8396,7 @@
 	)
 	(wire
 		(pts
-			(xy 233.68 38.1) (xy 267.97 38.1)
+			(xy 242.57 44.45) (xy 276.86 44.45)
 		)
 		(stroke
 			(width 0)
@@ -8400,7 +8406,7 @@
 	)
 	(wire
 		(pts
-			(xy 185.42 133.35) (xy 185.42 134.62)
+			(xy 194.31 139.7) (xy 194.31 140.97)
 		)
 		(stroke
 			(width 0)
@@ -8411,7 +8417,7 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 175.26) (xy 130.81 175.26)
+			(xy 69.85 181.61) (xy 139.7 181.61)
 		)
 		(stroke
 			(width 0)
@@ -8421,7 +8427,7 @@
 	)
 	(wire
 		(pts
-			(xy 59.69 184.15) (xy 92.71 184.15)
+			(xy 68.58 190.5) (xy 101.6 190.5)
 		)
 		(stroke
 			(width 0)
@@ -8431,7 +8437,7 @@
 	)
 	(wire
 		(pts
-			(xy 246.38 31.75) (xy 281.94 31.75)
+			(xy 255.27 38.1) (xy 290.83 38.1)
 		)
 		(stroke
 			(width 0)
@@ -8441,7 +8447,7 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 76.2) (xy 157.48 76.2)
+			(xy 196.85 82.55) (xy 166.37 82.55)
 		)
 		(stroke
 			(width 0)
@@ -8451,7 +8457,7 @@
 	)
 	(wire
 		(pts
-			(xy 153.67 167.64) (xy 153.67 55.88)
+			(xy 162.56 173.99) (xy 162.56 62.23)
 		)
 		(stroke
 			(width 0)
@@ -8461,7 +8467,7 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 78.74) (xy 73.66 78.74)
+			(xy 81.28 85.09) (xy 82.55 85.09)
 		)
 		(stroke
 			(width 0)
@@ -8471,7 +8477,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 142.24) (xy 167.64 142.24)
+			(xy 148.59 148.59) (xy 176.53 148.59)
 		)
 		(stroke
 			(width 0)
@@ -8481,7 +8487,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 83.82) (xy 207.01 83.82)
+			(xy 148.59 90.17) (xy 215.9 90.17)
 		)
 		(stroke
 			(width 0)
@@ -8491,7 +8497,7 @@
 	)
 	(wire
 		(pts
-			(xy 226.06 27.94) (xy 226.06 57.15)
+			(xy 234.95 34.29) (xy 234.95 63.5)
 		)
 		(stroke
 			(width 0)
@@ -8501,7 +8507,7 @@
 	)
 	(wire
 		(pts
-			(xy 241.3 99.06) (xy 241.3 109.22)
+			(xy 250.19 105.41) (xy 250.19 115.57)
 		)
 		(stroke
 			(width 0)
@@ -8512,7 +8518,7 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 121.92) (xy 222.25 132.08)
+			(xy 231.14 128.27) (xy 231.14 138.43)
 		)
 		(stroke
 			(width 0)
@@ -8523,7 +8529,7 @@
 	)
 	(wire
 		(pts
-			(xy 179.07 132.08) (xy 181.61 132.08)
+			(xy 187.96 138.43) (xy 190.5 138.43)
 		)
 		(stroke
 			(width 0)
@@ -8533,7 +8539,7 @@
 	)
 	(wire
 		(pts
-			(xy 143.51 157.48) (xy 97.79 157.48)
+			(xy 152.4 163.83) (xy 106.68 163.83)
 		)
 		(stroke
 			(width 0)
@@ -8543,7 +8549,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 86.36) (xy 160.02 86.36)
+			(xy 148.59 92.71) (xy 168.91 92.71)
 		)
 		(stroke
 			(width 0)
@@ -8553,7 +8559,7 @@
 	)
 	(wire
 		(pts
-			(xy 168.91 78.74) (xy 207.01 78.74)
+			(xy 177.8 85.09) (xy 215.9 85.09)
 		)
 		(stroke
 			(width 0)
@@ -8563,7 +8569,7 @@
 	)
 	(wire
 		(pts
-			(xy 267.97 134.62) (xy 271.78 134.62)
+			(xy 276.86 140.97) (xy 280.67 140.97)
 		)
 		(stroke
 			(width 0)
@@ -8574,7 +8580,7 @@
 	)
 	(wire
 		(pts
-			(xy 125.73 184.15) (xy 125.73 156.21)
+			(xy 134.62 190.5) (xy 134.62 162.56)
 		)
 		(stroke
 			(width 0)
@@ -8584,7 +8590,7 @@
 	)
 	(wire
 		(pts
-			(xy 62.23 173.99) (xy 62.23 48.26)
+			(xy 71.12 180.34) (xy 71.12 54.61)
 		)
 		(stroke
 			(width 0)
@@ -8594,7 +8600,7 @@
 	)
 	(wire
 		(pts
-			(xy 204.47 130.81) (xy 204.47 129.54)
+			(xy 213.36 137.16) (xy 213.36 135.89)
 		)
 		(stroke
 			(width 0)
@@ -8604,7 +8610,7 @@
 	)
 	(wire
 		(pts
-			(xy 133.35 184.15) (xy 133.35 166.37)
+			(xy 142.24 190.5) (xy 142.24 172.72)
 		)
 		(stroke
 			(width 0)
@@ -8614,7 +8620,7 @@
 	)
 	(wire
 		(pts
-			(xy 157.48 76.2) (xy 157.48 81.28)
+			(xy 166.37 82.55) (xy 166.37 87.63)
 		)
 		(stroke
 			(width 0)
@@ -8624,7 +8630,7 @@
 	)
 	(wire
 		(pts
-			(xy 259.08 96.52) (xy 261.62 96.52)
+			(xy 267.97 102.87) (xy 270.51 102.87)
 		)
 		(stroke
 			(width 0)
@@ -8634,7 +8640,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 128.27) (xy 48.26 128.27)
+			(xy 38.1 134.62) (xy 57.15 134.62)
 		)
 		(stroke
 			(width 0)
@@ -8644,7 +8650,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 137.16) (xy 248.92 137.16)
+			(xy 148.59 143.51) (xy 257.81 143.51)
 		)
 		(stroke
 			(width 0)
@@ -8654,7 +8660,7 @@
 	)
 	(wire
 		(pts
-			(xy 214.63 128.27) (xy 214.63 121.92)
+			(xy 223.52 134.62) (xy 223.52 128.27)
 		)
 		(stroke
 			(width 0)
@@ -8665,7 +8671,7 @@
 	)
 	(wire
 		(pts
-			(xy 167.64 142.24) (xy 167.64 143.51)
+			(xy 176.53 148.59) (xy 176.53 149.86)
 		)
 		(stroke
 			(width 0)
@@ -8675,7 +8681,7 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 68.58) (xy 55.88 62.23)
+			(xy 64.77 77.47) (xy 64.77 68.58)
 		)
 		(stroke
 			(width 0)
@@ -8685,7 +8691,7 @@
 	)
 	(wire
 		(pts
-			(xy 238.76 27.94) (xy 238.76 36.83)
+			(xy 247.65 34.29) (xy 247.65 43.18)
 		)
 		(stroke
 			(width 0)
@@ -8695,7 +8701,7 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 93.98) (xy 55.88 128.27)
+			(xy 64.77 102.87) (xy 64.77 134.62)
 		)
 		(stroke
 			(width 0)
@@ -8705,7 +8711,7 @@
 	)
 	(wire
 		(pts
-			(xy 100.33 184.15) (xy 100.33 170.18)
+			(xy 109.22 190.5) (xy 109.22 176.53)
 		)
 		(stroke
 			(width 0)
@@ -8715,7 +8721,7 @@
 	)
 	(wire
 		(pts
-			(xy 256.54 139.7) (xy 260.35 139.7)
+			(xy 265.43 146.05) (xy 269.24 146.05)
 		)
 		(stroke
 			(width 0)
@@ -8726,7 +8732,7 @@
 	)
 	(wire
 		(pts
-			(xy 264.16 88.9) (xy 264.16 99.06)
+			(xy 273.05 95.25) (xy 273.05 105.41)
 		)
 		(stroke
 			(width 0)
@@ -8737,7 +8743,7 @@
 	)
 	(wire
 		(pts
-			(xy 171.45 139.7) (xy 173.99 139.7)
+			(xy 180.34 146.05) (xy 182.88 146.05)
 		)
 		(stroke
 			(width 0)
@@ -8748,7 +8754,7 @@
 	)
 	(wire
 		(pts
-			(xy 185.42 119.38) (xy 194.31 119.38)
+			(xy 194.31 125.73) (xy 203.2 125.73)
 		)
 		(stroke
 			(width 0)
@@ -8759,7 +8765,7 @@
 	)
 	(wire
 		(pts
-			(xy 105.41 184.15) (xy 105.41 168.91)
+			(xy 114.3 190.5) (xy 114.3 175.26)
 		)
 		(stroke
 			(width 0)
@@ -8769,7 +8775,7 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 86.36) (xy 68.58 86.36)
+			(xy 82.55 92.71) (xy 77.47 92.71)
 		)
 		(stroke
 			(width 0)
@@ -8779,7 +8785,7 @@
 	)
 	(wire
 		(pts
-			(xy 271.78 35.56) (xy 241.3 35.56)
+			(xy 280.67 41.91) (xy 250.19 41.91)
 		)
 		(stroke
 			(width 0)
@@ -8789,7 +8795,7 @@
 	)
 	(wire
 		(pts
-			(xy 173.99 93.98) (xy 171.45 93.98)
+			(xy 182.88 100.33) (xy 180.34 100.33)
 		)
 		(stroke
 			(width 0)
@@ -8799,7 +8805,7 @@
 	)
 	(wire
 		(pts
-			(xy 228.6 27.94) (xy 228.6 44.45)
+			(xy 237.49 34.29) (xy 237.49 50.8)
 		)
 		(stroke
 			(width 0)
@@ -8809,7 +8815,7 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 167.64) (xy 110.49 167.64)
+			(xy 78.74 173.99) (xy 119.38 173.99)
 		)
 		(stroke
 			(width 0)
@@ -8819,7 +8825,17 @@
 	)
 	(wire
 		(pts
-			(xy 170.18 132.08) (xy 170.18 31.75)
+			(xy 21.59 69.85) (xy 48.26 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2c9975a5-34f1-49b3-8ead-d69a622ff071")
+	)
+	(wire
+		(pts
+			(xy 179.07 138.43) (xy 179.07 38.1)
 		)
 		(stroke
 			(width 0)
@@ -8829,7 +8845,7 @@
 	)
 	(wire
 		(pts
-			(xy 213.36 120.65) (xy 226.06 120.65)
+			(xy 222.25 127) (xy 234.95 127)
 		)
 		(stroke
 			(width 0)
@@ -8839,7 +8855,7 @@
 	)
 	(wire
 		(pts
-			(xy 232.41 125.73) (xy 233.68 125.73)
+			(xy 241.3 132.08) (xy 242.57 132.08)
 		)
 		(stroke
 			(width 0)
@@ -8850,7 +8866,7 @@
 	)
 	(wire
 		(pts
-			(xy 218.44 63.5) (xy 210.82 63.5)
+			(xy 227.33 69.85) (xy 219.71 69.85)
 		)
 		(stroke
 			(width 0)
@@ -8860,7 +8876,7 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 129.54) (xy 218.44 129.54)
+			(xy 224.79 135.89) (xy 227.33 135.89)
 		)
 		(stroke
 			(width 0)
@@ -8870,7 +8886,7 @@
 	)
 	(wire
 		(pts
-			(xy 57.15 83.82) (xy 54.61 83.82)
+			(xy 66.04 92.71) (xy 63.5 92.71)
 		)
 		(stroke
 			(width 0)
@@ -8880,7 +8896,7 @@
 	)
 	(wire
 		(pts
-			(xy 233.68 91.44) (xy 233.68 99.06)
+			(xy 242.57 97.79) (xy 242.57 105.41)
 		)
 		(stroke
 			(width 0)
@@ -8891,7 +8907,7 @@
 	)
 	(wire
 		(pts
-			(xy 166.37 78.74) (xy 166.37 88.9)
+			(xy 175.26 85.09) (xy 175.26 95.25)
 		)
 		(stroke
 			(width 0)
@@ -8902,7 +8918,7 @@
 	)
 	(wire
 		(pts
-			(xy 120.65 184.15) (xy 120.65 165.1)
+			(xy 129.54 190.5) (xy 129.54 171.45)
 		)
 		(stroke
 			(width 0)
@@ -8912,7 +8928,7 @@
 	)
 	(wire
 		(pts
-			(xy 156.21 170.18) (xy 148.59 170.18)
+			(xy 165.1 176.53) (xy 157.48 176.53)
 		)
 		(stroke
 			(width 0)
@@ -8922,7 +8938,7 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 83.82) (xy 273.05 83.82)
+			(xy 231.14 90.17) (xy 281.94 90.17)
 		)
 		(stroke
 			(width 0)
@@ -8932,7 +8948,7 @@
 	)
 	(wire
 		(pts
-			(xy 168.91 133.35) (xy 168.91 142.24)
+			(xy 177.8 139.7) (xy 177.8 148.59)
 		)
 		(stroke
 			(width 0)
@@ -8943,7 +8959,7 @@
 	)
 	(wire
 		(pts
-			(xy 264.16 86.36) (xy 278.13 86.36)
+			(xy 273.05 92.71) (xy 287.02 92.71)
 		)
 		(stroke
 			(width 0)
@@ -8954,7 +8970,7 @@
 	)
 	(wire
 		(pts
-			(xy 273.05 83.82) (xy 275.59 83.82)
+			(xy 281.94 90.17) (xy 284.48 90.17)
 		)
 		(stroke
 			(width 0)
@@ -8964,7 +8980,7 @@
 	)
 	(wire
 		(pts
-			(xy 168.91 133.35) (xy 168.91 132.08)
+			(xy 177.8 139.7) (xy 177.8 138.43)
 		)
 		(stroke
 			(width 0)
@@ -8975,7 +8991,7 @@
 	)
 	(wire
 		(pts
-			(xy 209.55 68.58) (xy 209.55 66.04)
+			(xy 218.44 74.93) (xy 218.44 72.39)
 		)
 		(stroke
 			(width 0)
@@ -8985,7 +9001,7 @@
 	)
 	(wire
 		(pts
-			(xy 44.45 31.75) (xy 44.45 30.48)
+			(xy 53.34 38.1) (xy 53.34 36.83)
 		)
 		(stroke
 			(width 0)
@@ -8995,7 +9011,7 @@
 	)
 	(wire
 		(pts
-			(xy 248.92 129.54) (xy 255.27 129.54)
+			(xy 257.81 135.89) (xy 264.16 135.89)
 		)
 		(stroke
 			(width 0)
@@ -9006,7 +9022,7 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 132.08) (xy 223.52 132.08)
+			(xy 231.14 138.43) (xy 232.41 138.43)
 		)
 		(stroke
 			(width 0)
@@ -9017,7 +9033,7 @@
 	)
 	(wire
 		(pts
-			(xy 261.62 137.16) (xy 267.97 137.16)
+			(xy 270.51 143.51) (xy 276.86 143.51)
 		)
 		(stroke
 			(width 0)
@@ -9028,7 +9044,7 @@
 	)
 	(wire
 		(pts
-			(xy 59.69 175.26) (xy 59.69 184.15)
+			(xy 68.58 181.61) (xy 68.58 190.5)
 		)
 		(stroke
 			(width 0)
@@ -9038,7 +9054,7 @@
 	)
 	(wire
 		(pts
-			(xy 158.75 78.74) (xy 158.75 77.47)
+			(xy 167.64 85.09) (xy 167.64 83.82)
 		)
 		(stroke
 			(width 0)
@@ -9048,7 +9064,7 @@
 	)
 	(wire
 		(pts
-			(xy 54.61 86.36) (xy 58.42 86.36)
+			(xy 63.5 95.25) (xy 67.31 95.25)
 		)
 		(stroke
 			(width 0)
@@ -9058,7 +9074,7 @@
 	)
 	(wire
 		(pts
-			(xy 252.73 124.46) (xy 254 124.46)
+			(xy 261.62 130.81) (xy 262.89 130.81)
 		)
 		(stroke
 			(width 0)
@@ -9069,7 +9085,7 @@
 	)
 	(wire
 		(pts
-			(xy 240.03 125.73) (xy 240.03 135.89)
+			(xy 248.92 132.08) (xy 248.92 142.24)
 		)
 		(stroke
 			(width 0)
@@ -9080,7 +9096,7 @@
 	)
 	(wire
 		(pts
-			(xy 246.38 27.94) (xy 246.38 31.75)
+			(xy 255.27 34.29) (xy 255.27 38.1)
 		)
 		(stroke
 			(width 0)
@@ -9090,7 +9106,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 123.19) (xy 29.21 128.27)
+			(xy 38.1 129.54) (xy 38.1 134.62)
 		)
 		(stroke
 			(width 0)
@@ -9100,7 +9116,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 63.5) (xy 143.51 63.5)
+			(xy 148.59 69.85) (xy 152.4 69.85)
 		)
 		(stroke
 			(width 0)
@@ -9110,7 +9126,7 @@
 	)
 	(wire
 		(pts
-			(xy 246.38 109.22) (xy 246.38 114.3)
+			(xy 255.27 115.57) (xy 255.27 120.65)
 		)
 		(stroke
 			(width 0)
@@ -9121,7 +9137,7 @@
 	)
 	(wire
 		(pts
-			(xy 278.13 76.2) (xy 276.86 76.2)
+			(xy 287.02 82.55) (xy 285.75 82.55)
 		)
 		(stroke
 			(width 0)
@@ -9132,7 +9148,7 @@
 	)
 	(wire
 		(pts
-			(xy 280.67 88.9) (xy 280.67 86.36)
+			(xy 289.56 95.25) (xy 289.56 92.71)
 		)
 		(stroke
 			(width 0)
@@ -9143,7 +9159,7 @@
 	)
 	(wire
 		(pts
-			(xy 54.61 66.04) (xy 54.61 46.99)
+			(xy 63.5 74.93) (xy 63.5 53.34)
 		)
 		(stroke
 			(width 0)
@@ -9153,7 +9169,7 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 66.04) (xy 60.96 66.04)
+			(xy 82.55 72.39) (xy 69.85 72.39)
 		)
 		(stroke
 			(width 0)
@@ -9163,7 +9179,7 @@
 	)
 	(wire
 		(pts
-			(xy 179.07 86.36) (xy 179.07 33.02)
+			(xy 187.96 92.71) (xy 187.96 39.37)
 		)
 		(stroke
 			(width 0)
@@ -9173,7 +9189,7 @@
 	)
 	(wire
 		(pts
-			(xy 123.19 184.15) (xy 123.19 163.83)
+			(xy 132.08 190.5) (xy 132.08 170.18)
 		)
 		(stroke
 			(width 0)
@@ -9183,7 +9199,7 @@
 	)
 	(wire
 		(pts
-			(xy 26.67 22.86) (xy 49.53 22.86)
+			(xy 35.56 29.21) (xy 58.42 29.21)
 		)
 		(stroke
 			(width 0)
@@ -9193,7 +9209,7 @@
 	)
 	(wire
 		(pts
-			(xy 255.27 129.54) (xy 255.27 139.7)
+			(xy 264.16 135.89) (xy 264.16 146.05)
 		)
 		(stroke
 			(width 0)
@@ -9204,7 +9220,7 @@
 	)
 	(wire
 		(pts
-			(xy 266.7 99.06) (xy 270.51 99.06)
+			(xy 275.59 105.41) (xy 279.4 105.41)
 		)
 		(stroke
 			(width 0)
@@ -9215,7 +9231,7 @@
 	)
 	(wire
 		(pts
-			(xy 241.3 109.22) (xy 242.57 109.22)
+			(xy 250.19 115.57) (xy 251.46 115.57)
 		)
 		(stroke
 			(width 0)
@@ -9226,7 +9242,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 58.42) (xy 144.78 58.42)
+			(xy 148.59 64.77) (xy 153.67 64.77)
 		)
 		(stroke
 			(width 0)
@@ -9236,7 +9252,7 @@
 	)
 	(wire
 		(pts
-			(xy 201.93 119.38) (xy 205.74 119.38)
+			(xy 210.82 125.73) (xy 214.63 125.73)
 		)
 		(stroke
 			(width 0)
@@ -9246,7 +9262,7 @@
 	)
 	(wire
 		(pts
-			(xy 179.07 114.3) (xy 172.72 114.3)
+			(xy 187.96 120.65) (xy 181.61 120.65)
 		)
 		(stroke
 			(width 0)
@@ -9257,7 +9273,7 @@
 	)
 	(wire
 		(pts
-			(xy 165.1 111.76) (xy 167.64 111.76)
+			(xy 173.99 118.11) (xy 176.53 118.11)
 		)
 		(stroke
 			(width 0)
@@ -9267,7 +9283,7 @@
 	)
 	(wire
 		(pts
-			(xy 54.61 93.98) (xy 55.88 93.98)
+			(xy 63.5 102.87) (xy 64.77 102.87)
 		)
 		(stroke
 			(width 0)
@@ -9277,7 +9293,7 @@
 	)
 	(wire
 		(pts
-			(xy 267.97 137.16) (xy 267.97 134.62)
+			(xy 276.86 143.51) (xy 276.86 140.97)
 		)
 		(stroke
 			(width 0)
@@ -9288,7 +9304,7 @@
 	)
 	(wire
 		(pts
-			(xy 218.44 83.82) (xy 218.44 63.5)
+			(xy 227.33 90.17) (xy 227.33 69.85)
 		)
 		(stroke
 			(width 0)
@@ -9298,7 +9314,7 @@
 	)
 	(wire
 		(pts
-			(xy 165.1 102.87) (xy 165.1 104.14)
+			(xy 173.99 109.22) (xy 173.99 110.49)
 		)
 		(stroke
 			(width 0)
@@ -9309,7 +9325,7 @@
 	)
 	(wire
 		(pts
-			(xy 240.03 135.89) (xy 241.3 135.89)
+			(xy 248.92 142.24) (xy 250.19 142.24)
 		)
 		(stroke
 			(width 0)
@@ -9320,7 +9336,7 @@
 	)
 	(wire
 		(pts
-			(xy 209.55 78.74) (xy 210.82 78.74)
+			(xy 218.44 85.09) (xy 219.71 85.09)
 		)
 		(stroke
 			(width 0)
@@ -9331,7 +9347,7 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 86.36) (xy 177.8 96.52)
+			(xy 186.69 92.71) (xy 186.69 102.87)
 		)
 		(stroke
 			(width 0)
@@ -9342,7 +9358,7 @@
 	)
 	(wire
 		(pts
-			(xy 179.07 96.52) (xy 179.07 102.87)
+			(xy 187.96 102.87) (xy 187.96 109.22)
 		)
 		(stroke
 			(width 0)
@@ -9353,7 +9369,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 73.66) (xy 182.88 73.66)
+			(xy 148.59 80.01) (xy 191.77 80.01)
 		)
 		(stroke
 			(width 0)
@@ -9363,7 +9379,17 @@
 	)
 	(wire
 		(pts
-			(xy 214.63 121.92) (xy 215.9 121.92)
+			(xy 21.59 90.17) (xy 21.59 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4d699535-b907-42c4-96b7-9e992505cc7f")
+	)
+	(wire
+		(pts
+			(xy 223.52 128.27) (xy 224.79 128.27)
 		)
 		(stroke
 			(width 0)
@@ -9374,7 +9400,7 @@
 	)
 	(wire
 		(pts
-			(xy 107.95 160.02) (xy 107.95 184.15)
+			(xy 116.84 166.37) (xy 116.84 190.5)
 		)
 		(stroke
 			(width 0)
@@ -9384,7 +9410,7 @@
 	)
 	(wire
 		(pts
-			(xy 218.44 27.94) (xy 218.44 62.23)
+			(xy 227.33 34.29) (xy 227.33 68.58)
 		)
 		(stroke
 			(width 0)
@@ -9394,7 +9420,7 @@
 	)
 	(wire
 		(pts
-			(xy 226.06 88.9) (xy 228.6 88.9)
+			(xy 234.95 95.25) (xy 237.49 95.25)
 		)
 		(stroke
 			(width 0)
@@ -9404,7 +9430,7 @@
 	)
 	(wire
 		(pts
-			(xy 67.31 170.18) (xy 67.31 88.9)
+			(xy 76.2 176.53) (xy 76.2 95.25)
 		)
 		(stroke
 			(width 0)
@@ -9414,7 +9440,7 @@
 	)
 	(wire
 		(pts
-			(xy 198.12 139.7) (xy 198.12 27.94)
+			(xy 207.01 146.05) (xy 207.01 34.29)
 		)
 		(stroke
 			(width 0)
@@ -9424,7 +9450,7 @@
 	)
 	(wire
 		(pts
-			(xy 167.64 86.36) (xy 171.45 86.36)
+			(xy 176.53 92.71) (xy 180.34 92.71)
 		)
 		(stroke
 			(width 0)
@@ -9435,7 +9461,7 @@
 	)
 	(wire
 		(pts
-			(xy 161.29 132.08) (xy 161.29 130.81)
+			(xy 170.18 138.43) (xy 170.18 137.16)
 		)
 		(stroke
 			(width 0)
@@ -9445,7 +9471,7 @@
 	)
 	(wire
 		(pts
-			(xy 226.06 120.65) (xy 226.06 121.92)
+			(xy 234.95 127) (xy 234.95 128.27)
 		)
 		(stroke
 			(width 0)
@@ -9455,7 +9481,7 @@
 	)
 	(wire
 		(pts
-			(xy 189.23 68.58) (xy 189.23 76.2)
+			(xy 198.12 74.93) (xy 198.12 82.55)
 		)
 		(stroke
 			(width 0)
@@ -9466,7 +9492,7 @@
 	)
 	(wire
 		(pts
-			(xy 66.04 162.56) (xy 66.04 76.2)
+			(xy 74.93 168.91) (xy 74.93 82.55)
 		)
 		(stroke
 			(width 0)
@@ -9476,7 +9502,7 @@
 	)
 	(wire
 		(pts
-			(xy 146.05 160.02) (xy 107.95 160.02)
+			(xy 154.94 166.37) (xy 116.84 166.37)
 		)
 		(stroke
 			(width 0)
@@ -9486,7 +9512,7 @@
 	)
 	(wire
 		(pts
-			(xy 52.07 149.86) (xy 73.66 149.86)
+			(xy 60.96 156.21) (xy 82.55 156.21)
 		)
 		(stroke
 			(width 0)
@@ -9496,7 +9522,7 @@
 	)
 	(wire
 		(pts
-			(xy 154.94 168.91) (xy 143.51 168.91)
+			(xy 163.83 175.26) (xy 152.4 175.26)
 		)
 		(stroke
 			(width 0)
@@ -9506,7 +9532,7 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 82.55) (xy 222.25 83.82)
+			(xy 231.14 88.9) (xy 231.14 90.17)
 		)
 		(stroke
 			(width 0)
@@ -9516,7 +9542,7 @@
 	)
 	(wire
 		(pts
-			(xy 123.19 163.83) (xy 149.86 163.83)
+			(xy 132.08 170.18) (xy 158.75 170.18)
 		)
 		(stroke
 			(width 0)
@@ -9526,7 +9552,7 @@
 	)
 	(wire
 		(pts
-			(xy 21.59 44.45) (xy 13.97 44.45)
+			(xy 30.48 50.8) (xy 22.86 50.8)
 		)
 		(stroke
 			(width 0)
@@ -9536,7 +9562,7 @@
 	)
 	(wire
 		(pts
-			(xy 241.3 35.56) (xy 241.3 27.94)
+			(xy 250.19 41.91) (xy 250.19 34.29)
 		)
 		(stroke
 			(width 0)
@@ -9546,7 +9572,7 @@
 	)
 	(wire
 		(pts
-			(xy 31.75 57.15) (xy 31.75 60.96)
+			(xy 40.64 63.5) (xy 40.64 67.31)
 		)
 		(stroke
 			(width 0)
@@ -9556,7 +9582,7 @@
 	)
 	(wire
 		(pts
-			(xy 191.77 76.2) (xy 201.93 76.2)
+			(xy 200.66 82.55) (xy 210.82 82.55)
 		)
 		(stroke
 			(width 0)
@@ -9566,7 +9592,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 106.68) (xy 234.95 106.68)
+			(xy 148.59 113.03) (xy 243.84 113.03)
 		)
 		(stroke
 			(width 0)
@@ -9576,7 +9602,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 91.44) (xy 210.82 91.44)
+			(xy 148.59 97.79) (xy 219.71 97.79)
 		)
 		(stroke
 			(width 0)
@@ -9586,7 +9612,7 @@
 	)
 	(wire
 		(pts
-			(xy 13.97 44.45) (xy 13.97 66.04)
+			(xy 22.86 50.8) (xy 22.86 74.93)
 		)
 		(stroke
 			(width 0)
@@ -9596,7 +9622,7 @@
 	)
 	(wire
 		(pts
-			(xy 175.26 96.52) (xy 175.26 97.79)
+			(xy 184.15 102.87) (xy 184.15 104.14)
 		)
 		(stroke
 			(width 0)
@@ -9606,7 +9632,7 @@
 	)
 	(wire
 		(pts
-			(xy 170.18 142.24) (xy 171.45 142.24)
+			(xy 179.07 148.59) (xy 180.34 148.59)
 		)
 		(stroke
 			(width 0)
@@ -9617,7 +9643,7 @@
 	)
 	(wire
 		(pts
-			(xy 274.32 109.22) (xy 280.67 109.22)
+			(xy 283.21 115.57) (xy 289.56 115.57)
 		)
 		(stroke
 			(width 0)
@@ -9628,7 +9654,7 @@
 	)
 	(wire
 		(pts
-			(xy 167.64 27.94) (xy 190.5 27.94)
+			(xy 176.53 34.29) (xy 199.39 34.29)
 		)
 		(stroke
 			(width 0)
@@ -9638,7 +9664,7 @@
 	)
 	(wire
 		(pts
-			(xy 234.95 99.06) (xy 241.3 99.06)
+			(xy 243.84 105.41) (xy 250.19 105.41)
 		)
 		(stroke
 			(width 0)
@@ -9649,7 +9675,7 @@
 	)
 	(wire
 		(pts
-			(xy 52.07 149.86) (xy 52.07 162.56)
+			(xy 60.96 156.21) (xy 60.96 168.91)
 		)
 		(stroke
 			(width 0)
@@ -9659,7 +9685,7 @@
 	)
 	(wire
 		(pts
-			(xy 71.12 166.37) (xy 115.57 166.37)
+			(xy 80.01 172.72) (xy 124.46 172.72)
 		)
 		(stroke
 			(width 0)
@@ -9669,7 +9695,7 @@
 	)
 	(wire
 		(pts
-			(xy 172.72 142.24) (xy 271.78 142.24)
+			(xy 181.61 148.59) (xy 280.67 148.59)
 		)
 		(stroke
 			(width 0)
@@ -9679,7 +9705,7 @@
 	)
 	(wire
 		(pts
-			(xy 213.36 121.92) (xy 213.36 120.65)
+			(xy 222.25 128.27) (xy 222.25 127)
 		)
 		(stroke
 			(width 0)
@@ -9689,7 +9715,7 @@
 	)
 	(wire
 		(pts
-			(xy 152.4 166.37) (xy 152.4 50.8)
+			(xy 161.29 172.72) (xy 161.29 57.15)
 		)
 		(stroke
 			(width 0)
@@ -9699,7 +9725,7 @@
 	)
 	(wire
 		(pts
-			(xy 271.78 109.22) (xy 274.32 109.22)
+			(xy 280.67 115.57) (xy 283.21 115.57)
 		)
 		(stroke
 			(width 0)
@@ -9710,7 +9736,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 128.27) (xy 29.21 140.97)
+			(xy 38.1 134.62) (xy 38.1 147.32)
 		)
 		(stroke
 			(width 0)
@@ -9720,7 +9746,7 @@
 	)
 	(wire
 		(pts
-			(xy 229.87 78.74) (xy 232.41 78.74)
+			(xy 238.76 85.09) (xy 241.3 85.09)
 		)
 		(stroke
 			(width 0)
@@ -9730,7 +9756,7 @@
 	)
 	(wire
 		(pts
-			(xy 173.99 139.7) (xy 180.34 139.7)
+			(xy 182.88 146.05) (xy 189.23 146.05)
 		)
 		(stroke
 			(width 0)
@@ -9741,7 +9767,7 @@
 	)
 	(wire
 		(pts
-			(xy 210.82 91.44) (xy 213.36 91.44)
+			(xy 219.71 97.79) (xy 222.25 97.79)
 		)
 		(stroke
 			(width 0)
@@ -9751,7 +9777,7 @@
 	)
 	(wire
 		(pts
-			(xy 180.34 139.7) (xy 180.34 149.86)
+			(xy 189.23 146.05) (xy 189.23 156.21)
 		)
 		(stroke
 			(width 0)
@@ -9762,7 +9788,7 @@
 	)
 	(wire
 		(pts
-			(xy 260.35 139.7) (xy 260.35 137.16)
+			(xy 269.24 146.05) (xy 269.24 143.51)
 		)
 		(stroke
 			(width 0)
@@ -9773,7 +9799,7 @@
 	)
 	(wire
 		(pts
-			(xy 118.11 184.15) (xy 118.11 162.56)
+			(xy 127 190.5) (xy 127 168.91)
 		)
 		(stroke
 			(width 0)
@@ -9783,7 +9809,7 @@
 	)
 	(wire
 		(pts
-			(xy 58.42 59.69) (xy 26.67 59.69)
+			(xy 67.31 66.04) (xy 35.56 66.04)
 		)
 		(stroke
 			(width 0)
@@ -9793,7 +9819,7 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 132.08) (xy 168.91 132.08)
+			(xy 171.45 138.43) (xy 177.8 138.43)
 		)
 		(stroke
 			(width 0)
@@ -9804,7 +9830,7 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 78.74) (xy 209.55 78.74)
+			(xy 217.17 85.09) (xy 218.44 85.09)
 		)
 		(stroke
 			(width 0)
@@ -9815,7 +9841,7 @@
 	)
 	(wire
 		(pts
-			(xy 246.38 121.92) (xy 248.92 121.92)
+			(xy 255.27 128.27) (xy 257.81 128.27)
 		)
 		(stroke
 			(width 0)
@@ -9825,7 +9851,7 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 76.2) (xy 187.96 77.47)
+			(xy 196.85 82.55) (xy 196.85 83.82)
 		)
 		(stroke
 			(width 0)
@@ -9835,7 +9861,7 @@
 	)
 	(wire
 		(pts
-			(xy 226.06 121.92) (xy 246.38 121.92)
+			(xy 234.95 128.27) (xy 255.27 128.27)
 		)
 		(stroke
 			(width 0)
@@ -9845,7 +9871,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 147.32) (xy 173.99 147.32)
+			(xy 148.59 153.67) (xy 182.88 153.67)
 		)
 		(stroke
 			(width 0)
@@ -9855,7 +9881,7 @@
 	)
 	(wire
 		(pts
-			(xy 233.68 99.06) (xy 234.95 99.06)
+			(xy 242.57 105.41) (xy 243.84 105.41)
 		)
 		(stroke
 			(width 0)
@@ -9866,7 +9892,7 @@
 	)
 	(wire
 		(pts
-			(xy 280.67 119.38) (xy 281.94 119.38)
+			(xy 289.56 125.73) (xy 290.83 125.73)
 		)
 		(stroke
 			(width 0)
@@ -9877,7 +9903,7 @@
 	)
 	(wire
 		(pts
-			(xy 97.79 157.48) (xy 97.79 184.15)
+			(xy 106.68 163.83) (xy 106.68 190.5)
 		)
 		(stroke
 			(width 0)
@@ -9887,7 +9913,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 111.76) (xy 165.1 111.76)
+			(xy 148.59 118.11) (xy 173.99 118.11)
 		)
 		(stroke
 			(width 0)
@@ -9897,7 +9923,7 @@
 	)
 	(wire
 		(pts
-			(xy 271.78 142.24) (xy 274.32 142.24)
+			(xy 280.67 148.59) (xy 283.21 148.59)
 		)
 		(stroke
 			(width 0)
@@ -9907,7 +9933,7 @@
 	)
 	(wire
 		(pts
-			(xy 199.39 130.81) (xy 204.47 130.81)
+			(xy 208.28 137.16) (xy 213.36 137.16)
 		)
 		(stroke
 			(width 0)
@@ -9917,7 +9943,7 @@
 	)
 	(wire
 		(pts
-			(xy 57.15 60.96) (xy 57.15 83.82)
+			(xy 66.04 67.31) (xy 66.04 92.71)
 		)
 		(stroke
 			(width 0)
@@ -9927,7 +9953,7 @@
 	)
 	(wire
 		(pts
-			(xy 246.38 114.3) (xy 252.73 114.3)
+			(xy 255.27 120.65) (xy 261.62 120.65)
 		)
 		(stroke
 			(width 0)
@@ -9938,7 +9964,7 @@
 	)
 	(wire
 		(pts
-			(xy 182.88 96.52) (xy 259.08 96.52)
+			(xy 191.77 102.87) (xy 267.97 102.87)
 		)
 		(stroke
 			(width 0)
@@ -9948,7 +9974,7 @@
 	)
 	(wire
 		(pts
-			(xy 172.72 104.14) (xy 172.72 34.29)
+			(xy 181.61 110.49) (xy 181.61 40.64)
 		)
 		(stroke
 			(width 0)
@@ -9958,7 +9984,7 @@
 	)
 	(wire
 		(pts
-			(xy 220.98 60.96) (xy 242.57 60.96)
+			(xy 229.87 67.31) (xy 251.46 67.31)
 		)
 		(stroke
 			(width 0)
@@ -9968,7 +9994,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 93.98) (xy 171.45 93.98)
+			(xy 148.59 100.33) (xy 180.34 100.33)
 		)
 		(stroke
 			(width 0)
@@ -9978,7 +10004,7 @@
 	)
 	(wire
 		(pts
-			(xy 226.06 80.01) (xy 215.9 80.01)
+			(xy 234.95 86.36) (xy 224.79 86.36)
 		)
 		(stroke
 			(width 0)
@@ -9989,7 +10015,7 @@
 	)
 	(wire
 		(pts
-			(xy 128.27 165.1) (xy 128.27 184.15)
+			(xy 137.16 171.45) (xy 137.16 190.5)
 		)
 		(stroke
 			(width 0)
@@ -9999,7 +10025,7 @@
 	)
 	(wire
 		(pts
-			(xy 276.86 76.2) (xy 273.05 76.2)
+			(xy 285.75 82.55) (xy 281.94 82.55)
 		)
 		(stroke
 			(width 0)
@@ -10010,7 +10036,7 @@
 	)
 	(wire
 		(pts
-			(xy 264.16 88.9) (xy 264.16 86.36)
+			(xy 273.05 95.25) (xy 273.05 92.71)
 		)
 		(stroke
 			(width 0)
@@ -10021,7 +10047,7 @@
 	)
 	(wire
 		(pts
-			(xy 232.41 80.01) (xy 226.06 80.01)
+			(xy 241.3 86.36) (xy 234.95 86.36)
 		)
 		(stroke
 			(width 0)
@@ -10032,7 +10058,7 @@
 	)
 	(wire
 		(pts
-			(xy 173.99 147.32) (xy 176.53 147.32)
+			(xy 182.88 153.67) (xy 185.42 153.67)
 		)
 		(stroke
 			(width 0)
@@ -10042,7 +10068,7 @@
 	)
 	(wire
 		(pts
-			(xy 118.11 162.56) (xy 148.59 162.56)
+			(xy 127 168.91) (xy 157.48 168.91)
 		)
 		(stroke
 			(width 0)
@@ -10052,7 +10078,7 @@
 	)
 	(wire
 		(pts
-			(xy 181.61 139.7) (xy 198.12 139.7)
+			(xy 190.5 146.05) (xy 207.01 146.05)
 		)
 		(stroke
 			(width 0)
@@ -10062,7 +10088,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 43.18) (xy 148.59 43.18)
+			(xy 148.59 49.53) (xy 157.48 49.53)
 		)
 		(stroke
 			(width 0)
@@ -10072,7 +10098,7 @@
 	)
 	(wire
 		(pts
-			(xy 31.75 60.96) (xy 57.15 60.96)
+			(xy 40.64 67.31) (xy 66.04 67.31)
 		)
 		(stroke
 			(width 0)
@@ -10082,7 +10108,7 @@
 	)
 	(wire
 		(pts
-			(xy 57.15 91.44) (xy 54.61 91.44)
+			(xy 66.04 100.33) (xy 63.5 100.33)
 		)
 		(stroke
 			(width 0)
@@ -10092,7 +10118,7 @@
 	)
 	(wire
 		(pts
-			(xy 113.03 184.15) (xy 113.03 161.29)
+			(xy 121.92 190.5) (xy 121.92 167.64)
 		)
 		(stroke
 			(width 0)
@@ -10102,7 +10128,7 @@
 	)
 	(wire
 		(pts
-			(xy 223.52 27.94) (xy 223.52 121.92)
+			(xy 232.41 34.29) (xy 232.41 128.27)
 		)
 		(stroke
 			(width 0)
@@ -10112,7 +10138,7 @@
 	)
 	(wire
 		(pts
-			(xy 171.45 142.24) (xy 171.45 139.7)
+			(xy 180.34 148.59) (xy 180.34 146.05)
 		)
 		(stroke
 			(width 0)
@@ -10123,7 +10149,7 @@
 	)
 	(wire
 		(pts
-			(xy 228.6 44.45) (xy 265.43 44.45)
+			(xy 237.49 50.8) (xy 274.32 50.8)
 		)
 		(stroke
 			(width 0)
@@ -10133,7 +10159,7 @@
 	)
 	(wire
 		(pts
-			(xy 232.41 80.01) (xy 232.41 91.44)
+			(xy 241.3 86.36) (xy 241.3 97.79)
 		)
 		(stroke
 			(width 0)
@@ -10144,7 +10170,7 @@
 	)
 	(wire
 		(pts
-			(xy 248.92 27.94) (xy 251.46 27.94)
+			(xy 257.81 34.29) (xy 260.35 34.29)
 		)
 		(stroke
 			(width 0)
@@ -10155,7 +10181,7 @@
 	)
 	(wire
 		(pts
-			(xy 12.7 99.06) (xy 13.97 99.06)
+			(xy 21.59 107.95) (xy 22.86 107.95)
 		)
 		(stroke
 			(width 0)
@@ -10165,7 +10191,7 @@
 	)
 	(wire
 		(pts
-			(xy 13.97 111.76) (xy 13.97 121.92)
+			(xy 22.86 120.65) (xy 22.86 128.27)
 		)
 		(stroke
 			(width 0)
@@ -10175,7 +10201,7 @@
 	)
 	(wire
 		(pts
-			(xy 203.2 129.54) (xy 203.2 128.27)
+			(xy 212.09 135.89) (xy 212.09 134.62)
 		)
 		(stroke
 			(width 0)
@@ -10186,7 +10212,7 @@
 	)
 	(wire
 		(pts
-			(xy 167.64 78.74) (xy 167.64 27.94)
+			(xy 176.53 85.09) (xy 176.53 34.29)
 		)
 		(stroke
 			(width 0)
@@ -10196,7 +10222,7 @@
 	)
 	(wire
 		(pts
-			(xy 264.16 106.68) (xy 266.7 106.68)
+			(xy 273.05 113.03) (xy 275.59 113.03)
 		)
 		(stroke
 			(width 0)
@@ -10206,7 +10232,7 @@
 	)
 	(wire
 		(pts
-			(xy 210.82 71.12) (xy 229.87 71.12)
+			(xy 219.71 77.47) (xy 238.76 77.47)
 		)
 		(stroke
 			(width 0)
@@ -10217,7 +10243,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 132.08) (xy 161.29 132.08)
+			(xy 148.59 138.43) (xy 170.18 138.43)
 		)
 		(stroke
 			(width 0)
@@ -10227,7 +10253,7 @@
 	)
 	(wire
 		(pts
-			(xy 204.47 129.54) (xy 215.9 129.54)
+			(xy 213.36 135.89) (xy 224.79 135.89)
 		)
 		(stroke
 			(width 0)
@@ -10237,7 +10263,7 @@
 	)
 	(wire
 		(pts
-			(xy 66.04 162.56) (xy 59.69 162.56)
+			(xy 74.93 168.91) (xy 68.58 168.91)
 		)
 		(stroke
 			(width 0)
@@ -10247,7 +10273,7 @@
 	)
 	(wire
 		(pts
-			(xy 149.86 163.83) (xy 149.86 68.58)
+			(xy 158.75 170.18) (xy 158.75 74.93)
 		)
 		(stroke
 			(width 0)
@@ -10257,7 +10283,7 @@
 	)
 	(wire
 		(pts
-			(xy 259.08 88.9) (xy 256.54 88.9)
+			(xy 267.97 95.25) (xy 265.43 95.25)
 		)
 		(stroke
 			(width 0)
@@ -10268,7 +10294,7 @@
 	)
 	(wire
 		(pts
-			(xy 193.04 31.75) (xy 193.04 27.94)
+			(xy 201.93 38.1) (xy 201.93 34.29)
 		)
 		(stroke
 			(width 0)
@@ -10278,7 +10304,7 @@
 	)
 	(wire
 		(pts
-			(xy 233.68 125.73) (xy 240.03 125.73)
+			(xy 242.57 132.08) (xy 248.92 132.08)
 		)
 		(stroke
 			(width 0)
@@ -10289,7 +10315,7 @@
 	)
 	(wire
 		(pts
-			(xy 151.13 45.72) (xy 139.7 45.72)
+			(xy 160.02 52.07) (xy 148.59 52.07)
 		)
 		(stroke
 			(width 0)
@@ -10299,7 +10325,7 @@
 	)
 	(wire
 		(pts
-			(xy 185.42 134.62) (xy 186.69 134.62)
+			(xy 194.31 140.97) (xy 195.58 140.97)
 		)
 		(stroke
 			(width 0)
@@ -10310,7 +10336,7 @@
 	)
 	(wire
 		(pts
-			(xy 256.54 91.44) (xy 256.54 88.9)
+			(xy 265.43 97.79) (xy 265.43 95.25)
 		)
 		(stroke
 			(width 0)
@@ -10321,7 +10347,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 121.92) (xy 213.36 121.92)
+			(xy 148.59 128.27) (xy 222.25 128.27)
 		)
 		(stroke
 			(width 0)
@@ -10331,7 +10357,7 @@
 	)
 	(wire
 		(pts
-			(xy 185.42 133.35) (xy 168.91 133.35)
+			(xy 194.31 139.7) (xy 177.8 139.7)
 		)
 		(stroke
 			(width 0)
@@ -10342,7 +10368,7 @@
 	)
 	(wire
 		(pts
-			(xy 194.31 127) (xy 196.85 127)
+			(xy 203.2 133.35) (xy 205.74 133.35)
 		)
 		(stroke
 			(width 0)
@@ -10352,7 +10378,7 @@
 	)
 	(wire
 		(pts
-			(xy 278.13 86.36) (xy 278.13 76.2)
+			(xy 287.02 92.71) (xy 287.02 82.55)
 		)
 		(stroke
 			(width 0)
@@ -10363,7 +10389,7 @@
 	)
 	(wire
 		(pts
-			(xy 44.45 168.91) (xy 44.45 132.08)
+			(xy 53.34 175.26) (xy 53.34 138.43)
 		)
 		(stroke
 			(width 0)
@@ -10373,7 +10399,7 @@
 	)
 	(wire
 		(pts
-			(xy 142.24 156.21) (xy 142.24 76.2)
+			(xy 151.13 162.56) (xy 151.13 82.55)
 		)
 		(stroke
 			(width 0)
@@ -10383,7 +10409,7 @@
 	)
 	(wire
 		(pts
-			(xy 100.33 170.18) (xy 67.31 170.18)
+			(xy 109.22 176.53) (xy 76.2 176.53)
 		)
 		(stroke
 			(width 0)
@@ -10393,7 +10419,7 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 166.37) (xy 115.57 184.15)
+			(xy 124.46 172.72) (xy 124.46 190.5)
 		)
 		(stroke
 			(width 0)
@@ -10403,7 +10429,7 @@
 	)
 	(wire
 		(pts
-			(xy 12.7 30.48) (xy 12.7 88.9)
+			(xy 20.32 36.83) (xy 20.32 97.79)
 		)
 		(stroke
 			(width 0)
@@ -10413,7 +10439,7 @@
 	)
 	(wire
 		(pts
-			(xy 125.73 156.21) (xy 142.24 156.21)
+			(xy 134.62 162.56) (xy 151.13 162.56)
 		)
 		(stroke
 			(width 0)
@@ -10423,7 +10449,7 @@
 	)
 	(wire
 		(pts
-			(xy 57.15 151.13) (xy 57.15 91.44)
+			(xy 66.04 157.48) (xy 66.04 100.33)
 		)
 		(stroke
 			(width 0)
@@ -10433,7 +10459,7 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 81.28) (xy 71.12 81.28)
+			(xy 82.55 87.63) (xy 80.01 87.63)
 		)
 		(stroke
 			(width 0)
@@ -10443,7 +10469,7 @@
 	)
 	(wire
 		(pts
-			(xy 149.86 68.58) (xy 139.7 68.58)
+			(xy 158.75 74.93) (xy 148.59 74.93)
 		)
 		(stroke
 			(width 0)
@@ -10453,7 +10479,7 @@
 	)
 	(wire
 		(pts
-			(xy 63.5 53.34) (xy 63.5 172.72)
+			(xy 72.39 59.69) (xy 72.39 179.07)
 		)
 		(stroke
 			(width 0)
@@ -10463,7 +10489,7 @@
 	)
 	(wire
 		(pts
-			(xy 252.73 114.3) (xy 252.73 124.46)
+			(xy 261.62 120.65) (xy 261.62 130.81)
 		)
 		(stroke
 			(width 0)
@@ -10474,7 +10500,7 @@
 	)
 	(wire
 		(pts
-			(xy 172.72 34.29) (xy 213.36 34.29)
+			(xy 181.61 40.64) (xy 222.25 40.64)
 		)
 		(stroke
 			(width 0)
@@ -10484,7 +10510,7 @@
 	)
 	(wire
 		(pts
-			(xy 233.68 133.35) (xy 236.22 133.35)
+			(xy 242.57 139.7) (xy 245.11 139.7)
 		)
 		(stroke
 			(width 0)
@@ -10494,7 +10520,7 @@
 	)
 	(wire
 		(pts
-			(xy 172.72 143.51) (xy 172.72 142.24)
+			(xy 181.61 149.86) (xy 181.61 148.59)
 		)
 		(stroke
 			(width 0)
@@ -10504,7 +10530,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 62.23) (xy 29.21 57.15)
+			(xy 38.1 68.58) (xy 38.1 63.5)
 		)
 		(stroke
 			(width 0)
@@ -10514,7 +10540,7 @@
 	)
 	(wire
 		(pts
-			(xy 207.01 80.01) (xy 212.09 80.01)
+			(xy 215.9 86.36) (xy 220.98 86.36)
 		)
 		(stroke
 			(width 0)
@@ -10524,7 +10550,7 @@
 	)
 	(wire
 		(pts
-			(xy 160.02 86.36) (xy 162.56 86.36)
+			(xy 168.91 92.71) (xy 171.45 92.71)
 		)
 		(stroke
 			(width 0)
@@ -10534,7 +10560,7 @@
 	)
 	(wire
 		(pts
-			(xy 173.99 130.81) (xy 173.99 132.08)
+			(xy 182.88 137.16) (xy 182.88 138.43)
 		)
 		(stroke
 			(width 0)
@@ -10544,7 +10570,7 @@
 	)
 	(wire
 		(pts
-			(xy 210.82 78.74) (xy 210.82 71.12)
+			(xy 219.71 85.09) (xy 219.71 77.47)
 		)
 		(stroke
 			(width 0)
@@ -10555,7 +10581,7 @@
 	)
 	(wire
 		(pts
-			(xy 189.23 66.04) (xy 189.23 68.58)
+			(xy 198.12 72.39) (xy 198.12 74.93)
 		)
 		(stroke
 			(width 0)
@@ -10566,7 +10592,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 66.04) (xy 156.21 66.04)
+			(xy 148.59 72.39) (xy 165.1 72.39)
 		)
 		(stroke
 			(width 0)
@@ -10576,7 +10602,7 @@
 	)
 	(wire
 		(pts
-			(xy 26.67 27.94) (xy 26.67 31.75)
+			(xy 35.56 34.29) (xy 35.56 38.1)
 		)
 		(stroke
 			(width 0)
@@ -10586,7 +10612,7 @@
 	)
 	(wire
 		(pts
-			(xy 58.42 86.36) (xy 58.42 59.69)
+			(xy 67.31 95.25) (xy 67.31 66.04)
 		)
 		(stroke
 			(width 0)
@@ -10596,7 +10622,7 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 58.42) (xy 215.9 27.94)
+			(xy 224.79 64.77) (xy 224.79 34.29)
 		)
 		(stroke
 			(width 0)
@@ -10606,7 +10632,7 @@
 	)
 	(wire
 		(pts
-			(xy 66.04 76.2) (xy 73.66 76.2)
+			(xy 74.93 82.55) (xy 82.55 82.55)
 		)
 		(stroke
 			(width 0)
@@ -10616,7 +10642,7 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 128.27) (xy 55.88 137.16)
+			(xy 64.77 134.62) (xy 64.77 143.51)
 		)
 		(stroke
 			(width 0)
@@ -10626,7 +10652,7 @@
 	)
 	(wire
 		(pts
-			(xy 179.07 102.87) (xy 179.07 114.3)
+			(xy 187.96 109.22) (xy 187.96 120.65)
 		)
 		(stroke
 			(width 0)
@@ -10637,7 +10663,7 @@
 	)
 	(wire
 		(pts
-			(xy 140.97 172.72) (xy 140.97 184.15)
+			(xy 149.86 179.07) (xy 149.86 190.5)
 		)
 		(stroke
 			(width 0)
@@ -10647,7 +10673,7 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 167.64) (xy 69.85 83.82)
+			(xy 78.74 173.99) (xy 78.74 90.17)
 		)
 		(stroke
 			(width 0)
@@ -10657,7 +10683,7 @@
 	)
 	(wire
 		(pts
-			(xy 210.82 27.94) (xy 210.82 63.5)
+			(xy 219.71 34.29) (xy 219.71 69.85)
 		)
 		(stroke
 			(width 0)
@@ -10667,7 +10693,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 171.45) (xy 34.29 171.45)
+			(xy 38.1 177.8) (xy 43.18 177.8)
 		)
 		(stroke
 			(width 0)
@@ -10677,7 +10703,7 @@
 	)
 	(wire
 		(pts
-			(xy 261.62 106.68) (xy 264.16 106.68)
+			(xy 270.51 113.03) (xy 273.05 113.03)
 		)
 		(stroke
 			(width 0)
@@ -10687,7 +10713,7 @@
 	)
 	(wire
 		(pts
-			(xy 279.4 34.29) (xy 279.4 134.62)
+			(xy 288.29 40.64) (xy 288.29 140.97)
 		)
 		(stroke
 			(width 0)
@@ -10697,7 +10723,7 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 27.94) (xy 208.28 64.77)
+			(xy 217.17 34.29) (xy 217.17 71.12)
 		)
 		(stroke
 			(width 0)
@@ -10707,7 +10733,7 @@
 	)
 	(wire
 		(pts
-			(xy 270.51 109.22) (xy 271.78 109.22)
+			(xy 279.4 115.57) (xy 280.67 115.57)
 		)
 		(stroke
 			(width 0)
@@ -10718,7 +10744,7 @@
 	)
 	(wire
 		(pts
-			(xy 189.23 68.58) (xy 201.93 68.58)
+			(xy 198.12 74.93) (xy 210.82 74.93)
 		)
 		(stroke
 			(width 0)
@@ -10729,7 +10755,7 @@
 	)
 	(wire
 		(pts
-			(xy 128.27 165.1) (xy 151.13 165.1)
+			(xy 137.16 171.45) (xy 160.02 171.45)
 		)
 		(stroke
 			(width 0)
@@ -10739,7 +10765,7 @@
 	)
 	(wire
 		(pts
-			(xy 135.89 184.15) (xy 135.89 173.99)
+			(xy 144.78 190.5) (xy 144.78 180.34)
 		)
 		(stroke
 			(width 0)
@@ -10749,7 +10775,7 @@
 	)
 	(wire
 		(pts
-			(xy 151.13 184.15) (xy 153.67 184.15)
+			(xy 160.02 190.5) (xy 162.56 190.5)
 		)
 		(stroke
 			(width 0)
@@ -10760,7 +10786,7 @@
 	)
 	(wire
 		(pts
-			(xy 233.68 27.94) (xy 233.68 38.1)
+			(xy 242.57 34.29) (xy 242.57 44.45)
 		)
 		(stroke
 			(width 0)
@@ -10770,7 +10796,7 @@
 	)
 	(wire
 		(pts
-			(xy 278.13 88.9) (xy 278.13 86.36)
+			(xy 287.02 95.25) (xy 287.02 92.71)
 		)
 		(stroke
 			(width 0)
@@ -10781,7 +10807,7 @@
 	)
 	(wire
 		(pts
-			(xy 179.07 119.38) (xy 185.42 119.38)
+			(xy 187.96 125.73) (xy 194.31 125.73)
 		)
 		(stroke
 			(width 0)
@@ -10792,7 +10818,7 @@
 	)
 	(wire
 		(pts
-			(xy 39.37 121.92) (xy 39.37 140.97)
+			(xy 48.26 128.27) (xy 48.26 147.32)
 		)
 		(stroke
 			(width 0)
@@ -10802,7 +10828,7 @@
 	)
 	(wire
 		(pts
-			(xy 271.78 134.62) (xy 278.13 134.62)
+			(xy 280.67 140.97) (xy 287.02 140.97)
 		)
 		(stroke
 			(width 0)
@@ -10813,7 +10839,7 @@
 	)
 	(wire
 		(pts
-			(xy 39.37 184.15) (xy 39.37 171.45)
+			(xy 48.26 190.5) (xy 48.26 177.8)
 		)
 		(stroke
 			(width 0)
@@ -10823,7 +10849,7 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 83.82) (xy 215.9 93.98)
+			(xy 224.79 90.17) (xy 224.79 100.33)
 		)
 		(stroke
 			(width 0)
@@ -10834,7 +10860,7 @@
 	)
 	(wire
 		(pts
-			(xy 95.25 184.15) (xy 92.71 184.15)
+			(xy 104.14 190.5) (xy 101.6 190.5)
 		)
 		(stroke
 			(width 0)
@@ -10844,7 +10870,7 @@
 	)
 	(wire
 		(pts
-			(xy 243.84 34.29) (xy 243.84 27.94)
+			(xy 252.73 40.64) (xy 252.73 34.29)
 		)
 		(stroke
 			(width 0)
@@ -10854,7 +10880,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 144.78) (xy 261.62 144.78)
+			(xy 148.59 151.13) (xy 270.51 151.13)
 		)
 		(stroke
 			(width 0)
@@ -10864,7 +10890,7 @@
 	)
 	(wire
 		(pts
-			(xy 153.67 55.88) (xy 139.7 55.88)
+			(xy 162.56 62.23) (xy 148.59 62.23)
 		)
 		(stroke
 			(width 0)
@@ -10874,7 +10900,7 @@
 	)
 	(wire
 		(pts
-			(xy 261.62 144.78) (xy 264.16 144.78)
+			(xy 270.51 151.13) (xy 273.05 151.13)
 		)
 		(stroke
 			(width 0)
@@ -10884,7 +10910,7 @@
 	)
 	(wire
 		(pts
-			(xy 34.29 58.42) (xy 59.69 58.42)
+			(xy 43.18 64.77) (xy 68.58 64.77)
 		)
 		(stroke
 			(width 0)
@@ -10894,7 +10920,7 @@
 	)
 	(wire
 		(pts
-			(xy 205.74 27.94) (xy 205.74 119.38)
+			(xy 214.63 34.29) (xy 214.63 125.73)
 		)
 		(stroke
 			(width 0)
@@ -10904,7 +10930,7 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 121.92) (xy 222.25 121.92)
+			(xy 224.79 128.27) (xy 231.14 128.27)
 		)
 		(stroke
 			(width 0)
@@ -10915,7 +10941,7 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 53.34) (xy 63.5 53.34)
+			(xy 82.55 59.69) (xy 72.39 59.69)
 		)
 		(stroke
 			(width 0)
@@ -10925,7 +10951,7 @@
 	)
 	(wire
 		(pts
-			(xy 142.24 76.2) (xy 139.7 76.2)
+			(xy 151.13 82.55) (xy 148.59 82.55)
 		)
 		(stroke
 			(width 0)
@@ -10935,7 +10961,7 @@
 	)
 	(wire
 		(pts
-			(xy 144.78 158.75) (xy 102.87 158.75)
+			(xy 153.67 165.1) (xy 111.76 165.1)
 		)
 		(stroke
 			(width 0)
@@ -10945,7 +10971,7 @@
 	)
 	(wire
 		(pts
-			(xy 177.8 96.52) (xy 179.07 96.52)
+			(xy 186.69 102.87) (xy 187.96 102.87)
 		)
 		(stroke
 			(width 0)
@@ -10956,7 +10982,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 129.54) (xy 199.39 129.54)
+			(xy 148.59 135.89) (xy 208.28 135.89)
 		)
 		(stroke
 			(width 0)
@@ -10966,7 +10992,7 @@
 	)
 	(wire
 		(pts
-			(xy 267.97 147.32) (xy 269.24 147.32)
+			(xy 276.86 153.67) (xy 278.13 153.67)
 		)
 		(stroke
 			(width 0)
@@ -10977,7 +11003,7 @@
 	)
 	(wire
 		(pts
-			(xy 160.02 78.74) (xy 166.37 78.74)
+			(xy 168.91 85.09) (xy 175.26 85.09)
 		)
 		(stroke
 			(width 0)
@@ -10988,7 +11014,7 @@
 	)
 	(wire
 		(pts
-			(xy 151.13 45.72) (xy 151.13 165.1)
+			(xy 160.02 52.07) (xy 160.02 171.45)
 		)
 		(stroke
 			(width 0)
@@ -10998,7 +11024,7 @@
 	)
 	(wire
 		(pts
-			(xy 179.07 102.87) (xy 165.1 102.87)
+			(xy 187.96 109.22) (xy 173.99 109.22)
 		)
 		(stroke
 			(width 0)
@@ -11009,7 +11035,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 101.6) (xy 261.62 101.6)
+			(xy 148.59 107.95) (xy 270.51 107.95)
 		)
 		(stroke
 			(width 0)
@@ -11019,7 +11045,7 @@
 	)
 	(wire
 		(pts
-			(xy 236.22 71.12) (xy 236.22 80.01)
+			(xy 245.11 77.47) (xy 245.11 86.36)
 		)
 		(stroke
 			(width 0)
@@ -11030,7 +11056,7 @@
 	)
 	(wire
 		(pts
-			(xy 110.49 167.64) (xy 110.49 184.15)
+			(xy 119.38 173.99) (xy 119.38 190.5)
 		)
 		(stroke
 			(width 0)
@@ -11040,7 +11066,7 @@
 	)
 	(wire
 		(pts
-			(xy 64.77 58.42) (xy 64.77 171.45)
+			(xy 73.66 64.77) (xy 73.66 177.8)
 		)
 		(stroke
 			(width 0)
@@ -11050,7 +11076,7 @@
 	)
 	(wire
 		(pts
-			(xy 231.14 27.94) (xy 231.14 40.64)
+			(xy 240.03 34.29) (xy 240.03 46.99)
 		)
 		(stroke
 			(width 0)
@@ -11060,7 +11086,7 @@
 	)
 	(wire
 		(pts
-			(xy 105.41 168.91) (xy 68.58 168.91)
+			(xy 114.3 175.26) (xy 77.47 175.26)
 		)
 		(stroke
 			(width 0)
@@ -11070,7 +11096,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 149.86) (xy 139.7 151.13)
+			(xy 148.59 156.21) (xy 148.59 157.48)
 		)
 		(stroke
 			(width 0)
@@ -11080,7 +11106,7 @@
 	)
 	(wire
 		(pts
-			(xy 179.07 119.38) (xy 179.07 124.46)
+			(xy 187.96 125.73) (xy 187.96 130.81)
 		)
 		(stroke
 			(width 0)
@@ -11091,7 +11117,7 @@
 	)
 	(wire
 		(pts
-			(xy 254 57.15) (xy 254 114.3)
+			(xy 262.89 63.5) (xy 262.89 120.65)
 		)
 		(stroke
 			(width 0)
@@ -11101,7 +11127,7 @@
 	)
 	(wire
 		(pts
-			(xy 280.67 33.02) (xy 280.67 76.2)
+			(xy 289.56 39.37) (xy 289.56 82.55)
 		)
 		(stroke
 			(width 0)
@@ -11111,7 +11137,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 139.7) (xy 162.56 139.7)
+			(xy 148.59 146.05) (xy 171.45 146.05)
 		)
 		(stroke
 			(width 0)
@@ -11121,7 +11147,7 @@
 	)
 	(wire
 		(pts
-			(xy 226.06 57.15) (xy 254 57.15)
+			(xy 234.95 63.5) (xy 262.89 63.5)
 		)
 		(stroke
 			(width 0)
@@ -11131,7 +11157,7 @@
 	)
 	(wire
 		(pts
-			(xy 270.51 99.06) (xy 270.51 109.22)
+			(xy 279.4 105.41) (xy 279.4 115.57)
 		)
 		(stroke
 			(width 0)
@@ -11142,7 +11168,7 @@
 	)
 	(wire
 		(pts
-			(xy 278.13 134.62) (xy 278.13 144.78)
+			(xy 287.02 140.97) (xy 287.02 151.13)
 		)
 		(stroke
 			(width 0)
@@ -11153,7 +11179,7 @@
 	)
 	(wire
 		(pts
-			(xy 194.31 119.38) (xy 200.66 119.38)
+			(xy 203.2 125.73) (xy 209.55 125.73)
 		)
 		(stroke
 			(width 0)
@@ -11164,7 +11190,7 @@
 	)
 	(wire
 		(pts
-			(xy 233.68 81.28) (xy 233.68 58.42)
+			(xy 242.57 87.63) (xy 242.57 64.77)
 		)
 		(stroke
 			(width 0)
@@ -11174,7 +11200,7 @@
 	)
 	(wire
 		(pts
-			(xy 165.1 90.17) (xy 168.91 90.17)
+			(xy 173.99 96.52) (xy 177.8 96.52)
 		)
 		(stroke
 			(width 0)
@@ -11184,7 +11210,7 @@
 	)
 	(wire
 		(pts
-			(xy 67.31 88.9) (xy 73.66 88.9)
+			(xy 76.2 95.25) (xy 82.55 95.25)
 		)
 		(stroke
 			(width 0)
@@ -11194,7 +11220,17 @@
 	)
 	(wire
 		(pts
-			(xy 200.66 119.38) (xy 200.66 129.54)
+			(xy 22.86 90.17) (xy 21.59 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b28fbb97-3370-49d1-b256-04a8134ff04c")
+	)
+	(wire
+		(pts
+			(xy 209.55 125.73) (xy 209.55 135.89)
 		)
 		(stroke
 			(width 0)
@@ -11205,7 +11241,7 @@
 	)
 	(wire
 		(pts
-			(xy 201.93 68.58) (xy 208.28 68.58)
+			(xy 210.82 74.93) (xy 217.17 74.93)
 		)
 		(stroke
 			(width 0)
@@ -11216,7 +11252,7 @@
 	)
 	(wire
 		(pts
-			(xy 138.43 184.15) (xy 138.43 167.64)
+			(xy 147.32 190.5) (xy 147.32 173.99)
 		)
 		(stroke
 			(width 0)
@@ -11226,7 +11262,7 @@
 	)
 	(wire
 		(pts
-			(xy 13.97 121.92) (xy 39.37 121.92)
+			(xy 22.86 128.27) (xy 48.26 128.27)
 		)
 		(stroke
 			(width 0)
@@ -11236,7 +11272,7 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 144.78) (xy 55.88 153.67)
+			(xy 64.77 151.13) (xy 64.77 160.02)
 		)
 		(stroke
 			(width 0)
@@ -11246,7 +11282,7 @@
 	)
 	(wire
 		(pts
-			(xy 207.01 83.82) (xy 207.01 82.55)
+			(xy 215.9 90.17) (xy 215.9 88.9)
 		)
 		(stroke
 			(width 0)
@@ -11256,7 +11292,7 @@
 	)
 	(wire
 		(pts
-			(xy 161.29 130.81) (xy 173.99 130.81)
+			(xy 170.18 137.16) (xy 182.88 137.16)
 		)
 		(stroke
 			(width 0)
@@ -11266,7 +11302,7 @@
 	)
 	(wire
 		(pts
-			(xy 143.51 157.48) (xy 143.51 63.5)
+			(xy 152.4 163.83) (xy 152.4 69.85)
 		)
 		(stroke
 			(width 0)
@@ -11276,7 +11312,7 @@
 	)
 	(wire
 		(pts
-			(xy 207.01 82.55) (xy 222.25 82.55)
+			(xy 215.9 88.9) (xy 231.14 88.9)
 		)
 		(stroke
 			(width 0)
@@ -11286,7 +11322,7 @@
 	)
 	(wire
 		(pts
-			(xy 167.64 88.9) (xy 167.64 86.36)
+			(xy 176.53 95.25) (xy 176.53 92.71)
 		)
 		(stroke
 			(width 0)
@@ -11297,7 +11333,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 53.34) (xy 146.05 53.34)
+			(xy 148.59 59.69) (xy 154.94 59.69)
 		)
 		(stroke
 			(width 0)
@@ -11307,7 +11343,7 @@
 	)
 	(wire
 		(pts
-			(xy 189.23 76.2) (xy 190.5 76.2)
+			(xy 198.12 82.55) (xy 199.39 82.55)
 		)
 		(stroke
 			(width 0)
@@ -11318,7 +11354,7 @@
 	)
 	(wire
 		(pts
-			(xy 232.41 91.44) (xy 233.68 91.44)
+			(xy 241.3 97.79) (xy 242.57 97.79)
 		)
 		(stroke
 			(width 0)
@@ -11329,7 +11365,7 @@
 	)
 	(wire
 		(pts
-			(xy 267.97 129.54) (xy 256.54 129.54)
+			(xy 276.86 135.89) (xy 265.43 135.89)
 		)
 		(stroke
 			(width 0)
@@ -11339,7 +11375,7 @@
 	)
 	(wire
 		(pts
-			(xy 185.42 119.38) (xy 185.42 133.35)
+			(xy 194.31 125.73) (xy 194.31 139.7)
 		)
 		(stroke
 			(width 0)
@@ -11350,7 +11386,7 @@
 	)
 	(wire
 		(pts
-			(xy 236.22 27.94) (xy 236.22 33.02)
+			(xy 245.11 34.29) (xy 245.11 39.37)
 		)
 		(stroke
 			(width 0)
@@ -11360,7 +11396,7 @@
 	)
 	(wire
 		(pts
-			(xy 237.49 64.77) (xy 237.49 71.12)
+			(xy 246.38 71.12) (xy 246.38 77.47)
 		)
 		(stroke
 			(width 0)
@@ -11370,7 +11406,7 @@
 	)
 	(wire
 		(pts
-			(xy 160.02 66.04) (xy 182.88 66.04)
+			(xy 168.91 72.39) (xy 191.77 72.39)
 		)
 		(stroke
 			(width 0)
@@ -11381,7 +11417,7 @@
 	)
 	(wire
 		(pts
-			(xy 168.91 90.17) (xy 168.91 88.9)
+			(xy 177.8 96.52) (xy 177.8 95.25)
 		)
 		(stroke
 			(width 0)
@@ -11391,7 +11427,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 134.62) (xy 182.88 134.62)
+			(xy 148.59 140.97) (xy 191.77 140.97)
 		)
 		(stroke
 			(width 0)
@@ -11401,7 +11437,7 @@
 	)
 	(wire
 		(pts
-			(xy 247.65 129.54) (xy 248.92 129.54)
+			(xy 256.54 135.89) (xy 257.81 135.89)
 		)
 		(stroke
 			(width 0)
@@ -11412,7 +11448,7 @@
 	)
 	(wire
 		(pts
-			(xy 203.2 128.27) (xy 214.63 128.27)
+			(xy 212.09 134.62) (xy 223.52 134.62)
 		)
 		(stroke
 			(width 0)
@@ -11423,7 +11459,7 @@
 	)
 	(wire
 		(pts
-			(xy 200.66 66.04) (xy 200.66 27.94)
+			(xy 209.55 72.39) (xy 209.55 34.29)
 		)
 		(stroke
 			(width 0)
@@ -11433,7 +11469,7 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 165.1) (xy 72.39 78.74)
+			(xy 81.28 171.45) (xy 81.28 85.09)
 		)
 		(stroke
 			(width 0)
@@ -11443,7 +11479,7 @@
 	)
 	(wire
 		(pts
-			(xy 158.75 77.47) (xy 168.91 77.47)
+			(xy 167.64 83.82) (xy 177.8 83.82)
 		)
 		(stroke
 			(width 0)
@@ -11453,7 +11489,7 @@
 	)
 	(wire
 		(pts
-			(xy 231.14 40.64) (xy 266.7 40.64)
+			(xy 240.03 46.99) (xy 275.59 46.99)
 		)
 		(stroke
 			(width 0)
@@ -11463,7 +11499,7 @@
 	)
 	(wire
 		(pts
-			(xy 68.58 86.36) (xy 68.58 168.91)
+			(xy 77.47 92.71) (xy 77.47 175.26)
 		)
 		(stroke
 			(width 0)
@@ -11473,7 +11509,7 @@
 	)
 	(wire
 		(pts
-			(xy 162.56 139.7) (xy 165.1 139.7)
+			(xy 171.45 146.05) (xy 173.99 146.05)
 		)
 		(stroke
 			(width 0)
@@ -11483,7 +11519,7 @@
 	)
 	(wire
 		(pts
-			(xy 241.3 135.89) (xy 247.65 135.89)
+			(xy 250.19 142.24) (xy 256.54 142.24)
 		)
 		(stroke
 			(width 0)
@@ -11494,7 +11530,7 @@
 	)
 	(wire
 		(pts
-			(xy 160.02 78.74) (xy 160.02 66.04)
+			(xy 168.91 85.09) (xy 168.91 72.39)
 		)
 		(stroke
 			(width 0)
@@ -11505,7 +11541,7 @@
 	)
 	(wire
 		(pts
-			(xy 229.87 71.12) (xy 236.22 71.12)
+			(xy 238.76 77.47) (xy 245.11 77.47)
 		)
 		(stroke
 			(width 0)
@@ -11516,7 +11552,7 @@
 	)
 	(wire
 		(pts
-			(xy 44.45 30.48) (xy 12.7 30.48)
+			(xy 53.34 36.83) (xy 20.32 36.83)
 		)
 		(stroke
 			(width 0)
@@ -11526,7 +11562,7 @@
 	)
 	(wire
 		(pts
-			(xy 26.67 59.69) (xy 26.67 57.15)
+			(xy 35.56 66.04) (xy 35.56 63.5)
 		)
 		(stroke
 			(width 0)
@@ -11536,7 +11572,7 @@
 	)
 	(wire
 		(pts
-			(xy 135.89 173.99) (xy 62.23 173.99)
+			(xy 144.78 180.34) (xy 71.12 180.34)
 		)
 		(stroke
 			(width 0)
@@ -11546,7 +11582,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 151.13) (xy 57.15 151.13)
+			(xy 148.59 157.48) (xy 66.04 157.48)
 		)
 		(stroke
 			(width 0)
@@ -11556,7 +11592,7 @@
 	)
 	(wire
 		(pts
-			(xy 182.88 135.89) (xy 187.96 135.89)
+			(xy 191.77 142.24) (xy 196.85 142.24)
 		)
 		(stroke
 			(width 0)
@@ -11566,7 +11602,7 @@
 	)
 	(wire
 		(pts
-			(xy 182.88 66.04) (xy 189.23 66.04)
+			(xy 191.77 72.39) (xy 198.12 72.39)
 		)
 		(stroke
 			(width 0)
@@ -11577,7 +11613,7 @@
 	)
 	(wire
 		(pts
-			(xy 267.97 137.16) (xy 267.97 147.32)
+			(xy 276.86 143.51) (xy 276.86 153.67)
 		)
 		(stroke
 			(width 0)
@@ -11588,7 +11624,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 88.9) (xy 165.1 88.9)
+			(xy 148.59 95.25) (xy 173.99 95.25)
 		)
 		(stroke
 			(width 0)
@@ -11598,7 +11634,7 @@
 	)
 	(wire
 		(pts
-			(xy 152.4 50.8) (xy 139.7 50.8)
+			(xy 161.29 57.15) (xy 148.59 57.15)
 		)
 		(stroke
 			(width 0)
@@ -11608,7 +11644,7 @@
 	)
 	(wire
 		(pts
-			(xy 54.61 68.58) (xy 55.88 68.58)
+			(xy 63.5 77.47) (xy 64.77 77.47)
 		)
 		(stroke
 			(width 0)
@@ -11618,7 +11654,7 @@
 	)
 	(wire
 		(pts
-			(xy 182.88 97.79) (xy 182.88 96.52)
+			(xy 191.77 104.14) (xy 191.77 102.87)
 		)
 		(stroke
 			(width 0)
@@ -11628,7 +11664,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 123.19) (xy 12.7 123.19)
+			(xy 38.1 129.54) (xy 21.59 129.54)
 		)
 		(stroke
 			(width 0)
@@ -11638,7 +11674,7 @@
 	)
 	(wire
 		(pts
-			(xy 278.13 144.78) (xy 279.4 144.78)
+			(xy 287.02 151.13) (xy 288.29 151.13)
 		)
 		(stroke
 			(width 0)
@@ -11649,7 +11685,7 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 83.82) (xy 210.82 83.82)
+			(xy 224.79 90.17) (xy 219.71 90.17)
 		)
 		(stroke
 			(width 0)
@@ -11660,7 +11696,7 @@
 	)
 	(wire
 		(pts
-			(xy 199.39 129.54) (xy 199.39 130.81)
+			(xy 208.28 135.89) (xy 208.28 137.16)
 		)
 		(stroke
 			(width 0)
@@ -11670,7 +11706,7 @@
 	)
 	(wire
 		(pts
-			(xy 165.1 88.9) (xy 165.1 90.17)
+			(xy 173.99 95.25) (xy 173.99 96.52)
 		)
 		(stroke
 			(width 0)
@@ -11680,7 +11716,7 @@
 	)
 	(wire
 		(pts
-			(xy 276.86 76.2) (xy 276.86 27.94)
+			(xy 285.75 82.55) (xy 285.75 34.29)
 		)
 		(stroke
 			(width 0)
@@ -11691,7 +11727,7 @@
 	)
 	(wire
 		(pts
-			(xy 130.81 175.26) (xy 130.81 184.15)
+			(xy 139.7 181.61) (xy 139.7 190.5)
 		)
 		(stroke
 			(width 0)
@@ -11701,7 +11737,7 @@
 	)
 	(wire
 		(pts
-			(xy 166.37 88.9) (xy 167.64 88.9)
+			(xy 175.26 95.25) (xy 176.53 95.25)
 		)
 		(stroke
 			(width 0)
@@ -11712,7 +11748,7 @@
 	)
 	(wire
 		(pts
-			(xy 54.61 46.99) (xy 49.53 46.99)
+			(xy 63.5 53.34) (xy 58.42 53.34)
 		)
 		(stroke
 			(width 0)
@@ -11722,7 +11758,7 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 80.01) (xy 215.9 83.82)
+			(xy 224.79 86.36) (xy 224.79 90.17)
 		)
 		(stroke
 			(width 0)
@@ -11733,7 +11769,7 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 58.42) (xy 64.77 58.42)
+			(xy 82.55 64.77) (xy 73.66 64.77)
 		)
 		(stroke
 			(width 0)
@@ -11743,7 +11779,7 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 66.04) (xy 60.96 175.26)
+			(xy 69.85 72.39) (xy 69.85 181.61)
 		)
 		(stroke
 			(width 0)
@@ -11753,7 +11789,7 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 62.23) (xy 29.21 62.23)
+			(xy 64.77 68.58) (xy 38.1 68.58)
 		)
 		(stroke
 			(width 0)
@@ -11763,7 +11799,7 @@
 	)
 	(wire
 		(pts
-			(xy 242.57 109.22) (xy 246.38 109.22)
+			(xy 251.46 115.57) (xy 255.27 115.57)
 		)
 		(stroke
 			(width 0)
@@ -11774,7 +11810,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 127) (xy 194.31 127)
+			(xy 148.59 133.35) (xy 203.2 133.35)
 		)
 		(stroke
 			(width 0)
@@ -11784,7 +11820,7 @@
 	)
 	(wire
 		(pts
-			(xy 34.29 147.32) (xy 34.29 171.45)
+			(xy 43.18 153.67) (xy 43.18 177.8)
 		)
 		(stroke
 			(width 0)
@@ -11794,7 +11830,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 96.52) (xy 175.26 96.52)
+			(xy 148.59 102.87) (xy 184.15 102.87)
 		)
 		(stroke
 			(width 0)
@@ -11804,7 +11840,7 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 68.58) (xy 208.28 78.74)
+			(xy 217.17 74.93) (xy 217.17 85.09)
 		)
 		(stroke
 			(width 0)
@@ -11815,7 +11851,7 @@
 	)
 	(wire
 		(pts
-			(xy 243.84 34.29) (xy 279.4 34.29)
+			(xy 252.73 40.64) (xy 288.29 40.64)
 		)
 		(stroke
 			(width 0)
@@ -11825,7 +11861,7 @@
 	)
 	(wire
 		(pts
-			(xy 133.35 166.37) (xy 152.4 166.37)
+			(xy 142.24 172.72) (xy 161.29 172.72)
 		)
 		(stroke
 			(width 0)
@@ -11835,7 +11871,7 @@
 	)
 	(wire
 		(pts
-			(xy 242.57 60.96) (xy 242.57 99.06)
+			(xy 251.46 67.31) (xy 251.46 105.41)
 		)
 		(stroke
 			(width 0)
@@ -11845,7 +11881,7 @@
 	)
 	(wire
 		(pts
-			(xy 12.7 123.19) (xy 12.7 99.06)
+			(xy 21.59 129.54) (xy 21.59 107.95)
 		)
 		(stroke
 			(width 0)
@@ -11855,7 +11891,7 @@
 	)
 	(wire
 		(pts
-			(xy 144.78 58.42) (xy 144.78 158.75)
+			(xy 153.67 64.77) (xy 153.67 165.1)
 		)
 		(stroke
 			(width 0)
@@ -11865,7 +11901,7 @@
 	)
 	(wire
 		(pts
-			(xy 264.16 99.06) (xy 266.7 99.06)
+			(xy 273.05 105.41) (xy 275.59 105.41)
 		)
 		(stroke
 			(width 0)
@@ -11876,7 +11912,7 @@
 	)
 	(wire
 		(pts
-			(xy 39.37 184.15) (xy 44.45 184.15)
+			(xy 48.26 190.5) (xy 53.34 190.5)
 		)
 		(stroke
 			(width 0)
@@ -11886,7 +11922,7 @@
 	)
 	(wire
 		(pts
-			(xy 147.32 48.26) (xy 147.32 161.29)
+			(xy 156.21 54.61) (xy 156.21 167.64)
 		)
 		(stroke
 			(width 0)
@@ -11896,7 +11932,7 @@
 	)
 	(wire
 		(pts
-			(xy 267.97 38.1) (xy 267.97 129.54)
+			(xy 276.86 44.45) (xy 276.86 135.89)
 		)
 		(stroke
 			(width 0)
@@ -11906,7 +11942,7 @@
 	)
 	(wire
 		(pts
-			(xy 190.5 66.04) (xy 200.66 66.04)
+			(xy 199.39 72.39) (xy 209.55 72.39)
 		)
 		(stroke
 			(width 0)
@@ -11916,7 +11952,7 @@
 	)
 	(wire
 		(pts
-			(xy 71.12 81.28) (xy 71.12 166.37)
+			(xy 80.01 87.63) (xy 80.01 172.72)
 		)
 		(stroke
 			(width 0)
@@ -11926,7 +11962,7 @@
 	)
 	(wire
 		(pts
-			(xy 180.34 149.86) (xy 181.61 149.86)
+			(xy 189.23 156.21) (xy 190.5 156.21)
 		)
 		(stroke
 			(width 0)
@@ -11936,7 +11972,7 @@
 	)
 	(wire
 		(pts
-			(xy 266.7 40.64) (xy 266.7 88.9)
+			(xy 275.59 46.99) (xy 275.59 95.25)
 		)
 		(stroke
 			(width 0)
@@ -11946,7 +11982,7 @@
 	)
 	(wire
 		(pts
-			(xy 69.85 83.82) (xy 73.66 83.82)
+			(xy 78.74 90.17) (xy 82.55 90.17)
 		)
 		(stroke
 			(width 0)
@@ -11956,7 +11992,7 @@
 	)
 	(wire
 		(pts
-			(xy 274.32 116.84) (xy 276.86 116.84)
+			(xy 283.21 123.19) (xy 285.75 123.19)
 		)
 		(stroke
 			(width 0)
@@ -11966,7 +12002,7 @@
 	)
 	(wire
 		(pts
-			(xy 201.93 129.54) (xy 203.2 129.54)
+			(xy 210.82 135.89) (xy 212.09 135.89)
 		)
 		(stroke
 			(width 0)
@@ -11977,7 +12013,7 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 22.86) (xy 49.53 41.91)
+			(xy 58.42 29.21) (xy 58.42 48.26)
 		)
 		(stroke
 			(width 0)
@@ -11987,7 +12023,7 @@
 	)
 	(wire
 		(pts
-			(xy 143.51 168.91) (xy 143.51 184.15)
+			(xy 152.4 175.26) (xy 152.4 190.5)
 		)
 		(stroke
 			(width 0)
@@ -11997,7 +12033,7 @@
 	)
 	(wire
 		(pts
-			(xy 259.08 88.9) (xy 264.16 88.9)
+			(xy 267.97 95.25) (xy 273.05 95.25)
 		)
 		(stroke
 			(width 0)
@@ -12008,7 +12044,7 @@
 	)
 	(wire
 		(pts
-			(xy 170.18 31.75) (xy 193.04 31.75)
+			(xy 179.07 38.1) (xy 201.93 38.1)
 		)
 		(stroke
 			(width 0)
@@ -12018,7 +12054,7 @@
 	)
 	(wire
 		(pts
-			(xy 179.07 114.3) (xy 179.07 119.38)
+			(xy 187.96 120.65) (xy 187.96 125.73)
 		)
 		(stroke
 			(width 0)
@@ -12029,7 +12065,7 @@
 	)
 	(wire
 		(pts
-			(xy 236.22 80.01) (xy 236.22 81.28)
+			(xy 245.11 86.36) (xy 245.11 87.63)
 		)
 		(stroke
 			(width 0)
@@ -12040,7 +12076,7 @@
 	)
 	(wire
 		(pts
-			(xy 265.43 44.45) (xy 265.43 125.73)
+			(xy 274.32 50.8) (xy 274.32 132.08)
 		)
 		(stroke
 			(width 0)
@@ -12050,7 +12086,7 @@
 	)
 	(wire
 		(pts
-			(xy 233.68 58.42) (xy 215.9 58.42)
+			(xy 242.57 64.77) (xy 224.79 64.77)
 		)
 		(stroke
 			(width 0)
@@ -12060,7 +12096,7 @@
 	)
 	(wire
 		(pts
-			(xy 148.59 184.15) (xy 148.59 177.8)
+			(xy 157.48 190.5) (xy 157.48 184.15)
 		)
 		(stroke
 			(width 0)
@@ -12070,7 +12106,7 @@
 	)
 	(wire
 		(pts
-			(xy 209.55 66.04) (xy 203.2 66.04)
+			(xy 218.44 72.39) (xy 212.09 72.39)
 		)
 		(stroke
 			(width 0)
@@ -12080,7 +12116,7 @@
 	)
 	(wire
 		(pts
-			(xy 248.92 137.16) (xy 251.46 137.16)
+			(xy 257.81 143.51) (xy 260.35 143.51)
 		)
 		(stroke
 			(width 0)
@@ -12090,7 +12126,7 @@
 	)
 	(wire
 		(pts
-			(xy 278.13 88.9) (xy 280.67 88.9)
+			(xy 287.02 95.25) (xy 289.56 95.25)
 		)
 		(stroke
 			(width 0)
@@ -12101,7 +12137,7 @@
 	)
 	(wire
 		(pts
-			(xy 59.69 58.42) (xy 59.69 88.9)
+			(xy 68.58 64.77) (xy 68.58 97.79)
 		)
 		(stroke
 			(width 0)
@@ -12111,7 +12147,7 @@
 	)
 	(wire
 		(pts
-			(xy 44.45 184.15) (xy 59.69 184.15)
+			(xy 53.34 190.5) (xy 68.58 190.5)
 		)
 		(stroke
 			(width 0)
@@ -12121,7 +12157,7 @@
 	)
 	(wire
 		(pts
-			(xy 269.24 36.83) (xy 269.24 137.16)
+			(xy 278.13 43.18) (xy 278.13 143.51)
 		)
 		(stroke
 			(width 0)
@@ -12131,7 +12167,7 @@
 	)
 	(wire
 		(pts
-			(xy 12.7 88.9) (xy 13.97 88.9)
+			(xy 20.32 97.79) (xy 22.86 97.79)
 		)
 		(stroke
 			(width 0)
@@ -12141,7 +12177,7 @@
 	)
 	(wire
 		(pts
-			(xy 238.76 36.83) (xy 269.24 36.83)
+			(xy 247.65 43.18) (xy 278.13 43.18)
 		)
 		(stroke
 			(width 0)
@@ -12151,7 +12187,7 @@
 	)
 	(wire
 		(pts
-			(xy 233.68 91.44) (xy 256.54 91.44)
+			(xy 242.57 97.79) (xy 265.43 97.79)
 		)
 		(stroke
 			(width 0)
@@ -12162,7 +12198,7 @@
 	)
 	(wire
 		(pts
-			(xy 34.29 57.15) (xy 34.29 58.42)
+			(xy 43.18 63.5) (xy 43.18 64.77)
 		)
 		(stroke
 			(width 0)
@@ -12172,7 +12208,7 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 64.77) (xy 237.49 64.77)
+			(xy 217.17 71.12) (xy 246.38 71.12)
 		)
 		(stroke
 			(width 0)
@@ -12182,7 +12218,7 @@
 	)
 	(wire
 		(pts
-			(xy 191.77 76.2) (xy 191.77 77.47)
+			(xy 200.66 82.55) (xy 200.66 83.82)
 		)
 		(stroke
 			(width 0)
@@ -12192,7 +12228,7 @@
 	)
 	(wire
 		(pts
-			(xy 186.69 124.46) (xy 186.69 62.23)
+			(xy 195.58 130.81) (xy 195.58 68.58)
 		)
 		(stroke
 			(width 0)
@@ -12202,7 +12238,7 @@
 	)
 	(wire
 		(pts
-			(xy 215.9 93.98) (xy 218.44 93.98)
+			(xy 224.79 100.33) (xy 227.33 100.33)
 		)
 		(stroke
 			(width 0)
@@ -12213,7 +12249,7 @@
 	)
 	(wire
 		(pts
-			(xy 195.58 33.02) (xy 195.58 27.94)
+			(xy 204.47 39.37) (xy 204.47 34.29)
 		)
 		(stroke
 			(width 0)
@@ -12223,7 +12259,7 @@
 	)
 	(wire
 		(pts
-			(xy 223.52 132.08) (xy 232.41 132.08)
+			(xy 232.41 138.43) (xy 241.3 138.43)
 		)
 		(stroke
 			(width 0)
@@ -12234,7 +12270,7 @@
 	)
 	(wire
 		(pts
-			(xy 203.2 66.04) (xy 203.2 27.94)
+			(xy 212.09 72.39) (xy 212.09 34.29)
 		)
 		(stroke
 			(width 0)
@@ -12244,7 +12280,7 @@
 	)
 	(wire
 		(pts
-			(xy 64.77 171.45) (xy 146.05 171.45)
+			(xy 73.66 177.8) (xy 154.94 177.8)
 		)
 		(stroke
 			(width 0)
@@ -12254,7 +12290,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 60.96) (xy 154.94 60.96)
+			(xy 148.59 67.31) (xy 163.83 67.31)
 		)
 		(stroke
 			(width 0)
@@ -12264,7 +12300,7 @@
 	)
 	(wire
 		(pts
-			(xy 44.45 132.08) (xy 73.66 132.08)
+			(xy 53.34 138.43) (xy 82.55 138.43)
 		)
 		(stroke
 			(width 0)
@@ -12274,7 +12310,7 @@
 	)
 	(wire
 		(pts
-			(xy 59.69 162.56) (xy 59.69 167.64)
+			(xy 68.58 168.91) (xy 68.58 173.99)
 		)
 		(stroke
 			(width 0)
@@ -12284,7 +12320,7 @@
 	)
 	(wire
 		(pts
-			(xy 175.26 97.79) (xy 182.88 97.79)
+			(xy 184.15 104.14) (xy 191.77 104.14)
 		)
 		(stroke
 			(width 0)
@@ -12294,7 +12330,7 @@
 	)
 	(wire
 		(pts
-			(xy 113.03 161.29) (xy 147.32 161.29)
+			(xy 121.92 167.64) (xy 156.21 167.64)
 		)
 		(stroke
 			(width 0)
@@ -12304,7 +12340,7 @@
 	)
 	(wire
 		(pts
-			(xy 207.01 78.74) (xy 207.01 80.01)
+			(xy 215.9 85.09) (xy 215.9 86.36)
 		)
 		(stroke
 			(width 0)
@@ -12314,7 +12350,7 @@
 	)
 	(wire
 		(pts
-			(xy 281.94 31.75) (xy 281.94 109.22)
+			(xy 290.83 38.1) (xy 290.83 115.57)
 		)
 		(stroke
 			(width 0)
@@ -12324,7 +12360,7 @@
 	)
 	(wire
 		(pts
-			(xy 220.98 27.94) (xy 220.98 60.96)
+			(xy 229.87 34.29) (xy 229.87 67.31)
 		)
 		(stroke
 			(width 0)
@@ -12334,7 +12370,7 @@
 	)
 	(wire
 		(pts
-			(xy 139.7 116.84) (xy 274.32 116.84)
+			(xy 148.59 123.19) (xy 283.21 123.19)
 		)
 		(stroke
 			(width 0)
@@ -12344,7 +12380,7 @@
 	)
 	(wire
 		(pts
-			(xy 146.05 184.15) (xy 146.05 171.45)
+			(xy 154.94 190.5) (xy 154.94 177.8)
 		)
 		(stroke
 			(width 0)
@@ -12354,7 +12390,7 @@
 	)
 	(wire
 		(pts
-			(xy 157.48 81.28) (xy 139.7 81.28)
+			(xy 166.37 87.63) (xy 148.59 87.63)
 		)
 		(stroke
 			(width 0)
@@ -12364,7 +12400,7 @@
 	)
 	(wire
 		(pts
-			(xy 182.88 73.66) (xy 185.42 73.66)
+			(xy 191.77 80.01) (xy 194.31 80.01)
 		)
 		(stroke
 			(width 0)
@@ -12374,7 +12410,7 @@
 	)
 	(wire
 		(pts
-			(xy 168.91 142.24) (xy 170.18 142.24)
+			(xy 177.8 148.59) (xy 179.07 148.59)
 		)
 		(stroke
 			(width 0)
@@ -12385,7 +12421,7 @@
 	)
 	(wire
 		(pts
-			(xy 187.96 135.89) (xy 187.96 134.62)
+			(xy 196.85 142.24) (xy 196.85 140.97)
 		)
 		(stroke
 			(width 0)
@@ -12395,7 +12431,7 @@
 	)
 	(wire
 		(pts
-			(xy 102.87 158.75) (xy 102.87 184.15)
+			(xy 111.76 165.1) (xy 111.76 190.5)
 		)
 		(stroke
 			(width 0)
@@ -12405,7 +12441,7 @@
 	)
 	(wire
 		(pts
-			(xy 226.06 80.01) (xy 226.06 81.28)
+			(xy 234.95 86.36) (xy 234.95 87.63)
 		)
 		(stroke
 			(width 0)
@@ -12416,7 +12452,7 @@
 	)
 	(wire
 		(pts
-			(xy 271.78 99.06) (xy 271.78 35.56)
+			(xy 280.67 105.41) (xy 280.67 41.91)
 		)
 		(stroke
 			(width 0)
@@ -12426,7 +12462,7 @@
 	)
 	(wire
 		(pts
-			(xy 236.22 81.28) (xy 237.49 81.28)
+			(xy 245.11 87.63) (xy 246.38 87.63)
 		)
 		(stroke
 			(width 0)
@@ -12437,7 +12473,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 59.69 171.45 180)
+		(at 68.58 177.8 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -12448,7 +12484,7 @@
 		(fields_autoplaced yes)
 		(uuid "02efb929-812b-4941-9ae9-b92ca2402945")
 		(property "Reference" "R41"
-			(at 62.23 170.1799 0)
+			(at 71.12 176.5299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12459,7 +12495,7 @@
 			)
 		)
 		(property "Value" "220k"
-			(at 62.23 172.7199 0)
+			(at 71.12 179.0699 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12470,7 +12506,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 61.468 171.45 90)
+			(at 70.358 177.8 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12481,7 +12517,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 59.69 171.45 0)
+			(at 68.58 177.8 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12492,7 +12528,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 59.69 171.45 0)
+			(at 68.58 177.8 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12519,7 +12555,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 274.32 113.03 180)
+		(at 283.21 119.38 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -12530,7 +12566,7 @@
 		(fields_autoplaced yes)
 		(uuid "0544fef8-8ef6-40c0-9428-8ba27212add7")
 		(property "Reference" "R12"
-			(at 276.86 111.7599 0)
+			(at 285.75 118.1099 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12541,7 +12577,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 276.86 114.2999 0)
+			(at 285.75 120.6499 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12552,7 +12588,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 276.098 113.03 90)
+			(at 284.988 119.38 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12563,7 +12599,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 274.32 113.03 0)
+			(at 283.21 119.38 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12574,7 +12610,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 274.32 113.03 0)
+			(at 283.21 119.38 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12601,7 +12637,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 55.88 162.56 270)
+		(at 64.77 168.91 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -12612,7 +12648,7 @@
 		(fields_autoplaced yes)
 		(uuid "05e82654-db4f-4ab4-aff0-df9406db5b62")
 		(property "Reference" "R40"
-			(at 55.88 156.21 90)
+			(at 64.77 162.56 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12622,7 +12658,7 @@
 			)
 		)
 		(property "Value" "22k"
-			(at 55.88 158.75 90)
+			(at 64.77 165.1 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12632,7 +12668,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 55.88 160.782 90)
+			(at 64.77 167.132 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12643,7 +12679,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 55.88 162.56 0)
+			(at 64.77 168.91 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12654,7 +12690,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 55.88 162.56 0)
+			(at 64.77 168.91 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12681,7 +12717,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 259.08 92.71 180)
+		(at 267.97 99.06 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -12692,7 +12728,7 @@
 		(fields_autoplaced yes)
 		(uuid "0f05f69b-a23b-495a-b707-638c0447c6d1")
 		(property "Reference" "R9"
-			(at 261.62 91.4399 0)
+			(at 270.51 97.7899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12703,7 +12739,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 261.62 93.9799 0)
+			(at 270.51 100.3299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12714,7 +12750,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 260.858 92.71 90)
+			(at 269.748 99.06 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12725,7 +12761,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 259.08 92.71 0)
+			(at 267.97 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12736,7 +12772,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 259.08 92.71 0)
+			(at 267.97 99.06 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12763,7 +12799,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 231.14 86.36 0)
+		(at 240.03 92.71 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -12774,7 +12810,7 @@
 		(fields_autoplaced yes)
 		(uuid "12208447-cd0f-415a-ac59-76e5c932d8b6")
 		(property "Reference" "T6"
-			(at 238.76 84.9425 0)
+			(at 247.65 91.2925 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12785,7 +12821,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 238.76 87.4825 0)
+			(at 247.65 93.8325 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12796,7 +12832,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 231.14 86.36 0)
+			(at 240.03 92.71 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12808,7 +12844,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 231.14 86.36 0)
+			(at 240.03 92.71 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12819,7 +12855,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 231.14 86.36 0)
+			(at 240.03 92.71 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12831,7 +12867,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 231.14 86.36 0)
+			(at 240.03 92.71 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12843,7 +12879,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 231.14 86.36 0)
+			(at 240.03 92.71 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12855,7 +12891,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 231.14 86.36 0)
+			(at 240.03 92.71 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12867,7 +12903,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 231.14 86.36 0)
+			(at 240.03 92.71 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12879,7 +12915,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 231.14 86.36 0)
+			(at 240.03 92.71 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12891,7 +12927,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 231.14 86.36 0)
+			(at 240.03 92.71 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12903,7 +12939,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 231.14 86.36 0)
+			(at 240.03 92.71 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12934,7 +12970,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 269.24 104.14 0)
+		(at 278.13 110.49 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -12945,7 +12981,7 @@
 		(fields_autoplaced yes)
 		(uuid "132bcf40-5635-4deb-bd10-d1cef19b5bb7")
 		(property "Reference" "T11"
-			(at 276.86 102.7225 0)
+			(at 285.75 109.0725 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12956,7 +12992,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 276.86 105.2625 0)
+			(at 285.75 111.6125 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12967,7 +13003,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 269.24 104.14 0)
+			(at 278.13 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12979,7 +13015,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 269.24 104.14 0)
+			(at 278.13 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12990,7 +13026,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 269.24 104.14 0)
+			(at 278.13 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13002,7 +13038,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 269.24 104.14 0)
+			(at 278.13 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13014,7 +13050,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 269.24 104.14 0)
+			(at 278.13 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13026,7 +13062,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 269.24 104.14 0)
+			(at 278.13 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13038,7 +13074,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 269.24 104.14 0)
+			(at 278.13 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13050,7 +13086,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 269.24 104.14 0)
+			(at 278.13 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13062,7 +13098,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 269.24 104.14 0)
+			(at 278.13 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13074,7 +13110,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 269.24 104.14 0)
+			(at 278.13 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13105,7 +13141,7 @@
 	)
 	(symbol
 		(lib_id "Regulator_Linear:L7806")
-		(at 44.45 176.53 90)
+		(at 53.34 182.88 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -13116,7 +13152,7 @@
 		(fields_autoplaced yes)
 		(uuid "1500ac86-fb6d-4fd4-b4d2-a9e84faeef44")
 		(property "Reference" "LM1"
-			(at 40.64 175.2599 90)
+			(at 49.53 181.6099 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13127,7 +13163,7 @@
 			)
 		)
 		(property "Value" "L7806"
-			(at 40.64 177.7999 90)
+			(at 49.53 184.1499 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13138,7 +13174,7 @@
 			)
 		)
 		(property "Footprint" "L7806CV:TO255P1020X450X1968-3B"
-			(at 48.26 175.895 0)
+			(at 57.15 182.245 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13151,7 +13187,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.st.com/content/ccc/resource/technical/document/datasheet/41/4f/b3/b0/12/d4/47/88/CD00000444.pdf/files/CD00000444.pdf/jcr:content/translations/en.CD00000444.pdf"
-			(at 45.72 176.53 0)
+			(at 54.61 182.88 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13162,7 +13198,7 @@
 			)
 		)
 		(property "Description" "Positive 1.5A 35V Linear Regulator, Fixed Output 6V, TO-220/TO-263/TO-252"
-			(at 44.45 176.53 0)
+			(at 53.34 182.88 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13192,7 +13228,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 271.78 138.43 180)
+		(at 280.67 144.78 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -13203,7 +13239,7 @@
 		(fields_autoplaced yes)
 		(uuid "192955d0-174a-45ec-9c55-1fee52d8978f")
 		(property "Reference" "R24"
-			(at 274.32 137.1599 0)
+			(at 283.21 143.5099 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13214,7 +13250,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 274.32 139.6999 0)
+			(at 283.21 146.0499 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13225,7 +13261,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 273.558 138.43 90)
+			(at 282.448 144.78 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13236,7 +13272,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 271.78 138.43 0)
+			(at 280.67 144.78 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13247,7 +13283,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 271.78 138.43 0)
+			(at 280.67 144.78 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13274,7 +13310,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 167.64 137.16 0)
+		(at 176.53 143.51 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -13285,7 +13321,7 @@
 		(fields_autoplaced yes)
 		(uuid "2439d1e0-a08b-4da2-95c7-ee964bdf349e")
 		(property "Reference" "T14"
-			(at 175.26 135.7425 0)
+			(at 184.15 142.0925 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13296,7 +13332,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 175.26 138.2825 0)
+			(at 184.15 144.6325 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13307,7 +13343,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 167.64 137.16 0)
+			(at 176.53 143.51 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13319,7 +13355,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 167.64 137.16 0)
+			(at 176.53 143.51 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13330,7 +13366,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 167.64 137.16 0)
+			(at 176.53 143.51 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13342,7 +13378,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 167.64 137.16 0)
+			(at 176.53 143.51 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13354,7 +13390,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 167.64 137.16 0)
+			(at 176.53 143.51 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13366,7 +13402,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 167.64 137.16 0)
+			(at 176.53 143.51 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13378,7 +13414,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 167.64 137.16 0)
+			(at 176.53 143.51 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13390,7 +13426,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 167.64 137.16 0)
+			(at 176.53 143.51 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13402,7 +13438,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 167.64 137.16 0)
+			(at 176.53 143.51 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13414,7 +13450,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 167.64 137.16 0)
+			(at 176.53 143.51 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13445,7 +13481,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 233.68 129.54 180)
+		(at 242.57 135.89 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -13456,7 +13492,7 @@
 		(fields_autoplaced yes)
 		(uuid "2ad25650-e628-4a23-b75c-eece60487767")
 		(property "Reference" "R21"
-			(at 236.22 128.2699 0)
+			(at 245.11 134.6199 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13467,7 +13503,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 236.22 130.8099 0)
+			(at 245.11 137.1599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13478,7 +13514,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 235.458 129.54 90)
+			(at 244.348 135.89 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13489,7 +13525,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 233.68 129.54 0)
+			(at 242.57 135.89 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13500,7 +13536,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 233.68 129.54 0)
+			(at 242.57 135.89 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13527,7 +13563,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 52.07 128.27 270)
+		(at 60.96 134.62 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -13538,7 +13574,7 @@
 		(fields_autoplaced yes)
 		(uuid "2b6bb59f-7036-4304-873d-6198255c5a9b")
 		(property "Reference" "R30"
-			(at 52.07 121.92 90)
+			(at 60.96 128.27 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13548,7 +13584,7 @@
 			)
 		)
 		(property "Value" "4.7k"
-			(at 52.07 124.46 90)
+			(at 60.96 130.81 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13558,7 +13594,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 52.07 126.492 90)
+			(at 60.96 132.842 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13569,7 +13605,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 52.07 128.27 0)
+			(at 60.96 134.62 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13580,7 +13616,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 52.07 128.27 0)
+			(at 60.96 134.62 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13607,7 +13643,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 273.05 80.01 180)
+		(at 281.94 86.36 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -13618,7 +13654,7 @@
 		(fields_autoplaced yes)
 		(uuid "304f50fd-0f70-49a1-b4f8-44881902d5a6")
 		(property "Reference" "R10"
-			(at 275.59 78.7399 0)
+			(at 284.48 85.0899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13629,7 +13665,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 275.59 81.2799 0)
+			(at 284.48 87.6299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13640,7 +13676,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 274.828 80.01 90)
+			(at 283.718 86.36 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13651,7 +13687,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 273.05 80.01 0)
+			(at 281.94 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13662,7 +13698,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 273.05 80.01 0)
+			(at 281.94 86.36 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13689,7 +13725,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 279.4 114.3 0)
+		(at 288.29 120.65 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -13700,7 +13736,7 @@
 		(fields_autoplaced yes)
 		(uuid "30c8e562-8672-4f6a-b50c-7eecf3765f4c")
 		(property "Reference" "T12"
-			(at 287.02 112.8825 0)
+			(at 295.91 119.2325 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13711,7 +13747,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 287.02 115.4225 0)
+			(at 295.91 121.7725 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13722,7 +13758,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 279.4 114.3 0)
+			(at 288.29 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13734,7 +13770,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 279.4 114.3 0)
+			(at 288.29 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13745,7 +13781,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 279.4 114.3 0)
+			(at 288.29 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13757,7 +13793,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 279.4 114.3 0)
+			(at 288.29 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13769,7 +13805,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 279.4 114.3 0)
+			(at 288.29 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13781,7 +13817,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 279.4 114.3 0)
+			(at 288.29 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13793,7 +13829,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 279.4 114.3 0)
+			(at 288.29 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13805,7 +13841,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 279.4 114.3 0)
+			(at 288.29 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13817,7 +13853,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 279.4 114.3 0)
+			(at 288.29 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13829,7 +13865,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 279.4 114.3 0)
+			(at 288.29 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13860,7 +13896,7 @@
 	)
 	(symbol
 		(lib_id "Connector:DB25_Socket")
-		(at 123.19 191.77 270)
+		(at 132.08 198.12 270)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -13871,7 +13907,7 @@
 		(fields_autoplaced yes)
 		(uuid "384bdb49-6b48-4c54-9d37-ce312015f99a")
 		(property "Reference" "J2"
-			(at 123.19 198.12 90)
+			(at 132.08 204.47 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13881,7 +13917,7 @@
 			)
 		)
 		(property "Value" "DB25_Socket"
-			(at 123.19 200.66 90)
+			(at 132.08 207.01 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -13891,7 +13927,7 @@
 			)
 		)
 		(property "Footprint" "DB25S564GTLF:AMPHENOL_DB25S564GTLF"
-			(at 123.19 191.77 0)
+			(at 132.08 198.12 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13902,7 +13938,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 123.19 191.77 0)
+			(at 132.08 198.12 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -13913,7 +13949,7 @@
 			)
 		)
 		(property "Description" "25-pin D-SUB connector, socket (female)"
-			(at 123.19 191.77 0)
+			(at 132.08 198.12 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14009,7 +14045,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 176.53 91.44 0)
+		(at 185.42 97.79 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -14020,7 +14056,7 @@
 		(fields_autoplaced yes)
 		(uuid "3e531bb0-3258-4940-8000-09c212b42eea")
 		(property "Reference" "T2"
-			(at 184.15 90.0225 0)
+			(at 193.04 96.3725 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14031,7 +14067,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 184.15 92.5625 0)
+			(at 193.04 98.9125 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14042,7 +14078,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 176.53 91.44 0)
+			(at 185.42 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14054,7 +14090,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 176.53 91.44 0)
+			(at 185.42 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14065,7 +14101,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 176.53 91.44 0)
+			(at 185.42 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14077,7 +14113,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 176.53 91.44 0)
+			(at 185.42 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14089,7 +14125,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 176.53 91.44 0)
+			(at 185.42 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14101,7 +14137,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 176.53 91.44 0)
+			(at 185.42 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14113,7 +14149,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 176.53 91.44 0)
+			(at 185.42 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14125,7 +14161,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 176.53 91.44 0)
+			(at 185.42 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14137,7 +14173,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 176.53 91.44 0)
+			(at 185.42 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14149,7 +14185,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 176.53 91.44 0)
+			(at 185.42 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14180,7 +14216,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 215.9 125.73 180)
+		(at 224.79 132.08 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -14191,7 +14227,7 @@
 		(fields_autoplaced yes)
 		(uuid "400183d3-07a1-46d8-9277-30e6d77ca3e6")
 		(property "Reference" "R20"
-			(at 218.44 124.4599 0)
+			(at 227.33 130.8099 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14202,7 +14238,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 218.44 126.9999 0)
+			(at 227.33 133.3499 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14213,7 +14249,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 217.678 125.73 90)
+			(at 226.568 132.08 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14224,7 +14260,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 215.9 125.73 0)
+			(at 224.79 132.08 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14235,7 +14271,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 215.9 125.73 0)
+			(at 224.79 132.08 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14262,7 +14298,7 @@
 	)
 	(symbol
 		(lib_id "Connector:DB25_Pins")
-		(at 220.98 20.32 270)
+		(at 229.87 26.67 270)
 		(mirror x)
 		(unit 1)
 		(body_style 1)
@@ -14273,7 +14309,7 @@
 		(dnp no)
 		(uuid "44ed33d8-a974-45b1-82e4-e85cdeb307b2")
 		(property "Reference" "J1"
-			(at 220.98 11.43 90)
+			(at 229.87 17.78 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14283,7 +14319,7 @@
 			)
 		)
 		(property "Value" "DB25_Pins"
-			(at 220.98 13.97 90)
+			(at 229.87 20.32 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14293,7 +14329,7 @@
 			)
 		)
 		(property "Footprint" "DB25P564CTXLF:AMPHENOL_DB25P564CTXLF"
-			(at 220.98 20.32 0)
+			(at 229.87 26.67 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14304,7 +14340,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 220.98 20.32 0)
+			(at 229.87 26.67 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14315,7 +14351,7 @@
 			)
 		)
 		(property "Description" "25-pin D-SUB connector, pins (male)"
-			(at 220.98 20.32 0)
+			(at 229.87 26.67 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14411,7 +14447,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 184.15 129.54 0)
+		(at 193.04 135.89 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -14422,7 +14458,7 @@
 		(fields_autoplaced yes)
 		(uuid "4fae0db9-35fb-45a1-8a5a-12ddb4015f71")
 		(property "Reference" "T19"
-			(at 191.77 128.1225 0)
+			(at 200.66 134.4725 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14433,7 +14469,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 191.77 130.6625 0)
+			(at 200.66 137.0125 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14444,7 +14480,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 184.15 129.54 0)
+			(at 193.04 135.89 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14456,7 +14492,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 184.15 129.54 0)
+			(at 193.04 135.89 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14467,7 +14503,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 184.15 129.54 0)
+			(at 193.04 135.89 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14479,7 +14515,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 184.15 129.54 0)
+			(at 193.04 135.89 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14491,7 +14527,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 184.15 129.54 0)
+			(at 193.04 135.89 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14503,7 +14539,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 184.15 129.54 0)
+			(at 193.04 135.89 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14515,7 +14551,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 184.15 129.54 0)
+			(at 193.04 135.89 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14527,7 +14563,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 184.15 129.54 0)
+			(at 193.04 135.89 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14539,7 +14575,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 184.15 129.54 0)
+			(at 193.04 135.89 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14551,7 +14587,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 184.15 129.54 0)
+			(at 193.04 135.89 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14582,7 +14618,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 187.96 71.12 0)
+		(at 196.85 77.47 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -14593,7 +14629,7 @@
 		(fields_autoplaced yes)
 		(uuid "5269c7f6-6ab4-41a5-aed4-bc5c8282d09f")
 		(property "Reference" "T3"
-			(at 195.58 69.7025 0)
+			(at 204.47 76.0525 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14604,7 +14640,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 195.58 72.2425 0)
+			(at 204.47 78.5925 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14615,7 +14651,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 187.96 71.12 0)
+			(at 196.85 77.47 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14627,7 +14663,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 187.96 71.12 0)
+			(at 196.85 77.47 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14638,7 +14674,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 187.96 71.12 0)
+			(at 196.85 77.47 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14650,7 +14686,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 187.96 71.12 0)
+			(at 196.85 77.47 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14662,7 +14698,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 187.96 71.12 0)
+			(at 196.85 77.47 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14674,7 +14710,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 187.96 71.12 0)
+			(at 196.85 77.47 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14686,7 +14722,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 187.96 71.12 0)
+			(at 196.85 77.47 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14698,7 +14734,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 187.96 71.12 0)
+			(at 196.85 77.47 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14710,7 +14746,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 187.96 71.12 0)
+			(at 196.85 77.47 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14722,7 +14758,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 187.96 71.12 0)
+			(at 196.85 77.47 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14753,7 +14789,7 @@
 	)
 	(symbol
 		(lib_id "ESP32-DEVKITC:ESP32-DEVKITC")
-		(at 34.29 88.9 0)
+		(at 43.18 97.79 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -14764,7 +14800,7 @@
 		(fields_autoplaced yes)
 		(uuid "584e5752-f3aa-4347-a274-1f5320ab4e89")
 		(property "Reference" "U1"
-			(at 34.29 58.42 0)
+			(at 43.18 67.31 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14774,7 +14810,7 @@
 			)
 		)
 		(property "Value" "ESP32-DEVKITC"
-			(at 34.29 60.96 0)
+			(at 43.18 69.85 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14784,7 +14820,7 @@
 			)
 		)
 		(property "Footprint" "ESP32-DEVKITC:MODULE_ESP32-DEVKITC"
-			(at 34.29 88.9 0)
+			(at 43.18 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14796,7 +14832,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 34.29 88.9 0)
+			(at 43.18 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14807,7 +14843,7 @@
 			)
 		)
 		(property "Description" "Transceiver; 802.11 b/g/n (Wi-Fi, WiFi, WLAN), Bluetooth® Smart Ready 4.x Dual Mode"
-			(at 34.29 88.9 0)
+			(at 43.18 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14819,7 +14855,7 @@
 			)
 		)
 		(property "MF" "Espressif Systems"
-			(at 34.29 88.9 0)
+			(at 43.18 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14831,7 +14867,7 @@
 			)
 		)
 		(property "Package" "None"
-			(at 34.29 88.9 0)
+			(at 43.18 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14843,7 +14879,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 34.29 88.9 0)
+			(at 43.18 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14855,7 +14891,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/ESP32-DEVKITC-32D-F/Espressif+Systems/view-part/?ref=eda"
-			(at 34.29 88.9 0)
+			(at 43.18 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14867,7 +14903,7 @@
 			)
 		)
 		(property "STANDARD" "Manufacturer Recommendations"
-			(at 34.29 88.9 0)
+			(at 43.18 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14879,7 +14915,7 @@
 			)
 		)
 		(property "PARTREV" "N/A"
-			(at 34.29 88.9 0)
+			(at 43.18 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14891,7 +14927,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/ESP32-DEVKITC-32D-F/Espressif+Systems/view-part/?ref=snap"
-			(at 34.29 88.9 0)
+			(at 43.18 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14903,7 +14939,7 @@
 			)
 		)
 		(property "MP" "ESP32-DEVKITC-32D-F"
-			(at 34.29 88.9 0)
+			(at 43.18 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14915,7 +14951,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 34.29 88.9 0)
+			(at 43.18 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14927,7 +14963,7 @@
 			)
 		)
 		(property "MANUFACTURER" "ESPRESSIF"
-			(at 34.29 88.9 0)
+			(at 43.18 97.79 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15063,7 +15099,7 @@
 	)
 	(symbol
 		(lib_id "Device:D")
-		(at 148.59 173.99 90)
+		(at 157.48 180.34 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -15074,7 +15110,7 @@
 		(fields_autoplaced yes)
 		(uuid "5a1ef242-a372-49a4-bd65-d260dbf7eedb")
 		(property "Reference" "D1"
-			(at 151.13 172.7199 90)
+			(at 160.02 179.0699 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15085,7 +15121,7 @@
 			)
 		)
 		(property "Value" "D"
-			(at 151.13 175.2599 90)
+			(at 160.02 181.6099 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15096,7 +15132,7 @@
 			)
 		)
 		(property "Footprint" "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal"
-			(at 148.59 173.99 0)
+			(at 157.48 180.34 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15107,7 +15143,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 148.59 173.99 0)
+			(at 157.48 180.34 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15118,7 +15154,7 @@
 			)
 		)
 		(property "Description" "Diode"
-			(at 148.59 173.99 0)
+			(at 157.48 180.34 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15129,7 +15165,7 @@
 			)
 		)
 		(property "Sim.Device" "D"
-			(at 148.59 173.99 0)
+			(at 157.48 180.34 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15140,7 +15176,7 @@
 			)
 		)
 		(property "Sim.Pins" "1=K 2=A"
-			(at 148.59 173.99 0)
+			(at 157.48 180.34 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15167,7 +15203,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_Coaxial_Small")
-		(at 26.67 25.4 90)
+		(at 35.56 31.75 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -15178,7 +15214,7 @@
 		(fields_autoplaced yes)
 		(uuid "5f088ca9-ff83-42a8-b0e9-6a7e859a538c")
 		(property "Reference" "J3"
-			(at 29.21 24.6494 90)
+			(at 38.1 30.9994 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15189,7 +15225,7 @@
 			)
 		)
 		(property "Value" "Conn_Coaxial_Small"
-			(at 29.21 27.1894 90)
+			(at 38.1 33.5394 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15200,7 +15236,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Coaxial:SMA_Amphenol_901-143_Horizontal"
-			(at 26.67 25.4 0)
+			(at 35.56 31.75 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15211,7 +15247,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 26.67 25.4 0)
+			(at 35.56 31.75 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15222,7 +15258,7 @@
 			)
 		)
 		(property "Description" "small coaxial connector (BNC, SMA, SMB, SMC, Cinch/RCA, LEMO, ...)"
-			(at 26.67 25.4 0)
+			(at 35.56 31.75 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15249,7 +15285,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 238.76 130.81 0)
+		(at 247.65 137.16 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -15260,7 +15296,7 @@
 		(fields_autoplaced yes)
 		(uuid "69aeb1fb-727c-4612-a6fa-f82d4be619f3")
 		(property "Reference" "T21"
-			(at 246.38 129.3925 0)
+			(at 255.27 135.7425 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15271,7 +15307,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 246.38 131.9325 0)
+			(at 255.27 138.2825 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15282,7 +15318,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 238.76 130.81 0)
+			(at 247.65 137.16 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15294,7 +15330,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 238.76 130.81 0)
+			(at 247.65 137.16 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15305,7 +15341,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 238.76 130.81 0)
+			(at 247.65 137.16 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15317,7 +15353,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 238.76 130.81 0)
+			(at 247.65 137.16 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15329,7 +15365,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 238.76 130.81 0)
+			(at 247.65 137.16 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15341,7 +15377,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 238.76 130.81 0)
+			(at 247.65 137.16 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15353,7 +15389,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 238.76 130.81 0)
+			(at 247.65 137.16 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15365,7 +15401,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 238.76 130.81 0)
+			(at 247.65 137.16 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15377,7 +15413,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 238.76 130.81 0)
+			(at 247.65 137.16 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15389,7 +15425,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 238.76 130.81 0)
+			(at 247.65 137.16 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15420,7 +15456,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 246.38 118.11 180)
+		(at 255.27 124.46 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -15431,7 +15467,7 @@
 		(fields_autoplaced yes)
 		(uuid "74ba9f6a-00c7-48e8-8cc9-623569cf11f2")
 		(property "Reference" "R8"
-			(at 248.92 116.8399 0)
+			(at 257.81 123.1899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15442,7 +15478,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 248.92 119.3799 0)
+			(at 257.81 125.7299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15453,7 +15489,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 248.158 118.11 90)
+			(at 257.048 124.46 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15464,7 +15500,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 246.38 118.11 0)
+			(at 255.27 124.46 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15475,7 +15511,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 246.38 118.11 0)
+			(at 255.27 124.46 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15502,7 +15538,7 @@
 	)
 	(symbol
 		(lib_id "RF_Module:RFM95W-868S2")
-		(at 34.29 44.45 90)
+		(at 43.18 50.8 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -15513,7 +15549,7 @@
 		(fields_autoplaced yes)
 		(uuid "77deec6a-9914-40fb-89c0-6750f05cdb28")
 		(property "Reference" "U2"
-			(at 15.24 39.0046 90)
+			(at 24.13 45.3546 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15523,7 +15559,7 @@
 			)
 		)
 		(property "Value" "RFM95W-868S2"
-			(at 15.24 41.5446 90)
+			(at 24.13 47.8946 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15533,7 +15569,7 @@
 			)
 		)
 		(property "Footprint" "RF_Module:HOPERF_RFM9XW_SMD"
-			(at -7.62 128.27 0)
+			(at 1.27 134.62 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15544,7 +15580,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.hoperf.com/data/upload/portal/20181127/5bfcbea20e9ef.pdf"
-			(at -7.62 128.27 0)
+			(at 1.27 134.62 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15555,7 +15591,7 @@
 			)
 		)
 		(property "Description" "Low power long range transceiver module, SPI and parallel interface, 868 MHz, spreading factor 6 to12, bandwidth 7.8 to 500kHz, -111 to -148 dBm, SMD-16, DIP-16"
-			(at 34.29 44.45 0)
+			(at 43.18 50.8 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15624,7 +15660,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 234.95 76.2 0)
+		(at 243.84 82.55 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -15635,7 +15671,7 @@
 		(fields_autoplaced yes)
 		(uuid "7aef95db-94be-4e30-8030-cbf293ac4695")
 		(property "Reference" "T17"
-			(at 242.57 74.7825 0)
+			(at 251.46 81.1325 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15646,7 +15682,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 242.57 77.3225 0)
+			(at 251.46 83.6725 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15657,7 +15693,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 234.95 76.2 0)
+			(at 243.84 82.55 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15669,7 +15705,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 234.95 76.2 0)
+			(at 243.84 82.55 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15680,7 +15716,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 234.95 76.2 0)
+			(at 243.84 82.55 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15692,7 +15728,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 234.95 76.2 0)
+			(at 243.84 82.55 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15704,7 +15740,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 234.95 76.2 0)
+			(at 243.84 82.55 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15716,7 +15752,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 234.95 76.2 0)
+			(at 243.84 82.55 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15728,7 +15764,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 234.95 76.2 0)
+			(at 243.84 82.55 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15740,7 +15776,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 234.95 76.2 0)
+			(at 243.84 82.55 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15752,7 +15788,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 234.95 76.2 0)
+			(at 243.84 82.55 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15764,7 +15800,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 234.95 76.2 0)
+			(at 243.84 82.55 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15795,7 +15831,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 173.99 143.51 180)
+		(at 182.88 149.86 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -15806,7 +15842,7 @@
 		(fields_autoplaced yes)
 		(uuid "7f383573-83f9-47ee-86c6-2fd40f167e29")
 		(property "Reference" "R15"
-			(at 176.53 142.2399 0)
+			(at 185.42 148.5899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15817,7 +15853,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 176.53 144.7799 0)
+			(at 185.42 151.1299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15828,7 +15864,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 175.768 143.51 90)
+			(at 184.658 149.86 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15839,7 +15875,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 173.99 143.51 0)
+			(at 182.88 149.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15850,7 +15886,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 173.99 143.51 0)
+			(at 182.88 149.86 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15877,7 +15913,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 264.16 102.87 180)
+		(at 273.05 109.22 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -15888,7 +15924,7 @@
 		(fields_autoplaced yes)
 		(uuid "7fd4eb75-3586-4c89-a44b-fb71082317b2")
 		(property "Reference" "R11"
-			(at 266.7 101.5999 0)
+			(at 275.59 107.9499 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15899,7 +15935,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 266.7 104.1399 0)
+			(at 275.59 110.4899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15910,7 +15946,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 265.938 102.87 90)
+			(at 274.828 109.22 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15921,7 +15957,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 264.16 102.87 0)
+			(at 273.05 109.22 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15932,7 +15968,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 264.16 102.87 0)
+			(at 273.05 109.22 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15959,7 +15995,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 165.1 83.82 0)
+		(at 173.99 90.17 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -15970,7 +16006,7 @@
 		(fields_autoplaced yes)
 		(uuid "82141738-fa38-4534-8be2-6fd5a3996788")
 		(property "Reference" "T1"
-			(at 172.72 82.4025 0)
+			(at 181.61 88.7525 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15981,7 +16017,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 172.72 84.9425 0)
+			(at 181.61 91.2925 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15992,7 +16028,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 165.1 83.82 0)
+			(at 173.99 90.17 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16004,7 +16040,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 165.1 83.82 0)
+			(at 173.99 90.17 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16015,7 +16051,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 165.1 83.82 0)
+			(at 173.99 90.17 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16027,7 +16063,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 165.1 83.82 0)
+			(at 173.99 90.17 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16039,7 +16075,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 165.1 83.82 0)
+			(at 173.99 90.17 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16051,7 +16087,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 165.1 83.82 0)
+			(at 173.99 90.17 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16063,7 +16099,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 165.1 83.82 0)
+			(at 173.99 90.17 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16075,7 +16111,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 165.1 83.82 0)
+			(at 173.99 90.17 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16087,7 +16123,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 165.1 83.82 0)
+			(at 173.99 90.17 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16099,7 +16135,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 165.1 83.82 0)
+			(at 173.99 90.17 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16130,7 +16166,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 220.98 127 0)
+		(at 229.87 133.35 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -16141,7 +16177,7 @@
 		(fields_autoplaced yes)
 		(uuid "884e277c-2dbc-4a72-9a12-eb0b8be2a9a4")
 		(property "Reference" "T20"
-			(at 228.6 125.5825 0)
+			(at 237.49 131.9325 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16152,7 +16188,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 228.6 128.1225 0)
+			(at 237.49 134.4725 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16163,7 +16199,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 220.98 127 0)
+			(at 229.87 133.35 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16175,7 +16211,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 220.98 127 0)
+			(at 229.87 133.35 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16186,7 +16222,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 220.98 127 0)
+			(at 229.87 133.35 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16198,7 +16234,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 220.98 127 0)
+			(at 229.87 133.35 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16210,7 +16246,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 220.98 127 0)
+			(at 229.87 133.35 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16222,7 +16258,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 220.98 127 0)
+			(at 229.87 133.35 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16234,7 +16270,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 220.98 127 0)
+			(at 229.87 133.35 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16246,7 +16282,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 220.98 127 0)
+			(at 229.87 133.35 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16258,7 +16294,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 220.98 127 0)
+			(at 229.87 133.35 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16270,7 +16306,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 220.98 127 0)
+			(at 229.87 133.35 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16301,7 +16337,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 162.56 135.89 180)
+		(at 171.45 142.24 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -16312,7 +16348,7 @@
 		(fields_autoplaced yes)
 		(uuid "8ab356ab-ad04-4cb2-a2a5-f67dec8c23f3")
 		(property "Reference" "R14"
-			(at 165.1 134.6199 0)
+			(at 173.99 140.9699 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16323,7 +16359,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 165.1 137.1599 0)
+			(at 173.99 143.5099 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16334,7 +16370,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 164.338 135.89 90)
+			(at 173.228 142.24 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16345,7 +16381,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 162.56 135.89 0)
+			(at 171.45 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16356,7 +16392,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 162.56 135.89 0)
+			(at 171.45 142.24 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16383,7 +16419,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 194.31 123.19 180)
+		(at 203.2 129.54 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -16394,7 +16430,7 @@
 		(fields_autoplaced yes)
 		(uuid "8be18f22-3429-46d2-abcb-2f5043b44654")
 		(property "Reference" "R4"
-			(at 196.85 121.9199 0)
+			(at 205.74 128.2699 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16405,7 +16441,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 196.85 124.4599 0)
+			(at 205.74 130.8099 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16416,7 +16452,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 196.088 123.19 90)
+			(at 204.978 129.54 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16427,7 +16463,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 194.31 123.19 0)
+			(at 203.2 129.54 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16438,7 +16474,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 194.31 123.19 0)
+			(at 203.2 129.54 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16465,7 +16501,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 165.1 107.95 180)
+		(at 173.99 114.3 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -16476,7 +16512,7 @@
 		(fields_autoplaced yes)
 		(uuid "8d0bd708-0cb6-4ec1-b2a1-22ed23cbbe4c")
 		(property "Reference" "R18"
-			(at 167.64 106.6799 0)
+			(at 176.53 113.0299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16487,7 +16523,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 167.64 109.2199 0)
+			(at 176.53 115.5699 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16498,7 +16534,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 166.878 107.95 90)
+			(at 175.768 114.3 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16509,7 +16545,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 165.1 107.95 0)
+			(at 173.99 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16520,7 +16556,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 165.1 107.95 0)
+			(at 173.99 114.3 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16547,7 +16583,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 179.07 144.78 0)
+		(at 187.96 151.13 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -16558,7 +16594,7 @@
 		(fields_autoplaced yes)
 		(uuid "8db807c6-a3f4-4a88-8723-2d4afbb63296")
 		(property "Reference" "T15"
-			(at 186.69 143.3625 0)
+			(at 195.58 149.7125 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16569,7 +16605,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 186.69 145.9025 0)
+			(at 195.58 152.2525 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16580,7 +16616,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 179.07 144.78 0)
+			(at 187.96 151.13 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16592,7 +16628,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 179.07 144.78 0)
+			(at 187.96 151.13 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16603,7 +16639,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 179.07 144.78 0)
+			(at 187.96 151.13 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16615,7 +16651,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 179.07 144.78 0)
+			(at 187.96 151.13 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16627,7 +16663,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 179.07 144.78 0)
+			(at 187.96 151.13 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16639,7 +16675,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 179.07 144.78 0)
+			(at 187.96 151.13 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16651,7 +16687,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 179.07 144.78 0)
+			(at 187.96 151.13 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16663,7 +16699,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 179.07 144.78 0)
+			(at 187.96 151.13 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16675,7 +16711,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 179.07 144.78 0)
+			(at 187.96 151.13 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16687,7 +16723,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 179.07 144.78 0)
+			(at 187.96 151.13 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16718,7 +16754,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 160.02 82.55 180)
+		(at 168.91 88.9 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -16729,7 +16765,7 @@
 		(fields_autoplaced yes)
 		(uuid "8e21ec96-05f3-4c6f-b5f0-90492bc57268")
 		(property "Reference" "R1"
-			(at 162.56 81.2799 0)
+			(at 171.45 87.6299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16740,7 +16776,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 162.56 83.8199 0)
+			(at 171.45 90.1699 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16751,7 +16787,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 161.798 82.55 90)
+			(at 170.688 88.9 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16762,7 +16798,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 160.02 82.55 0)
+			(at 168.91 88.9 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16773,7 +16809,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 160.02 82.55 0)
+			(at 168.91 88.9 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16800,7 +16836,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 171.45 90.17 180)
+		(at 180.34 96.52 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -16811,7 +16847,7 @@
 		(fields_autoplaced yes)
 		(uuid "93c3a53b-4398-46a9-a8dc-057bdbbc551e")
 		(property "Reference" "R2"
-			(at 173.99 88.8999 0)
+			(at 182.88 95.2499 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16822,7 +16858,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 173.99 91.4399 0)
+			(at 182.88 97.7899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16833,7 +16869,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 173.228 90.17 90)
+			(at 182.118 96.52 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16844,7 +16880,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 171.45 90.17 0)
+			(at 180.34 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16855,7 +16891,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 171.45 90.17 0)
+			(at 180.34 96.52 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16882,7 +16918,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 276.86 139.7 0)
+		(at 285.75 146.05 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -16893,7 +16929,7 @@
 		(fields_autoplaced yes)
 		(uuid "981afe15-4858-463b-ac00-9e41919dee39")
 		(property "Reference" "T24"
-			(at 284.48 138.2825 0)
+			(at 293.37 144.6325 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16904,7 +16940,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 284.48 140.8225 0)
+			(at 293.37 147.1725 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -16915,7 +16951,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 276.86 139.7 0)
+			(at 285.75 146.05 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16927,7 +16963,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 276.86 139.7 0)
+			(at 285.75 146.05 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16938,7 +16974,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 276.86 139.7 0)
+			(at 285.75 146.05 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16950,7 +16986,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 276.86 139.7 0)
+			(at 285.75 146.05 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16962,7 +16998,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 276.86 139.7 0)
+			(at 285.75 146.05 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16974,7 +17010,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 276.86 139.7 0)
+			(at 285.75 146.05 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16986,7 +17022,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 276.86 139.7 0)
+			(at 285.75 146.05 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -16998,7 +17034,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 276.86 139.7 0)
+			(at 285.75 146.05 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17010,7 +17046,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 276.86 139.7 0)
+			(at 285.75 146.05 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17022,7 +17058,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 276.86 139.7 0)
+			(at 285.75 146.05 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17053,7 +17089,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 201.93 72.39 180)
+		(at 210.82 78.74 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17064,7 +17100,7 @@
 		(fields_autoplaced yes)
 		(uuid "9af4db4b-a4c1-4b5f-9bfe-43a452db5fcb")
 		(property "Reference" "R16"
-			(at 204.47 71.1199 0)
+			(at 213.36 77.4699 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17075,7 +17111,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 204.47 73.6599 0)
+			(at 213.36 80.0099 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17086,7 +17122,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 203.708 72.39 90)
+			(at 212.598 78.74 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17097,7 +17133,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 201.93 72.39 0)
+			(at 210.82 78.74 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17108,7 +17144,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 201.93 72.39 0)
+			(at 210.82 78.74 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17135,7 +17171,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 261.62 140.97 180)
+		(at 270.51 147.32 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17146,7 +17182,7 @@
 		(fields_autoplaced yes)
 		(uuid "9e248cfa-3251-471e-a7f4-d858695e52c0")
 		(property "Reference" "R23"
-			(at 264.16 139.6999 0)
+			(at 273.05 146.0499 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17157,7 +17193,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 264.16 142.2399 0)
+			(at 273.05 148.5899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17168,7 +17204,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 263.398 140.97 90)
+			(at 272.288 147.32 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17179,7 +17215,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 261.62 140.97 0)
+			(at 270.51 147.32 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17190,7 +17226,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 261.62 140.97 0)
+			(at 270.51 147.32 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17217,7 +17253,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 266.7 142.24 0)
+		(at 275.59 148.59 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17228,7 +17264,7 @@
 		(fields_autoplaced yes)
 		(uuid "9edeebe8-5fbd-439e-aee0-09b880ffc9be")
 		(property "Reference" "T23"
-			(at 274.32 140.8225 0)
+			(at 283.21 147.1725 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17239,7 +17275,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 274.32 143.3625 0)
+			(at 283.21 149.7125 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17250,7 +17286,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 266.7 142.24 0)
+			(at 275.59 148.59 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17262,7 +17298,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 266.7 142.24 0)
+			(at 275.59 148.59 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17273,7 +17309,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 266.7 142.24 0)
+			(at 275.59 148.59 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17285,7 +17321,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 266.7 142.24 0)
+			(at 275.59 148.59 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17297,7 +17333,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 266.7 142.24 0)
+			(at 275.59 148.59 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17309,7 +17345,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 266.7 142.24 0)
+			(at 275.59 148.59 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17321,7 +17357,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 266.7 142.24 0)
+			(at 275.59 148.59 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17333,7 +17369,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 266.7 142.24 0)
+			(at 275.59 148.59 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17345,7 +17381,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 266.7 142.24 0)
+			(at 275.59 148.59 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17357,7 +17393,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 266.7 142.24 0)
+			(at 275.59 148.59 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17388,7 +17424,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 210.82 87.63 180)
+		(at 219.71 93.98 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17399,7 +17435,7 @@
 		(fields_autoplaced yes)
 		(uuid "b9292760-ff3c-42b7-a8a3-da9966118f9b")
 		(property "Reference" "R5"
-			(at 213.36 86.3599 0)
+			(at 222.25 92.7099 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17410,7 +17446,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 213.36 88.8999 0)
+			(at 222.25 95.2499 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17421,7 +17457,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 212.598 87.63 90)
+			(at 221.488 93.98 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17432,7 +17468,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 210.82 87.63 0)
+			(at 219.71 93.98 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17443,7 +17479,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 210.82 87.63 0)
+			(at 219.71 93.98 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17470,7 +17506,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 55.88 140.97 180)
+		(at 64.77 147.32 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17481,7 +17517,7 @@
 		(fields_autoplaced yes)
 		(uuid "b94f6281-5dcd-435a-a2b4-85f704185615")
 		(property "Reference" "R31"
-			(at 58.42 139.6999 0)
+			(at 67.31 146.0499 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17492,7 +17528,7 @@
 			)
 		)
 		(property "Value" "2.2k"
-			(at 58.42 142.2399 0)
+			(at 67.31 148.5899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17503,7 +17539,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 57.658 140.97 90)
+			(at 66.548 147.32 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17514,7 +17550,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 55.88 140.97 0)
+			(at 64.77 147.32 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17525,7 +17561,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 55.88 140.97 0)
+			(at 64.77 147.32 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17552,7 +17588,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 207.01 73.66 0)
+		(at 215.9 80.01 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17563,7 +17599,7 @@
 		(fields_autoplaced yes)
 		(uuid "bf1b6a05-dd22-48c2-9f8e-5ab1d2e652bd")
 		(property "Reference" "T16"
-			(at 214.63 72.2425 0)
+			(at 223.52 78.5925 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17574,7 +17610,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 214.63 74.7825 0)
+			(at 223.52 81.1325 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17585,7 +17621,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 207.01 73.66 0)
+			(at 215.9 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17597,7 +17633,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 207.01 73.66 0)
+			(at 215.9 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17608,7 +17644,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 207.01 73.66 0)
+			(at 215.9 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17620,7 +17656,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 207.01 73.66 0)
+			(at 215.9 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17632,7 +17668,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 207.01 73.66 0)
+			(at 215.9 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17644,7 +17680,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 207.01 73.66 0)
+			(at 215.9 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17656,7 +17692,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 207.01 73.66 0)
+			(at 215.9 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17668,7 +17704,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 207.01 73.66 0)
+			(at 215.9 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17680,7 +17716,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 207.01 73.66 0)
+			(at 215.9 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17692,7 +17728,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 207.01 73.66 0)
+			(at 215.9 80.01 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17723,7 +17759,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 278.13 81.28 0)
+		(at 287.02 87.63 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17734,7 +17770,7 @@
 		(fields_autoplaced yes)
 		(uuid "c5c16e01-0eee-4db5-9b45-ce840e8b77de")
 		(property "Reference" "T10"
-			(at 285.75 79.8625 0)
+			(at 294.64 86.2125 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17745,7 +17781,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 285.75 82.4025 0)
+			(at 294.64 88.7525 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17756,7 +17792,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 278.13 81.28 0)
+			(at 287.02 87.63 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17768,7 +17804,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 278.13 81.28 0)
+			(at 287.02 87.63 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17779,7 +17815,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 278.13 81.28 0)
+			(at 287.02 87.63 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17791,7 +17827,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 278.13 81.28 0)
+			(at 287.02 87.63 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17803,7 +17839,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 278.13 81.28 0)
+			(at 287.02 87.63 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17815,7 +17851,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 278.13 81.28 0)
+			(at 287.02 87.63 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17827,7 +17863,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 278.13 81.28 0)
+			(at 287.02 87.63 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17839,7 +17875,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 278.13 81.28 0)
+			(at 287.02 87.63 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17851,7 +17887,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 278.13 81.28 0)
+			(at 287.02 87.63 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17863,7 +17899,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 278.13 81.28 0)
+			(at 287.02 87.63 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17894,7 +17930,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 215.9 88.9 0)
+		(at 224.79 95.25 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -17905,7 +17941,7 @@
 		(fields_autoplaced yes)
 		(uuid "cede597b-6886-43a1-a200-4a2ae668c370")
 		(property "Reference" "T5"
-			(at 223.52 87.4825 0)
+			(at 232.41 93.8325 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17916,7 +17952,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 223.52 90.0225 0)
+			(at 232.41 96.3725 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17927,7 +17963,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 215.9 88.9 0)
+			(at 224.79 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17939,7 +17975,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 215.9 88.9 0)
+			(at 224.79 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17950,7 +17986,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 215.9 88.9 0)
+			(at 224.79 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17962,7 +17998,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 215.9 88.9 0)
+			(at 224.79 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17974,7 +18010,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 215.9 88.9 0)
+			(at 224.79 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17986,7 +18022,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 215.9 88.9 0)
+			(at 224.79 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17998,7 +18034,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 215.9 88.9 0)
+			(at 224.79 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18010,7 +18046,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 215.9 88.9 0)
+			(at 224.79 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18022,7 +18058,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 215.9 88.9 0)
+			(at 224.79 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18034,7 +18070,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 215.9 88.9 0)
+			(at 224.79 95.25 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18065,7 +18101,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 170.18 109.22 0)
+		(at 179.07 115.57 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -18076,7 +18112,7 @@
 		(fields_autoplaced yes)
 		(uuid "cf9668ff-502e-4059-9696-e476e90c3bd0")
 		(property "Reference" "T18"
-			(at 177.8 107.8025 0)
+			(at 186.69 114.1525 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18087,7 +18123,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 177.8 110.3425 0)
+			(at 186.69 116.6925 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18098,7 +18134,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 170.18 109.22 0)
+			(at 179.07 115.57 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18110,7 +18146,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 170.18 109.22 0)
+			(at 179.07 115.57 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18121,7 +18157,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 170.18 109.22 0)
+			(at 179.07 115.57 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18133,7 +18169,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 170.18 109.22 0)
+			(at 179.07 115.57 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18145,7 +18181,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 170.18 109.22 0)
+			(at 179.07 115.57 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18157,7 +18193,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 170.18 109.22 0)
+			(at 179.07 115.57 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18169,7 +18205,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 170.18 109.22 0)
+			(at 179.07 115.57 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18181,7 +18217,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 170.18 109.22 0)
+			(at 179.07 115.57 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18193,7 +18229,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 170.18 109.22 0)
+			(at 179.07 115.57 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18205,7 +18241,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 170.18 109.22 0)
+			(at 179.07 115.57 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18236,7 +18272,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 179.07 128.27 180)
+		(at 187.96 134.62 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -18247,7 +18283,7 @@
 		(fields_autoplaced yes)
 		(uuid "d2d6b0f3-5bc5-4027-aec9-d1d70f17601b")
 		(property "Reference" "R19"
-			(at 181.61 126.9999 0)
+			(at 190.5 133.3499 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18258,7 +18294,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 181.61 129.5399 0)
+			(at 190.5 135.8899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18269,7 +18305,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 180.848 128.27 90)
+			(at 189.738 134.62 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18280,7 +18316,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 179.07 128.27 0)
+			(at 187.96 134.62 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18291,7 +18327,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 179.07 128.27 0)
+			(at 187.96 134.62 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18318,7 +18354,7 @@
 	)
 	(symbol
 		(lib_id "arduino-library:Clone_Mega2560_Pro_Socket")
-		(at 106.68 97.79 0)
+		(at 115.57 104.14 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -18329,7 +18365,7 @@
 		(fields_autoplaced yes)
 		(uuid "d534433a-7ce7-4a41-a51b-27ecbf91cfeb")
 		(property "Reference" "A1"
-			(at 106.68 158.75 0)
+			(at 115.57 165.1 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18339,7 +18375,7 @@
 			)
 		)
 		(property "Value" "Clone_Mega2560_Pro_Socket"
-			(at 106.68 161.29 0)
+			(at 115.57 167.64 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18349,7 +18385,7 @@
 			)
 		)
 		(property "Footprint" "arduino-library:Clone_Mega2560_Pro_Socket"
-			(at 106.68 171.45 0)
+			(at 115.57 177.8 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18360,7 +18396,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.pcboard.ca/mega-2560-pro"
-			(at 106.68 167.64 0)
+			(at 115.57 173.99 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18371,7 +18407,7 @@
 			)
 		)
 		(property "Description" "Socket for Common Unofficial Mega2560 Pro Clone"
-			(at 106.68 97.79 0)
+			(at 115.57 104.14 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18650,7 +18686,7 @@
 	)
 	(symbol
 		(lib_id "Regulator_Switching:TDN_5-2411WISM")
-		(at 34.29 156.21 270)
+		(at 43.18 162.56 270)
 		(mirror x)
 		(unit 1)
 		(body_style 1)
@@ -18661,7 +18697,7 @@
 		(dnp no)
 		(uuid "dd798f20-c230-49bd-afb8-1f41ef7480bd")
 		(property "Reference" "TDN1"
-			(at 46.99 156.21 0)
+			(at 55.88 162.56 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18671,7 +18707,7 @@
 			)
 		)
 		(property "Value" "TDN_5-2411WISM"
-			(at 44.45 156.21 0)
+			(at 53.34 162.56 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18681,7 +18717,7 @@
 			)
 		)
 		(property "Footprint" "Converter_DCDC:Converter_DCDC_TRACO_TDN_5-xxxxWISM_SMD"
-			(at 34.29 160.02 0)
+			(at 43.18 166.37 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18692,7 +18728,7 @@
 			)
 		)
 		(property "Datasheet" "https://assets.tracopower.com/20190626081517/TDN5WISM/documents/tdn5wism-datasheet.pdf"
-			(at 34.29 157.48 0)
+			(at 43.18 163.83 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18703,7 +18739,7 @@
 			)
 		)
 		(property "Description" "Input 9.0 to 36.0V, Output 5.0V"
-			(at 34.29 156.21 0)
+			(at 43.18 162.56 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18742,7 +18778,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 240.03 104.14 0)
+		(at 248.92 110.49 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -18753,7 +18789,7 @@
 		(fields_autoplaced yes)
 		(uuid "e17c25d8-58eb-4912-9365-cbe6e1fcc83f")
 		(property "Reference" "T7"
-			(at 247.65 102.7225 0)
+			(at 256.54 109.0725 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18764,7 +18800,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 247.65 105.2625 0)
+			(at 256.54 111.6125 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18775,7 +18811,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 240.03 104.14 0)
+			(at 248.92 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18787,7 +18823,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 240.03 104.14 0)
+			(at 248.92 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18798,7 +18834,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 240.03 104.14 0)
+			(at 248.92 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18810,7 +18846,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 240.03 104.14 0)
+			(at 248.92 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18822,7 +18858,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 240.03 104.14 0)
+			(at 248.92 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18834,7 +18870,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 240.03 104.14 0)
+			(at 248.92 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18846,7 +18882,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 240.03 104.14 0)
+			(at 248.92 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18858,7 +18894,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 240.03 104.14 0)
+			(at 248.92 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18870,7 +18906,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 240.03 104.14 0)
+			(at 248.92 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18882,7 +18918,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 240.03 104.14 0)
+			(at 248.92 110.49 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18913,7 +18949,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 182.88 69.85 180)
+		(at 191.77 76.2 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -18924,7 +18960,7 @@
 		(fields_autoplaced yes)
 		(uuid "e3c6f1b3-b546-48f0-8340-e6c477b65eef")
 		(property "Reference" "R3"
-			(at 185.42 68.5799 0)
+			(at 194.31 74.9299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18935,7 +18971,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 185.42 71.1199 0)
+			(at 194.31 77.4699 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -18946,7 +18982,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 184.658 69.85 90)
+			(at 193.548 76.2 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18957,7 +18993,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 182.88 69.85 0)
+			(at 191.77 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18968,7 +19004,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 182.88 69.85 0)
+			(at 191.77 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18995,7 +19031,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 234.95 102.87 180)
+		(at 243.84 109.22 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -19006,7 +19042,7 @@
 		(fields_autoplaced yes)
 		(uuid "e4101bcd-1da3-48d6-9756-603c03cc3e32")
 		(property "Reference" "R7"
-			(at 237.49 101.5999 0)
+			(at 246.38 107.9499 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19017,7 +19053,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 237.49 104.1399 0)
+			(at 246.38 110.4899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19028,7 +19064,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 236.728 102.87 90)
+			(at 245.618 109.22 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19039,7 +19075,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 234.95 102.87 0)
+			(at 243.84 109.22 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19050,7 +19086,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 234.95 102.87 0)
+			(at 243.84 109.22 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19077,7 +19113,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 251.46 119.38 0)
+		(at 260.35 125.73 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -19088,7 +19124,7 @@
 		(fields_autoplaced yes)
 		(uuid "e65ce6fc-2b42-46e2-964f-36cc68573f0c")
 		(property "Reference" "T8"
-			(at 259.08 117.9625 0)
+			(at 267.97 124.3125 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19099,7 +19135,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 259.08 120.5025 0)
+			(at 267.97 126.8525 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19110,7 +19146,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 251.46 119.38 0)
+			(at 260.35 125.73 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19122,7 +19158,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 251.46 119.38 0)
+			(at 260.35 125.73 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19133,7 +19169,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 251.46 119.38 0)
+			(at 260.35 125.73 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19145,7 +19181,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 251.46 119.38 0)
+			(at 260.35 125.73 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19157,7 +19193,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 251.46 119.38 0)
+			(at 260.35 125.73 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19169,7 +19205,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 251.46 119.38 0)
+			(at 260.35 125.73 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19181,7 +19217,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 251.46 119.38 0)
+			(at 260.35 125.73 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19193,7 +19229,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 251.46 119.38 0)
+			(at 260.35 125.73 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19205,7 +19241,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 251.46 119.38 0)
+			(at 260.35 125.73 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19217,7 +19253,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 251.46 119.38 0)
+			(at 260.35 125.73 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19248,7 +19284,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 199.39 124.46 0)
+		(at 208.28 130.81 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -19259,7 +19295,7 @@
 		(fields_autoplaced yes)
 		(uuid "f1138f6c-467d-4be3-bd3a-8b7466904599")
 		(property "Reference" "T4"
-			(at 207.01 123.0425 0)
+			(at 215.9 129.3925 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19270,7 +19306,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 207.01 125.5825 0)
+			(at 215.9 131.9325 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19281,7 +19317,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 199.39 124.46 0)
+			(at 208.28 130.81 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19293,7 +19329,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 199.39 124.46 0)
+			(at 208.28 130.81 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19304,7 +19340,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 199.39 124.46 0)
+			(at 208.28 130.81 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19316,7 +19352,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 199.39 124.46 0)
+			(at 208.28 130.81 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19328,7 +19364,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 199.39 124.46 0)
+			(at 208.28 130.81 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19340,7 +19376,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 199.39 124.46 0)
+			(at 208.28 130.81 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19352,7 +19388,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 199.39 124.46 0)
+			(at 208.28 130.81 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19364,7 +19400,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 199.39 124.46 0)
+			(at 208.28 130.81 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19376,7 +19412,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 199.39 124.46 0)
+			(at 208.28 130.81 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19388,7 +19424,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 199.39 124.46 0)
+			(at 208.28 130.81 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19419,7 +19455,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 226.06 85.09 180)
+		(at 234.95 91.44 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -19430,7 +19466,7 @@
 		(fields_autoplaced yes)
 		(uuid "f3d16ce0-9e18-465b-a7fa-3d24da479c02")
 		(property "Reference" "R6"
-			(at 228.6 83.8199 0)
+			(at 237.49 90.1699 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19441,7 +19477,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 228.6 86.3599 0)
+			(at 237.49 92.7099 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19452,7 +19488,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 227.838 85.09 90)
+			(at 236.728 91.44 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19463,7 +19499,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 226.06 85.09 0)
+			(at 234.95 91.44 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19474,7 +19510,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 226.06 85.09 0)
+			(at 234.95 91.44 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19501,7 +19537,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 248.92 133.35 180)
+		(at 257.81 139.7 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -19511,7 +19547,7 @@
 		(dnp no)
 		(uuid "f80e4381-bd98-4d17-85c7-f330865c5f1f")
 		(property "Reference" "R22"
-			(at 251.46 132.0799 0)
+			(at 260.35 138.4299 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19522,7 +19558,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 251.46 134.6199 0)
+			(at 260.35 140.9699 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19533,7 +19569,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 250.698 133.35 90)
+			(at 259.588 139.7 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19544,7 +19580,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 248.92 133.35 0)
+			(at 257.81 139.7 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19555,7 +19591,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 248.92 133.35 0)
+			(at 257.81 139.7 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19582,7 +19618,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 264.16 93.98 0)
+		(at 273.05 100.33 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -19593,7 +19629,7 @@
 		(fields_autoplaced yes)
 		(uuid "f8afaabb-4571-4d4e-b3e0-846b37cd3a54")
 		(property "Reference" "T9"
-			(at 271.78 92.5625 0)
+			(at 280.67 98.9125 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19604,7 +19640,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 271.78 95.1025 0)
+			(at 280.67 101.4525 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19615,7 +19651,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 264.16 93.98 0)
+			(at 273.05 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19627,7 +19663,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 264.16 93.98 0)
+			(at 273.05 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19638,7 +19674,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 264.16 93.98 0)
+			(at 273.05 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19650,7 +19686,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 264.16 93.98 0)
+			(at 273.05 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19662,7 +19698,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 264.16 93.98 0)
+			(at 273.05 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19674,7 +19710,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 264.16 93.98 0)
+			(at 273.05 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19686,7 +19722,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 264.16 93.98 0)
+			(at 273.05 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19698,7 +19734,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 264.16 93.98 0)
+			(at 273.05 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19710,7 +19746,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 264.16 93.98 0)
+			(at 273.05 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19722,7 +19758,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 264.16 93.98 0)
+			(at 273.05 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19753,7 +19789,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 229.87 74.93 180)
+		(at 238.76 81.28 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -19764,7 +19800,7 @@
 		(fields_autoplaced yes)
 		(uuid "f8cd717e-7259-4bdb-885a-11a78e8bd2f3")
 		(property "Reference" "R17"
-			(at 232.41 73.6599 0)
+			(at 241.3 80.0099 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19775,7 +19811,7 @@
 			)
 		)
 		(property "Value" "1k"
-			(at 232.41 76.1999 0)
+			(at 241.3 82.5499 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19786,7 +19822,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal"
-			(at 231.648 74.93 90)
+			(at 240.538 81.28 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19797,7 +19833,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 229.87 74.93 0)
+			(at 238.76 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19808,7 +19844,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 229.87 74.93 0)
+			(at 238.76 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19835,7 +19871,7 @@
 	)
 	(symbol
 		(lib_id "IRF520:IRF520")
-		(at 254 134.62 0)
+		(at 262.89 140.97 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -19845,7 +19881,7 @@
 		(dnp no)
 		(uuid "fe34afb5-5d20-4675-ab02-fb016ed138e8")
 		(property "Reference" "T22"
-			(at 261.62 133.2025 0)
+			(at 270.51 139.5525 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19856,7 +19892,7 @@
 			)
 		)
 		(property "Value" "IRF520"
-			(at 261.62 135.7425 0)
+			(at 270.51 142.0925 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19867,7 +19903,7 @@
 			)
 		)
 		(property "Footprint" "IRF520:TO220BV"
-			(at 254 134.62 0)
+			(at 262.89 140.97 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19879,7 +19915,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 254 134.62 0)
+			(at 262.89 140.97 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19890,7 +19926,7 @@
 			)
 		)
 		(property "Description" "N-Channel 100 V 9.2A (Tc) 3.7W (Ta), 60W (Tc) Surface Mount D2PAK"
-			(at 254 134.62 0)
+			(at 262.89 140.97 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19902,7 +19938,7 @@
 			)
 		)
 		(property "MF" "Vishay Siliconix"
-			(at 254 134.62 0)
+			(at 262.89 140.97 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19914,7 +19950,7 @@
 			)
 		)
 		(property "Package" "TO-220-3 Vishay"
-			(at 254 134.62 0)
+			(at 262.89 140.97 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19926,7 +19962,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 254 134.62 0)
+			(at 262.89 140.97 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19938,7 +19974,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=snap"
-			(at 254 134.62 0)
+			(at 262.89 140.97 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19950,7 +19986,7 @@
 			)
 		)
 		(property "MP" "IRF520"
-			(at 254 134.62 0)
+			(at 262.89 140.97 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19962,7 +19998,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 254 134.62 0)
+			(at 262.89 140.97 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19974,7 +20010,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/IRF520/Vishay/view-part/?ref=eda"
-			(at 254 134.62 0)
+			(at 262.89 140.97 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)

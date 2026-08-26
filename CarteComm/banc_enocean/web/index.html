@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banc EnOcean — AGV MEIDEN</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header>
+  <h1>Banc EnOcean</h1>
+  <div class="etat">
+    <span id="pastille" class="pastille" title="flux d'événements"></span>
+    <span id="etat-texte">connexion…</span>
+    <span class="sep">·</span>
+    <span id="etat-port">—</span>
+    <span class="sep">·</span>
+    <span id="etat-appuis">0 appui</span>
+  </div>
+</header>
+
+<main>
+  <div class="barre">
+    <h2>Boutons enregistrés <span id="compte" class="compte">0</span></h2>
+    <button id="btn-ajouter" class="primaire">+ Ajouter un bouton</button>
+  </div>
+
+  <p id="vide" class="vide">
+    Aucun bouton enregistré. Appuyez sur <strong>Ajouter un bouton</strong>,
+    puis pressez le bouton mural pour le faire détecter.
+  </p>
+
+  <ul id="liste" class="liste"></ul>
+</main>
+
+<!-- Fenêtre d'ajout -->
+<div id="modale" class="voile" hidden>
+  <div class="modale" role="dialog" aria-modal="true" aria-labelledby="titre-modale">
+    <h3 id="titre-modale">Ajouter un bouton</h3>
+
+    <div class="onglets" role="tablist">
+      <button class="onglet actif" data-onglet="detecter" role="tab">Détecter à l'appui</button>
+      <button class="onglet" data-onglet="saisir" role="tab">Saisir l'identifiant</button>
+    </div>
+
+    <section id="pan-detecter" class="panneau">
+      <div id="attente" class="attente">
+        <div class="onde"></div>
+        <p><strong>Appuyez maintenant sur le bouton mural.</strong></p>
+        <p class="discret">Écoute pendant <span id="compte-a-rebours">30</span> s.
+           Le dongle capte tous les boutons à portée.</p>
+      </div>
+
+      <div id="capture" class="capture" hidden>
+        <p class="discret">Bouton détecté</p>
+        <p class="code" id="capture-code">—</p>
+        <p class="discret"><span id="capture-rssi">—</span></p>
+      </div>
+
+      <p id="dernier" class="dernier" hidden></p>
+    </section>
+
+    <section id="pan-saisir" class="panneau" hidden>
+      <label for="champ-id">Identifiant du bouton</label>
+      <input id="champ-id" type="text" placeholder="00:29:B1:C4" autocomplete="off" spellcheck="false">
+      <p class="discret">Toujours en <strong>hexadécimal</strong> — il est imprimé
+         au dos du module ou sur l'enveloppe murale.</p>
+    </section>
+
+    <label for="champ-nom">Nom</label>
+    <input id="champ-nom" type="text" placeholder="Station 4 — quai de chargement" autocomplete="off">
+
+    <p id="erreur" class="erreur" hidden></p>
+
+    <div class="actions">
+      <button id="btn-annuler" class="secondaire">Annuler</button>
+      <button id="btn-valider" class="primaire" disabled>Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<div id="fenetres" class="fenetres" aria-live="polite"></div>
+
+<script src="/app.js"></script>
+</body>
+</html>
