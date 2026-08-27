@@ -1,4 +1,4 @@
-// Poste fixe ESP32 — architecture SMS + EnOcean (brief §9.1).
+// Poste fixe ESP32 : architecture SMS + EnOcean (brief §9.1).
 //
 // Chaîne : bouton PTM 210 (sans pile) -> TCM 515 sur UART1 (ESP3) -> traduction
 // en trame applicative -> modem cellulaire -> AGV.
@@ -28,7 +28,7 @@ namespace {
 
 const char* TAG = "poste";
 
-// Brochage du poste — PROVISOIRE §12.2, dépend de la carte retenue.
+// Brochage du poste : PROVISOIRE §12.2, dépend de la carte retenue.
 constexpr gpio_num_t kEnoceanRx = GPIO_NUM_16;  // TCM 515 -> ESP32
 constexpr gpio_num_t kEnoceanTx = GPIO_NUM_17;  // inutilisé avec un TCM 515
 constexpr gpio_num_t kSpiSclk = GPIO_NUM_18;   // W5500 (Ethernet filaire)
@@ -55,7 +55,7 @@ agv::PosteApp* g_app = nullptr;
 agv::poste::WebServer* g_web = nullptr;
 
 // Ethernet filaire W5500 (SPI). Alternative WT32-ETH01 : remplacer ce bloc par
-// l'initialisation esp_eth_mac_new_esp32 — le reste du firmware est identique.
+// l'initialisation esp_eth_mac_new_esp32 : le reste du firmware est identique.
 bool start_ethernet(const agv::HardwareProfile&) {
   esp_netif_init();
   esp_event_loop_create_default();
@@ -117,7 +117,7 @@ void pairing_button_task(void*) {
     if (previous && !level) {
       // Appui long non requis : le mode appairage expire tout seul.
       g_app->start_pairing(kPairDefaultStation, 4);
-      ESP_LOGW(TAG, "mode appairage ouvert — appuyez sur le bouton à associer");
+      ESP_LOGW(TAG, "mode appairage ouvert : appuyez sur le bouton à associer");
     }
     previous = level;
     vTaskDelay(pdMS_TO_TICKS(50));
@@ -149,7 +149,7 @@ extern "C" void app_main() {
   if (store->read("aes_key", key, sizeof(key)) == sizeof(key)) {
     cellular.channel().set_key(key);
   } else {
-    ESP_LOGW(TAG, "clé AES absente — liaison NON chiffrée");
+    ESP_LOGW(TAG, "clé AES absente : liaison NON chiffrée");
     cellular.channel().set_enabled(false);
   }
 

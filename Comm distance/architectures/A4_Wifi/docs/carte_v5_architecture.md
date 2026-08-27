@@ -1,4 +1,4 @@
-# La carte AIO AGV Control V5.0.1 — architecture et répartition des rôles
+# La carte AIO AGV Control V5.0.1 : architecture et répartition des rôles
 
 > Cette architecture **conserve la carte** et **réécrit les deux firmwares**.
 > Le firmware d'origine n'est disponible ni en sources ni en binaire garanti
@@ -48,7 +48,7 @@ explicite.
 
 L'ESP32 est le composant qui dépend du réseau d'entreprise : association Wi-Fi,
 DHCP, handover entre points d'accès, TLS, broker MQTT, poste fixe. Chacun de ces
-maillons peut tomber pour des raisons totalement hors du projet — une
+maillons peut tomber pour des raisons totalement hors du projet : une
 maintenance IT non notifiée suffit.
 
 Si le séquenceur vivait sur l'ESP32, chacune de ces pannes deviendrait une panne
@@ -56,15 +56,15 @@ de commande de l'AGV. En plaçant le séquenceur et la file sur l'ATmega :
 
 - l'AGV termine toujours la course engagée, quoi qu'il arrive au réseau ;
 - le comportement en perte de liaison est décidé par un microcontrôleur qui
-  n'a ni pile TCP/IP ni horloge réseau — donc très peu de modes de panne ;
+  n'a ni pile TCP/IP ni horloge réseau, donc très peu de modes de panne ;
 - l'ATmega garde une pose de bus très rapide : le relevé de câblage montre que
   les 22 sorties occupent 5 ports, donc **5 écritures ≈ 0,3 µs** en section
-  critique. Ce n'est pas la simultanéité stricte d'un `PORTx = valeur` — le
-  câblage ne le permet pas, les champs ne sont pas alignés sur les ports — mais
+  critique. Ce n'est pas la simultanéité stricte d'un `PORTx = valeur` : le
+  câblage ne le permet pas, les champs ne sont pas alignés sur les ports, mais
   c'est 500 fois plus rapide qu'un expandeur I²C et 800 fois sous le `t_setup`
   attendu. Détail dans [`subd25_atmega.md`](subd25_atmega.md).
 
-## Le heartbeat — le seul mécanisme qui ne dépend de rien
+## Le heartbeat : le seul mécanisme qui ne dépend de rien
 
 L'ESP32 émet un message `Heartbeat` toutes les `heartbeat.period_ms` (500 ms).
 Si l'ATmega n'en reçoit plus pendant `heartbeat.timeout_ms` (2 s), il :
@@ -96,27 +96,27 @@ moins trois battements : rater un heartbeat isolé ne doit pas immobiliser l'AGV
 | Émission 2,4 GHz | Permanente | Client seulement ; AP à la demande |
 | Répartition ESP32/ATmega | Inconnue | Documentée ici, et testée |
 | Comportement en perte de liaison | Inconnu | Arrêt au point d'arrêt suivant, observable |
-| Matériel | — | **Inchangé** |
+| Matériel | - | **Inchangé** |
 
 ## Ce qui reste inconnu sur cette carte
 
 Ces points conditionnent le premier flash et sont listés dans
 [`questions_ouvertes.md`](questions_ouvertes.md) :
 
-- ~~le câblage ATmega ↔ SUB-D 25~~ — **RELEVÉ**, voir
+- ~~le câblage ATmega ↔ SUB-D 25~~ : **RELEVÉ**, voir
   [`subd25_atmega.md`](subd25_atmega.md). Reste à contrôler au multimètre
   qu'aucune nappe n'est sertie à l'envers (mode découverte) ;
-- ~~les niveaux du bus~~ — **vérifiés par le client le 2026-08-21** : la
+- ~~les niveaux du bus~~, **vérifiés par le client le 2026-08-21** : la
   connexion directe des lignes Y est confirmée compatible (W1b clos).
   Historique : le L7806CV est l'alimentation de l'ATmega
   (24 V de CN64 A6/B6 abaissés à 6 V), il ne renseigne donc pas sur les
   signaux. L'amplitude des lignes Y (§12.1) et la topologie des entrées de
-  l'automate restent inconnues — voir
+  l'automate restent inconnues : voir
   [`subd25_atmega.md`](subd25_atmega.md) ;
 - ⚠️ **la tension V_CC réelle de l'ATmega** : si le 6 V l'alimente directement,
   c'est au niveau du **maximum absolu** du datasheet (6,0 V) et hors plage
   recommandée. Mesure de trente secondes, à faire ;
-- ~~l'UART qui relie l'ESP32 à l'ATmega~~ — **RELEVÉ au KiCad, et ce n'en est
+- ~~l'UART qui relie l'ESP32 à l'ATmega~~ : **RELEVÉ au KiCad, et ce n'en est
   pas un** : `ESP32 IO17` → `MEGA D52` en direct, `MEGA D53` → pont 2,2 k/4,7 k
   → `ESP32 IO16`. Les trois UART matériels du MEGA sont inutilisables, leurs
   broches de réception portant `Y13`, `Y11` et `Y05`. D'où `SoftwareSerial` sur
@@ -127,7 +127,7 @@ Ces points conditionnent le premier flash et sont listés dans
 - **la présence et le brochage d'un connecteur ICSP** pour flasher l'ATmega ;
 - **l'existence d'une mesure de tension batterie** accessible à l'ESP32.
 
-## Bande 2,4 GHz — la question qui a lancé le projet
+## Bande 2,4 GHz : la question qui a lancé le projet
 
 Le remplacement de la carte a été motivé par la **saturation du 2,4 GHz** du
 site. Cette architecture reste en 2,4 GHz : l'ESP32-WROOM-32E ne fait pas de

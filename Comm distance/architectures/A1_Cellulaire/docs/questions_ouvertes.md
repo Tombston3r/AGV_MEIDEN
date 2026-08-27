@@ -1,4 +1,4 @@
-# Questions ouvertes — à poser avant de figer quoi que ce soit
+# Questions ouvertes, à poser avant de figer quoi que ce soit
 
 > Reprend le §12 du brief. Chaque ligne est un paramètre du logiciel, jamais une
 > constante. Tant qu'une case « Relevé » est vide, la valeur du profil est
@@ -7,7 +7,7 @@
 | # | Point | Valeur provisoire retenue | Où elle vit | Relevé |
 |---|---|---|---|---|
 | 12.1 | Amplitude réelle des lignes Y (6 V rail LM7806 ou 24 V) | `y_debounce_us: 2000` | `profiles/*.yaml` | ☐ |
-| 12.2 | Brochage SUB-D 25 | **RELEVÉ** : CN61 à CN64 — voir `Wifi/docs/subd25_atmega.md` | `profiles/*.yaml` → `CFG_PIN_*` | ✅ |
+| 12.2 | Brochage SUB-D 25 | **RELEVÉ** : CN61 à CN64, voir `Wifi/docs/subd25_atmega.md` | `profiles/*.yaml` → `CFG_PIN_*` | ✅ |
 | 12.3 | Logique automate PNP ou NPN | `x_active_high: true`, `y_active_high: true` | `profiles/*.yaml` | ☐ |
 | 12.4 | `t_setup` avant strobe X93 | `t_setup_us: 200` | `profiles/*.yaml` | ☐ |
 | 12.5 | Timeouts Y22 / Y05 / Y10 | 300 ms / 1 500 ms / 120 s | `profiles/*.yaml` | ☐ |
@@ -15,7 +15,7 @@
 | 12.6b | Repères sérigraphiés T9…T24 ↔ signaux Y | non utilisés par le code | `docs/signal_map.md` | ☐ |
 | 12.7 | Protocole application mobile « AIO AGV Remote » | non reproduit ; champ `ver` réservé | `proto/frame.h` | ☐ |
 | 12.8 | TCM 515 (Rx seul) ou TCM 310 (bidirectionnel) | `enocean.rx_only: true` | `profiles/*.yaml` | ☐ |
-| — | Numéros MSISDN (pair et technicien d'astreinte) | `+33600000000` | `profiles/*.yaml` | ☐ |
+| - | Numéros MSISDN (pair et technicien d'astreinte) | `+33600000000` | `profiles/*.yaml` | ☐ |
 | 12.9 | Runtime de l'UniPi E413 commandé | aucun backend par défaut | `poste-unipi/agv_poste/io_backend.py` | ☐ |
 | 12.10 | Variante d'interface bus | trois implémentations livrées | `profiles/*.yaml` → `driver_variant` | ☐ |
 
@@ -48,7 +48,7 @@
 12. Combien de temps une course en attente reste-t-elle pertinente après une
     coupure d'alimentation ? (`course_validity_min`, 30 min par défaut)
 
-### Radio — PRÉREQUIS BLOQUANTS de cette architecture
+### Radio : PRÉREQUIS BLOQUANTS de cette architecture
 13. Le relevé **RSRP/RSRQ en tous points du parcours**, aux heures de
     production et machines en marche, a-t-il été fait ? Un seul point d'arrêt
     sous −110 dBm **disqualifie l'architecture** (Archi_2 §7.1).
@@ -58,4 +58,4 @@
 15. Le calendrier d'extinction 2G/3G des opérateurs a-t-il été vérifié à jour ?
     Il impose de partir sur LTE-M/Cat-M1 ou Cat-1 bis (Archi_2 §5).
 16. Le chiffrage sur 10 ans a-t-il été mis en regard des architectures sans
-    coût récurrent ? (~15 000 € en SMS contre ~0 € en ISM — Archi_2 §6.2)
+    coût récurrent ? (~15 000 € en SMS contre ~0 € en ISM : Archi_2 §6.2)

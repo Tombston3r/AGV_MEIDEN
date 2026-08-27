@@ -1,4 +1,4 @@
-// Essai d'ÉMISSION LoRa sur ESP32 — carte AGV ou poste fixe.
+// Essai d'ÉMISSION LoRa sur ESP32 : carte AGV ou poste fixe.
 //
 // Émet des trames applicatives réelles et attend l'accusé du pair. En face,
 // faire tourner l'environnement `rx`, ou `../unipi/test_rx.py`.
@@ -95,7 +95,7 @@ extern "C" void app_main() {
       agv::lora_airtime_us(agv::kFrameBaseSize, cfg.spreading_factor,
                            cfg.bandwidth_hz, cfg.coding_rate);
   const uint32_t attendu_ms = attendu_us / 1000;
-  printf("%s — SX1276 detecte (RegVersion 0x%02X)\n", test::kNomCarte, radio.version());
+  printf("%s : SX1276 detecte (RegVersion 0x%02X)\n", test::kNomCarte, radio.version());
   printf("%.1f MHz  SF%u  BW%u  CR4/%u  sync 0x%02X  %d dBm\n",
          cfg.frequency_hz / 1e6, cfg.spreading_factor, cfg.bandwidth_hz / 1000,
          cfg.coding_rate, cfg.sync_word, cfg.tx_power_dbm);
@@ -110,7 +110,7 @@ extern "C" void app_main() {
 
     if (!duty.can_transmit(attendu_us, now)) {
       ++refusees;
-      printf("[%3d] REFUSE — budget de rapport cyclique epuise\n", i);
+      printf("[%3d] REFUSE : budget de rapport cyclique epuise\n", i);
       vTaskDelay(pdMS_TO_TICKS(kIntervalleMs));
       continue;
     }
@@ -137,7 +137,7 @@ extern "C" void app_main() {
     duty.record(attendu_us, g_clock.now_ms());
     ++envoyees;
 
-    // Fenêtre d'écoute d'accusé — le module est HALF-DUPLEX, l'écoute ne peut
+    // Fenêtre d'écoute d'accusé : le module est HALF-DUPLEX, l'écoute ne peut
     // commencer qu'une fois l'émission terminée.
     radio.listen();
     bool acquittee = false;

@@ -24,7 +24,7 @@ poste de développement avant de partir en atelier.
 
 Les bancs LoRa vivaient dans `A3_LoRa/test/`, le banc EnOcean à la racine :
 deux choses de même nature à deux endroits. Ils servent d'ailleurs à plusieurs
-architectures — l'EnOcean vaut pour A1, A2 et A4.
+architectures : l'EnOcean vaut pour A1, A2 et A4.
 
 `architectures/*/test/native/` ne contient plus que les **tests unitaires** du
 cœur métier, qui tournent avec `make test`.

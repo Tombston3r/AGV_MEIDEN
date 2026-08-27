@@ -7,7 +7,7 @@
 //     aucun `PORTx = valeur` qui poserait un champ complet : la table est
 //     bit à bit, et les écritures sont regroupées par port.
 //
-//  2. TROIS PORTS SONT MIXTES — PORTA, PORTB et PORTG portent à la fois des
+//  2. TROIS PORTS SONT MIXTES : PORTA, PORTB et PORTG portent à la fois des
 //     sorties X et des entrées Y. Écrire un registre de direction complet
 //     (`DDRA = 0xFF`) mettrait en sortie des broches sur lesquelles l'automate
 //     pilote : conflit électrique franc. Toute manipulation de DDR et de PORT
@@ -16,7 +16,7 @@
 //  3. Les 10 bits d'adresse sont répartis sur 4 ports : leur pose demande 4
 //     écritures consécutives, soit ~0,25 µs à 16 MHz. Ce n'est pas la
 //     simultanéité stricte d'un `PORTA = x`, mais c'est trois ordres de
-//     grandeur sous le `t_setup` attendu — et très loin devant des MCP23017.
+//     grandeur sous le `t_setup` attendu, et très loin devant des MCP23017.
 //     Le décalage résiduel est exposé par `port_writes_per_pose()`.
 #pragma once
 

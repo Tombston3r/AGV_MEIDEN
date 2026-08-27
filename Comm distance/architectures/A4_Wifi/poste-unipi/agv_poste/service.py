@@ -1,4 +1,4 @@
-"""Service du poste fixe UniPi — architecture Wi-Fi (planification §3).
+"""Service du poste fixe UniPi : architecture Wi-Fi (planification §3).
 
 Chaîne : appui EnOcean -> déduplication -> table d'appairage -> publication
 MQTT `agv/<id>/cmd` -> ESP32 de la carte V5.0.1 -> ATmega -> bus MEIDEN.

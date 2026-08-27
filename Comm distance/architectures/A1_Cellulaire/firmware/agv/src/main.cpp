@@ -1,4 +1,4 @@
-// Firmware embarqué sur l'AGV — cœur du projet.
+// Firmware embarqué sur l'AGV : cœur du projet.
 //
 // Répartition FreeRTOS imposée par le §4.4 :
 //   cœur 1 : tâche BUS. Séquenceur trois phases et pose du bus MEIDEN. La
@@ -81,7 +81,7 @@ agv::IBusDriver* make_bus_driver(const agv::HardwareProfile& profile) {
     default:
       // Le profil « sim » n'a pas de sens sur cible : c'est une erreur de
       // configuration, signalée plutôt que contournée silencieusement.
-      ESP_LOGE(TAG, "profil 'sim' flashé sur cible réelle — vérifier profiles/*.yaml");
+      ESP_LOGE(TAG, "profil 'sim' flashé sur cible réelle : vérifier profiles/*.yaml");
       return nullptr;
   }
 }
@@ -171,7 +171,7 @@ extern "C" void app_main() {
 
   // Transport cellulaire (§8). SMS et MQTT/LTE-M sont tous deux compilés ; le
   // choix se fait à la compilation, et MQTT est le seul défendable en liaison
-  // principale (Archi_2 §2) — le SMS n'a ni latence bornée ni ordre de remise.
+  // principale (Archi_2 §2) : le SMS n'a ni latence bornée ni ordre de remise.
   g_modem_power.begin();
   g_modem_uart.begin(UART_NUM_1, agv::board::kModemTx, agv::board::kModemRx, 115200);
 #ifdef TRANSPORT_SMS
@@ -188,7 +188,7 @@ extern "C" void app_main() {
   if (store->read("aes_key", key, sizeof(key)) == sizeof(key)) {
     cellular.channel().set_key(key);
   } else {
-    ESP_LOGW(TAG, "clé AES absente en NVS — liaison NON chiffrée");
+    ESP_LOGW(TAG, "clé AES absente en NVS : liaison NON chiffrée");
     cellular.channel().set_enabled(false);
   }
   uint8_t nonce_blob[4] = {};

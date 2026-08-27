@@ -1,14 +1,14 @@
 // Banc d'essai LOCAL de l'API du planning (spec §6).
 //
-// Ce serveur fait tourner le VRAI moteur — pas une doublure qui pourrait
-// mentir — derrière l'API REST de la spec, sur 127.0.0.1. S'y ajoute une
+// Ce serveur fait tourner le VRAI moteur : pas une doublure qui pourrait
+// mentir : derrière l'API REST de la spec, sur 127.0.0.1. S'y ajoute une
 // horloge simulée pilotable (/api/sim/*) : un planning JOURNALIER testé en
 // temps réel est inutilisable, il faut pouvoir se placer à 05:59, accélérer,
 // franchir minuit.
 //
 // Hôte uniquement : sockets POSIX, un seul fil d'exécution (aucun verrou à
 // avoir juste). Le portage ESP32 reprendra les mêmes routes sur le serveur
-// web de l'architecture A4 — voir docs/ALIGNEMENT_COMM_DISTANCE.md.
+// web de l'architecture A4 : voir docs/ALIGNEMENT_COMM_DISTANCE.md.
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <poll.h>
@@ -232,7 +232,7 @@ void route_next(Banc& banc, int fd) {
   repondre(fd, 200, out);
 }
 
-// Occurrences d'AUJOURD'HUI, passées comprises — c'est la frise de l'IHM.
+// Occurrences d'AUJOURD'HUI, passées comprises : c'est la frise de l'IHM.
 // `/api/planning/next` ne donne que le futur ; la frise montre la journée.
 // Calculées par le MOTEUR (DST compris), pas recalculées en JavaScript.
 void route_jour(Banc& banc, int fd) {
@@ -281,7 +281,7 @@ void route_jour(Banc& banc, int fd) {
   repondre(fd, 200, out);
 }
 
-// `/agvdump` — format d'atelier, TEXTE BRUT, servi tel quel.
+// `/agvdump` : format d'atelier, TEXTE BRUT, servi tel quel.
 //
 // ⚠ Ce format est un contrat avec les procédures du client (brief §3.3) : les
 // outils d'atelier lisent ces noms de champs. Il ne se modernise PAS. La mise
@@ -390,7 +390,7 @@ void route_statique(Banc& banc, int fd, const std::string& chemin) {
   std::stringstream contenu;
   contenu << fichier.rdbuf();
   // Le type doit suivre l'extension : servi en text/html, un fichier .css est
-  // ignoré par le navigateur — la page s'affiche alors sans aucun style.
+  // ignoré par le navigateur : la page s'affiche alors sans aucun style.
   const char* type = "text/html; charset=utf-8";
   if (nom.size() > 4 && nom.compare(nom.size() - 4, 4, ".css") == 0) {
     type = "text/css; charset=utf-8";
@@ -410,7 +410,7 @@ void traiter(Banc& banc, int fd, const Requete& req) {
     if (req.chemin == "/api/time") return route_time(banc, fd);
     if (req.chemin == "/api/missions") return route_missions(banc, fd);
     if (req.chemin == "/api/journal") return route_journal(banc, fd);
-    // Format d'atelier, texte brut — la page lisible est agvdump.html.
+    // Format d'atelier, texte brut : la page lisible est agvdump.html.
     if (req.chemin == "/agvdump") return route_agvdump(banc, fd);
     return route_statique(banc, fd, req.chemin);
   }
@@ -435,7 +435,7 @@ void traiter(Banc& banc, int fd, const Requete& req) {
       return repondre(fd, 200, "{\"pause\":" + std::string(*actif ? "true" : "false") + "}");
     }
     if (req.chemin == "/api/appel") {
-      // Geste opérateur immédiat — l'équivalent logiciel du bouton d'appel
+      // Geste opérateur immédiat : l'équivalent logiciel du bouton d'appel
       // physique du chantier « Comm distance ». Il ne passe PAS par le
       // planning : la validation quotidienne (§3.2) borne le déclenchement
       // AUTONOME, pas un humain qui demande l'AGV à son poste.
@@ -542,7 +542,7 @@ int main(int argc, char** argv) {
     if (std::strcmp(argv[i], "--web") == 0) dossier_web = argv[i + 1];
   }
 
-  // Même fuseau que la cible (§2.4) — transitions été/hiver comprises.
+  // Même fuseau que la cible (§2.4) : transitions été/hiver comprises.
   setenv("TZ", "CET-1CEST,M3.5.0,M10.5.0/3", 1);
   tzset();
   std::signal(SIGINT, sur_signal);
@@ -568,7 +568,7 @@ int main(int argc, char** argv) {
   socklen_t taille = sizeof(adresse);
   getsockname(ecoute, reinterpret_cast<sockaddr*>(&adresse), &taille);
   std::printf("BANC_API PORT=%d\n", ntohs(adresse.sin_port));
-  std::printf("banc API planning sur http://127.0.0.1:%d — horloge simulee x1\n",
+  std::printf("banc API planning sur http://127.0.0.1:%d : horloge simulee x1\n",
               ntohs(adresse.sin_port));
   std::fflush(stdout);
 

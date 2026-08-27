@@ -25,7 +25,7 @@ constexpr gpio_num_t kShiftRclk = GPIO_NUM_27;
 constexpr gpio_num_t kShiftPl = GPIO_NUM_33;
 constexpr gpio_num_t kShiftOe = GPIO_NUM_32;
 
-// Modem cellulaire — LA liaison de cette architecture (SIM7600E-H ou SIM7080G)
+// Modem cellulaire : LA liaison de cette architecture (SIM7600E-H ou SIM7080G)
 constexpr gpio_num_t kModemTx = GPIO_NUM_17;
 constexpr gpio_num_t kModemRx = GPIO_NUM_16;
 constexpr gpio_num_t kModemPwrkey = GPIO_NUM_4;
@@ -40,7 +40,7 @@ constexpr gpio_num_t kLedFault = GPIO_NUM_2;
 constexpr gpio_num_t kLedLink = GPIO_NUM_15;
 constexpr gpio_num_t kMaintenanceReed = GPIO_NUM_25;  // contact ILS (aimant)
 
-// Mesure de tension batterie — ⚠ traverse la barrière d'isolation, voir schéma.
+// Mesure de tension batterie : ⚠ traverse la barrière d'isolation, voir schéma.
 constexpr gpio_num_t kBatteryAdc = GPIO_NUM_34;
 
 }  // namespace agv::board

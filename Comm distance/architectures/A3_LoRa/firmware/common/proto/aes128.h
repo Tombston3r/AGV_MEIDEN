@@ -1,4 +1,4 @@
-// AES-128 (chiffrement de bloc seul) + mode CTR — brief §5.1.
+// AES-128 (chiffrement de bloc seul) + mode CTR : brief §5.1.
 //
 // Implémentation compacte et autonome : pas de dépendance mbedTLS pour rester
 // compilable en natif dans les tests. Sur ESP32 la substitution par

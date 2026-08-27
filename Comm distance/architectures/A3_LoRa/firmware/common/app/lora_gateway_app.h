@@ -5,7 +5,7 @@
 // même heartbeat, même repli de sécurité. Seule la source des ordres change.
 //
 // L'ESP32 ne touche JAMAIS au bus MEIDEN. Son travail :
-//   - entretenir le heartbeat vers l'ATmega — c'est ce qui autorise l'AGV à
+//   - entretenir le heartbeat vers l'ATmega : c'est ce qui autorise l'AGV à
 //     accepter des courses, et cela ne dépend d'aucune radio ;
 //   - traduire les trames applicatives reçues en LoRa en commandes série ;
 //   - renvoyer un accusé par la même voie ;

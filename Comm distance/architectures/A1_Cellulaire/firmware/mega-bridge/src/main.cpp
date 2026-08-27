@@ -1,9 +1,9 @@
-// Pont ATmega2560 — variante C du §4.4 (« ATmega2560 conservé »).
+// Pont ATmega2560 : variante C du §4.4 (« ATmega2560 conservé »).
 //
 // Le MEGA garde ce qu'il fait mieux que tout le reste : poser 22 lignes en un
 // cycle (`PORTx = valeur`, < 1 µs, strictement simultané). Il ne fait RIEN
 // d'autre : pas de séquenceur, pas de timeout, pas de polarité. Toute la
-// logique — donc tous les paramètres du §12 — reste dans l'ESP32, sinon deux
+// logique (donc tous les paramètres du §12) reste dans l'ESP32, sinon deux
 // firmwares porteraient la même vérité et divergeraient.
 //
 // Protocole (voir docs/protocole_mega.md) :

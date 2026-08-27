@@ -1,4 +1,4 @@
-/* Thème AIO — feuille commune à TOUTES les interfaces du dépôt.
+/* Thème AIO : feuille commune à TOUTES les interfaces du dépôt.
  *
  * Fond blanc, texte noir, bleu outremer pour l'action. Une seule palette, un
  * seul jeu de composants : une IHM d'architecture, un banc et le planning
@@ -34,7 +34,7 @@
 
 /* L'attribut `hidden` n'est qu'un `display:none` de la feuille par défaut : la
    moindre règle d'auteur déclarant `display` le bat. Cette règle le rétablit
-   pour tout le document — leçon du banc EnOcean, où une fenêtre modale restait
+   pour tout le document : leçon du banc EnOcean, où une fenêtre modale restait
    ouverte en permanence. */
 [hidden] { display: none !important; }
 
@@ -152,7 +152,7 @@ th { color: var(--discret); font-weight: 600; }
 /* --- Notifications ------------------------------------------------------ */
 .fenetres {
   /* Sous la barre d'en-tête : à 1rem, les notifications la recouvraient et
-     masquaient l'état de la liaison — vu au rendu du banc EnOcean. */
+     masquaient l'état de la liaison : vu au rendu du banc EnOcean. */
   position: fixed; top: 4.6rem; right: 1rem; z-index: 100;
   display: flex; flex-direction: column; gap: .6rem; max-width: 360px;
 }

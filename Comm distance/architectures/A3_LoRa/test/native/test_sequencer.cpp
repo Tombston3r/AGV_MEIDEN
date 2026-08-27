@@ -226,7 +226,7 @@ TEST(automate_lent_le_sequenceur_tient_avec_des_timeouts_adaptes) {
 
 TEST(t_setup_trop_court_fait_perdre_la_premiere_ecriture) {
   // §12.4 : un strobe posé avant stabilisation est ignoré par l'automate. La
-  // première écriture est perdue et rattrapée par le réessai — au prix d'un
+  // première écriture est perdue et rattrapée par le réessai, au prix d'un
   // aller-retour de plus. C'est exactement le coût d'un t_setup mal réglé.
   Bench b;
   b.timings.required_setup_us = 500;   // l'automate exige 500 µs

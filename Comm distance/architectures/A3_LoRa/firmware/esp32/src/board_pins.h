@@ -22,7 +22,7 @@ constexpr gpio_num_t kMaintenanceReed = GPIO_NUM_25;
 constexpr gpio_num_t kLedFault = GPIO_NUM_2;
 constexpr gpio_num_t kLedLink = GPIO_NUM_15;
 
-// --- Radio LoRa — RELEVÉ sur le projet KiCad de la V6.0 --------------------
+// --- Radio LoRa : RELEVÉ sur le projet KiCad de la V6.0 --------------------
 //
 // Le RFM95W-868S2 (U2) est câblé sur le SPI que l'ESP32 laissait libre.
 constexpr spi_host_device_t kLoraSpiHost = VSPI_HOST;

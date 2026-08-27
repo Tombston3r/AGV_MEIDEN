@@ -53,7 +53,7 @@ static_assert(kPinNss != GPIO_NUM_16 && kPinNss != GPIO_NUM_17, "IO16/IO17 reser
 //
 // ⚠ La radio est alimentée PAR LE GESTIONNAIRE AXP192, pas directement. Sans
 // l'avoir activée, le SX1276 ne répond pas et `RegVersion` lit 0x00. C'est la
-// cause n°1 des « la radio est morte » sur cette carte — voir tbeam_power.h.
+// cause n°1 des « la radio est morte » sur cette carte : voir tbeam_power.h.
 constexpr const char* kNomCarte = "LILYGO T-Beam v1.1";
 constexpr spi_host_device_t kSpiHost = VSPI_HOST;
 constexpr gpio_num_t kPinSck = GPIO_NUM_5;

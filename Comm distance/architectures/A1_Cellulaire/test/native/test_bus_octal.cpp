@@ -23,7 +23,7 @@ TEST(apres_Y27_vient_Y30_pas_Y28) {
 }
 
 TEST(la_plage_Y23_Y34_compte_bien_10_signaux) {
-  // 10 bits, 1024 valeurs — et non 12 comme le suggérerait une soustraction
+  // 10 bits, 1024 valeurs, et non 12 comme le suggérerait une soustraction
   // décimale (34 - 23 + 1).
   CHECK_EQ(octal_span(23, 34), 10u);
   CHECK_EQ(octal_span(11, 14), 4u);  // vitesse courante Y11…Y14

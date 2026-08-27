@@ -1,4 +1,4 @@
-"""Service du poste fixe UniPi E413 — architecture 2 (brief §9.2).
+"""Service du poste fixe UniPi E413 : architecture 2 (brief §9.2).
 
 Boucle : lecture des boutons TOR -> émission d'une commande -> attente d'ACK
 applicatif -> voyant.

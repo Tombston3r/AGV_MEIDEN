@@ -7,7 +7,7 @@
 //   octet 3      : seq (8 bits)
 //   octets 4-5   : station (10 bits) | speed (4 bits) | 2 bits réservés
 //   octet 6      : flags (8 bits)
-//   [octets 7-10]: ts_s (32 bits) — présent seulement si flags & Timestamped
+//   [octets 7-10]: ts_s (32 bits) : présent seulement si flags & Timestamped
 //   2 derniers   : crc16 CCITT sur tout ce qui précède
 //
 // L'horodatage est une EXTENSION optionnelle, signalée par un bit de `flags`.

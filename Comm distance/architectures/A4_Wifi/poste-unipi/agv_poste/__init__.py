@@ -1,4 +1,4 @@
-"""Poste fixe AGV MEIDEN — architecture Wi-Fi (UniPi E413).
+"""Poste fixe AGV MEIDEN : architecture Wi-Fi (UniPi E413).
 
 Chaîne : bouton EnOcean PTM 210 -> TCM 515 (ESP3) -> table d'appairage ->
 publication MQTT `agv/<id>/cmd` -> ESP32 de la carte V5.0.1.

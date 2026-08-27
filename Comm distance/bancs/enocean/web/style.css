@@ -1,4 +1,4 @@
-/* Banc EnOcean — ce qui est PROPRE à cette page.
+/* Banc EnOcean : ce qui est PROPRE à cette page.
  *
  * La palette, l'en-tête, les boutons, les fenêtres et les notifications
  * viennent de `theme.css` (source : docs/theme/theme.css). Ne rien redéfinir
@@ -6,7 +6,7 @@
  * restent identiques.
  *
  * Pensé pour un écran d'atelier : contrastes francs, gros caractères, lisible
- * à un mètre. Aucune police externe — la UniPi n'a pas forcément Internet.
+ * à un mètre. Aucune police externe : la UniPi n'a pas forcément Internet.
  */
 
 .etat { color: var(--discret); font-size: .9rem; display: flex; align-items: center; gap: .5rem; }

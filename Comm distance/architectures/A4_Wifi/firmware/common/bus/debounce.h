@@ -1,7 +1,7 @@
 // Anti-rebond des 21 entrées Y, partagé par toutes les implémentations de
 // IBusDriver (matérielles et simulée).
 //
-// La durée dépend de l'amplitude réelle des lignes Y — 6 V rail LM7806 ou 24 V,
+// La durée dépend de l'amplitude réelle des lignes Y : 6 V rail LM7806 ou 24 V,
 // non relevée (§12.1). Elle vient donc du profil, jamais d'une constante.
 #pragma once
 

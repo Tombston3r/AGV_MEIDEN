@@ -1,4 +1,4 @@
-# Profil de l'architecture Wi-Fi — SOURCE DE VÉRITÉ UNIQUE
+# Profil de l'architecture Wi-Fi : SOURCE DE VÉRITÉ UNIQUE
 #
 # Carte AIO AGV Control V5.0.1 CONSERVÉE : ESP32 (client Wi-Fi + MQTT) et
 # ATmega2560 (séquenceur X/Y + file de courses) sur la même carte, reliés par
@@ -14,16 +14,16 @@
 profile_name: wifi
 
 bus:
-  # §12.3 — logique de l'automate PNP ou NPN, non tranchée (planif. 0.4).
+  # §12.3 : logique de l'automate PNP ou NPN, non tranchée (planif. 0.4).
   x_active_high: true          # PROVISOIRE §12.3
   y_active_high: true          # PROVISOIRE §12.3
 
-  # §12.4 — stabilisation du bus X avant le front montant de X93.
+  # §12.4 : stabilisation du bus X avant le front montant de X93.
   t_setup_us: 200              # PROVISOIRE §12.4
   t_strobe_us: 500             # PROVISOIRE §12.4
   t_hold_us: 100               # PROVISOIRE §12.4
 
-  # §12.1 — qualité des fronts sur les entrées Y : durée d'anti-rebond.
+  # §12.1, qualité des fronts sur les entrées Y : durée d'anti-rebond.
   y_debounce_us: 2000          # PROVISOIRE §12.1
   # Pull-ups internes sur les 21 entrées Y.
   # Sorties automate à collecteur ouvert -> pull-up INDISPENSABLE.
@@ -38,7 +38,7 @@ bus:
   #
   # Le microcontrôleur, lui, pilote une GRILLE. Il doit donc être en sortie
   # poussée. Le mode collecteur ouvert côté microcontrôleur laisserait la grille
-  # FLOTTANTE à l'état actif — un MOSFET à grille flottante peut conduire
+  # FLOTTANTE à l'état actif : un MOSFET à grille flottante peut conduire
   # partiellement, ce qui est le pire état possible sur un étage de puissance.
   x_open_drain: false
 
@@ -51,7 +51,7 @@ bus:
   spi_freq_hz: 8000000
 
 timeouts:
-  # §12.5 — à relever à l'analyseur logique (planif. 0.4), pas à deviner.
+  # §12.5, à relever à l'analyseur logique (planif. 0.4), pas à deviner.
   y22_write_ack_ms: 300        # PROVISOIRE §12.5
   y05_start_ack_ms: 1500       # PROVISOIRE §12.5
   y10_arrival_ms: 120000       # PROVISOIRE §12.5
@@ -100,11 +100,11 @@ protocol:
 
 # --- Wi-Fi : CLIENT du réseau d'entreprise, pas point d'accès ---------------
 wifi:
-  ssid: "USINE-OT"             # PROVISOIRE — à fournir par le service informatique
-  password: ""                 # PROVISOIRE — WPA2-PSK, ou 802.1X (planif. 0.1)
+  ssid: "USINE-OT"             # PROVISOIRE, à fournir par le service informatique
+  password: ""                 # PROVISOIRE : WPA2-PSK, ou 802.1X (planif. 0.1)
   # IP statique : élimine le délai DHCP au handover (planification §1.4).
   use_static_ip: true
-  static_ip: "10.20.30.41"     # PROVISOIRE — réservation à obtenir
+  static_ip: "10.20.30.41"     # PROVISOIRE : réservation à obtenir
   gateway: "10.20.30.1"        # PROVISOIRE
   netmask: "255.255.255.0"     # PROVISOIRE
   reconnect_backoff_ms: 1000
@@ -114,7 +114,7 @@ wifi:
   rssi_warn_dbm: -75
 
 mqtt:
-  host: "10.20.30.10"          # PROVISOIRE — Mosquitto sur l'UniPi
+  host: "10.20.30.10"          # PROVISOIRE : Mosquitto sur l'UniPi
   port: 8883
   qos: 1
   keepalive_s: 30
@@ -132,7 +132,7 @@ maintenance:
   wifi_window_s: 600
   wifi_ssid: "AGV-MAINT"
 
-# §12.2 — brochage des SUB-D 25 NON TRANCHÉ (CN61/62/63 vs CN62/63/64).
+# §12.2 : brochage des SUB-D 25 NON TRANCHÉ (CN61/62/63 vs CN62/63/64).
 # Position de chaque signal dans le mot bus. Voir docs/subd25_atmega.md pour la
 # correspondance avec les ports de l'ATmega et les broches des SUB-D.
 pinmap:

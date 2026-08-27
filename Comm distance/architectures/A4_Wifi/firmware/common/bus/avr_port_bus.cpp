@@ -57,7 +57,7 @@ bool AvrPortBus::begin() {
 
   // Directions EN MASQUE. PORTA, PORTB et PORTG sont mixtes : écrire un octet
   // de direction complet mettrait en sortie des broches pilotées par
-  // l'automate — conflit électrique franc.
+  // l'automate : conflit électrique franc.
   for (uint8_t p = 0; p < map_.port_count; ++p) {
     if (map_.ports[p].dir == nullptr) continue;
     uint8_t dir = *map_.ports[p].dir;

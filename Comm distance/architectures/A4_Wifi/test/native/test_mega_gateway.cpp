@@ -191,7 +191,7 @@ struct GatewayBench {
 }  // namespace
 
 // ===========================================================================
-//  ATmega2560 — repli de sécurité
+//  ATmega2560 : repli de sécurité
 // ===========================================================================
 
 TEST(mega_refuse_toute_course_tant_qu_aucun_heartbeat_n_est_recu) {
@@ -241,7 +241,7 @@ TEST(mega_perte_de_heartbeat_arrete_au_point_d_arret_suivant) {
   CHECK(!b.app->heartbeat_ok());
   CHECK(b.app->safe_stop_active());
   CHECK_EQ(b.app->stats().heartbeat_losses, 1u);
-  // La course engagée est allée jusqu'au bout — jamais d'arrêt en pleine allée.
+  // La course engagée est allée jusqu'au bout, jamais d'arrêt en pleine allée.
   CHECK_EQ(b.bus->position(), 4u);
   // La course suivante n'a PAS été lancée.
   CHECK(b.seq->state() == SeqState::SafeStop);
@@ -304,7 +304,7 @@ TEST(mega_un_heartbeat_manque_isolement_n_immobilise_pas_l_agv) {
 }
 
 // ===========================================================================
-//  ATmega2560 — file et idempotence
+//  ATmega2560 : file et idempotence
 // ===========================================================================
 
 TEST(mega_commande_rejouee_est_reacquittee_sans_seconde_course) {
@@ -381,7 +381,7 @@ TEST(mega_repond_a_get_state_avec_un_etat_coherent) {
 }
 
 // ===========================================================================
-//  ESP32 — passerelle MQTT
+//  ESP32 : passerelle MQTT
 // ===========================================================================
 
 TEST(gateway_commande_json_est_transmise_a_l_atmega) {

@@ -3,7 +3,7 @@
 // Objet de ce fichier : prouver que chaque point non relevé sur la carte
 // d'origine est un PARAMÈTRE lu depuis la configuration, et non une valeur
 // figée dans la logique. Le jour où le relevé arrive, seul le profil YAML
-// change — aucune ligne de logique.
+// change : aucune ligne de logique.
 //
 // Convention : chaque test est nommé point_12_N_....
 #include <string>
@@ -66,7 +66,7 @@ struct Rig {
 
 }  // namespace
 
-// §12.1 — Amplitude réelle des lignes Y (6 V ou 24 V) : conditionne le
+// §12.1, Amplitude réelle des lignes Y (6 V ou 24 V) : conditionne le
 // debounce. Le paramètre est y_debounce_us.
 TEST(point_12_1_debounce_Y_vient_du_profil) {
   YDebouncer fast(500);
@@ -87,7 +87,7 @@ TEST(point_12_1_debounce_Y_vient_du_profil) {
   CHECK_EQ(r.profile.bus.y_debounce_us, 12345u);
 }
 
-// §12.2 — Brochage des SUB-D 25 non tranché (CN61/62/63 vs CN62/63/64).
+// §12.2 : Brochage des SUB-D 25 non tranché (CN61/62/63 vs CN62/63/64).
 // Le mapping signal -> broche vit dans profiles/*.yaml, modifiable sans
 // recompiler la logique.
 TEST(point_12_2_brochage_vient_du_fichier_de_configuration) {
@@ -113,7 +113,7 @@ TEST(point_12_2_un_brochage_different_fonctionne_sans_toucher_la_logique) {
   CHECK_EQ(r.seq->counters().current_station, 9u);
 }
 
-// §12.3 — Logique automate PNP ou NPN : inverse la polarité des 22 voies X.
+// §12.3, Logique automate PNP ou NPN : inverse la polarité des 22 voies X.
 TEST(point_12_3_polarite_PNP_NPN_est_un_booleen_de_configuration) {
   Rig pnp;
   pnp.build();
@@ -133,7 +133,7 @@ TEST(point_12_3_polarite_PNP_NPN_est_un_booleen_de_configuration) {
   CHECK(pnp.bus->lastX() != npn.bus->lastX());
 }
 
-// §12.4 — t_setup du bus X avant le strobe X93.
+// §12.4 : t_setup du bus X avant le strobe X93.
 TEST(point_12_4_t_setup_est_respecte_et_parametrable) {
   Rig strict;
   strict.timings.required_setup_us = 1000;
@@ -146,7 +146,7 @@ TEST(point_12_4_t_setup_est_respecte_et_parametrable) {
   CHECK_EQ(strict.seq->counters().write_tries, 1u);
 }
 
-// §12.5 — Timeouts des accusés Y22 / Y05 / Y10 : paramètres DISTINCTS.
+// §12.5, Timeouts des accusés Y22 / Y05 / Y10 : paramètres DISTINCTS.
 TEST(point_12_5_les_trois_timeouts_sont_distincts_et_effectifs) {
   const HardwareProfile& p = default_profile();
   // Trois champs séparés dans la configuration.
@@ -183,7 +183,7 @@ TEST(point_12_5_timeout_d_arrivee_Y10_est_instrumente) {
   CHECK_EQ(r.seq->counters().y10_timeouts, 1u);
 }
 
-// §12.6 — Correspondance des repères sérigraphiés T9…T24 avec les signaux Y.
+// §12.6 : Correspondance des repères sérigraphiés T9…T24 avec les signaux Y.
 // Non relevée : le code n'en dépend jamais, il ne manipule que des noms de
 // signaux. Le champ `*_op_return` est exposé SYMBOLIQUEMENT pour pouvoir être
 // recalé sur la sortie agvdump d'origine sans réécrire la logique.
@@ -197,7 +197,7 @@ TEST(point_12_6_aucun_repere_serigraphie_n_est_cable_dans_la_logique) {
   CHECK(c.write_op_return == OpReturn::Ok);
 }
 
-// §12.7 — Protocole ESP32 <-> application mobile « AIO AGV Remote » non
+// §12.7 : Protocole ESP32 <-> application mobile « AIO AGV Remote » non
 // documenté. Décision : ne pas le réinventer ; le champ `ver` de la trame
 // permet de faire coexister un second protocole si l'application est
 // finalement conservée.
@@ -213,7 +213,7 @@ TEST(point_12_7_le_protocole_est_versionne_pour_accueillir_un_second_dialecte) {
   CHECK(decode_frame(buf, len, out, 2) == FrameError::Ok);
 }
 
-// §12.8 — TCM 515 (Rx seul) ou TCM 310 (bidirectionnel) : conditionne
+// §12.8, TCM 515 (Rx seul) ou TCM 310 (bidirectionnel) : conditionne
 // l'existence d'un accusé côté opérateur EnOcean.
 TEST(point_12_8_le_mode_reception_seule_est_un_parametre) {
   const HardwareProfile& p = default_profile();
@@ -224,7 +224,7 @@ TEST(point_12_8_le_mode_reception_seule_est_un_parametre) {
   CHECK(!bidir.enocean.rx_only);
 }
 
-// §12.9 — Runtime disponible sur l'UniPi E413 commandé (Mervis IDE vs Linux).
+// §12.9 : Runtime disponible sur l'UniPi E413 commandé (Mervis IDE vs Linux).
 // Rien n'est présupposé côté firmware : le poste UniPi est un programme Python
 // séparé qui parle le même protocole. Ce test vérifie que le format de trame ne
 // dépend d'aucune particularité de plateforme (taille, endianness explicite).
@@ -244,7 +244,7 @@ TEST(point_12_9_la_trame_est_independante_de_la_plateforme_du_poste) {
   CHECK_EQ(buf[2], 0x02u);
 }
 
-// §12.10 — Variante matérielle d'interface bus retenue.
+// §12.10 : Variante matérielle d'interface bus retenue.
 TEST(point_12_10_les_trois_variantes_sont_derriere_la_meme_interface) {
   const HardwareProfile& p = default_profile();
   // La variante est un paramètre, et le simulateur en est une à part entière.

@@ -1,7 +1,7 @@
 // Tests du transport SMS : pile AT, URC, dégradations (brief §11).
 //
 // Les tests du transport LoRa et du budget de rapport cyclique vivent dans le
-// dossier d'architecture CarteComm/LoRa/ — ils n'ont pas de sens ici.
+// dossier d'architecture CarteComm/LoRa/ : ils n'ont pas de sens ici.
 #include "fakes.h"
 #include "test_framework.h"
 #include "transport/sms_transport.h"

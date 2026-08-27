@@ -22,16 +22,16 @@ function setLinkBadge(text, cls) {
 function render(data) {
   state.lastUpdate = Date.now();
 
-  $('station').textContent = data.valid ? data.station : '—';
-  $('speed').textContent = data.valid ? data.speed : '—';
+  $('station').textContent = data.valid ? data.station : '-';
+  $('speed').textContent = data.valid ? data.speed : '-';
   $('motion').textContent = !data.valid
-    ? '—'
+    ? '-'
     : data.moving
       ? 'en mouvement'
       : data.in_station
         ? 'en station'
         : 'arrêté';
-  $('fault').textContent = !data.valid ? '—' : data.fault ? 'DÉFAUT' : 'aucun';
+  $('fault').textContent = !data.valid ? '-' : data.fault ? 'DÉFAUT' : 'aucun';
   $('fault').classList.toggle('alarm', Boolean(data.fault));
 
   // Fraîcheur : c'est l'indicateur le plus important de la page. Une valeur
@@ -42,16 +42,16 @@ function render(data) {
 
   // Niveau Wi-Fi à hauteur d'antenne AGV. Sous −75 dBm, la liaison décroche en
   // mouvement : c'est le seuil du profil, pas une valeur figée dans la page.
-  $('rssi').textContent = data.rssi_dbm ? `${data.rssi_dbm} dBm` : '—';
+  $('rssi').textContent = data.rssi_dbm ? `${data.rssi_dbm} dBm` : '-';
   $('rssi').classList.toggle('alarm', data.rssi_dbm !== 0 && data.rssi_dbm < -75);
 
   // Repli de sécurité : l'information la plus importante de cette architecture.
   // Tant qu'il est actif, l'AGV refuse toute nouvelle course.
   const safeStop = Boolean(data.safe_stop);
   $('safe-stop').textContent = !data.valid
-    ? '—'
+    ? '-'
     : safeStop
-      ? 'ACTIF — courses refusées'
+      ? 'ACTIF : courses refusées'
       : 'inactif';
   $('safe-stop').classList.toggle('alarm', safeStop);
 
@@ -66,7 +66,7 @@ function render(data) {
   $('profile').textContent = data.profile;
 
   $('pair-feedback').textContent = data.pairing_active
-    ? 'Mode appairage ouvert — appuyez sur le bouton à associer.'
+    ? 'Mode appairage ouvert : appuyez sur le bouton à associer.'
     : '';
   $('feedback-warning').classList.toggle('hidden', Boolean(data.operator_feedback));
 }

@@ -1,4 +1,4 @@
-// Firmware ESP32 de la carte AIO AGV Control V6.0 — architecture LoRa.
+// Firmware ESP32 de la carte AIO AGV Control V6.0 : architecture LoRa.
 //
 // La V6.0 est la V5.0.1 augmentée d'un RFM95W-868S2 câblé sur le SPI libre de
 // l'ESP32. Ce firmware pilote cette radio et rien d'autre.
@@ -6,7 +6,7 @@
 // Responsabilités :
 //   - radio LoRa 868 MHz : réception des ordres, émission des accusés ;
 //   - budget de rapport cyclique 1 %/1 h, appliqué par le transport ;
-//   - heartbeat vers l'ATmega — c'est ce qui autorise l'AGV à rouler ;
+//   - heartbeat vers l'ATmega : c'est ce qui autorise l'AGV à rouler ;
 //   - point d'accès de maintenance à la demande, servant `/agvdump`.
 //
 // Il n'y a NI Wi-Fi client, NI MQTT, NI broker : l'AGV et ses boutons se
@@ -100,7 +100,7 @@ void maintenance_task(void*) {
 extern "C" void app_main() {
   const agv::HardwareProfile& profile = agv::default_profile();
   const agv::LoraConfig lora = agv::lora_config_from_profile();
-  ESP_LOGI(TAG, "ESP32 carte V6.0 — LoRa %.1f MHz SF%u, profil=%s",
+  ESP_LOGI(TAG, "ESP32 carte V6.0 : LoRa %.1f MHz SF%u, profil=%s",
            lora.frequency_hz / 1e6, lora.spreading_factor, profile.name);
 
   esp_err_t err = nvs_flash_init();
@@ -114,7 +114,7 @@ extern "C" void app_main() {
 
   if (!g_spi.begin(agv::board::kLoraSpiHost, agv::board::kLoraSck, agv::board::kLoraMosi,
                    agv::board::kLoraMiso, agv::board::kLoraNss, agv::board::kLoraSpiHz)) {
-    ESP_LOGE(TAG, "bus SPI non initialise — la radio restera muette");
+    ESP_LOGE(TAG, "bus SPI non initialise : la radio restera muette");
   }
 
   static agv::esp32::Sx1276Radio radio(g_spi, g_gpio, g_clock, agv::board::kLoraReset,
@@ -140,7 +140,7 @@ extern "C" void app_main() {
   for (;;) {
     const agv::LinkHealth h = transport.health();
     if (h.duty_used_permille > 800) {
-      ESP_LOGW(TAG, "budget de rapport cyclique a %u/1000 — emissions bientot refusees",
+      ESP_LOGW(TAG, "budget de rapport cyclique a %u/1000 : emissions bientot refusees",
                static_cast<unsigned>(h.duty_used_permille));
     }
     if (h.up && h.rssi_dbm < -115) {

@@ -44,7 +44,7 @@ sleep 1
 if sudo systemctl is-active --quiet banc-enocean; then
   SERVIE="$(curl -fsS localhost:8080/api/etat 2>/dev/null \
             | sed -n 's/.*"version": *"\([^"]*\)".*/\1/p' || true)"
-  echo "✓ service actif — version servie : ${SERVIE:-inconnue}, attendue : $VERSION"
+  echo "✓ service actif, version servie : ${SERVIE:-inconnue}, attendue : $VERSION"
   [[ -n "$SERVIE" && "$SERVIE" != "$VERSION" ]] && echo "⚠ ÉCART DE VERSION" >&2
   curl -fsS localhost:8080/api/etat 2>/dev/null | sed 's/^/  /'
   echo

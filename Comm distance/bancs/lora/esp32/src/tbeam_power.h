@@ -4,7 +4,7 @@
 // v1.0 et suivantes, le SX1276 et le GPS ne sont pas alimentés directement :
 // ils passent par un gestionnaire d'alimentation AXP192, sur le bus I²C à
 // l'adresse 0x34. Tant que la sortie correspondante n'est pas activée, le
-// composant radio est hors tension — `RegVersion` lit alors 0x00 ou 0xFF, et
+// composant radio est hors tension : `RegVersion` lit alors 0x00 ou 0xFF, et
 // l'on cherche un défaut de câblage SPI qui n'existe pas.
 //
 //   LDO2 -> radio SX1276      (celle qui nous intéresse)

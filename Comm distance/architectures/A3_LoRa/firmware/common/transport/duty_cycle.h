@@ -1,4 +1,4 @@
-// Budget de rapport cyclique 868 MHz — OBLIGATION RÉGLEMENTAIRE (brief §6).
+// Budget de rapport cyclique 868 MHz : OBLIGATION RÉGLEMENTAIRE (brief §6).
 //
 // EN 300 220 / ERC 70-03 imposent 1 % de temps d'émission sur la bande. Ce
 // budget glissant sur 1 h REFUSE l'émission au-delà et remonte le refus en

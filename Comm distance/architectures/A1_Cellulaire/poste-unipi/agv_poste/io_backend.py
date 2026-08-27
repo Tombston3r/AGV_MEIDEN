@@ -1,6 +1,6 @@
 """Accès aux entrées TOR de l'UniPi E413.
 
-⚠ POINT OUVERT §12.9 — LE RUNTIME RÉELLEMENT DISPONIBLE SUR LA RÉFÉRENCE
+⚠ POINT OUVERT §12.9 : LE RUNTIME RÉELLEMENT DISPONIBLE SUR LA RÉFÉRENCE
 COMMANDÉE N'EST PAS CONNU. Deux mondes incompatibles coexistent :
 
   * Mervis IDE (OS propriétaire) : pas d'exécution Python arbitraire ;
@@ -9,7 +9,7 @@ COMMANDÉE N'EST PAS CONNU. Deux mondes incompatibles coexistent :
 
 Aucun de ces chemins n'est présupposé. Le backend est choisi explicitement par
 la configuration ; si aucun n'est déclaré, le service refuse de démarrer plutôt
-que de deviner — un poste d'appel qui « croit » lire un bouton est pire qu'un
+que de deviner : un poste d'appel qui « croit » lire un bouton est pire qu'un
 poste qui ne démarre pas.
 
 La question à poser au client AVANT d'écrire le code d'accès aux E/S est dans
@@ -99,7 +99,7 @@ def make_backend(kind: str, **kwargs: object) -> DigitalInputs:
         return SimulatedBackend()
     raise UnsupportedBackend(
         f"backend d'E/S inconnu : {kind!r}. Le runtime de l'UniPi E413 commandé "
-        "n'est pas tranché (§12.9) — poser la question avant de configurer."
+        "n'est pas tranché (§12.9) : poser la question avant de configurer."
     )
 
 

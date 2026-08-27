@@ -41,7 +41,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.simulation:
         dongle = FakeDongle()
-        log.warning("MODE SIMULATION — aucun matériel n'est lu")
+        log.warning("MODE SIMULATION : aucun matériel n'est lu")
     else:
         try:
             dongle = SerialDongle(args.port)
@@ -67,7 +67,7 @@ def main(argv: list[str] | None = None) -> int:
         threading.Thread(target=battements, daemon=True).start()
 
     serveur = creer_serveur(args.adresse, args.http_port, registre, lecteur, bus)
-    log.info("banc EnOcean sur http://%s:%d — dongle %s, %d bouton(s) enregistré(s)",
+    log.info("banc EnOcean sur http://%s:%d : dongle %s, %d bouton(s) enregistré(s)",
              args.adresse, args.http_port, getattr(dongle, "port", "?"),
              len(registre.tous()))
     try:

@@ -1,4 +1,4 @@
-"""Idempotence, anti-désordre et fraîcheur — miroir de `replay_window.h`.
+"""Idempotence, anti-désordre et fraîcheur : miroir de `replay_window.h`.
 
 Sur transport SMS, ces trois contrôles sont la seule protection contre :
   - un ACK perdu qui déclencherait une course en double (idempotence) ;
@@ -39,7 +39,7 @@ class ReplayWindow:
         now_s: int = 0,
         max_age_s: int = 0,
     ) -> Verdict:
-        # 1. Doublon : prioritaire, y compris sur une trame périmée — un
+        # 1. Doublon : prioritaire, y compris sur une trame périmée, un
         #    ré-envoi tardif d'une commande déjà exécutée doit être ré-acquitté.
         if (node_id, seq) in self._seen:
             return Verdict.DUPLICATE

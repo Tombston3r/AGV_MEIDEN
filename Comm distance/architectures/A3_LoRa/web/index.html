@@ -3,57 +3,57 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AGV MEIDEN — supervision (Wi-Fi)</title>
+<title>AGV MEIDEN : supervision (Wi-Fi)</title>
 <link rel="stylesheet" href="theme.css">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
   <span class="logo">AIO</span>
-  <span class="titre">Supervision AGV — LoRa 868 MHz</span>
+  <span class="titre">Supervision AGV : LoRa 868 MHz</span>
   <span id="link-state" class="badge unknown">liaison inconnue</span>
 </header>
 
 <!-- Rappel permanent : cette page n'est pas un organe de sécurité (§3.1). -->
 <p class="safety">
-  Organe de commande — <strong>pas</strong> un organe de sécurité. L'arrêt d'urgence,
+  Organe de commande : <strong>pas</strong> un organe de sécurité. L'arrêt d'urgence,
   les bumpers et le scrutateur laser restent dans une chaîne indépendante (ISO 3691-4).
 </p>
 
 <section class="grid">
   <article class="tile">
     <h2>Station courante</h2>
-    <p class="value" id="station">—</p>
+    <p class="value" id="station">-</p>
     <p class="hint">décodée sur Y23…Y34</p>
   </article>
   <article class="tile">
     <h2>Vitesse courante</h2>
-    <p class="value" id="speed">—</p>
+    <p class="value" id="speed">-</p>
     <p class="hint">Y11…Y14</p>
   </article>
   <article class="tile">
     <h2>État</h2>
-    <p class="value" id="motion">—</p>
+    <p class="value" id="motion">-</p>
     <p class="hint">Y05 / Y10</p>
   </article>
   <article class="tile">
     <h2>Défaut</h2>
-    <p class="value" id="fault">—</p>
+    <p class="value" id="fault">-</p>
     <p class="hint">Y03 / Y21</p>
   </article>
   <article class="tile">
     <h2>Fraîcheur de liaison</h2>
-    <p class="value" id="freshness">—</p>
+    <p class="value" id="freshness">-</p>
     <p class="hint">âge de la dernière télémétrie</p>
   </article>
   <article class="tile">
     <h2>Niveau Wi-Fi</h2>
-    <p class="value" id="rssi">—</p>
-    <p class="hint">RSSI à hauteur d'antenne AGV — relevé 0.2 obligatoire</p>
+    <p class="value" id="rssi">-</p>
+    <p class="hint">RSSI à hauteur d'antenne AGV : relevé 0.2 obligatoire</p>
   </article>
   <article class="tile">
     <h2>Repli de sécurité</h2>
-    <p class="value" id="safe-stop">—</p>
+    <p class="value" id="safe-stop">-</p>
     <p class="hint">heartbeat ESP32 → ATmega perdu = arrêt au point suivant</p>
   </article>
 </section>
@@ -91,21 +91,21 @@
   <h2>Compteurs</h2>
   <table id="counters">
     <tbody>
-      <tr><th>Commandes émises</th><td id="c-sent">—</td></tr>
-      <tr><th>Commandes refusées</th><td id="c-refused">—</td></tr>
-      <tr><th>ACK reçus</th><td id="c-acks">—</td></tr>
-      <tr><th>NACK reçus</th><td id="c-nacks">—</td></tr>
-      <tr><th>Appuis EnOcean</th><td id="c-enocean">—</td></tr>
-      <tr><th>Boutons non appairés</th><td id="c-unpaired">—</td></tr>
-      <tr><th>Commandes périmées</th><td id="c-duty">—</td></tr>
-      <tr><th>Niveau réseau</th><td id="c-rssi">—</td></tr>
+      <tr><th>Commandes émises</th><td id="c-sent">-</td></tr>
+      <tr><th>Commandes refusées</th><td id="c-refused">-</td></tr>
+      <tr><th>ACK reçus</th><td id="c-acks">-</td></tr>
+      <tr><th>NACK reçus</th><td id="c-nacks">-</td></tr>
+      <tr><th>Appuis EnOcean</th><td id="c-enocean">-</td></tr>
+      <tr><th>Boutons non appairés</th><td id="c-unpaired">-</td></tr>
+      <tr><th>Commandes périmées</th><td id="c-duty">-</td></tr>
+      <tr><th>Niveau réseau</th><td id="c-rssi">-</td></tr>
     </tbody>
   </table>
-  <p><a href="/agvdump">Diagnostic complet — /agvdump (format atelier)</a></p>
+  <p><a href="/agvdump">Diagnostic complet : /agvdump (format atelier)</a></p>
 </section>
 
 <footer>
-  <p>Profil actif : <span id="profile">—</span></p>
+  <p>Profil actif : <span id="profile">-</span></p>
 </footer>
 
 <script src="app.js"></script>

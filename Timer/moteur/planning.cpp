@@ -214,7 +214,7 @@ bool Moteur::acquitter_alerte(const std::string& par, time_t quand) {
 }
 
 std::optional<Mission> Moteur::tick(time_t now, bool heure_fiable) {
-  // §2.3 : heure douteuse = planning GELÉ. Ni exécution, ni consommation —
+  // §2.3 : heure douteuse = planning GELÉ. Ni exécution, ni consommation,
   // ce qui n'est pas parti partira (ou sera sauté) quand l'heure reviendra,
   // sous le contrôle de la fenêtre de grâce.
   if (!heure_fiable) {
@@ -259,9 +259,9 @@ std::optional<Mission> Moteur::tick(time_t now, bool heure_fiable) {
       // La veille n'est balayée QUE pour la grâce à cheval sur minuit. Hors
       // de cette fenêtre, ses occurrences sont ignorées sans être journalisées :
       // après un redémarrage, le moteur ne sait pas si elles ont réellement
-      // tourné avant la coupure — les marquer « sautées » ferait mentir le
+      // tourné avant la coupure : les marquer « sautées » ferait mentir le
       // journal. (Vaut aussi pour aujourd'hui tant que les clés consommées ne
-      // sont pas persistées — voir docs/ETAT_PROJET.md.)
+      // sont pas persistées : voir docs/ETAT_PROJET.md.)
       if (k < 0 && now - r.quand > static_cast<time_t>(cfg_.grace_s)) continue;
 
       if (now - r.quand > static_cast<time_t>(cfg_.grace_s)) {

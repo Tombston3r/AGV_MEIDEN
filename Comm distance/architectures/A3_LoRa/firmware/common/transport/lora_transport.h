@@ -1,4 +1,4 @@
-// Transport LoRa P2P 868 MHz — architecture 1 (brief §6).
+// Transport LoRa P2P 868 MHz : architecture 1 (brief §6).
 //
 // Trois responsabilités que le reste du logiciel n'a pas à connaître :
 //  1. ORDONNANCEMENT HALF-DUPLEX : le RFM95W ne peut pas écouter en émettant.

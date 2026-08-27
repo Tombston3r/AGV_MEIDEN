@@ -1,7 +1,7 @@
 """Script PlatformIO : régénère l'en-tête de configuration avant chaque build.
 
 Garantit qu'aucun binaire ne part au flash avec un `generated_profile.h`
-périmé — le contraire signifierait flasher des timings qui ne sont pas ceux du
+périmé : le contraire signifierait flasher des timings qui ne sont pas ceux du
 profil relevé.
 
 Le profil utilisé vient de la variable d'environnement AGV_PROFILE, sinon
@@ -23,4 +23,4 @@ result = subprocess.run(
     check=False,
 )
 if result.returncode != 0:
-    raise SystemExit(f"genconfig a échoué sur {profile} — build interrompu")
+    raise SystemExit(f"genconfig a échoué sur {profile} : build interrompu")

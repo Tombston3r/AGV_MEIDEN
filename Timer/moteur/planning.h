@@ -1,15 +1,15 @@
-// Moteur du planning journalier — C++ pur, horloge injectée (spec §4.1).
+// Moteur du planning journalier : C++ pur, horloge injectée (spec §4.1).
 //
 // Aucune dépendance ESP-IDF ni Arduino : tout se teste sur un poste de
 // développement avec une horloge simulée. Le temps entre et sort en `time_t`
 // UTC ; la conversion locale (fuseau, heure d'été) passe par la libc via
-// TZ/tzset — même mécanique sur newlib (ESP32) que sur glibc (tests).
+// TZ/tzset, même mécanique sur newlib (ESP32) que sur glibc (tests).
 //
 // Ce que ce moteur NE fait pas, à dessein :
 //   - il ne parle pas au bus X/Y : il émet des `Mission`, consommées par le
 //     séquenceur EXISTANT (Comm distance/architectures/A4_Wifi, testé) ;
 //   - il ne lit pas l'heure : l'appelant fournit `now` et dit si elle est
-//     fiable (§2.3 — une heure fausse est pire qu'une absence d'heure).
+//     fiable (§2.3 : une heure fausse est pire qu'une absence d'heure).
 #pragma once
 
 #include <cstdint>
@@ -48,12 +48,12 @@ struct Config {
   // Fenêtre de rattrapage après l'heure prévue (§4.2). Au-delà : saut
   // journalisé. C'est elle qui interdit de rejouer la journée au démarrage.
   uint32_t grace_s = 300;
-  // Durée pendant laquelle l'AGV est occupé par une mission — un trajet prend
+  // Durée pendant laquelle l'AGV est occupé par une mission : un trajet prend
   // au plus 5 minutes à vitesse lente. Sert à DEUX choses : représenter
   // honnêtement l'occupation sur la frise, et signaler deux départs qui se
   // chevauchent. Le séquenceur refusant d'empiler une destination tant que la
   // précédente n'est pas acquittée (§5), un chevauchement se solderait par un
-  // départ perdu — autant le voir à la saisie.
+  // départ perdu : autant le voir à la saisie.
   uint32_t duree_mission_s = 300;
   DstPrintemps dst = DstPrintemps::ExecuterAuPremierInstant;
 };
@@ -68,7 +68,7 @@ struct Entree {
   uint8_t jours = jour::kTous;
   Date debut = 0, fin = 0;       // bornes incluses, 0 = sans borne
   std::vector<Date> exceptions;  // dates exclues (fériés, congés)
-  uint16_t station = 0;          // 0–1023 — 10 bits, brief §5.1
+  uint16_t station = 0;          // 0–1023 : 10 bits, brief §5.1
   uint8_t flags = 0;             // bits de commande de la mission
   uint8_t priorite = 5;          // plus PETIT = passe d'abord
 };
@@ -120,14 +120,14 @@ struct Evenement {
 //
 // L'AGV porte sa propre chaîne de sécurité, indépendante de ce logiciel : elle
 // coupe la puissance sur obstacle et n'est réarmée que par un appui physique.
-// Le planning ne la remplace pas — il en RAPPORTE l'effet, parce que
+// Le planning ne la remplace pas : il en RAPPORTE l'effet, parce que
 // l'exploitant doit savoir qu'un départ programmé ne s'est pas terminé, et
 // pourquoi.
 //
 // L'alerte survit à l'acquittement de la chaîne matérielle : elle demande un
 // geste logiciel distinct, comme le réarmement demande un geste physique. Elle
-// bloque les départs AUTONOMES entretemps — repartir seul vers un obstacle qui
-// vient d'arrêter l'AGV est une boucle que personne ne surveille — mais pas
+// bloque les départs AUTONOMES entretemps : repartir seul vers un obstacle qui
+// vient d'arrêter l'AGV est une boucle que personne ne surveille, mais pas
 // les appels : un opérateur qui demande l'AGV est une décision humaine.
 struct Alerte {
   bool active = false;
@@ -181,10 +181,10 @@ class Moteur {
   //
   // `heure_fiable == false` GÈLE tout : rien ne part, rien n'est consommé.
   // Au retour d'une heure fiable, la fenêtre de grâce s'applique depuis le
-  // vrai `now` — jamais de rejeu de la journée.
+  // vrai `now`, jamais de rejeu de la journée.
   std::optional<Mission> tick(time_t now, bool heure_fiable = true);
 
-  // Les n prochaines occurrences calculées — la vue IHM la plus utile (§6) :
+  // Les n prochaines occurrences calculées : la vue IHM la plus utile (§6) :
   // c'est elle qui montre à l'exploitant ce qu'il a RÉELLEMENT saisi.
   struct Prochaine {
     time_t quand = 0;
@@ -202,7 +202,7 @@ class Moteur {
  private:
   struct Consommee {
     std::string id;
-    Date d = 0;  // date locale de l'OCCURRENCE — clé d'idempotence §4.2 :
+    Date d = 0;  // date locale de l'OCCURRENCE : clé d'idempotence §4.2 :
                  // règle au passage le 02:30 double de l'automne
   };
 

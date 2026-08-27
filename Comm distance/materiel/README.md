@@ -1,4 +1,4 @@
-# Matériel — projets KiCad
+# Matériel : projets KiCad
 
 **Une carte, un projet, un seul endroit.** Même quand deux architectures
 partagent une carte, elle n'est pas dupliquée : trois copies divergentes de la
@@ -8,8 +8,8 @@ savoir laquelle portait le travail réel. Un firmware dupliqué se compare par
 
 | Projet | Sert à | Empreintes | État |
 |---|---|---:|---|
-| [`AIO_AGV_Control_V5.0.1/`](AIO_AGV_Control_V5.0.1/) | **A4** — Wi-Fi | 57 | carte d'origine, **en service sur le chariot** |
-| [`AIO_AGV_Control_V6.0/`](AIO_AGV_Control_V6.0/) | **A2** et **A3** — LoRa | 59 | Gerbers exportés |
+| [`AIO_AGV_Control_V5.0.1/`](AIO_AGV_Control_V5.0.1/) | **A4** : Wi-Fi | 57 | carte d'origine, **en service sur le chariot** |
+| [`AIO_AGV_Control_V6.0/`](AIO_AGV_Control_V6.0/) | **A2** et **A3** : LoRa | 59 | Gerbers exportés |
 
 ## Ce qui distingue la V6.0
 
@@ -31,7 +31,7 @@ S'y ajoutent un **`RFM95W-868S2` (U2)** et son **embase coaxiale (J3)**.
 
 ⚠️ **`RESET` (pad 6) n'est pas connectée.** Aucun reset logiciel n'est possible :
 un module figé ne se récupérera qu'en coupant l'alimentation de la carte.
-**`IO27` est libre** et conviendrait — sans fonction de strapping au démarrage,
+**`IO27` est libre** et conviendrait, sans fonction de strapping au démarrage,
 contrairement à `IO0`, `IO2`, `IO12` ou `IO15`.
 
 ⚠️ **`IO16` et `IO17` sont réservées** : elles portent la liaison série vers le

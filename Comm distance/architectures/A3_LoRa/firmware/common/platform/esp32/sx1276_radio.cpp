@@ -151,7 +151,7 @@ bool Sx1276Radio::receive(uint8_t* buf, size_t capacity, size_t& len, int16_t& r
 
   snr_db = static_cast<int8_t>(static_cast<int8_t>(read_reg(kRegPktSnrValue)) / 4);
   // -157 dBm d'offset en bande haute (868 MHz), corrigé du SNR quand il est
-  // négatif — sinon le RSSI affiché est optimiste sur les trames faibles.
+  // négatif : sinon le RSSI affiché est optimiste sur les trames faibles.
   const int raw_rssi = static_cast<int>(read_reg(kRegPktRssiValue)) - 157;
   rssi_dbm = static_cast<int16_t>((snr_db < 0) ? raw_rssi + snr_db : raw_rssi);
   return true;

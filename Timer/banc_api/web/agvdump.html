@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AIO — agvdump</title>
+<title>AIO : agvdump</title>
 <link rel="stylesheet" href="/theme.css">
 <style>
 /* Propre à cette page. La palette, l'en-tête, les boutons, les fenêtres
@@ -30,8 +30,8 @@
   background: #fff; padding: 0 2px; border-radius: 2px; }
 /* Un trajet dure au plus 5 min, soit 0,35 % d'une frise de 24 h. L'OCCUPATION
    est donc dessinée à sa largeur RÉELLE, sur l'axe ; l'ÉTIQUETTE flotte
-   au-dessus, détachée, et n'engage aucune durée. Les confondre — étiquette
-   posée sur l'axe — laissait lire deux heures d'immobilisation pour cinq
+   au-dessus, détachée, et n'engage aucune durée. Les confondre : étiquette
+   posée sur l'axe : laissait lire deux heures d'immobilisation pour cinq
    minutes de trajet. */
 .occupation { position: absolute; height: 12px; border-radius: 2px;
   background: currentColor; min-width: 3px; cursor: pointer; z-index: 1; }
@@ -40,7 +40,7 @@
 .drapeau { position: absolute; cursor: pointer; z-index: 2; }
 /* ⚠ Ne JAMAIS poser `color` sur .fanion : `background: currentColor` se
    résout contre la couleur de l'élément LUI-MÊME. Un `color: #fff` ici rend
-   le fanion blanc-sur-blanc — c'est le bug « les marqueurs ne s'affichent
+   le fanion blanc-sur-blanc : c'est le bug « les marqueurs ne s'affichent
    pas » de l'itération 2. */
 .drapeau .fanion { font-size: .74rem; font-weight: 700; background: currentColor;
   border-radius: 4px; padding: .05rem .4rem; white-space: nowrap;
@@ -109,7 +109,7 @@ pre.brut { background: #111; color: #E6EDF3; border-radius: 10px; padding: 1rem;
   </div>
 
   <section>
-    <h2><span class="discret" id="age">—</span></h2>
+    <h2><span class="discret" id="age">-</span></h2>
     <div class="dump" id="dump">chargement…</div>
     <div class="ligne" style="margin-top:.8rem">
       <button onclick="charger()">Rafraîchir</button>
@@ -163,7 +163,7 @@ async function charger() {
       tdc.textContent = cle;
       const tdv = document.createElement('td');
       tdv.className = 'val';
-      tdv.textContent = val === '' ? '—' : val;
+      tdv.textContent = val === '' ? '-' : val;
       if (val === '1' || val === '0') {
         const vrai = val === '1';
         if (BON_SI_UN.has(cle)) tdv.classList.add(vrai ? 'on' : 'off');

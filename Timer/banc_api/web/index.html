@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AIO — Planning journalier AGV</title>
+<title>AIO : Planning journalier AGV</title>
 <link rel="stylesheet" href="/theme.css">
 <style>
 /* Alerte d'arrêt de sécurité : elle doit être IMPOSSIBLE à manquer, et rester
-   jusqu'à un geste humain — comme le réarmement physique de la chaîne. */
+   jusqu'à un geste humain, comme le réarmement physique de la chaîne. */
 .alerte-collision {
   background: var(--alerte); color: #fff; border-radius: 12px; padding: 1rem 1.2rem;
   display: flex; align-items: center; justify-content: space-between; gap: 1rem;
@@ -44,8 +44,8 @@
   background: #fff; padding: 0 2px; border-radius: 2px; }
 /* Un trajet dure au plus 5 min, soit 0,35 % d'une frise de 24 h. L'OCCUPATION
    est donc dessinée à sa largeur RÉELLE, sur l'axe ; l'ÉTIQUETTE flotte
-   au-dessus, détachée, et n'engage aucune durée. Les confondre — étiquette
-   posée sur l'axe — laissait lire deux heures d'immobilisation pour cinq
+   au-dessus, détachée, et n'engage aucune durée. Les confondre : étiquette
+   posée sur l'axe : laissait lire deux heures d'immobilisation pour cinq
    minutes de trajet. */
 .occupation { position: absolute; height: 12px; border-radius: 2px;
   background: currentColor; min-width: 3px; cursor: pointer; z-index: 1; }
@@ -54,7 +54,7 @@
 .drapeau { position: absolute; cursor: pointer; z-index: 2; }
 /* ⚠ Ne JAMAIS poser `color` sur .fanion : `background: currentColor` se
    résout contre la couleur de l'élément LUI-MÊME. Un `color: #fff` ici rend
-   le fanion blanc-sur-blanc — c'est le bug « les marqueurs ne s'affichent
+   le fanion blanc-sur-blanc : c'est le bug « les marqueurs ne s'affichent
    pas » de l'itération 2. */
 .drapeau .fanion { font-size: .74rem; font-weight: 700; background: currentColor;
   border-radius: 4px; padding: .05rem .4rem; white-space: nowrap;
@@ -89,7 +89,7 @@
 <header>
   <span class="logo">AIO</span>
   <span class="titre">Planning journalier AGV</span>
-  <span class="horloge" id="horloge">—</span>
+  <span class="horloge" id="horloge">-</span>
   <span class="badge" id="badge-fiable">heure fiable</span>
   <span class="badge" id="badge-pause" hidden>EN PAUSE</span>
   <nav class="onglets">
@@ -109,7 +109,7 @@
     </span>
     <span class="ligne">
       <input id="acquitte-par" placeholder="votre nom" size="12">
-      <button onclick="acquitter()">J'ai vérifié — acquitter</button>
+      <button onclick="acquitter()">J'ai vérifié : acquitter</button>
     </span>
   </div>
 
@@ -145,7 +145,7 @@
       <button onclick="ouvrirPostes()">⚙ Gestion des postes</button>
     </div>
     <p class="discret" style="margin-top:.5rem">Choisir un poste, prendre le drapeau, puis cliquer sur la frise
-      pour programmer le départ — ou appeler l'AGV immédiatement.</p>
+      pour programmer le départ, ou appeler l'AGV immédiatement.</p>
   </section>
 
   <section>
@@ -155,7 +155,7 @@
   </section>
 
   <section class="sim">
-    <h2>Simulation <span class="discret">(banc uniquement — n'existe pas sur la cible)</span></h2>
+    <h2>Simulation <span class="discret">(banc uniquement : n'existe pas sur la cible)</span></h2>
     <div class="ligne">
       vitesse
       <button onclick="vitesse(1)">×1</button>
@@ -314,7 +314,7 @@ function rendreFrise() {
     .forEach((m) => poserDrapeau(m.emise, `📢 P${m.station}`, 'appel', null));
 }
 
-// Largeur d'une mission en % de la journée — la VRAIE, pas celle du texte.
+// Largeur d'une mission en % de la journée : la VRAIE, pas celle du texte.
 const largeurMission = () => ((etatTemps.duree_mission_s || 300) / 86400) * 100;
 
 function poserDrapeau(locale, texte, etat, rang, surClic) {
@@ -326,7 +326,7 @@ function poserDrapeau(locale, texte, etat, rang, surClic) {
   occ.className = 'occupation ' + etat;
   occ.style.left = gauche + '%';
   occ.style.width = largeurMission() + '%';
-  occ.title = `${texte} — AGV occupé ${Math.round((etatTemps.duree_mission_s || 300) / 60)} min`;
+  occ.title = `${texte} : AGV occupé ${Math.round((etatTemps.duree_mission_s || 300) / 60)} min`;
   if (surClic) occ.onclick = (e) => { e.stopPropagation(); surClic(); };
   $('frise').appendChild(occ);
 
@@ -360,7 +360,7 @@ function rendrePostes() {
   $('btn-appel').disabled = posteChoisi === null;
   $('frise').classList.toggle('armee', drapeauEnMain);
   $('aide-placement').textContent = drapeauEnMain
-    ? `🚩 Poste ${posteChoisi} en main — cliquez sur la frise à l'heure voulue`
+    ? `🚩 Poste ${posteChoisi} en main : cliquez sur la frise à l'heure voulue`
     : '';
 }
 
@@ -374,14 +374,14 @@ function rendreLogs() {
   for (const e of journal) {
     if (e.motif.startsWith('ARRET DE SECURITE')) {
       const entree = entrees.find((x) => x.id === e.id);
-      lignes.push({ quand: e.quand, nom: e.id || '—',
-                    station: entree ? entree.station : '—',
+      lignes.push({ quand: e.quand, nom: e.id || '-',
+                    station: entree ? entree.station : '-',
                     etat: '<span class="etat-collision">⛔ arrêt de sécurité en déplacement</span>' });
       continue;
     }
     if (!e.motif.startsWith('sautee')) continue;
     const entree = entrees.find((x) => x.id === e.id);
-    lignes.push({ quand: e.quand, nom: e.id, station: entree ? entree.station : '—',
+    lignes.push({ quand: e.quand, nom: e.id, station: entree ? entree.station : '-',
                   etat: `<span class="etat-saute">✗ ${e.motif.replace('sautee : ', 'sauté : ')}</span>` });
   }
   lignes.sort((a, b) => b.quand.localeCompare(a.quand));
@@ -395,8 +395,8 @@ async function rafraichir() {
   missions = (await api('GET', '/api/missions')).data.missions || [];
   journal = (await api('GET', '/api/journal')).data.evenements || [];
 
-  $('horloge').textContent = etatTemps.locale || '—';
-  $('badge-fiable').textContent = etatTemps.fiable ? 'heure fiable' : 'HEURE NON FIABLE — GELÉ';
+  $('horloge').textContent = etatTemps.locale || '-';
+  $('badge-fiable').textContent = etatTemps.fiable ? 'heure fiable' : 'HEURE NON FIABLE, GELÉ';
   $('badge-fiable').className = 'badge' + (etatTemps.fiable ? '' : ' alerte');
   $('btn-fiable').textContent = etatTemps.fiable ? 'simuler heure douteuse' : "rétablir l'heure";
   $('badge-pause').hidden = !etatTemps.pause;
@@ -410,22 +410,22 @@ async function rafraichir() {
   if (alerteActive) {
     $('alerte-detail').textContent =
       `Départ « ${etatTemps.alerte_mission || '?'} » vers le poste ` +
-      `${etatTemps.alerte_station} — interrompu à ${(etatTemps.alerte_quand || '').slice(11, 19)}.`;
+      `${etatTemps.alerte_station} : interrompu à ${(etatTemps.alerte_quand || '').slice(11, 19)}.`;
   }
 
   const bandeau = $('bandeau');
   if (alerteActive) {
     bandeau.className = 'bandeau rouge';
     $('bandeau-texte').textContent =
-      'Départs suspendus — arrêt de sécurité à acquitter ci-dessus';
+      'Départs suspendus : arrêt de sécurité à acquitter ci-dessus';
   } else if (etatTemps.journee_validee) {
     bandeau.className = 'bandeau vert';
     $('bandeau-texte').textContent =
-      `Planning du ${aujourdhui()} validé par ${etatTemps.valide_par} — départs autorisés`;
+      `Planning du ${aujourdhui()} validé par ${etatTemps.valide_par} : départs autorisés`;
   } else {
     bandeau.className = 'bandeau rouge';
     $('bandeau-texte').textContent =
-      `Planning du ${aujourdhui()} NON VALIDÉ — aucun départ automatique`;
+      `Planning du ${aujourdhui()} NON VALIDÉ : aucun départ automatique`;
   }
   rendreFrise();
   rendreLogs();
@@ -466,7 +466,7 @@ $('frise').addEventListener('click', async (e) => {
   if (!drapeauEnMain) return;
   const { locale } = heureAuPoint(e);
   if (aujourdhui() + ' ' + locale + ':00' <= etatTemps.locale) {
-    toast(`${locale} est déjà passé — placez le drapeau à droite du curseur.`);
+    toast(`${locale} est déjà passé : placez le drapeau à droite du curseur.`);
     return;
   }
   // L'AGV ne fait qu'un trajet à la fois : le séquenceur refuse d'empiler une
@@ -499,7 +499,7 @@ async function retirer(occ) {
   if (!entree) return;
   const recurrent = !(entree.debut === entree.fin && entree.debut !== 0);
   const question = recurrent
-    ? `« ${occ.id} » est un départ RÉCURRENT — le retirer le supprime pour tous les jours. Continuer ?`
+    ? `« ${occ.id} » est un départ RÉCURRENT : le retirer le supprime pour tous les jours. Continuer ?`
     : `Retirer le départ de ${occ.locale.slice(11, 16)} vers le poste ${occ.station} ?`;
   if (!confirm(question)) return;
   await publier(entrees.filter((x) => x.id !== occ.id), 'Départ retiré. Revalidez la journée.');
@@ -510,7 +510,7 @@ async function publier(nouvelles, messageOk) {
     { schema: 1, entrees: nouvelles }, { 'If-Match': etag });
   if (r.code === 409) {
     await chargerPlanning();
-    toast('Le planning a été modifié ailleurs — rechargé, recommencez votre geste.');
+    toast('Le planning a été modifié ailleurs : rechargé, recommencez votre geste.');
     return;
   }
   if (!r.ok) {
@@ -530,7 +530,7 @@ async function valider() {
   if (!par) { toast('Indiquez votre nom : la validation est tracée (§3.2).'); return; }
   localStorage.setItem('aio-nom', par);
   const r = await api('POST', '/api/planning/validate', { par });
-  toast(r.ok ? 'Journée validée — les départs prévus partiront.' : r.data.erreur);
+  toast(r.ok ? 'Journée validée, les départs prévus partiront.' : r.data.erreur);
   rafraichir();
 }
 
@@ -538,7 +538,7 @@ async function acquitter() {
   const par = $('acquitte-par').value.trim() || $('valide-par').value.trim();
   if (!par) { toast("Indiquez votre nom : l'acquittement est tracé."); return; }
   const r = await api('POST', '/api/alerte/acquitter', { par });
-  toast(r.ok ? 'Alerte acquittée — les départs programmés reprennent.'
+  toast(r.ok ? 'Alerte acquittée : les départs programmés reprennent.'
              : (r.data.erreur || 'refusé'));
   rafraichir();
 }
@@ -583,7 +583,7 @@ function rendreListePostes() {
     li.append(nom, retirer);
     liste.appendChild(li);
   }
-  if (!postes.length) liste.innerHTML = '<li class="discret">Aucun poste — ajoutez-en un.</li>';
+  if (!postes.length) liste.innerHTML = '<li class="discret">Aucun poste : ajoutez-en un.</li>';
 }
 
 function ajouterPoste() {
@@ -623,7 +623,7 @@ function allerA() {
 
 // Rendu synchrone AVANT le premier échange réseau : pastilles et graduations
 // doivent exister dès la première peinture. L'oubli de cet appel a laissé la
-// section Postes vide — sans pastille, aucun geste n'était possible.
+// section Postes vide, sans pastille, aucun geste n'était possible.
 rendrePostes();
 rendreFrise();
 chargerPlanning().then(rafraichir);

@@ -48,7 +48,7 @@ TEST(frame_aller_retour_sans_horodatage) {
 
 TEST(vecteur_partage_avec_le_poste_python) {
   // MÊME vecteur que poste-unipi/tests/test_protocol.py. Si les deux
-  // implémentations divergent d'un seul octet, l'AGV cesse d'obéir au poste —
+  // implémentations divergent d'un seul octet, l'AGV cesse d'obéir au poste :
   // silencieusement. Ce test fige l'octet-à-octet des deux côtés.
   Frame f;
   f.ver = 1;

@@ -1,9 +1,9 @@
-// Police 5x7, ASCII 32 à 126 — cinq octets par caractère, colonne par colonne,
+// Police 5x7, ASCII 32 à 126 : cinq octets par caractère, colonne par colonne,
 // bit 0 en haut. Table du domaine public.
 //
 // Vérifiée par rendu : `test_hote/rendu_police.cpp` la dessine en ASCII et
 // signale tout glyphe vide. Une table de police ne se relit pas, elle se
-// regarde — c'est ainsi qu'un antislash mangeant la ligne suivante a été pris.
+// regarde : c'est ainsi qu'un antislash mangeant la ligne suivante a été pris.
 #pragma once
 
 #include <cstdint>

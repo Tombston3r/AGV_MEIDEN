@@ -1,4 +1,4 @@
-# A2 — Hybride EnOcean + LoRa
+# A2 : Hybride EnOcean + LoRa
 
 > **Le logiciel de ce dossier est autonome** : `make test` ne dépend d'aucun
 > autre dossier. Le **matériel** et le **brief** sont en revanche partagés, une
@@ -7,12 +7,12 @@
 > reconstitue un ensemble complet.
 > Index des architectures : [`../README.md`](../README.md).
 
-> **Matériel** : le projet KiCad vit dans [`../../materiel/AIO_AGV_Control_V6.0/`](../../materiel/AIO_AGV_Control_V6.0/) — une seule copie pour tout le dépôt.
+> **Matériel** : le projet KiCad vit dans [`../../materiel/AIO_AGV_Control_V6.0/`](../../materiel/AIO_AGV_Control_V6.0/), une seule copie pour tout le dépôt.
 > **Bancs** : [`../../bancs/enocean/`](../../bancs/enocean/) valide la liaison de cette architecture sur table.
 
 ## Ce que fait cette architecture
 
-Des boutons **EnOcean sans pile** — l'énergie vient de l'appui lui-même —
+Des boutons **EnOcean sans pile** : l'énergie vient de l'appui lui-même :
 émettent vers un **poste fixe** qui relaie l'appel en **LoRa 868 MHz** vers la
 carte embarquée. Aucune pile à remplacer sur la durée de vie de l'installation.
 
@@ -32,18 +32,18 @@ Le sans-pile se paie sur deux points, et ils sont documentés plutôt qu'esquiv�
 - ⚠️ **Le bouton n'est pas authentifié.** Un télégramme `PTM 210` est en clair
   et rejouable dans un rayon d'une trentaine de mètres. Le chiffrement AES ne
   commence qu'au poste fixe. C'est le maillon faible de toutes les variantes
-  EnOcean — A2 comme [A4](../A4_Wifi/).
+  EnOcean : A2 comme [A4](../A4_Wifi/).
 - **Pas d'accusé visuel** à l'opérateur : le `PTM 210` n'a pas de LED, il ne
   peut rien afficher. L'opérateur appuie sans savoir si l'ordre est passé.
 
 ## Matériel
 
-**Carte `AIO_AGV_Control_V6.0`** — identique à [A3](../A3_LoRa/) : la V5.0.1
+**Carte `AIO_AGV_Control_V6.0`**, identique à [A3](../A3_LoRa/) : la V5.0.1
 augmentée d'un `RFM95W-868S2` sur le SPI libre de l'ESP32 (`NSS`→`IO5`,
 `SCK`→`IO18`, `MISO`→`IO19`, `MOSI`→`IO23`, `DIO0`→`IO26`, `RESET` **non
 câblée**).
 
-**Poste fixe** — ESP32 portant un `TCM 515` (réception EnOcean) et un `RFM95W`
+**Poste fixe** : ESP32 portant un `TCM 515` (réception EnOcean) et un `RFM95W`
 (émission LoRa).
 
 ⚠️ **Deux antennes 868 MHz sur le même boîtier.** Les espacer d'au moins 20 cm,

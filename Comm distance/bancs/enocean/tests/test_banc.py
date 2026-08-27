@@ -1,4 +1,4 @@
-"""Tests du banc EnOcean — sans matériel.
+"""Tests du banc EnOcean, sans matériel.
 
 Ils portent sur ce qui casse en vrai : la déduplication des sous-télégrammes,
 le rejet du relâchement, l'analyse des identifiants et le cycle

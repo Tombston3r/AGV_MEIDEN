@@ -1,11 +1,11 @@
 # Configuration du poste fixe UniPi E413.
 node_id = 2
 ack_timeout_s = 30.0     # SMS : latence non bornée, générosité obligatoire
-max_command_age_s = 15   # §8.1 — une commande plus vieille n'est jamais exécutée
+max_command_age_s = 15   # §8.1 : une commande plus vieille n'est jamais exécutée
 ordered_transport = false  # true seulement en MQTT (TCP garantit l'ordre)
 
 [io]
-# §12.9 — À TRANCHER : "evok" (Linux+Evok), "modbus" (Mervis), "simulated".
+# §12.9, À TRANCHER : "evok" (Linux+Evok), "modbus" (Mervis), "simulated".
 kind = "simulated"
 
 [transport]

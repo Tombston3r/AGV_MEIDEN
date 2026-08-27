@@ -1,10 +1,10 @@
-# État du projet — architecture SMS + EnOcean
+# État du projet : architecture SMS + EnOcean
 
 > **Document vivant.** Il est mis à jour à chaque modification du dépôt : toute
 > évolution du code, des profils ou des relevés matériels doit se refléter ici
 > le même jour. Journal des mises à jour en fin de document.
 >
-> Dernière mise à jour : **2026-08-20** — passage à une organisation par
+> Dernière mise à jour : **2026-08-20**, passage à une organisation par
 > dossier d'architecture ; extraction des sources LoRa vers `architectures/A3_LoRa/`.
 >
 > **Périmètre de ce document** : le dossier `architectures/A1_Cellulaire/`, projet
@@ -20,7 +20,7 @@
 | Indicateur | Valeur |
 |---|---|
 | Tests natifs | **112 tests, 373 assertions, 0 échec** |
-| Tests Python (poste UniPi) | 16 tests écrits — *non exécutés ici, `pytest` absent* |
+| Tests Python (poste UniPi) | 16 tests écrits : *non exécutés ici, `pytest` absent* |
 | Compilation | `-std=c++17 -Wall -Wextra -Werror`, sans avertissement |
 | Matériel nécessaire pour tout ce qui précède | **aucun** |
 | Lignes de code (hors docs) | ~10 600 |
@@ -42,7 +42,7 @@ transport.
 - **12 états** : `BOOT`, `IDLE`, `WRITE_SETUP`, `WRITE_STROBE`, `WRITE_RELEASE`,
   `START_PULSE`, `START_RELEASE`, `TRANSIT`, `ARRIVED`, `STOP_PULSE`,
   `SAFE_STOP`, `FAULT`.
-- Les 4 phases du §4.3 sont reproduites front par front — voir
+- Les 4 phases du §4.3 sont reproduites front par front : voir
   [`chronogrammes.md`](chronogrammes.md).
 - Compteurs nommés **littéralement** comme la section `AGV STATE` de `agvdump` :
   `write_tries`, `write_op_return`, `start_tries`, `start_op_return`,
@@ -53,7 +53,7 @@ transport.
 - **Perte de liaison → arrêt sûr au point d'arrêt suivant** : la course engagée
   va au bout, aucune course supplémentaire n'est lancée, sorties au repos.
 
-### 1.3 File de courses — le point fonctionnel central
+### 1.3 File de courses : le point fonctionnel central
 
 `firmware/common/app/course_queue.cpp` : jusqu'à 5 courses, priorité en tête de
 file, purge, et **persistance NVS** avec restauration au boot (amélioration par
@@ -68,12 +68,12 @@ rapport à la V5.0.1, qui perdait tout à chaque coupure).
 
 ### 1.4 Protocole applicatif
 
-`firmware/common/proto/` — conforme au §5.1, avec une extension documentée.
+`firmware/common/proto/` : conforme au §5.1, avec une extension documentée.
 
 | Élément | État |
 |---|---|
 | Trame 9 octets (ver, type, node_id, seq, station, speed, flags, CRC-16) | ✅ |
-| Extension horodatage (+4 octets, signalée par un flag) | ✅ — indispensable au §8.1 |
+| Extension horodatage (+4 octets, signalée par un flag) | ✅ : indispensable au §8.1 |
 | CRC-16/CCITT-FALSE | ✅ vecteur `0x29B1` vérifié |
 | AES-128-CTR | ✅ vecteur FIPS-197 vérifié |
 | AES-CMAC tronqué (option hors spéc.) | ✅ désactivé par défaut |
@@ -82,7 +82,7 @@ rapport à la V5.0.1, qui perdait tout à chaque coupure).
 | Refus des commandes périmées | ✅ |
 | Compatibilité binaire C++ ↔ Python | ✅ vecteur figé des deux côtés |
 
-### 1.5 Transports (§5) — deux implémentations derrière `ITransport`
+### 1.5 Transports (§5) : deux implémentations derrière `ITransport`
 
 L'implémentation LoRa vit dans le dossier d'architecture `architectures/A3_LoRa/`.
 
@@ -91,7 +91,7 @@ L'implémentation LoRa vit dans le dossier d'architecture `architectures/A3_LoRa
 | `MqttLteTransport` | ✅ | **Transport recommandé de cette architecture.** SIM7080G, topics `agv/<id>/{cmd,ack,telemetry,status}`, QoS 1, **Last Will and Testament** |
 | `SmsTransport` | ✅ | Pile AT en machine à états, `+CMTI` → `CMGR` → `CMGD`, PWRKEY 1 000/2 500 ms, détection de modem muet + cycle d'alimentation, chien de garde matériel TPL5010. Déclare `ordered() == false` et impose l'horodatage |
 
-### 1.6 Interface bus (§4.4) — trois variantes interchangeables
+### 1.6 Interface bus (§4.4) : trois variantes interchangeables
 
 | Variante | État | Propriété vérifiée par test |
 |---|---|---|
@@ -105,7 +105,7 @@ L'implémentation LoRa vit dans le dossier d'architecture `architectures/A3_LoRa
 - Décodeur **ESP3** complet : sync `0x55`, CRC8 header, CRC8 data,
   resynchronisation après corruption, extraction du RSSI des OptData.
 - Télégrammes **RPS / PTM 210** : identifiant 32 bits, bascule, énergie.
-- **Déduplication des 3 sous-télégrammes** (fenêtre 100 ms) — sans elle, un
+- **Déduplication des 3 sous-télégrammes** (fenêtre 100 ms), sans elle, un
   appui déclencherait trois courses.
 - **Table d'appairage** `enocean_id → station` persistée + **mode appairage**
   (« appuyez sur le bouton à associer »), deux bascules par bouton.
@@ -136,7 +136,7 @@ L'implémentation LoRa vit dans le dossier d'architecture `architectures/A3_LoRa
 |---|---|
 | `tools/genconfig.py` | YAML → en-tête C++, **source de vérité unique** |
 | `tools/pio_genconfig.py` | Régénération automatique avant chaque build PlatformIO |
-| `tools/flash.sh` | Régénère, teste, puis flashe — refuse de flasher si un test échoue |
+| `tools/flash.sh` | Régénère, teste, puis flashe : refuse de flasher si un test échoue |
 | `tools/replay_frames.py` | Décodage / fabrication / rejeu de trames |
 | `tools/provision_key.py` | Génération et provisionnement de la clé AES |
 
@@ -174,7 +174,7 @@ L'implémentation LoRa vit dans le dossier d'architecture `architectures/A3_LoRa
 > voit pas en atelier : il se traduit par des écritures perdues intermittentes
 > sur l'AGV en production.
 
-### Étape 0 — Prérequis bloquants
+### Étape 0 : Prérequis bloquants
 
 | Prérequis | Pourquoi | Où reporter |
 |---|---|---|
@@ -187,7 +187,7 @@ L'implémentation LoRa vit dans le dossier d'architecture `architectures/A3_LoRa
 
 Procédure de relevé détaillée : [`procedures_essai.md`](procedures_essai.md) §4.
 
-### Étape 1 — Poste de développement
+### Étape 1 : Poste de développement
 
 ```bash
 # Outils
@@ -201,9 +201,9 @@ make test
 cd poste-unipi && python3 -m pytest tests -q && cd ..
 ```
 
-### Étape 2 — Renseigner le profil avec les valeurs relevées
+### Étape 2 : Renseigner le profil avec les valeurs relevées
 
-Éditer `profiles/default.yaml` — **et rien d'autre**. Chaque valeur relevée
+Éditer `profiles/default.yaml`, **et rien d'autre**. Chaque valeur relevée
 remplace une ligne marquée `PROVISOIRE §12.x`. Puis :
 
 ```bash
@@ -216,7 +216,7 @@ Cocher la ligne correspondante dans
 [`questions_ouvertes.md`](questions_ouvertes.md) et **mettre à jour ce
 document** (§4, journal).
 
-### Étape 3 — Provisionner la clé AES
+### Étape 3 : Provisionner la clé AES
 
 La même clé doit être installée sur l'AGV **et** sur le poste fixe.
 
@@ -232,10 +232,10 @@ esptool.py --port /dev/ttyUSB0 write_flash 0x9000 build/nvs_agv.bin
 
 > Sans clé, le firmware démarre **en clair** et le journal le signale
 > bruyamment. C'est délibéré : un site sans clé doit rester diagnosticable.
-> La clé n'est jamais versionnée (`.gitignore`) — la perdre impose de reflasher
+> La clé n'est jamais versionnée (`.gitignore`) : la perdre impose de reflasher
 > tous les nœuds, boutons compris.
 
-### Étape 4 — Banc HIL, avant tout branchement sur l'AGV
+### Étape 4 : Banc HIL, avant tout branchement sur l'AGV
 
 ```bash
 python3 tools/genconfig.py profiles/hil.yaml \
@@ -253,7 +253,7 @@ Vérifications à l'oscilloscope (détail dans
 4. Coupure de liaison → arrêt au point d'arrêt suivant.
 5. Coupure d'alimentation en cours de course → file restaurée au redémarrage.
 
-### Étape 5 — Flash des cibles
+### Étape 5 : Flash des cibles
 
 ```bash
 ./tools/flash.sh agv          /dev/ttyUSB0    # firmware AGV (MQTT/LTE-M)
@@ -267,7 +267,7 @@ un test rouge interrompt le flash.
 Les boutons de cette architecture sont des **PTM 210 EnOcean sans pile** : ils
 ne se flashent pas, ils s'appairent depuis l'IHM web (étape 7).
 
-### Étape 6 — Poste UniPi (uniquement en architecture 2)
+### Étape 6 : Poste UniPi (uniquement en architecture 2)
 
 > ⚠️ §12.9 non tranché : si la référence commandée tourne sous **Mervis**, ce
 > service Python est sans objet et l'intégration passe par Modbus TCP depuis un
@@ -285,11 +285,11 @@ sudo systemctl enable --now agv-poste
 journalctl -u agv-poste -f
 ```
 
-### Étape 7 — Mise en service
+### Étape 7 : Mise en service
 
 1. Raccorder l'Ethernet **filaire** du poste (choix délibéré : aucune émission
    2,4 GHz permanente).
-2. Ouvrir `http://agv.local` — vérifier que la fraîcheur de liaison est verte.
+2. Ouvrir `http://agv.local` : vérifier que la fraîcheur de liaison est verte.
 3. Appairer chaque bouton EnOcean : bouton « Ouvrir le mode appairage », saisir
    la station, puis appuyer sur le bouton physique.
 4. Vérifier `/agvdump` **côté poste** et **côté AGV** (fenêtre de maintenance :
@@ -304,7 +304,7 @@ journalctl -u agv-poste -f
 | Symptôme | Où regarder |
 |---|---|
 | L'AGV ne part pas | `/agvdump` → `write_op_return`, `start_op_return`, `fault` |
-| Courses en double | `cmd_duplicate` — si nul, l'idempotence ne voit pas les rejeux |
+| Courses en double | `cmd_duplicate`, si nul, l'idempotence ne voit pas les rejeux |
 | Commandes refusées | `tx_refused_duty`, `commands_refused` → modem occupé ou indisponible |
 | Appuis sans effet | `enocean_unpaired` → bouton non appairé |
 | Liaison qui tombe | `rssi_dbm` (RSRP), `rx_bad_crc`, `telemetry_age_ms` |
@@ -314,22 +314,22 @@ journalctl -u agv-poste -f
 
 ## 3. Kanban
 
-### 🔴 Bloqué — en attente de relevés ou d'une décision client
+### 🔴 Bloqué, en attente de relevés ou d'une décision client
 
 | # | Tâche | Débloqué par |
 |---|---|---|
 | B1 | Renseigner `t_setup_us`, timeouts `Y22`/`Y05`/`Y10` | Relevé oscilloscope V5.0.1 (§12.4, §12.5) |
-| ~~B2~~ | ~~Figer la table de brochage SUB-D 25~~ | **FAIT** — relevé client, CN61 à CN64 |
+| ~~B2~~ | ~~Figer la table de brochage SUB-D 25~~ | **FAIT** : relevé client, CN61 à CN64 |
 | B3 | Figer la polarité PNP/NPN | Mesure sur l'automate (§12.3) |
 | B4 | Recaler le format `/agvdump` | Sortie réelle de la V5.0.1 (§12.6, §3.3) |
 | B5 | Choisir la variante d'interface bus | Décision matérielle (§12.10) |
 | B6 | Trancher TCM 515 vs TCM 310 | Besoin d'accusé opérateur ? (§12.8) |
-| B7 | Écrire l'accès aux E/S UniPi | Runtime réel de la référence commandée (§12.9) — **sans objet** si poste ESP32 ou Gate G100 |
-| B7b | **Y a-t-il une prise réseau là où le poste sera fixé ?** | Décide entre l'option B (Gate G100, 1 SIM) et l'option C (E413 LTE, 2 SIM) — 153 € et la moitié du récurrent |
+| B7 | Écrire l'accès aux E/S UniPi | Runtime réel de la référence commandée (§12.9), **sans objet** si poste ESP32 ou Gate G100 |
+| B7b | **Y a-t-il une prise réseau là où le poste sera fixé ?** | Décide entre l'option B (Gate G100, 1 SIM) et l'option C (E413 LTE, 2 SIM) : 153 € et la moitié du récurrent |
 | B8 | Valider la couverture cellulaire du parcours | Relevé RSRP/RSRQ, essai de latence sur 200 aller-retours (Archi_2 §7) |
 | B9 | Décider du sort de l'app mobile « AIO AGV Remote » | Décision client (§12.7) |
 
-### 🟡 À faire — prêt à démarrer, sans dépendance externe
+### 🟡 À faire : prêt à démarrer, sans dépendance externe
 
 | # | Tâche | Effort | Pourquoi |
 |---|---|---|---|
@@ -345,7 +345,7 @@ journalctl -u agv-poste -f
 | T11 | Faire de `architectures/A3_LoRa/` un dossier d'architecture autonome | M | Aujourd'hui simples sources extraites ; recette dans son README |
 | T12 | Vérifier la non-divergence du cœur entre dossiers d'architecture | S | Conséquence directe de l'organisation par dossier zippable |
 
-### 🔵 Backlog — utile, non prioritaire
+### 🔵 Backlog : utile, non prioritaire
 
 | # | Tâche | Pourquoi |
 |---|---|---|
@@ -384,25 +384,26 @@ journalctl -u agv-poste -f
 
 | Date | Modification | Impact sur ce document |
 |---|---|---|
-| 2026-08-27 | **Thème unifié sur toutes les interfaces du dépôt** — fond blanc, texte noir, bleu outremer, logo AIO : les six IHM (4 supervisions d'architecture, banc EnOcean, planning) partageaient jusqu'ici **trois palettes différentes**, deux sombres et une claire. La feuille vit une seule fois dans `docs/theme/theme.css` ; chaque interface en porte une copie (dossiers livrables seuls, et le banc part en `rsync` sur une UniPi). `outils/theme.sh` propage l'original et **signale les copies qui ont dérivé** — même garde que pour le rendu `agvdump`. Les `style.css` ne gardent que le spécifique. Deux défauts trouvés au rendu : le serveur du banc planning servait **tout** en `text/html`, donc la feuille était ignorée ; et les notifications recouvraient l'en-tête. Le banc EnOcean passe en **v1.2.0** pour que le contrôle de version du déploiement signale une copie périmée. | 6 interfaces, thème, outils |
-| 2026-08-26 | **Banc EnOcean v1.1.0 — la fenêtre d'ajout refusait toujours de se fermer.** Le correctif CSS précédent était juste mais ne pouvait pas suffire : la visibilité de la fenêtre reposait sur l'attribut `hidden`, que **toute** règle de feuille déclarant `display` écrase. Elle est désormais portée par un **style en ligne** posé par `afficherModale()` — un style en ligne l'emporte sur toute règle sans `!important`, **y compris sur une feuille périmée servie par le cache**. La feuille déclare `display: none` par défaut, et l'état initial est posé explicitement au démarrage du script. Deux causes systémiques traitées avec : le serveur envoie `Cache-Control: no-cache`, et `deployer.sh` remplace la copie manuelle — `rsync --delete`, redémarrage, puis **contrôle que la version servie est celle du dépôt**. La version s'affiche dans le bandeau. Une copie déployée périmée donne les symptômes du défaut qu'elle ne contient pas encore : c'est ce qui a coûté un aller-retour. | banc EnOcean |
-| 2026-08-26 | **Banc EnOcean — deux défauts corrigés après essai sur la UniPi.** (1) La fenêtre d'ajout restait affichée en permanence : `.voile` déclarait `display: flex`, et **la moindre règle d'auteur déclarant `display` bat l'attribut `hidden`** du HTML, qui n'est qu'un `display: none` de la feuille par défaut. Une règle `[hidden] { display: none !important }` rétablit l'attribut pour tout le document. (2) L'écoute d'apprentissage était armée **une fois pour trente secondes** : passé ce délai un appui repartait en « bouton inconnu » au lieu d'alimenter le formulaire. Elle est désormais **renouvelée tant que la boîte d'ajout est ouverte** — fenêtre courte de 20 s réarmée toutes les 8 s, pour qu'un navigateur qui meurt éteigne l'écoute seul. L'identifiant capté est en outre déposé **dans le champ de saisie**, donc visible et corrigeable, et un remplacement est signalé par un flash — un remplacement silencieux ferait nommer le mauvais bouton. 19 tests. | banc EnOcean |
-| 2026-08-26 | **Réorganisation du dépôt par NATURE d'objet.** `architectures/` (les 4 solutions), `bancs/` (les essais matériels), `materiel/` (les projets KiCad), `docs/` (brief et comparatif), `outils/` (scripts). Le dossier `CarteComm/` disparaît. **Le matériel n'est plus dupliqué** : une carte, un projet, un seul endroit — trois copies divergentes de la V6.0 avaient déjà coexisté, dont une que KiCad avait recréée à un chemin renommé, et il a fallu comparer les schémas pour trouver la vivante (celle du 26 août, avec l'embase J3 et les Gerbers). Le **brief** passe de 4 copies à 1. Les **bancs LoRa sortent de `A3_LoRa/test/`** pour rejoindre `bancs/lora/`, à la même forme que le banc EnOcean ; `test/native/` ne garde que les tests unitaires. Chaque banc a désormais son `README.md` **et** son `DEPLOY.md` avec une recette et les résultats attendus. `outils/exporter_architecture.sh` reconstitue une architecture autonome dans un zip — la zippabilité est payée à l'export, plus tous les jours. Le générateur de nomenclatures n'a plus de chemin absolu. **2 Mo de redondance supprimés.** | arborescence, tous les renvois |
-| 2026-08-26 | **Banc d'essai EnOcean** ajouté dans `../../banc_enocean/` : service web déployable sur une UniPi E413 avec dongle USB. Enregistre les `PTM 210`, les **détecte à l'appui** ou par saisie de l'identifiant, et ouvre une fenêtre verte à chaque pression — nom, code, heure, niveau reçu. Un bouton non enregistré ouvre une fenêtre ambre plutôt que d'être ignoré. Bibliothèque standard seule hors `pyserial`, flux SSE, registre JSON. Le banc **ne dépend d'aucune architecture** : il sert à valider les boutons avant que le choix ne soit tranché. 17 tests sans matériel, dont la déduplication des **trois** sous-télégrammes et le rejet du relâchement — sans quoi un appui en afficherait six. | banc partagé A1/A2/A4 |
-| 2026-08-25 | **La passerelle MQTT est remplacée par une passerelle LoRa.** `GatewayApp` publiait sur des topics et dépendait d'`IMqttPublisher` : il n'avait rien à faire dans une architecture sans broker. `LoraGatewayApp` le remplace — trames applicatives de 9 octets sur `ITransport`, accusé par la même voie, idempotence `(node_id, seq)` en table locale, et le **budget de rapport cyclique appliqué aux accusés** puisqu'un récepteur qui acquitte est un émetteur. Le firmware ESP32 est réécrit : plus de Wi-Fi STA ni de client MQTT, mais SPI + `Sx1276Radio` + `LoraTransport`, avec le brochage relevé au KiCad dans `board_pins.h`. `MqttConfig` et `WifiConfig` quittent le profil, la section `lora:` y entre, `aes_enabled` passe à **true** — sans TLS, le chiffrement applicatif est la seule protection de la liaison. Le champ `mqtt_up` d'`/agvdump` est **conservé** : c'est un contrat d'atelier (§3.3), il porte désormais l'état radio. **Kanban LG1 soldé.** | firmware, profils, tests |
-| 2026-08-25 | ⚠️ **Deux défauts trouvés en écrivant les tests.** (1) La détection de silence de l'ATmega utilisait `0` comme sentinelle « jamais reçu », alors que c'est un instant valide au démarrage : elle était inopérante pendant les premières millisecondes. Corrigé par un drapeau explicite. (2) Le `Makefile` ne suivait **pas les dépendances d'en-têtes** : modifier une classe ne recompilait pas ses utilisateurs, et l'on reliait des objets compilés contre deux versions de la même classe — un test échouait sans qu'aucune erreur ne soit signalée. `-MMD -MP` ajouté aux **quatre** Makefile. | firmware, Makefile |
-| 2026-08-25 | **La carte LoRa est la `AIO_AGV_Control_V6.0`, et elle est FABRIQUÉE.** Le diff des deux projets KiCad est sans ambiguïté : 58 empreintes contre 57, **un seul écart, le `RFM95W-868S2`** — tout le reste est identique au composant près. La radio est intégrée, câblée sur le SPI libre de l'ESP32 : ni carte fille, ni câblage volant. Les nomenclatures chiffraient jusqu'ici une V5.0.1 **réutilisée à 0 €** augmentée d'une carte fille à 18 € ; c'était une hypothèse de travail, remplacée par la nomenclature réelle à **111,15 € HT**. Conséquence assumée : **A3 passe de 208 à 329 €** et **A2 de 307 à 428 €** accessoires compris. Trois analyses devenues fausses sont réécrites — « réutiliser la carte existante », la question des optocoupleurs (la V6.0 a des MOSFET, pas de `PC847`) et le choix `shift595`. La table d'équivalences, jusqu'ici partagée, devient propre à chaque architecture : elle listait des composants absents de la carte concernée. | BOM, README, COMPARAISON |
-| 2026-08-25 | **A2 et A3 permutés** : l'hybride EnOcean + LoRa devient **A2**, le LoRa pur devient **A3** — l'hybride a été étudié avant. Les dossiers suivent : `A3_Hybride/` → `A2_Hybride/` et `A2_LoRa/` → `A3_LoRa/`, ainsi que les documents de référence. Chaque dossier ne garde désormais **que sa propre spécification** : la copie étrangère héritée de la duplication est retirée. Le brief et l'index racine sont réordonnés pour se lire A1, A2, A3, A4. **Les variables du générateur cessent d'encoder un numéro d'architecture** — `bouton_a1` devient `bouton_pile`, `poste_a3` devient `poste_enocean`, `a1_ht` devient `ht_lora_pur` : c'est ce qui faisait revenir ce travail à chaque permutation. `subd25_atmega.md` reste exclu, `A2`/`A3` y désignant des broches de connecteur. | arborescence, BOM, brief, README |
-| 2026-08-25 | **Réorganisation : un dossier par ARCHITECTURE et non plus par mode de communication.** `SMS_EnOcean/` → `A1_Cellulaire/`, `Wifi/` → `A4_Wifi/`, `LoRa/` → `A3_LoRa/`, et **`A2_Hybride/` est créé**. A3 et A2 étaient jusqu'ici un dossier de sources non autonome : ils reçoivent le cœur métier de A4 — c'est lui qui porte le duo MEGA + ESP32 de la carte V6.0, pas le firmware mono-ESP32 de A1 — plus le transport LoRa, et A2 y ajoute le décodage ESP3 et le poste fixe. **Les quatre dossiers compilent et testent seuls** : 112, 119, 130 et 109 tests. Côté matériel, `AIO_AGV_Control_V6.0` quitte A4 pour A3 et A2 : le relevé KiCad montre que c'est la V5.0.1 **plus un `RFM95W-868S2`** (58 empreintes contre 57), câblé `NSS`→`IO5`, `SCK`→`IO18`, `MISO`→`IO19`, `MOSI`→`IO23`, `DIO0`→`IO26` — exactement le brochage supposé. ⚠️ **`RESET` n'est pas câblée**, `kPinReset` passe à `0xFF` et une carte de kanban est ouverte. ⚠️ Dette assumée : le firmware ESP32 de A3 et A2 porte encore la passerelle MQTT héritée de A4, à remplacer par un `LoraGatewayApp` (kanban LG1). | arborescence, BOM, README, journaux |
-| 2026-08-25 | **A1 et A3 permutés** : le cellulaire devient **A1**, le LoRa homogène devient **A3** — la numérotation suit désormais l'ordre chronologique d'étude, le SMS ayant précédé le LoRa. A2 (hybride) et A4 (Wi-Fi) sont inchangés. Permutation appliquée à 10 fichiers, dont **le brief**, dont la table des architectures est aussi réordonnée ; les deux copies restent identiques. Les documents de référence sont renommés — `Archi_1_Cellulaire_SMS_LTE-M.md` et `Archi_3_LoRa_P2P_homogene.md` — et leurs six renvois suivis. **Deux faux positifs protégés** : le repère KiCad `Mega2560 Pro (A1)`, et l'intégralité de `subd25_atmega.md`, où `A1`/`A3` désignent des broches de connecteur et non des architectures. | brief, BOM, README, COMPARAISON, DEPLOY |
-| 2026-08-25 | **Numérotation A3–A4 rendue explicite dans les nomenclatures.** Le retrait des accessoires couvrait déjà les quatre architectures (42 lignes), mais seules A3 et A2 portaient leur code : les titres, les sections et les blocs Total nomment désormais **A1** (cellulaire) et **A4** (Wi-Fi) au même titre. `README.md` gagne une colonne `Code` et `COMPARAISON.md` complète ses libellés. `tools/prix_a_completer.md` est aligné : 7 lignes d'accessoires retirées, section « Boîtiers » supprimée, section 2 renommée « Radio », et une **enveloppe de sourcing** (~1 630 € HT) ajoutée — explicitement présentée comme une borne d'effort de recherche et **non un budget**, puisqu'elle additionne des alternatives qui s'excluent. | BOM, README, COMPARAISON, feuille de sourcing |
-| 2026-08-25 | **Nomenclatures resserrées sur les composants déterminants.** Les accessoires arbitrables selon le budget — antennes, boîtiers, coffrets, enveloppes murales, câbles, plaques gravées — sont retirés de l'affichage et des sous-totaux : 36 lignes, qui se substituent librement d'un fournisseur à l'autre et n'engagent aucun choix de conception. Chaque `BOM.md` s'ouvre désormais sur un **bloc Total** rappelant, par variante, le montant des accessoires écartés — sans quoi un total amputé se lirait comme un coût d'achat complet. Les définitions restent dans `tools/generer_bom.py`, marquées `core=False`. ⚠️ `README.md` et `COMPARAISON.md` continuent de raisonner **accessoires compris** : comparer des architectures sans leurs boîtiers fausserait le classement. Le point de bascule A3/A2 est d'ailleurs devenu **calculé** au lieu d'être asséné — il passe de 8 à 9 stations, et deux coûts par station encore codés en dur ont été branchés sur les sections. | BOM, README, COMPARAISON |
-| 2026-08-21 | Troisième variante d'interface bus chiffrée pour l'architecture LoRa : **`avr_port`**, alignée sur la topologie de la V5.0.1. Un `Mega2560 Pro` porte les 43 lignes sur ses broches, les 11 `PC847` disparaissent, et `avr_port_bus.cpp` — écrit et testé ici — se réutilise avec son relevé de câblage. 12 € HT de plus, une conception matérielle au lieu de deux. **Contrepartie : W1b devient strictement bloquant** — un optocoupleur encaisse 24 V, une broche d'ATmega non. La V5.0.1 relie pourtant ses 21 entrées Y directement depuis cinq ans, ce qui rend l'hypothèse « lignes en logique » très probable sans la démontrer. | BOM LoRa, W1b |
-| 2026-08-21 | Colonne **`Lien d'achat`** ajoutée aux nomenclatures et à `tools/prix_a_completer.md`, en remplacement de la colonne `Source` qu'elle rend redondante. **RS est mis en tête partout**, y compris sur les références EnOcean et Unipi qu'il ne distribue habituellement pas : le catalogue évolue et une commande groupée chez un fournisseur référencé vaut souvent le surcoût unitaire. Ce sont des liens de **recherche sur la référence fabricant**, pas des fiches produit — le site de RS bloque l'accès automatisé, aucun numéro de stock n'a donc pu être vérifié. Des numéros inventés auraient produit des liens crédibles menant à la mauvaise pièce. | BOM, feuille de sourcing |
-| 2026-08-20 | **Analyse critique** ajoutée à `BOM.md`. Le réservoir capacitif était dimensionné pour des pics de 2 A — valeur d'un `SIM7600E-H` (LTE Cat-1) retenu dans la variante SMS, alors que le `SIM7080G` de la variante recommandée est un modem LTE-M dont les pics sont de 0,5 à 0,7 A. Surtout : l'AGV **et** le poste portent chacun un modem et une SIM, ce qui double le récurrent. Dès que le poste est dans un local technique raccordé en Ethernet, **son modem est inutile** — ~40 € de matériel et la moitié de l'abonnement en moins, sans contrepartie technique. Conséquence directe : le poste UniPi peut descendre en gamme. L'`E413` n'était imposé que par son modem intégré ; sans ce besoin, la gamme **Gate** redevient éligible. Le poste se scinde donc en option **B — Unipi Gate G100** (si Ethernet, 545 € HT au total) et option **C — E413 LTE** (sinon, 698 €), soit 153 € et une SIM d'écart. | §3 kanban, BOM |
-| 2026-08-18 | Ajout de [`../BOM.md`](../BOM.md) : nomenclature complète des deux variantes. Écart de ~14 000 € sur dix ans entre SMS et LTE-M, chiffré poste par poste. Ajoute une option de poste ESP32 à 148 € en regard des 439 € de l'UniPi, et le coût comparé des trois variantes d'interface bus — `shift595` est à la fois la moins chère et la plus rapide. | §3 « Fait », journal |
+| 2026-08-27 | **Tirets cadratins retirés de tout le dépôt** sur demande du client : 2318 occurrences, 360 fichiers, documentation, commentaires de code, chaînes affichées et gabarits web. Remplacement **contextuel** plutôt qu'uniforme : deux-points quand la suite explique, virgule après une liaison (*et, mais, donc, dont, notamment*), parenthèses pour une incise complète, trait d'union simple pour une valeur absente dans un tableau. Deux défauts corrigés au passage : le générateur produisait « Nomenclature : A3 : LoRa » (double ponctuation, le titre portant déjà son code), et le libellé de plage « Numérotation A1-A4 » avait vu sa borne basse renumérotée par mes permutations successives A1/A2 puis A2/A3. Contrôles passés : fidélité `agvdump`, conformité du thème, 470 + 53 + 19 tests. | tout le dépôt |
+| 2026-08-27 | **Thème unifié sur toutes les interfaces du dépôt**, fond blanc, texte noir, bleu outremer, logo AIO : les six IHM (4 supervisions d'architecture, banc EnOcean, planning) partageaient jusqu'ici **trois palettes différentes**, deux sombres et une claire. La feuille vit une seule fois dans `docs/theme/theme.css` ; chaque interface en porte une copie (dossiers livrables seuls, et le banc part en `rsync` sur une UniPi). `outils/theme.sh` propage l'original et **signale les copies qui ont dérivé**, même garde que pour le rendu `agvdump`. Les `style.css` ne gardent que le spécifique. Deux défauts trouvés au rendu : le serveur du banc planning servait **tout** en `text/html`, donc la feuille était ignorée ; et les notifications recouvraient l'en-tête. Le banc EnOcean passe en **v1.2.0** pour que le contrôle de version du déploiement signale une copie périmée. | 6 interfaces, thème, outils |
+| 2026-08-26 | **Banc EnOcean v1.1.0, la fenêtre d'ajout refusait toujours de se fermer.** Le correctif CSS précédent était juste mais ne pouvait pas suffire : la visibilité de la fenêtre reposait sur l'attribut `hidden`, que **toute** règle de feuille déclarant `display` écrase. Elle est désormais portée par un **style en ligne** posé par `afficherModale()`, un style en ligne l'emporte sur toute règle sans `!important`, **y compris sur une feuille périmée servie par le cache**. La feuille déclare `display: none` par défaut, et l'état initial est posé explicitement au démarrage du script. Deux causes systémiques traitées avec : le serveur envoie `Cache-Control: no-cache`, et `deployer.sh` remplace la copie manuelle, `rsync --delete`, redémarrage, puis **contrôle que la version servie est celle du dépôt**. La version s'affiche dans le bandeau. Une copie déployée périmée donne les symptômes du défaut qu'elle ne contient pas encore : c'est ce qui a coûté un aller-retour. | banc EnOcean |
+| 2026-08-26 | **Banc EnOcean, deux défauts corrigés après essai sur la UniPi.** (1) La fenêtre d'ajout restait affichée en permanence : `.voile` déclarait `display: flex`, et **la moindre règle d'auteur déclarant `display` bat l'attribut `hidden`** du HTML, qui n'est qu'un `display: none` de la feuille par défaut. Une règle `[hidden] { display: none !important }` rétablit l'attribut pour tout le document. (2) L'écoute d'apprentissage était armée **une fois pour trente secondes** : passé ce délai un appui repartait en « bouton inconnu » au lieu d'alimenter le formulaire. Elle est désormais **renouvelée tant que la boîte d'ajout est ouverte**, fenêtre courte de 20 s réarmée toutes les 8 s, pour qu'un navigateur qui meurt éteigne l'écoute seul. L'identifiant capté est en outre déposé **dans le champ de saisie**, donc visible et corrigeable, et un remplacement est signalé par un flash, un remplacement silencieux ferait nommer le mauvais bouton. 19 tests. | banc EnOcean |
+| 2026-08-26 | **Réorganisation du dépôt par NATURE d'objet.** `architectures/` (les 4 solutions), `bancs/` (les essais matériels), `materiel/` (les projets KiCad), `docs/` (brief et comparatif), `outils/` (scripts). Le dossier `CarteComm/` disparaît. **Le matériel n'est plus dupliqué** : une carte, un projet, un seul endroit, trois copies divergentes de la V6.0 avaient déjà coexisté, dont une que KiCad avait recréée à un chemin renommé, et il a fallu comparer les schémas pour trouver la vivante (celle du 26 août, avec l'embase J3 et les Gerbers). Le **brief** passe de 4 copies à 1. Les **bancs LoRa sortent de `A3_LoRa/test/`** pour rejoindre `bancs/lora/`, à la même forme que le banc EnOcean ; `test/native/` ne garde que les tests unitaires. Chaque banc a désormais son `README.md` **et** son `DEPLOY.md` avec une recette et les résultats attendus. `outils/exporter_architecture.sh` reconstitue une architecture autonome dans un zip, la zippabilité est payée à l'export, plus tous les jours. Le générateur de nomenclatures n'a plus de chemin absolu. **2 Mo de redondance supprimés.** | arborescence, tous les renvois |
+| 2026-08-26 | **Banc d'essai EnOcean** ajouté dans `../../banc_enocean/` : service web déployable sur une UniPi E413 avec dongle USB. Enregistre les `PTM 210`, les **détecte à l'appui** ou par saisie de l'identifiant, et ouvre une fenêtre verte à chaque pression, nom, code, heure, niveau reçu. Un bouton non enregistré ouvre une fenêtre ambre plutôt que d'être ignoré. Bibliothèque standard seule hors `pyserial`, flux SSE, registre JSON. Le banc **ne dépend d'aucune architecture** : il sert à valider les boutons avant que le choix ne soit tranché. 17 tests sans matériel, dont la déduplication des **trois** sous-télégrammes et le rejet du relâchement, sans quoi un appui en afficherait six. | banc partagé A1/A2/A4 |
+| 2026-08-25 | **La passerelle MQTT est remplacée par une passerelle LoRa.** `GatewayApp` publiait sur des topics et dépendait d'`IMqttPublisher` : il n'avait rien à faire dans une architecture sans broker. `LoraGatewayApp` le remplace, trames applicatives de 9 octets sur `ITransport`, accusé par la même voie, idempotence `(node_id, seq)` en table locale, et le **budget de rapport cyclique appliqué aux accusés** puisqu'un récepteur qui acquitte est un émetteur. Le firmware ESP32 est réécrit : plus de Wi-Fi STA ni de client MQTT, mais SPI + `Sx1276Radio` + `LoraTransport`, avec le brochage relevé au KiCad dans `board_pins.h`. `MqttConfig` et `WifiConfig` quittent le profil, la section `lora:` y entre, `aes_enabled` passe à **true**, sans TLS, le chiffrement applicatif est la seule protection de la liaison. Le champ `mqtt_up` d'`/agvdump` est **conservé** : c'est un contrat d'atelier (§3.3), il porte désormais l'état radio. **Kanban LG1 soldé.** | firmware, profils, tests |
+| 2026-08-25 | ⚠️ **Deux défauts trouvés en écrivant les tests.** (1) La détection de silence de l'ATmega utilisait `0` comme sentinelle « jamais reçu », alors que c'est un instant valide au démarrage : elle était inopérante pendant les premières millisecondes. Corrigé par un drapeau explicite. (2) Le `Makefile` ne suivait **pas les dépendances d'en-têtes** : modifier une classe ne recompilait pas ses utilisateurs, et l'on reliait des objets compilés contre deux versions de la même classe, un test échouait sans qu'aucune erreur ne soit signalée. `-MMD -MP` ajouté aux **quatre** Makefile. | firmware, Makefile |
+| 2026-08-25 | **La carte LoRa est la `AIO_AGV_Control_V6.0`, et elle est FABRIQUÉE.** Le diff des deux projets KiCad est sans ambiguïté : 58 empreintes contre 57, **un seul écart, le `RFM95W-868S2`**, tout le reste est identique au composant près. La radio est intégrée, câblée sur le SPI libre de l'ESP32 : ni carte fille, ni câblage volant. Les nomenclatures chiffraient jusqu'ici une V5.0.1 **réutilisée à 0 €** augmentée d'une carte fille à 18 € ; c'était une hypothèse de travail, remplacée par la nomenclature réelle à **111,15 € HT**. Conséquence assumée : **A3 passe de 208 à 329 €** et **A2 de 307 à 428 €** accessoires compris. Trois analyses devenues fausses sont réécrites, « réutiliser la carte existante », la question des optocoupleurs (la V6.0 a des MOSFET, pas de `PC847`) et le choix `shift595`. La table d'équivalences, jusqu'ici partagée, devient propre à chaque architecture : elle listait des composants absents de la carte concernée. | BOM, README, COMPARAISON |
+| 2026-08-25 | **A2 et A3 permutés** : l'hybride EnOcean + LoRa devient **A2**, le LoRa pur devient **A3**, l'hybride a été étudié avant. Les dossiers suivent : `A3_Hybride/` → `A2_Hybride/` et `A2_LoRa/` → `A3_LoRa/`, ainsi que les documents de référence. Chaque dossier ne garde désormais **que sa propre spécification** : la copie étrangère héritée de la duplication est retirée. Le brief et l'index racine sont réordonnés pour se lire A1, A2, A3, A4. **Les variables du générateur cessent d'encoder un numéro d'architecture**, `bouton_a1` devient `bouton_pile`, `poste_a3` devient `poste_enocean`, `a1_ht` devient `ht_lora_pur` : c'est ce qui faisait revenir ce travail à chaque permutation. `subd25_atmega.md` reste exclu, `A2`/`A3` y désignant des broches de connecteur. | arborescence, BOM, brief, README |
+| 2026-08-25 | **Réorganisation : un dossier par ARCHITECTURE et non plus par mode de communication.** `SMS_EnOcean/` → `A1_Cellulaire/`, `Wifi/` → `A4_Wifi/`, `LoRa/` → `A3_LoRa/`, et **`A2_Hybride/` est créé**. A3 et A2 étaient jusqu'ici un dossier de sources non autonome : ils reçoivent le cœur métier de A4 (c'est lui qui porte le duo MEGA + ESP32 de la carte V6.0, pas le firmware mono-ESP32 de A1) plus le transport LoRa, et A2 y ajoute le décodage ESP3 et le poste fixe. **Les quatre dossiers compilent et testent seuls** : 112, 119, 130 et 109 tests. Côté matériel, `AIO_AGV_Control_V6.0` quitte A4 pour A3 et A2 : le relevé KiCad montre que c'est la V5.0.1 **plus un `RFM95W-868S2`** (58 empreintes contre 57), câblé `NSS`→`IO5`, `SCK`→`IO18`, `MISO`→`IO19`, `MOSI`→`IO23`, `DIO0`→`IO26`, exactement le brochage supposé. ⚠️ **`RESET` n'est pas câblée**, `kPinReset` passe à `0xFF` et une carte de kanban est ouverte. ⚠️ Dette assumée : le firmware ESP32 de A3 et A2 porte encore la passerelle MQTT héritée de A4, à remplacer par un `LoraGatewayApp` (kanban LG1). | arborescence, BOM, README, journaux |
+| 2026-08-25 | **A1 et A3 permutés** : le cellulaire devient **A1**, le LoRa homogène devient **A3**, la numérotation suit désormais l'ordre chronologique d'étude, le SMS ayant précédé le LoRa. A2 (hybride) et A4 (Wi-Fi) sont inchangés. Permutation appliquée à 10 fichiers, dont **le brief**, dont la table des architectures est aussi réordonnée ; les deux copies restent identiques. Les documents de référence sont renommés (`Archi_1_Cellulaire_SMS_LTE-M.md` et `Archi_3_LoRa_P2P_homogene.md`) et leurs six renvois suivis. **Deux faux positifs protégés** : le repère KiCad `Mega2560 Pro (A1)`, et l'intégralité de `subd25_atmega.md`, où `A1`/`A3` désignent des broches de connecteur et non des architectures. | brief, BOM, README, COMPARAISON, DEPLOY |
+| 2026-08-25 | **Numérotation A1–A4 rendue explicite dans les nomenclatures.** Le retrait des accessoires couvrait déjà les quatre architectures (42 lignes), mais seules A3 et A2 portaient leur code : les titres, les sections et les blocs Total nomment désormais **A1** (cellulaire) et **A4** (Wi-Fi) au même titre. `README.md` gagne une colonne `Code` et `COMPARAISON.md` complète ses libellés. `tools/prix_a_completer.md` est aligné : 7 lignes d'accessoires retirées, section « Boîtiers » supprimée, section 2 renommée « Radio », et une **enveloppe de sourcing** (~1 630 € HT) ajoutée, explicitement présentée comme une borne d'effort de recherche et **non un budget**, puisqu'elle additionne des alternatives qui s'excluent. | BOM, README, COMPARAISON, feuille de sourcing |
+| 2026-08-25 | **Nomenclatures resserrées sur les composants déterminants.** Les accessoires arbitrables selon le budget (antennes, boîtiers, coffrets, enveloppes murales, câbles, plaques gravées) sont retirés de l'affichage et des sous-totaux : 36 lignes, qui se substituent librement d'un fournisseur à l'autre et n'engagent aucun choix de conception. Chaque `BOM.md` s'ouvre désormais sur un **bloc Total** rappelant, par variante, le montant des accessoires écartés, sans quoi un total amputé se lirait comme un coût d'achat complet. Les définitions restent dans `tools/generer_bom.py`, marquées `core=False`. ⚠️ `README.md` et `COMPARAISON.md` continuent de raisonner **accessoires compris** : comparer des architectures sans leurs boîtiers fausserait le classement. Le point de bascule A3/A2 est d'ailleurs devenu **calculé** au lieu d'être asséné, il passe de 8 à 9 stations, et deux coûts par station encore codés en dur ont été branchés sur les sections. | BOM, README, COMPARAISON |
+| 2026-08-21 | Troisième variante d'interface bus chiffrée pour l'architecture LoRa : **`avr_port`**, alignée sur la topologie de la V5.0.1. Un `Mega2560 Pro` porte les 43 lignes sur ses broches, les 11 `PC847` disparaissent, et `avr_port_bus.cpp` (écrit et testé ici) se réutilise avec son relevé de câblage. 12 € HT de plus, une conception matérielle au lieu de deux. **Contrepartie : W1b devient strictement bloquant**, un optocoupleur encaisse 24 V, une broche d'ATmega non. La V5.0.1 relie pourtant ses 21 entrées Y directement depuis cinq ans, ce qui rend l'hypothèse « lignes en logique » très probable sans la démontrer. | BOM LoRa, W1b |
+| 2026-08-21 | Colonne **`Lien d'achat`** ajoutée aux nomenclatures et à `tools/prix_a_completer.md`, en remplacement de la colonne `Source` qu'elle rend redondante. **RS est mis en tête partout**, y compris sur les références EnOcean et Unipi qu'il ne distribue habituellement pas : le catalogue évolue et une commande groupée chez un fournisseur référencé vaut souvent le surcoût unitaire. Ce sont des liens de **recherche sur la référence fabricant**, pas des fiches produit, le site de RS bloque l'accès automatisé, aucun numéro de stock n'a donc pu être vérifié. Des numéros inventés auraient produit des liens crédibles menant à la mauvaise pièce. | BOM, feuille de sourcing |
+| 2026-08-20 | **Analyse critique** ajoutée à `BOM.md`. Le réservoir capacitif était dimensionné pour des pics de 2 A, valeur d'un `SIM7600E-H` (LTE Cat-1) retenu dans la variante SMS, alors que le `SIM7080G` de la variante recommandée est un modem LTE-M dont les pics sont de 0,5 à 0,7 A. Surtout : l'AGV **et** le poste portent chacun un modem et une SIM, ce qui double le récurrent. Dès que le poste est dans un local technique raccordé en Ethernet, **son modem est inutile**, ~40 € de matériel et la moitié de l'abonnement en moins, sans contrepartie technique. Conséquence directe : le poste UniPi peut descendre en gamme. L'`E413` n'était imposé que par son modem intégré ; sans ce besoin, la gamme **Gate** redevient éligible. Le poste se scinde donc en option **B (Unipi Gate G100** (si Ethernet, 545 € HT au total) et option **C) E413 LTE** (sinon, 698 €), soit 153 € et une SIM d'écart. | §3 kanban, BOM |
+| 2026-08-18 | Ajout de [`../BOM.md`](../BOM.md) : nomenclature complète des deux variantes. Écart de ~14 000 € sur dix ans entre SMS et LTE-M, chiffré poste par poste. Ajoute une option de poste ESP32 à 148 € en regard des 439 € de l'UniPi, et le coût comparé des trois variantes d'interface bus, `shift595` est à la fois la moins chère et la plus rapide. | §3 « Fait », journal |
 | 2026-08-13 | Création du monorepo complet (§14 étapes 1 à 8), 122 tests verts | Document initial |
-| 2026-08-18 | Ajout de [`../DEPLOY.md`](../DEPLOY.md) : procédure de déploiement propre à cette architecture, en 10 phases. Met en tête les quatre décisions préalables — déployer MQTT/LTE-M et non le SMS, faire acter le coût récurrent (~1 500 €/an en SMS contre ~100 € en LTE-M), la couverture cellulaire éliminatoire, et le choix de variante d'interface bus qui conditionne le routage du PCB. | §3 « Fait », journal |
+| 2026-08-18 | Ajout de [`../DEPLOY.md`](../DEPLOY.md) : procédure de déploiement propre à cette architecture, en 10 phases. Met en tête les quatre décisions préalables, déployer MQTT/LTE-M et non le SMS, faire acter le coût récurrent (~1 500 €/an en SMS contre ~100 € en LTE-M), la couverture cellulaire éliminatoire, et le choix de variante d'interface bus qui conditionne le routage du PCB. | §3 « Fait », journal |
 | 2026-08-18 | Rangement : `Archi_1_Cellulaire_SMS_LTE-M.md` rejoint `docs/`, pour que tous les dossiers d'architecture aient la même disposition (documents de référence dans `docs/`, matériel dans `hardware/`). | Liens, journal |
 | 2026-08-14 | Relevé de câblage SUB-D 25 fourni par le client : §12.2 et §12.6 (ordre des bits) passent à « relevé ». La table côté AGV vaut pour toutes les architectures ; elle est documentée dans `Wifi/docs/subd25_atmega.md`. | `signal_map.md`, `questions_ouvertes.md`, kanban B2 |
 | 2026-08-13 | Réorganisation en un dossier autonome par architecture. Le projet entier passe sous `architectures/A1_Cellulaire/` ; les sources LoRa (transport, budget ERC 70-03, SX1276, bouton sur pile, 10 tests) sont extraites vers `architectures/A3_LoRa/`. Les deux `main.cpp` passent sur le transport cellulaire. | Périmètre, compteurs (122 → 112 tests), transports, kanban (T3 retiré, T11/T12 ajoutés), déploiement (plus de flash de bouton) |
@@ -419,4 +420,4 @@ journalctl -u agv-poste -f
    correspondante de la colonne « Bloqué ».
 5. **Si la modification touche le cœur métier** (séquenceur, file, protocole,
    simulateur), la reporter dans les autres dossiers d'architecture de
-   `` — ils en portent une copie.
+   `` : ils en portent une copie.

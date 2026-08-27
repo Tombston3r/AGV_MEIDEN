@@ -109,7 +109,7 @@ size_t CourseQueue::restore(uint32_t now_s, size_t* dropped) {
     ++i;  // octet réservé
 
     // Politique de validité : une course trop vieille est écartée. Sans horloge
-    // murale valide (now_s == 0), on ne peut rien décider — on restaure tout.
+    // murale valide (now_s == 0), on ne peut rien décider : on restaure tout.
     const bool clock_ok = now_s != 0 && course.enqueued_at_s != 0;
     const bool expired = clock_ok && validity_s != 0 && now_s > course.enqueued_at_s &&
                          (now_s - course.enqueued_at_s) > validity_s;

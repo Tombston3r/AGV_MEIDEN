@@ -1,4 +1,4 @@
-// Nœud bouton sur pile — architecture 1 (brief §6.1).
+// Nœud bouton sur pile : architecture 1 (brief §6.1).
 //
 // Framework Arduino toléré ICI SEULEMENT (brief §2).
 //

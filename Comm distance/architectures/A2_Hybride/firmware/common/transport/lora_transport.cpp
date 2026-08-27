@@ -57,7 +57,7 @@ bool LoraTransport::try_transmit(uint32_t now_ms) {
 void LoraTransport::tick() {
   const uint32_t now_ms = radio_.now_ms();
 
-  // 1. Réception — toujours drainée en premier : une trame reçue pendant la
+  // 1. Réception, toujours drainée en premier : une trame reçue pendant la
   //    fenêtre d'ACK doit être vue avant d'armer une retransmission.
   uint8_t buf[kSecurePacketMax];
   size_t len = 0;

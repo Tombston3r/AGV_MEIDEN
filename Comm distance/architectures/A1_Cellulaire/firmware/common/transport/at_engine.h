@@ -1,4 +1,4 @@
-// Machine à états AT — pile de dialogue modem (brief §8.1).
+// Machine à états AT : pile de dialogue modem (brief §8.1).
 //
 // Explicitement une machine à états : une pile AT écrite en séquentiel bloquant
 // est impossible à sortir d'un modem muet, et c'est le mode de panne le plus

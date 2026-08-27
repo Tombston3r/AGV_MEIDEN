@@ -41,7 +41,7 @@ void AtEngine::handle_line(const char* line) {
       return;
     }
     // Ligne intermédiaire : conservée comme réponse utile. Un URC peut aussi
-    // tomber ici — on le transmet également au gestionnaire, sinon un +CMTI
+    // tomber ici : on le transmet également au gestionnaire, sinon un +CMTI
     // arrivé pendant une commande serait perdu, et le SMS jamais lu.
     if (line[0] == '+' && urc_ != nullptr && std::strchr(line, ':') != nullptr) {
       urc_->on_urc(line);

@@ -2,9 +2,9 @@
 //
 // Deux protections distinctes, à ne pas confondre :
 //
-//  1. IDEMPOTENCE — si la même (node_id, seq) revient, on RÉ-ACQUITTE SANS
+//  1. IDEMPOTENCE, si la même (node_id, seq) revient, on RÉ-ACQUITTE SANS
 //     RÉ-EXÉCUTER. Sans ça, un ACK perdu déclenche une course en double.
-//  2. ANTI-DÉSORDRE — sur transport non ordonné (SMS), une trame plus ancienne
+//  2. ANTI-DÉSORDRE, sur transport non ordonné (SMS), une trame plus ancienne
 //     que la dernière traitée pour ce nœud est REJETÉE. C'est la seule
 //     protection contre un STOP arrivant avant le GOTO qu'il annule.
 #pragma once

@@ -1,4 +1,4 @@
-"""Pilote RFM95W / SX1276 pour Linux — registres, via spidev + gpiod.
+"""Pilote RFM95W / SX1276 pour Linux : registres, via spidev + gpiod.
 
 Équivalent Python de `firmware/common/platform/esp32/sx1276_radio.cpp`. Les
 registres et les séquences viennent de la même fiche technique (SX1276/77/78/79
@@ -58,7 +58,7 @@ class LoraConfig:
     spreading_factor: int = 9
     bandwidth_hz: int = 125_000
     coding_rate: int = 5          # 4/5
-    sync_word: int = 0x12         # privé — DOIT différer de 0x34 (LoRaWAN)
+    sync_word: int = 0x12         # privé : DOIT différer de 0x34 (LoRaWAN)
     tx_power_dbm: int = 14
     preamble_symbols: int = 8
 
@@ -67,7 +67,7 @@ def airtime_ms(payload_len: int, cfg: LoraConfig) -> float:
     """Temps d'antenne d'une trame, en millisecondes.
 
     Formule de la fiche technique §4.1.1.6. Elle sert à vérifier le budget de
-    rapport cyclique de 1 %/heure imposé par l'ERC 70-03 — obligation
+    rapport cyclique de 1 %/heure imposé par l'ERC 70-03 : obligation
     réglementaire, pas un réglage.
     """
     sf, bw = cfg.spreading_factor, cfg.bandwidth_hz
@@ -113,7 +113,7 @@ class Sx1276:
         except ImportError as exc:  # pragma: no cover - dépend du matériel
             raise RadioUnavailable(
                 "spidev absent. Sur Debian : apt install python3-spidev, et "
-                "activer le bus SPI (le Gate G100 n'en expose pas — voir "
+                "activer le bus SPI (le Gate G100 n'en expose pas : voir "
                 "../README.md)."
             ) from exc
 
@@ -194,7 +194,7 @@ class Sx1276:
                 self.write(REG_IRQ_FLAGS, IRQ_TX_DONE)
                 return (time.monotonic() - debut) * 1000.0
             time.sleep(0.001)
-        raise TimeoutError("TxDone jamais levé — module bloqué ou mal alimenté")
+        raise TimeoutError("TxDone jamais levé : module bloqué ou mal alimenté")
 
     # --- Réception ---------------------------------------------------------
     def listen(self):

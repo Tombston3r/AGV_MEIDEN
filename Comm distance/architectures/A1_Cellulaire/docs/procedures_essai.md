@@ -35,7 +35,7 @@ Le simulateur rejoue un automate rapide et un automate lent
 Vérifications attendues :
 
 - les 4 phases aboutissent sur les deux profils, **après réglage des timeouts** ;
-- l'automate lent échoue avec les timeouts par défaut — c'est le résultat
+- l'automate lent échoue avec les timeouts par défaut : c'est le résultat
   attendu, et la raison pour laquelle le §12.5 doit être relevé ;
 - perte de liaison → arrêt au point d'arrêt suivant, file suivante non lancée ;
 - coupure d'alimentation → file restaurée depuis la NVS, courses périmées
@@ -66,14 +66,14 @@ de la carte, jouant le rôle de l'automate.
 
 | Mesure | Signal | Sert à |
 |---|---|---|
-| Amplitude | `Y05` | §12.1 — dimensionnement d'entrée et debounce |
-| Écart adresse → `X93` | `X93` + une ligne d'adresse | §12.4 — `t_setup_us` |
-| Délai `X93` → `Y22` | les deux | §12.5 — `y22_write_ack_ms` |
-| Délai `X82` → `Y05` | les deux | §12.5 — `y05_start_ack_ms` |
-| Durée de course typique | `Y10` | §12.5 — `y10_arrival_ms` |
-| Polarité au repos | toute ligne X | §12.3 — PNP/NPN |
-| Continuité SUB-D 25 | toutes | §12.2 — table de brochage |
-| Sortie `agvdump` complète | — | §3.3 — format à reproduire |
+| Amplitude | `Y05` | §12.1 : dimensionnement d'entrée et debounce |
+| Écart adresse → `X93` | `X93` + une ligne d'adresse | §12.4 : `t_setup_us` |
+| Délai `X93` → `Y22` | les deux | §12.5 : `y22_write_ack_ms` |
+| Délai `X82` → `Y05` | les deux | §12.5 : `y05_start_ack_ms` |
+| Durée de course typique | `Y10` | §12.5 : `y10_arrival_ms` |
+| Polarité au repos | toute ligne X | §12.3 : PNP/NPN |
+| Continuité SUB-D 25 | toutes | §12.2 : table de brochage |
+| Sortie `agvdump` complète | - | §3.3 : format à reproduire |
 
 Reporter chaque valeur dans `profiles/default.yaml`, régénérer l'en-tête,
 relancer `make test`, puis cocher la ligne correspondante dans
@@ -84,7 +84,7 @@ relancer `make test`, puis cocher la ligne correspondante dans
 **Prérequis bloquant de cette architecture** (Archi_2 §7) : relevé RSRP/RSRQ en
 tous points du parcours, aux heures de production, machines en marche. Une usine
 est une structure métallique et la couverture au sol d'une allée entre racks
-n'est **pas garantie** — contrairement à un réseau privé, on ne peut pas la
+n'est **pas garantie** : contrairement à un réseau privé, on ne peut pas la
 corriger en ajoutant un répéteur. **Un seul point d'arrêt sous −110 dBm
 disqualifie la solution.**
 

@@ -1,4 +1,4 @@
-# Comparaison des quatre solutions — document d'aide à la décision
+# Comparaison des quatre solutions : document d'aide à la décision
 
 > Compare les quatre architectures étudiées pour le remplacement de la carte
 > AIO AGV Control V5.0.1, critère par critère, pour permettre un arbitrage
@@ -7,7 +7,7 @@
 > Chiffres issus des nomenclatures du dépôt : [`LoRa/BOM.md`](../architectures/A3_LoRa/BOM.md),
 > [`A1_Cellulaire/BOM.md`](../architectures/A1_Cellulaire/BOM.md), [`Wifi/BOM.md`](../architectures/A4_Wifi/BOM.md).
 
-## Note de lecture — ce qui est mesuré et ce qui ne l'est pas
+## Note de lecture : ce qui est mesuré et ce qui ne l'est pas
 
 | Statut | Ce que ça recouvre |
 |---|---|
@@ -16,7 +16,7 @@
 | ❓ **À mesurer** | Aucun relevé n'existe : couverture radio, couverture cellulaire, amplitude du bus, chronogrammes |
 
 **Aucune couverture radio n'a été relevée sur le site.** Les trois relevés
-éliminatoires — LoRa, Wi-Fi, cellulaire — sont les prérequis de chaque
+éliminatoires (LoRa, Wi-Fi, cellulaire) sont les prérequis de chaque
 `DEPLOY.md`. Ce document classe les solutions sur ce qui est connaissable
 aujourd'hui ; **un seul relevé défavorable peut en disqualifier une**.
 
@@ -27,13 +27,13 @@ aujourd'hui ; **un seul relevé défavorable peut en disqualifier une**.
 | | Recommandation |
 |---|---|
 | **Si le sans-pile est une exigence réelle** | **Hybride LoRa + EnOcean (A2)** |
-| **Si le sans-pile est un confort** | **LoRa pur (A3)** — moins cher jusqu’à 9 stations, et seul à rendre un accusé visuel à l'opérateur |
-| **Si le client refuse toute nouvelle carte** | **Wi-Fi + EnOcean** — mais son coût dépasse celui du LoRa |
+| **Si le sans-pile est un confort** | **LoRa pur (A3)**, moins cher jusqu’à 9 stations, et seul à rendre un accusé visuel à l'opérateur |
+| **Si le client refuse toute nouvelle carte** | **Wi-Fi + EnOcean**, mais son coût dépasse celui du LoRa |
 | **Si le cellulaire est imposé** | **LTE-M/MQTT**, jamais le SMS |
 
 **Le SMS est à écarter** : il cumule la plus mauvaise latence, la seule latence
 non bornée, l'absence de garantie d'ordre, et un coût récurrent de ~1 500 €/an
-— soit 15 625 € sur dix ans contre 341 € pour le LoRa pur.
+- soit 15 625 € sur dix ans contre 341 € pour le LoRa pur.
 
 ---
 
@@ -49,7 +49,7 @@ Bouton sur pile ──868 MHz LoRa P2P──▶ Carte AGV neuve ──▶ automa
 Aucune infrastructure. Le bouton parle directement à l'AGV et **affiche
 lui-même** si l'ordre est passé.
 
-### Hybride LoRa + EnOcean (A2) — *architecture retenue*
+### Hybride LoRa + EnOcean (A2) : *architecture retenue*
 
 ```
 Bouton PTM 210 ──868 MHz EnOcean──▶ Poste fixe ──868 MHz LoRa──▶ Carte AGV neuve
@@ -107,7 +107,7 @@ Notation : `++` très favorable · `+` favorable · `~` acceptable · `−` déf
 
 ## 4. Critère par critère
 
-### 4.1 Coût — ✅ établi (prix catalogue 📐)
+### 4.1 Coût : ✅ établi (prix catalogue 📐)
 
 Base 2 stations, outillage inclus, prix **HT** 2026. Les nomenclatures
 détaillées sont en **TTC** (TVA 20 %, récupérable pour une entreprise) :
@@ -126,7 +126,7 @@ Trois observations qui ne sautent pas aux yeux :
 1. **La carte AGV du Wi-Fi n'est pas gratuite.** La nomenclature extraite du
    projet KiCad montre qu'elle est **fabriquée** : Mega2560 Pro, ESP32-DevKitC,
    23 MOSFET IRF520 et un convertisseur isolé, soit 129 € HT. Le poste a en
-   revanche été allégé — une passerelle Unipi Gate G100 (~200 €) au lieu d'un
+   revanche été allégé : une passerelle Unipi Gate G100 (~200 €) au lieu d'un
    automate à entrées/sorties inutilisées, puisque les boutons sont EnOcean.
 2. **Le récurrent domine dès qu'un opérateur entre dans la boucle.** Le SMS
    coûte 56 fois le LoRa pur sur dix ans, pour un service inférieur.
@@ -136,7 +136,7 @@ Trois observations qui ne sautent pas aux yeux :
 Poste évitable dans trois solutions : remplacer l'UniPi (439–461 €) par un poste
 ESP32 (~148 €) économise ~300 €, au prix de l'historique long terme.
 
-### 4.2 Latence et déterminisme — ✅ calculé et testé pour LoRa
+### 4.2 Latence et déterminisme : ✅ calculé et testé pour LoRa
 
 | Solution | Typique | Pire cas | Bornée ? |
 |---|---:|---:|:---:|
@@ -149,7 +149,7 @@ ESP32 (~148 €) économise ~300 €, au prix de l'historique long terme.
 
 Le temps d'antenne LoRa est calculé par le code (formule Semtech AN1200.13) et
 vérifié par test. **SF9 ne tient pas la cible de 200 ms** annoncée au brief ;
-SF7 la tient, au prix de la portée. C'est un arbitrage à trancher — voir
+SF7 la tient, au prix de la portée. C'est un arbitrage à trancher : voir
 [`LoRa/docs/latence_lora.md`](../architectures/A3_LoRa/docs/latence_lora.md).
 
 Le SMS n'a pas seulement une mauvaise latence : **il n'a aucun ordre de remise**.
@@ -158,16 +158,16 @@ un problème de sécurité fonctionnelle, pas de confort. Le logiciel s'en prot�
 (rejet des trames désordonnées et périmées), mais au prix de commandes
 silencieusement refusées.
 
-### 4.3 Portée et fiabilité selon la distance — ❓ à mesurer
+### 4.3 Portée et fiabilité selon la distance : ❓ à mesurer
 
 C'est le critère le plus dépendant du site, et **aucun relevé n'existe**.
 
 | Technologie | Portée intérieure typique 📐 | Comportement en structure métallique | Correction possible |
 |---|---|---|---|
-| **LoRa 868 MHz** | 100–500 m, SF9 | **Bon** — le sub-GHz contourne et pénètre | Augmenter le SF, déporter l'antenne |
-| **EnOcean 868 MHz** | **~30 m** | Moyen — bursts très courts, faible puissance | Répéteur (~120 €), antenne déportée |
-| **Wi-Fi 2,4 GHz** | 30–50 m par AP | **Médiocre** — forte atténuation, multi-trajets | Ajouter des AP (à la charge du client) |
-| **Cellulaire** | Dépend de l'opérateur | **Imprévisible en intérieur** | **Aucune** — on ne pose pas de répéteur opérateur |
+| **LoRa 868 MHz** | 100–500 m, SF9 | **Bon** : le sub-GHz contourne et pénètre | Augmenter le SF, déporter l'antenne |
+| **EnOcean 868 MHz** | **~30 m** | Moyen : bursts très courts, faible puissance | Répéteur (~120 €), antenne déportée |
+| **Wi-Fi 2,4 GHz** | 30–50 m par AP | **Médiocre** : forte atténuation, multi-trajets | Ajouter des AP (à la charge du client) |
+| **Cellulaire** | Dépend de l'opérateur | **Imprévisible en intérieur** | **Aucune** : on ne pose pas de répéteur opérateur |
 
 Trois conséquences pratiques :
 
@@ -185,7 +185,7 @@ En mouvement, deux effets s'ajoutent :
 
 | | Effet du déplacement |
 |---|---|
-| LoRa | Aucun — pas d'association, chaque trame est indépendante |
+| LoRa | Aucun : pas d'association, chaque trame est indépendante |
 | Wi-Fi | **Handover entre AP : 2 à 5 s de coupure**, sauf AP unique. IP statique élimine le délai DHCP mais pas la réassociation |
 | Cellulaire | Handover cellulaire + variation forte du niveau reçu dans une structure métallique |
 
@@ -194,7 +194,7 @@ En mouvement, deux effets s'ajoutent :
 Ce critère se décompose en **trois surfaces distinctes**, et la plus faible n'est
 pas celle qu'on croit.
 
-#### a) Surface transport — commande vers l'AGV
+#### a) Surface transport : commande vers l'AGV
 
 | Solution | Chiffrement | Authentification | Anti-rejeu | Surface exposée |
 |---|---|---|---|---|
@@ -206,7 +206,7 @@ pas celle qu'on croit.
 Points d'attention par solution :
 
 - **LoRa** : sans clé, une commande est inexploitable. Mais le chiffrement CTR
-  avec CRC-16 **protège de l'écoute, pas de la falsification** — CTR est
+  avec CRC-16 **protège de l'écoute, pas de la falsification** : CTR est
   malléable et un CRC n'est pas une signature. Un AES-CMAC tronqué est
   implémenté et désactivé par défaut : **l'activer coûte 4 octets par trame** et
   ferme cette brèche. À faire si le site est accessible au public.
@@ -221,7 +221,7 @@ Points d'attention par solution :
   Héberger Mosquitto sur un serveur usine supprime ce point **et** la dépendance
   au tiers.
 
-#### b) Surface bouton — la faiblesse commune ⚠️
+#### b) Surface bouton : la faiblesse commune ⚠️
 
 **Les télégrammes EnOcean d'un PTM 210 ne sont ni chiffrés ni horodatés.** Ils
 contiennent un identifiant 32 bits gravé en usine, en clair.
@@ -232,7 +232,7 @@ déduplication du logiciel ne filtre que les copies dans une fenêtre de 100 ms 
 un rejeu différé est indiscernable d'un appui légitime.
 
 Cela concerne **les trois architectures à boutons EnOcean** : A2, Wi-Fi et
-cellulaire. Ce n'est pas un défaut du logiciel — c'est le protocole du bouton.
+cellulaire. Ce n'est pas un défaut du logiciel : c'est le protocole du bouton.
 
 | Parade | Effet | Coût |
 |---|---|---|
@@ -248,7 +248,7 @@ authentifié.
 
 | Solution | Ce qui peut couper le service depuis l'extérieur |
 |---|---|
-| LoRa (A3, A2) | Brouillage 868 MHz volontaire — détectable, et le repli s'active |
+| LoRa (A3, A2) | Brouillage 868 MHz volontaire : détectable, et le repli s'active |
 | Wi-Fi | Panne réseau, **maintenance IT non notifiée**, changement de politique |
 | Cellulaire | Panne opérateur, saturation locale, résiliation, changement tarifaire |
 
@@ -272,7 +272,7 @@ dossiers compilables.
 
 C'est le critère qui sépare le plus nettement les deux familles. Une phrase à
 poser au client : *« l'usine ne peut plus appeler son AGV parce que le réseau
-mobile est tombé »* est une situation difficile à expliquer — et elle vaut aussi
+mobile est tombé »* est une situation difficile à expliquer, et elle vaut aussi
 pour une maintenance Wi-Fi non notifiée un lundi matin.
 
 ### 4.6 Simplicité de mise en place et délai
@@ -284,7 +284,7 @@ pour une maintenance Wi-Fi non notifiée un lundi matin.
 | **Wi-Fi + EnOcean** | 3–5 j | **Accord du service IT, 2 à 15 jours calendaires** | **Élevée** |
 | **Cellulaire** | 6–9 j | PCB + souscription SIM | Moyenne |
 
-Le Wi-Fi demande **le moins de travail technique** — aucun matériel à fabriquer —
+Le Wi-Fi demande **le moins de travail technique** : aucun matériel à fabriquer,
 mais c'est le seul dont le chemin critique ne dépend pas de l'équipe projet. Un
 refus du service informatique bloque tout, et ce refus n'est pas rare pour un
 équipement OT non géré.
@@ -297,7 +297,7 @@ personne**.
 | Solution | Retour arrière | Coût du retour |
 |---|---|---|
 | LoRa, cellulaire | Reposer la carte V5.0.1, **jamais modifiée** | quelques heures |
-| **Wi-Fi** | **Reflasher les firmwares d'origine — s'ils ont pu être sauvegardés** | ⚠️ potentiellement impossible |
+| **Wi-Fi** | **Reflasher les firmwares d'origine : s'ils ont pu être sauvegardés** | ⚠️ potentiellement impossible |
 
 C'est un risque spécifique au Wi-Fi, et il est asymétrique : les autres solutions
 laissent la carte d'origine intacte comme filet de sécurité. Le Wi-Fi l'écrase.
@@ -319,8 +319,8 @@ une assurance à chiffrer.
 Les quatre servent la page `/agvdump` au format historique du client, ce qui
 préserve les procédures d'atelier existantes.
 
-Le remplacement des piles de A3 est peu contraignant — 6 € et cinq minutes tous
-les 5 à 8 ans — mais c'est une **tâche récurrente à ne pas oublier**, et un
+Le remplacement des piles de A3 est peu contraignant : 6 € et cinq minutes tous
+les 5 à 8 ans, mais c'est une **tâche récurrente à ne pas oublier**, et un
 bouton à pile morte est muet. La LED rouge et le compteur au poste le rendent
 détectable.
 
@@ -341,7 +341,7 @@ côté MEIDEN.
 | Solution | À monter | Contrainte d'exploitation |
 |---|---|---|
 | LoRa | **Dossier RED** si les cartes sont mises sur le marché ; rien si usage interne | **1 % de rapport cyclique** (ERC 70-03), imposé par le firmware |
-| Wi-Fi, cellulaire | Rien — modules certifiés, bandes gérées par l'opérateur ou le client | Aucune |
+| Wi-Fi, cellulaire | Rien : modules certifiés, bandes gérées par l'opérateur ou le client | Aucune |
 
 Le budget de rapport cyclique n'est pas qu'une formalité : il **plafonne le
 nombre d'émissions par heure** (218 à SF9). Le firmware refuse d'émettre au-delà
@@ -364,7 +364,7 @@ d'accès et permet au client d'améliorer sa couverture, mais reste sur la bande
 saturée. Mesurer l'occupation avant et après est la seule façon d'objectiver le
 gain.
 
-### 4.12 Charge de développement restante — ✅ état réel du dépôt
+### 4.12 Charge de développement restante : ✅ état réel du dépôt
 
 | Solution | État du logiciel |
 |---|---|
@@ -394,13 +394,13 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 **Points faibles**
 
 - **Piles à remplacer** tous les 5 à 8 ans, et un bouton à pile morte est muet.
-- **Boutons à fabriquer** : PCB, boîtier IP65, assemblage — 60 € l’unité et un
+- **Boutons à fabriquer** : PCB, boîtier IP65, assemblage, 60 € l’unité et un
   délai de PCB en parallèle de la carte AGV.
 - **Budget de rapport cyclique** à respecter : 218 émissions/h à SF9.
 - Dossier logiciel **à compléter** avant de pouvoir construire.
 - Dossier RED à monter si les cartes sont mises sur le marché.
 
-### 5.2 Hybride LoRa + EnOcean (A2) — *retenue*
+### 5.2 Hybride LoRa + EnOcean (A2) : *retenue*
 
 **Points forts**
 
@@ -412,7 +412,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 
 **Points faibles**
 
-- **Aucun retour à l'opérateur** — le TCM 515 est en réception seule. C'est la
+- **Aucun retour à l'opérateur** : le TCM 515 est en réception seule. C'est la
   faiblesse ergonomique principale.
 - **Bouton rejouable** : télégramme EnOcean en clair.
 - **Portée EnOcean de ~30 m** vers le poste : contrainte d'implantation qui peut
@@ -426,8 +426,8 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 
 **Points forts**
 
-- **Réutilise les modules existants** — Mega2560 Pro et ESP32-DevKitC sur
-  supports — donc aucun composant exotique et un remplacement immédiat en cas de
+- **Réutilise les modules existants** : Mega2560 Pro et ESP32-DevKitC sur
+  supports, donc aucun composant exotique et un remplacement immédiat en cas de
   panne d'un module.
 - **La meilleure latence** : réseau local, ~50 ms hors handover.
 - **La meilleure sécurité de transport** : TLS, 802.1X, ACL par topic.
@@ -449,13 +449,13 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 - Une maintenance IT non notifiée peut arrêter la production.
 - Bouton rejouable, pas d'accusé opérateur.
 
-### 5.4 Cellulaire — SMS et LTE-M
+### 5.4 Cellulaire : SMS et LTE-M
 
 **Points forts**
 
 - **Portée illimitée** : pertinent si le site s'étend ou couvre plusieurs
   bâtiments.
-- **Notification hors site native** — le seul avantage réellement différenciant,
+- **Notification hors site native** : le seul avantage réellement différenciant,
   et il reste accessible aux autres solutions par une passerelle d'alerte à
   ~10 €/an.
 - Aucune infrastructure radio à déployer ni à étudier.
@@ -473,7 +473,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 - **Le SMS n'a ni latence bornée, ni ordre de remise, ni garantie de remise.**
 - Consommation en pics de 2 A à l'émission : réservoir capacitif obligatoire, et
   boutons sur pile exclus.
-- Complexité de mise au point : AT, roaming, APN, PIN — difficile à diagnostiquer
+- Complexité de mise au point : AT, roaming, APN, PIN, difficile à diagnostiquer
   sur site.
 
 ---
@@ -515,10 +515,10 @@ disqualifier une solution.
 |---|---|---|---|
 | 1 | **Couverture LoRa** le long du parcours, à hauteur d'antenne AGV | A3, A2 si trous | 0,5 j |
 | 2 | **Couverture Wi-Fi** idem, plus comptage des handovers | Wi-Fi | 1 j |
-| 3 | **Couverture cellulaire** RSRP/RSRQ — un point sous −110 dBm suffit | Cellulaire | 0,5 j |
+| 3 | **Couverture cellulaire** RSRP/RSRQ : un point sous −110 dBm suffit | Cellulaire | 0,5 j |
 | 4 | **Portée EnOcean** depuis chaque emplacement définitif de bouton | A2, Wi-Fi, cellulaire | 0,5 j |
 | 5 | **Occupation de la bande 868 MHz** (RTL-SDR, 30 €) | objective la crainte de collision | 0,5 j |
-| 6 | **Amplitude des lignes Y et chronogrammes du bus** | aucune — commun aux quatre | 1 j |
+| 6 | **Amplitude des lignes Y et chronogrammes du bus** | aucune : commun aux quatre | 1 j |
 | 7 | **Accord de principe du service informatique** | Wi-Fi | 2 à 15 j calendaires |
 | 8 | **Lecture des flash d'origine** (`esptool`, `avrdude`) | conditionne la réversibilité du Wi-Fi | 0,5 j |
 
@@ -544,7 +544,7 @@ choisir une architecture qui ne fonctionnera pas sur ce site.
 5. **Un historique consultable sur plusieurs semaines est-il attendu ?** Sinon,
    remplacer l'UniPi par un ESP32 économise ~300 €. À défaut, une passerelle
    **Unipi Gate G100** (~200 €) suffit dès que le poste dispose d'une prise
-   réseau — y compris en cellulaire, où elle supprime une SIM sur deux.
+   réseau, y compris en cellulaire, où elle supprime une SIM sur deux.
 6. **Combien de points d'appel à terme ?** C'est ce qui place le curseur entre
    A3 et A2.
 7. **Le coût récurrent du cellulaire est-il accepté ?** 15 625 € sur dix ans en
@@ -573,7 +573,7 @@ le projet.
 **Le SMS est à écarter.** Le remède est plus dangereux que le mal supposé : la
 crainte porte sur des collisions LoRa dont l'effet serait une retransmission de
 100 ms, et la solution proposée introduit une latence non bornée et un désordre
-de remise possible — pour 15 625 € sur dix ans. Si le cellulaire est un souhait
+de remise possible, pour 15 625 € sur dix ans. Si le cellulaire est un souhait
 politique, **LTE-M/MQTT le satisfait pour un onzième du prix**, et une passerelle
 d'alerte SMS à ~10 €/an apporte la notification hors site à n'importe laquelle
 des autres architectures.

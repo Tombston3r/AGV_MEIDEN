@@ -8,7 +8,7 @@ namespace {
 
 // --- Tokenizeur minimal ----------------------------------------------------
 // Descente récursive orientée schéma : on ne construit pas d'arbre générique,
-// on lit exactement ce que le schéma attend et on saute le reste — d'où un
+// on lit exactement ce que le schéma attend et on saute le reste : d'où un
 // parseur court, strict et sans allocation surprise.
 
 struct Curseur {
@@ -107,7 +107,7 @@ bool lire_booleen(Curseur& c, bool& out) {
   return c.echec("booleen attendu");
 }
 
-// Saute une valeur quelconque — nécessaire aux utilitaires json_* qui
+// Saute une valeur quelconque : nécessaire aux utilitaires json_* qui
 // parcourent un objet sans connaître toutes ses clés.
 bool sauter_valeur(Curseur& c) {
   c.blancs();
@@ -193,7 +193,7 @@ bool lire_heure(Curseur& c, Entree& e) {
   int h = -1, m = -1;
   if (std::sscanf(hm.c_str(), "%2d:%2d", &h, &m) != 2 || h < 0 || h > 23 ||
       m < 0 || m > 59 || hm.size() != 5) {
-    return c.echec("heure invalide « " + hm + " » — format attendu HH:MM");
+    return c.echec("heure invalide « " + hm + " » : format attendu HH:MM");
   }
   e.heure = static_cast<uint8_t>(h);
   e.minute = static_cast<uint8_t>(m);
@@ -222,7 +222,7 @@ bool lire_entree(Curseur& c, Entree& e) {
     if (cle == "debut" || cle == "fin") {
       if (!lire_entier(c, v)) return false;
       if (v != 0 && (v < 20000101 || v > 21001231)) {
-        return c.echec("date invalide — format AAAAMMJJ");
+        return c.echec("date invalide : format AAAAMMJJ");
       }
       (cle == "debut" ? e.debut : e.fin) = static_cast<Date>(v);
       return true;

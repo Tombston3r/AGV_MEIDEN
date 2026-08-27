@@ -1,4 +1,4 @@
-// Paramètres radio LoRa — propres à ce dossier d'architecture.
+// Paramètres radio LoRa : propres à ce dossier d'architecture.
 //
 // Ils ne vivent PAS dans `HardwareProfile` : le cœur métier est partagé entre
 // architectures, et un dossier cellulaire n'a aucune raison de transporter un
@@ -18,7 +18,7 @@ struct LoraConfig {
   uint8_t spreading_factor = 9;
   uint32_t bandwidth_hz = 125000;
   uint8_t coding_rate = 5;      // 4/5
-  uint8_t sync_word = 0x12;     // privé — DOIT différer de 0x34 (LoRaWAN)
+  uint8_t sync_word = 0x12;     // privé : DOIT différer de 0x34 (LoRaWAN)
   int8_t tx_power_dbm = 14;
   uint32_t ack_timeout_ms = 400;
   uint32_t max_tries = 3;

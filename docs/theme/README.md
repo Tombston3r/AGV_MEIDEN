@@ -9,7 +9,7 @@ l'exploitant croit changer d'outil.
 
 [`theme.css`](theme.css) est **l'original**. Chaque interface en porte une
 copie dans son `web/`, parce que les dossiers sont livrables seuls (voir
-[`../ORGANISATION.md`](../ORGANISATION.md)) — et parce que le banc EnOcean part
+[`../ORGANISATION.md`](../ORGANISATION.md)), et parce que le banc EnOcean part
 en `rsync` sur une UniPi qui n'a pas le reste du dépôt.
 
 ```bash
@@ -39,7 +39,7 @@ liste des boutons EnOcean.
 **`[hidden]` est fragile.** L'attribut n'est qu'un `display:none` de la feuille
 par défaut du navigateur : la moindre règle d'auteur déclarant `display` le bat.
 La feuille le rétablit en `!important`, et `.voile` laisse volontairement son
-`display` au script — une fenêtre modale du banc EnOcean est restée ouverte en
+`display` au script : une fenêtre modale du banc EnOcean est restée ouverte en
 permanence pour cette raison.
 
 **`currentColor` se résout contre l'élément lui-même**, pas contre son parent.
@@ -52,4 +52,4 @@ invisible. Les drapeaux de la frise ont disparu ainsi.
 |---|---|
 | Supervision AGV (×4 architectures) | `Comm distance/architectures/*/web/` |
 | Banc EnOcean | `Comm distance/bancs/enocean/web/` |
-| Planning — agvschedule et agvdump | `Timer/banc_api/web/` |
+| Planning : agvschedule et agvdump | `Timer/banc_api/web/` |

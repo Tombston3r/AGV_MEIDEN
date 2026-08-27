@@ -1,4 +1,4 @@
-// Transport LTE-M / NB-IoT + MQTT — architecture 2 variante B (brief §8.2).
+// Transport LTE-M / NB-IoT + MQTT : architecture 2 variante B (brief §8.2).
 //
 // « Si le cellulaire est imposé par le client, c'est cette variante qu'il faut
 // coder, jamais le SMS. » Elle apporte l'ordre (TCP), QoS 1, et surtout le

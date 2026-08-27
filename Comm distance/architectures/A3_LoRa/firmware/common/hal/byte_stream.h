@@ -1,4 +1,4 @@
-// Port flux d'octets (UART) — permet de tester les piles AT et ESP3 en natif.
+// Port flux d'octets (UART) : permet de tester les piles AT et ESP3 en natif.
 #pragma once
 
 #include <cstddef>
@@ -21,7 +21,7 @@ class IModemPower {
  public:
   virtual ~IModemPower() = default;
   // Maintient PWRKEY actif pendant `duration_ms` (1 000 ms allumage,
-  // 2 500 ms extinction propre — brief §8.1).
+  // 2 500 ms extinction propre : brief §8.1).
   virtual void pulse_pwrkey(uint32_t duration_ms) = 0;
   // Chien de garde matériel TPL5010 : la pile AT peut se bloquer sans que le
   // watchdog logiciel ne le voie (brief §8.1).

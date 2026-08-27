@@ -1,4 +1,4 @@
-// Tests du codec JSON — aller-retour et REJETS. Sur une API qui commande un
+// Tests du codec JSON : aller-retour et REJETS. Sur une API qui commande un
 // véhicule, ce sont les rejets qui protègent : chaque message d'erreur testé
 // ici est un message que verra l'exploitant.
 #include <cstdio>
@@ -16,7 +16,7 @@ int g_echecs = 0;
 #define CHECK(cond)                                                     \
   do {                                                                  \
     if (!(cond)) {                                                      \
-      std::printf("    ECHEC %s:%d — %s\n", __FILE__, __LINE__, #cond); \
+      std::printf("    ECHEC %s:%d : %s\n", __FILE__, __LINE__, #cond); \
       ++g_echecs;                                                       \
     }                                                                   \
   } while (0)

@@ -1,7 +1,7 @@
-# Déploiement — architecture SMS + EnOcean (carte neuve)
+# Déploiement : architecture SMS + EnOcean (carte neuve)
 
 > Procédure opérationnelle complète : de la première mesure au procès-verbal de
-> recette. À dérouler **dans l'ordre** — chaque phase suppose la précédente
+> recette. À dérouler **dans l'ordre** : chaque phase suppose la précédente
 > validée.
 >
 > État du projet et kanban : [`docs/ETAT_PROJET.md`](docs/ETAT_PROJET.md).
@@ -23,7 +23,7 @@ disqualifiant : un `STOP` peut arriver avant le `GOTO` qu'il annule.
 
 Cette procédure déploie donc **`MqttLteTransport`** (environnements `agv` et
 `poste`). Les environnements `agv-sms` et `poste-sms` existent pour la
-comparaison chiffrée demandée par le client — **pas pour la mise en service**.
+comparaison chiffrée demandée par le client : **pas pour la mise en service**.
 
 Le SMS garde un usage légitime : `AlertGateway`, quelques messages par mois vers
 un technicien hors site. C'est la phase 9.
@@ -50,13 +50,13 @@ peut pas corriger la couverture en ajoutant un répéteur**. La phase 1 est
 `mega_uart`. Ce choix conditionne le routage de la carte. Le logiciel supporte
 les trois, mais **le PCB doit être dessiné pour un seul**.
 
-Recommandation : `shift595` — 3 µs de pose, strictement simultanée grâce au
+Recommandation : `shift595`, 3 µs de pose, strictement simultanée grâce au
 latch `RCLK` commun. Les MCP23017 posent en ~150 µs avec un décalage résiduel
 entre GPIOA et GPIOB.
 
 ---
 
-## Phase 0 — Ce qu'il faut avoir en main
+## Phase 0 : Ce qu'il faut avoir en main
 
 ### Matériel
 
@@ -65,7 +65,7 @@ entre GPIOA et GPIOB.
 - [ ] Expandeurs selon la variante retenue (4× MCP23017, ou 3× 74HC595 + 3× 74HC165)
 - [ ] Optocoupleurs pour les 43 voies, SUB-D 25 mâle et femelle
 - [ ] Poste fixe : ESP32 (A), **Unipi Gate G100** (B, si une prise réseau existe
-      sur place) ou UniPi E413 LTE (C, seulement sinon) — voir `BOM.md`
+      sur place) ou UniPi E413 LTE (C, seulement sinon) : voir `BOM.md`
 - [ ] Récepteur EnOcean TCM 515, boutons PTM 210
 - [ ] 2 SIM M2M avec accès data LTE-M
 - [ ] Multimètre, oscilloscope ou analyseur logique
@@ -86,12 +86,12 @@ cd architectures/A1_Cellulaire
 | Hôte, port, identifiants et CA du broker MQTT | Client ou hébergeur | 4, 7 |
 | Numéro du technicien d'astreinte (`alert_msisdn`) | Client | 9 |
 | Liste des points d'appel et numéro de station | Exploitation | 8 |
-| Runtime réel du poste commandé (§12.9) | Fournisseur — **sans objet si Gate G100** : Debian d'origine | 6 |
+| Runtime réel du poste commandé (§12.9) | Fournisseur, **sans objet si Gate G100** : Debian d'origine | 6 |
 | Sortie réelle de `agvdump` de la carte d'origine | Atelier | 3 |
 
 ---
 
-## Phase 1 — Relevés éliminatoires ⚠️ BLOQUANTS
+## Phase 1 : Relevés éliminatoires ⚠️ BLOQUANTS
 
 Durée : 1 à 2 jours. **Aucune commande de matériel avant ces résultats.**
 
@@ -126,7 +126,7 @@ basculer sur `../A3_LoRa/` ou `../A4_Wifi/`.
 
 ### 1.4 Mesures sur le bus MEIDEN
 
-Sur la carte d'origine, **avant sa dépose** — elle ne sera plus disponible
+Sur la carte d'origine, **avant sa dépose** : elle ne sera plus disponible
 ensuite. Détail : [`docs/procedures_essai.md`](docs/procedures_essai.md) §4.
 
 - [ ] Amplitude d'une ligne `Y` (`Y05`) : ______ V → dimensionnement des optocoupleurs
@@ -146,7 +146,7 @@ Depuis l'emplacement définitif de chaque bouton, pas depuis l'établi.
 
 ---
 
-## Phase 2 — Fabrication et contrôle de la carte
+## Phase 2 : Fabrication et contrôle de la carte
 
 - [ ] Variante d'interface bus arrêtée : ☐ `shift595` ☐ `mcp23017` ☐ `mega_uart`
 - [ ] Schéma et routage figés selon ce choix
@@ -158,7 +158,7 @@ Depuis l'emplacement définitif de chaque bouton, pas depuis l'établi.
 
 ---
 
-## Phase 3 — Poste de développement
+## Phase 3 : Poste de développement
 
 ```bash
 python3 tools/genconfig.py profiles/default.yaml \
@@ -177,7 +177,7 @@ python3 -m pytest tests -q && ruff check . && mypy --strict agv_poste && cd ..
 
 ---
 
-## Phase 4 — Renseigner le profil
+## Phase 4 : Renseigner le profil
 
 Éditer `profiles/default.yaml` **et rien d'autre**.
 
@@ -205,7 +205,7 @@ make test
 
 ---
 
-## Phase 5 — Clé de chiffrement et banc
+## Phase 5 : Clé de chiffrement et banc
 
 ### 5.1 Provisionner la clé AES
 
@@ -250,7 +250,7 @@ Carte alimentée, **automate débranché**.
 
 ---
 
-## Phase 6 — Broker MQTT et poste fixe
+## Phase 6 : Broker MQTT et poste fixe
 
 ### 6.1 Mosquitto
 
@@ -272,7 +272,7 @@ acl_file /etc/mosquitto/aclfile
 ```
 
 ```
-# /etc/mosquitto/aclfile — l'AGV ne publie que sur ce qui le concerne
+# /etc/mosquitto/aclfile : l'AGV ne publie que sur ce qui le concerne
 user agv1
 topic write agv/1/ack
 topic write agv/1/telemetry
@@ -292,7 +292,7 @@ topic read  agv/1/#
 ### 6.2 Poste fixe UniPi
 
 ⚠️ §12.9 : si la référence commandée tourne sous **Mervis**, le service Python
-est sans objet — l'intégration passe par Modbus TCP depuis un autre hôte.
+est sans objet : l'intégration passe par Modbus TCP depuis un autre hôte.
 Vérifier **avant** de dérouler cette étape.
 
 ```bash
@@ -308,7 +308,7 @@ journalctl -u agv-poste -f
 ```
 
 - [ ] `io.kind` renseigné explicitement : ☐ `evok` ☐ `modbus` ☐ `simulated`
-- [ ] `transport.kind = "mqtt"` — **pas `sms`**
+- [ ] `transport.kind = "mqtt"` : **pas `sms`**
 - [ ] Service démarré sans erreur
 
 ### 6.3 Poste fixe ESP32 (variante A2)
@@ -325,7 +325,7 @@ Si le poste est un ESP32 avec TCM 515 et Ethernet filaire :
 
 ---
 
-## Phase 7 — Flash de l'AGV
+## Phase 7 : Flash de l'AGV
 
 ```bash
 ./tools/flash.sh agv /dev/ttyUSB0
@@ -344,7 +344,7 @@ seconde sur un abonnement M2M facturé au volume coûte cher pour rien.
 
 ---
 
-## Phase 8 — Appairage et première course
+## Phase 8 : Appairage et première course
 
 ### 8.1 Appairage des boutons EnOcean
 
@@ -355,7 +355,7 @@ Pour chaque point d'appel, **depuis son emplacement définitif**.
 - [ ] Second appui → une commande part vers l'AGV
 
 ⚠️ Le TCM 515 est en **réception seule** : aucun accusé ne revient vers le
-bouton. Si un retour opérateur est exigé, il faut un voyant câblé au poste — à
+bouton. Si un retour opérateur est exigé, il faut un voyant câblé au poste, à
 trancher avant de figer l'IHM (§12.8).
 
 ### 8.2 Première course
@@ -367,7 +367,7 @@ trancher avant de figer l'IHM (§12.8).
 
 ---
 
-## Phase 9 — Passerelle d'alerte SMS
+## Phase 9 : Passerelle d'alerte SMS
 
 Usage résiduel légitime du cellulaire : prévenir un technicien **hors site** en
 cas de défaut bloquant. Quelques messages par mois, ~10 €/an.
@@ -384,7 +384,7 @@ en essai.
 
 ---
 
-## Phase 10 — Recette : essais de dégradation
+## Phase 10, Recette : essais de dégradation
 
 | # | Essai | Attendu | OK |
 |---|---|---|---|

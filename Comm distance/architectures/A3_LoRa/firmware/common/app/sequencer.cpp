@@ -62,7 +62,7 @@ void Sequencer::enter_fault(FaultCause cause) {
   fault_cause_ = cause;
   ++counters_.faults;
   // État sûr : toutes les sorties au repos. La chaîne de sécurité (arrêt
-  // d'urgence, bumpers, scrutateur) reste indépendante — voir brief §3.1.
+  // d'urgence, bumpers, scrutateur) reste indépendante : voir brief §3.1.
   x_word_ = 0;
   const uint32_t electrical = profile_.bus.x_active_high ? 0u : kXMask;
   bus_.writeX(electrical);

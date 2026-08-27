@@ -1,4 +1,4 @@
-// File de courses — LE point fonctionnel central du projet (brief §1 et §4.5).
+// File de courses : LE point fonctionnel central du projet (brief §1 et §4.5).
 //
 // L'AGV ne connaît qu'UNE SEULE destination à la fois et l'oublie au
 // redémarrage. C'est la carte qui porte la mémoire de mission : jusqu'à
@@ -54,7 +54,7 @@ class CourseQueue {
 
   // Persistance (§4.5). `now_s` = horloge murale ; sans horloge valide,
   // passer 0 : la politique de validité est alors inopérante et la file est
-  // restaurée telle quelle — comportement à documenter à l'exploitation.
+  // restaurée telle quelle : comportement à documenter à l'exploitation.
   bool save(uint32_t now_s);
   // Restaure et écarte les courses périmées. Retourne le nombre de courses
   // restaurées ; `dropped` reçoit le nombre de courses écartées.

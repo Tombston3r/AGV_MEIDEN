@@ -5,7 +5,7 @@
 //
 // CONTRAINTE STRUCTURELLE : ce module est indépendant de la chaîne de commande
 // et NE DOIT JAMAIS POUVOIR LA PILOTER. Il n'a donc accès ni au séquenceur, ni
-// à la file de courses — seulement à un flux d'octets vers le modem. Cette
+// à la file de courses, seulement à un flux d'octets vers le modem. Cette
 // séparation est architecturale, pas une simple convention de nommage.
 #pragma once
 

@@ -12,7 +12,7 @@ int g_checks = 0;
 
 void report_failure(const char* file, int line, const std::string& message) {
   ++g_failures;
-  std::printf("    ÉCHEC %s:%d — %s\n", file, line, message.c_str());
+  std::printf("    ÉCHEC %s:%d : %s\n", file, line, message.c_str());
 }
 
 }  // namespace testing

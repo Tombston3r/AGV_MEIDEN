@@ -1,4 +1,4 @@
-// Essai de RÉCEPTION LoRa sur ESP32 — carte AGV ou poste fixe.
+// Essai de RÉCEPTION LoRa sur ESP32 : carte AGV ou poste fixe.
 //
 // Écoute en continu, décode les trames applicatives, mesure RSSI et SNR, et
 // acquitte. En face, faire tourner l'environnement `tx`, ou
@@ -81,7 +81,7 @@ extern "C" void app_main() {
     return;
   }
 
-  printf("%s — SX1276 detecte (RegVersion 0x%02X)\n", test::kNomCarte, radio.version());
+  printf("%s : SX1276 detecte (RegVersion 0x%02X)\n", test::kNomCarte, radio.version());
   printf("%.1f MHz  SF%u  BW%u  CR4/%u  sync 0x%02X\n",
          cfg.frequency_hz / 1e6, cfg.spreading_factor, cfg.bandwidth_hz / 1000,
          cfg.coding_rate, cfg.sync_word);
@@ -143,7 +143,7 @@ extern "C" void app_main() {
           // d'idempotence, et c'est justement ce que cet essai doit montrer.
           if (!duty.can_transmit(attendu_us, g_clock.now_ms())) {
             ++non_acquittees;
-            printf("      accuse NON EMIS — budget de rapport cyclique epuise\n");
+            printf("      accuse NON EMIS : budget de rapport cyclique epuise\n");
           } else {
             agv::Frame ack;
             ack.type = agv::FrameType::Ack;
@@ -176,7 +176,7 @@ extern "C" void app_main() {
           printf("            Un chariot charge entre les antennes coupera le lien.\n");
         }
       } else {
-        printf("aucune trame — verifier frequence, SF et mot de synchronisation\n");
+        printf("aucune trame : verifier frequence, SF et mot de synchronisation\n");
       }
       printf("\n");
     }

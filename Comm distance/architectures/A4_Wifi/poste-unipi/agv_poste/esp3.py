@@ -1,4 +1,4 @@
-"""Décodeur EnOcean Serial Protocol 3 (ESP3) — récepteur TCM 515.
+"""Décodeur EnOcean Serial Protocol 3 (ESP3) : récepteur TCM 515.
 
 Miroir Python du décodeur C++ du dossier SMS_EnOcean. Ici il tourne sur le
 poste fixe UniPi, seul endroit de l'architecture Wi-Fi où de l'EnOcean circule.

@@ -27,7 +27,7 @@ int g_echecs = 0;
 #define CHECK(cond)                                                     \
   do {                                                                  \
     if (!(cond)) {                                                      \
-      std::printf("    ECHEC %s:%d — %s\n", __FILE__, __LINE__, #cond); \
+      std::printf("    ECHEC %s:%d : %s\n", __FILE__, __LINE__, #cond); \
       ++g_echecs;                                                       \
     }                                                                   \
   } while (0)
@@ -66,7 +66,7 @@ void la_copie_n_a_pas_derive_de_l_original() {
     if (origine.empty()) {
       // Dossier A4 absent (export du seul chantier Timer) : on ne peut pas
       // comparer, mais on le DIT plutôt que de faire passer le test en vert.
-      std::printf("    (original introuvable : %s%s — comparaison sautée)\n",
+      std::printf("    (original introuvable : %s%s, comparaison sautée)\n",
                   kRacineA4, p.origine);
       continue;
     }

@@ -1,4 +1,4 @@
-// Pilote RFM95W / SX1276 (LoRa 868 MHz) — implémentation de ILoraRadio.
+// Pilote RFM95W / SX1276 (LoRa 868 MHz) : implémentation de ILoraRadio.
 //
 // Registres et séquences issus de la fiche technique SX1276/77/78/79 (rév. 7).
 // Le module est HALF-DUPLEX : ce pilote ne fait que ce qu'on lui demande, tout

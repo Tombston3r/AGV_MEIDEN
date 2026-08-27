@@ -36,7 +36,7 @@ AXP192 sur l'I²C. Le firmware l'active et l'annonce :
 
 ```
 alimentation : AXP192 initialise, radio sous tension
-LILYGO T-Beam v1.1 — SX1276 detecte (RegVersion 0x12)
+LILYGO T-Beam v1.1 : SX1276 detecte (RegVersion 0x12)
 ```
 
 Si la première ligne dit `aucun AXP192 a l'adresse 0x34`, la carte n'est pas
@@ -71,7 +71,7 @@ Au démarrage, chaque côté lit `RegVersion`.
 
 **Attendu** : `RFM95W détecté (RegVersion 0x12)`.
 Toute autre valeur signale un câblage SPI, une alimentation 3,3 V ou un `NSS`
-en défaut — inutile d'aller plus loin.
+en défaut : inutile d'aller plus loin.
 
 ## 4. Recette, sur table d'abord
 
@@ -85,7 +85,7 @@ cd esp32 && pio run -e tx -t upload -t monitor
 | # | Attendu |
 |---|---|
 | 1 | Les deux côtés annoncent `868.1 MHz SF9 BW125 CR4/5 sync 0x12` |
-| 2 | Chaque trame émise reçoit un `ACK` — **taux d'accusé 100 %** à un mètre |
+| 2 | Chaque trame émise reçoit un `ACK` : **taux d'accusé 100 %** à un mètre |
 | 3 | Le RSSI à un mètre est **meilleur que −60 dBm** |
 | 4 | Le temps d'antenne annoncé est d'environ **145 ms** par trame |
 | 5 | Aucune trame `REJETÉE` : ni CRC, ni longueur, ni doublon |
@@ -93,7 +93,7 @@ cd esp32 && pio run -e tx -t upload -t monitor
 Un taux d'accusé inférieur à 100 % **sur table** ne se debug pas dans l'atelier :
 c'est un problème d'antenne, d'alimentation ou de paramètres.
 
-## 5. Relevé de portée — l'essai qui décide
+## 5. Relevé de portée : l'essai qui décide
 
 Promener l'émetteur le long du parcours, chariot **chargé**, en lisant le RSSI.
 
@@ -110,12 +110,12 @@ niveau reçu sur l'écran.
 |---|---|
 | meilleur que −100 dBm | marge confortable |
 | −100 à −115 dBm | acceptable, à revérifier en charge |
-| **sous −115 dBm** | **marge insuffisante** — un chariot chargé entre les antennes coupera la liaison |
+| **sous −115 dBm** | **marge insuffisante** : un chariot chargé entre les antennes coupera la liaison |
 
 Les deux scripts avertissent seuls sous −115 dBm. **Un lien qui passe tout
 juste ne passe pas.**
 
-## 6. Budget d'émission — obligation réglementaire
+## 6. Budget d'émission : obligation réglementaire
 
 À SF9, une trame de 9 octets occupe ~145 ms d'antenne, ce qui plafonne à
 **~248 émissions par heure**, accusés compris. Les deux côtés refusent d'émettre
@@ -125,7 +125,7 @@ Ce n'est pas un réglage : c'est l'**EN 300 220 / ERC 70-03**, 1 % sur une heure
 glissante.
 
 `--sf 7` descend à ~41 ms, donc 3,5 fois plus d'émissions et une latence bien
-plus basse — au prix de la portée. C'est l'arbitrage à trancher **sur le
+plus basse, au prix de la portée. C'est l'arbitrage à trancher **sur le
 terrain**, avec ce banc, plutôt qu'au bureau.
 
 ## En cas de panne
@@ -134,5 +134,5 @@ terrain**, avec ce banc, plutôt qu'au bureau.
 |---|---|
 | `RegVersion` ≠ `0x12` | câblage SPI, 3,3 V, ou `NSS` |
 | Aucune trame reçue | fréquence, facteur d'étalement ou **mot de synchronisation** différents |
-| Trames reçues, toutes `REJETÉES` | les deux côtés ne parlent pas la même trame — refaire l'étape 1 |
+| Trames reçues, toutes `REJETÉES` | les deux côtés ne parlent pas la même trame : refaire l'étape 1 |
 | Émissions refusées | budget de rapport cyclique épuisé : attendre, ou passer en SF7 |

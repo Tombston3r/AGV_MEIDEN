@@ -1,4 +1,4 @@
-# Déploiement — architecture LoRa 868 MHz (carte neuve)
+# Déploiement : architecture LoRa 868 MHz (carte neuve)
 
 > ⚠️ **Ce dossier n'est pas encore un projet autonome.** Il contient les sources
 > spécifiques à LoRa, pas le cœur métier. La **phase 0** ci-dessous le complète ;
@@ -17,16 +17,16 @@ fabrication de carte.
 
 ### 1. Deux architectures partagent ce dossier
 
-| | A3 — LoRa homogène | A2 — Hybride EnOcean + LoRa |
+| | A3 (LoRa homogène | A2) Hybride EnOcean + LoRa |
 |---|---|---|
 | Boutons | sur pile, radio LoRa intégrée | **PTM 210 sans pile** |
-| Retour visuel au bouton | **oui** — LED verte = ACK reçu | **non**, le TCM 515 est en réception seule |
+| Retour visuel au bouton | **oui** : LED verte = ACK reçu | **non**, le TCM 515 est en réception seule |
 | Poste fixe | facultatif | obligatoire (récepteur EnOcean → LoRa) |
 | Ajout d'un bouton | flasher un `node_id` + une station | appairage depuis l'IHM, sans flash |
 
 **A2 est l'architecture retenue**, sous réserve que le « sans-pile » soit une
 exigence réelle. Si ce n'en est pas une, A3 est plus simple et rend le retour
-visuel à l'opérateur — argument à ne pas perdre.
+visuel à l'opérateur : argument à ne pas perdre.
 
 Les phases ci-dessous couvrent les deux ; les étapes propres à chacune sont
 marquées **[A3]** ou **[A2]**.
@@ -54,7 +54,7 @@ Détail et options dans [`docs/latence_lora.md`](docs/latence_lora.md).
 
 ---
 
-## Phase 0 — Compléter le dossier ⚠️ PRÉALABLE
+## Phase 0 : Compléter le dossier ⚠️ PRÉALABLE
 
 Le cœur métier (séquenceur, file, protocole, simulateur) vit dans les autres
 dossiers d'architecture. Il faut en greffer une copie ici.
@@ -92,7 +92,7 @@ transporte aucun paramètre radio, ce qui rend cette greffe indolore.
 
 ---
 
-## Phase 1 — Relevés éliminatoires ⚠️ BLOQUANTS
+## Phase 1 : Relevés éliminatoires ⚠️ BLOQUANTS
 
 ### 1.1 Couverture radio le long du parcours
 
@@ -115,7 +115,7 @@ transporte aucun paramètre radio, ce qui rend cette greffe indolore.
 
 ### 1.3 Mesures sur le bus MEIDEN
 
-Sur la carte d'origine, **avant sa dépose** — elle ne sera plus disponible
+Sur la carte d'origine, **avant sa dépose** : elle ne sera plus disponible
 ensuite. Détail : `docs/procedures_essai.md` (présent après la phase 0).
 
 - [ ] Amplitude d'une ligne `Y` (`Y05`) : ______ V
@@ -132,12 +132,12 @@ ensuite. Détail : `docs/procedures_essai.md` (présent après la phase 0).
 
 ---
 
-## Phase 2 — Fabrication et contrôle de la carte
+## Phase 2 : Fabrication et contrôle de la carte
 
 Nomenclature : `docs/Archi_3_LoRa_P2P_homogene.md`. Schémas détaillés :
 [`hardware/schema_detail_voies.svg`](hardware/schema_detail_voies.svg).
 
-- [ ] Variante d'interface bus arrêtée (`bus.driver_variant`) — `shift595`
+- [ ] Variante d'interface bus arrêtée (`bus.driver_variant`) : `shift595`
       recommandé : 3 µs, pose strictement simultanée par latch `RCLK` commun
 - [ ] Carte fabriquée, assemblée, contrôlée
 - [ ] Chaîne d'alimentation vérifiée à vide : 24 V → 5 V → 3,3 V, isolation
@@ -149,7 +149,7 @@ supporte pas la désadaptation.
 
 ---
 
-## Phase 3 — Poste de développement
+## Phase 3 : Poste de développement
 
 ```bash
 python3 tools/genconfig.py profiles/default.yaml \
@@ -159,12 +159,12 @@ make test FILTER=lora           # temps d'antenne, budget légal, half-duplex
 ```
 
 - [ ] Tests verts
-- [ ] `budget_1_pourcent_refuse_au_dela` passe — c'est la garantie que le refus
+- [ ] `budget_1_pourcent_refuse_au_dela` passe : c'est la garantie que le refus
       réglementaire est effectif
 
 ---
 
-## Phase 4 — Renseigner le profil, et choisir le couple SF / télémétrie
+## Phase 4 : Renseigner le profil, et choisir le couple SF / télémétrie
 
 Éditer `profiles/default.yaml` **et rien d'autre**.
 
@@ -192,7 +192,7 @@ télémétrie.
 
 ⚠️ Une télémétrie à 2 s en SF9 représente 1 800 émissions par heure : **très
 au-delà du budget légal**. Le firmware refusera d'émettre, et les commandes
-passeront avant la télémétrie — mais le service sera dégradé sans raison.
+passeront avant la télémétrie, mais le service sera dégradé sans raison.
 
 ```bash
 python3 tools/genconfig.py profiles/default.yaml \
@@ -205,7 +205,7 @@ make test
 
 ---
 
-## Phase 5 — Clé de chiffrement
+## Phase 5 : Clé de chiffrement
 
 Le chiffrement est **applicatif** (AES-128-CTR) : il n'y a pas de TLS sur une
 liaison radio nue. Sans clé, n'importe qui avec un module à 10 € peut appeler
@@ -225,7 +225,7 @@ La reperdre impose de reflasher tous les nœuds, boutons compris.
 
 ---
 
-## Phase 6 — Banc et chronogrammes
+## Phase 6 : Banc et chronogrammes
 
 ```bash
 make test FILTER=sequenceur
@@ -243,12 +243,12 @@ make test FILTER=point_12
 
 Sur la liaison radio, deux cartes en vis-à-vis :
 
-- [ ] Aller-retour commande + ACK mesuré : ______ ms — cohérent avec le SF
+- [ ] Aller-retour commande + ACK mesuré : ______ ms, cohérent avec le SF
 - [ ] Après 3 tentatives sans réponse, la liaison est déclarée perdue
 
 ---
 
-## Phase 7 — Flash
+## Phase 7 : Flash
 
 ```bash
 ./tools/flash.sh agv   /dev/ttyUSB0     # firmware AGV
@@ -266,7 +266,7 @@ constexpr uint16_t kNodeId  = 0x0101;   // unique par bouton
 constexpr uint16_t kStation = 2;        // station appelée
 ```
 
-- [ ] Chaque bouton porte un `node_id` **unique** — un doublon casse
+- [ ] Chaque bouton porte un `node_id` **unique** : un doublon casse
       l'idempotence et provoque des courses fantômes
 - [ ] Table des `node_id` ↔ stations ↔ emplacements archivée
 - [ ] Consommation vérifiée en sommeil profond : **< 2 µA**
@@ -279,7 +279,7 @@ Les PTM 210 n'ont pas de firmware. L'appairage se fait à la phase 8.
 
 ---
 
-## Phase 8 — Mise en service
+## Phase 8 : Mise en service
 
 ### **[A2]** Appairage des boutons EnOcean
 
@@ -289,7 +289,7 @@ Pour chaque point d'appel, **depuis son emplacement définitif**.
 - [ ] Second appui → commande émise vers l'AGV
 
 ⚠️ TCM 515 en réception seule : **aucun accusé ne revient au bouton**. Si un
-retour opérateur est exigé, il faut un TCM 310 ou un voyant déporté câblé — à
+retour opérateur est exigé, il faut un TCM 310 ou un voyant déporté câblé, à
 trancher avant de figer l'IHM (§12.8).
 
 ### **[A3]** Vérification des boutons
@@ -307,7 +307,7 @@ C'est le retour visuel que la solution EnOcean pure ne sait pas rendre.
 
 ---
 
-## Phase 9 — Recette : essais de dégradation
+## Phase 9, Recette : essais de dégradation
 
 | # | Essai | Attendu | OK |
 |---|---|---|---|
@@ -336,7 +336,7 @@ Seuils à faire fixer **par le client, avant les essais** :
 | Situation | Action |
 |---|---|
 | Carte neuve défaillante | Reposer la carte V5.0.1 d'origine, conservée intacte |
-| Couverture radio insuffisante | Repositionner l'antenne, réduire le SF, ajouter un relais — ou basculer sur `../A4_Wifi/` |
+| Couverture radio insuffisante | Repositionner l'antenne, réduire le SF, ajouter un relais, ou basculer sur `../A4_Wifi/` |
 | Budget de rapport cyclique systématiquement atteint | Revoir le SF et la période de télémétrie (phase 4) avant tout |
 
 La carte d'origine **n'est pas modifiée** par cette architecture : le retour
@@ -348,9 +348,9 @@ arrière consiste à la reposer.
 
 | Symptôme | Où regarder | Cause probable |
 |---|---|---|
-| Commandes refusées à l'émission | `tx_refused_duty`, `duty_used_permille` | Budget légal épuisé — revoir SF et télémétrie |
+| Commandes refusées à l'émission | `tx_refused_duty`, `duty_used_permille` | Budget légal épuisé : revoir SF et télémétrie |
 | Appels perdus en zone précise | `rssi_dbm`, `snr_db` | Trou de couverture (1.1) |
-| Latence supérieure à l'attendu | SF retenu, `retries` | Retransmissions — voir `docs/latence_lora.md` |
+| Latence supérieure à l'attendu | SF retenu, `retries` | Retransmissions : voir `docs/latence_lora.md` |
 | Trames reçues mais illisibles | `rx_bad_crc` | Clé AES différente entre nœuds, ou interférence |
 | L'AGV ne part pas | `write_op_return`, `start_op_return` | Timeouts (1.3) ou câblage (2) |
 | **[A3]** Bouton muet | pile, LED rouge | Pile morte ou hors portée |

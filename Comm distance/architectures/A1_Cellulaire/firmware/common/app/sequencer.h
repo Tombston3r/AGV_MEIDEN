@@ -37,7 +37,7 @@ enum class SeqState : uint8_t {
 };
 
 // Résultat final d'une opération. ATTENTION : la valeur numérique exposée par
-// `agvdump` d'origine n'est pas relevée — PROVISOIRE §12.6, à recaler sur une
+// `agvdump` d'origine n'est pas relevée : PROVISOIRE §12.6, à recaler sur une
 // sortie réelle de la V5.0.1 avant mise en production.
 enum class OpReturn : uint8_t {
   None = 0,

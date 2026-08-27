@@ -72,7 +72,7 @@ Etat alimenter_radio() {
   if (!lire(kRegIdentifiant, &id)) return Etat::PmuAbsent;
 
   // LDO2 à 3,3 V : les 4 bits hauts du registre 0x28, pas de 100 mV depuis
-  // 1,8 V — soit (3300 - 1800) / 100 = 15, la valeur maximale.
+  // 1,8 V, soit (3300 - 1800) / 100 = 15, la valeur maximale.
   uint8_t tensions = 0;
   lire(kRegTensionLdo23, &tensions);
   if (!ecrire(kRegTensionLdo23, static_cast<uint8_t>((tensions & 0x0F) | (15 << 4)))) {

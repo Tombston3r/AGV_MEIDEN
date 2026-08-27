@@ -1,4 +1,4 @@
-// Profil matériel/applicatif — point d'entrée unique de la configuration.
+// Profil matériel/applicatif : point d'entrée unique de la configuration.
 //
 // Le header généré ne fournit que les VALEURS PAR DÉFAUT. Tout le code exploite
 // la structure `HardwareProfile` en runtime : c'est ce qui permet aux tests du
@@ -11,7 +11,7 @@
 
 namespace agv {
 
-// Variante d'interface bus retenue (§12.10) — pas encore tranchée.
+// Variante d'interface bus retenue (§12.10) : pas encore tranchée.
 enum class DriverVariant : uint8_t {
   Sim = CFG_DRIVER_SIM,
   Mcp23017 = CFG_DRIVER_MCP23017,
@@ -61,7 +61,7 @@ struct ProtocolConfig {
 struct EnoceanConfig {
   uint32_t dedup_window_ms;       // PTM 210 : 3 sous-télégrammes (§7)
   // §12.8 : TCM 515 (Rx seul) ou TCM 310 (bidirectionnel). Tant que c'est vrai,
-  // aucun accusé n'est possible vers le bouton EnOcean — l'IHM ne doit donc
+  // aucun accusé n'est possible vers le bouton EnOcean : l'IHM ne doit donc
   // rien promettre à l'opérateur de ce côté.
   bool rx_only;
   uint32_t pairing_mode_timeout_s;

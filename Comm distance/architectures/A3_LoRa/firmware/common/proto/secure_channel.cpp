@@ -28,7 +28,7 @@ void SecureChannel::build_iv(uint16_t node_id, uint32_t nonce, uint8_t iv[kAesBl
   iv[5] = static_cast<uint8_t>(nonce & 0xFFu);
 }
 
-// AES-CMAC (RFC 4493), tronqué à 4 octets. Optionnel — voir l'en-tête.
+// AES-CMAC (RFC 4493), tronqué à 4 octets. Optionnel : voir l'en-tête.
 void SecureChannel::cmac(const uint8_t* data, size_t len, uint8_t tag[kCmacTagSize]) const {
   uint8_t zero[16] = {};
   uint8_t l[16];

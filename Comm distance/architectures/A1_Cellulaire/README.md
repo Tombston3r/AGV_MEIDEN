@@ -1,14 +1,14 @@
-# AGV MEIDEN — architecture SMS + EnOcean
+# AGV MEIDEN : architecture SMS + EnOcean
 
 > **Bancs** : [`../../bancs/enocean/`](../../bancs/enocean/) valide les boutons `PTM 210` de cette architecture sur table.
 Remplacement de la carte **AIO AGV Control V5.0.1** (ATmega2560 + ESP32, Wi-Fi
 2,4 GHz) d'un AGV MEIDEN à guidage magnétique. Le 2,4 GHz du site étant saturé,
 la liaison change ; la fonction, elle, reste : **la carte porte la mémoire de
-mission** — jusqu'à 5 courses en file, l'AGV n'en connaissant qu'une à la fois.
+mission** : jusqu'à 5 courses en file, l'AGV n'en connaissant qu'une à la fois.
 
 **Ce dossier est une architecture complète et autonome** : boutons **EnOcean**
 sans pile au poste fixe, liaison **cellulaire** vers l'AGV. Les autres
-architectures vivent dans des dossiers frères — voir [`../README.md`](../README.md).
+architectures vivent dans des dossiers frères : voir [`../README.md`](../README.md).
 
 > ⚠️ **Organe de commande, pas organe de sécurité.** L'arrêt d'urgence, les
 > bumpers et le scrutateur laser restent dans une chaîne indépendante conforme à
@@ -31,17 +31,17 @@ les défauts `Y03` et les rebonds, en temps simulé.
 Le choix de liaison n'est pas tranché avec le client. Les transports sont
 interchangeables **derrière une abstraction commune** (`ITransport`), et le
 séquenceur du bus MEIDEN est rigoureusement identique quel que soit le
-transport — c'est ce qui rend les architectures comparables à coût nul.
+transport : c'est ce qui rend les architectures comparables à coût nul.
 
 | Élément | Choix de ce dossier | Implémentation |
 |---|---|---|
 | Appel opérateur | **EnOcean PTM 210** (bouton sans pile) | `enocean/`, `poste_app` |
 | Liaison poste → AGV | **LTE-M / MQTT** (recommandé) | `MqttLteTransport` |
-| Variante de comparaison | **SMS** — ni latence bornée, ni ordre | `SmsTransport`, `poste-unipi/` |
+| Variante de comparaison | **SMS**, ni latence bornée, ni ordre | `SmsTransport`, `poste-unipi/` |
 | Alerte hors site | SMS bas volume | `AlertGateway` |
 
 De même pour l'interface matérielle du bus (§12.10, non tranchée) : trois
-implémentations de `IBusDriver` — 4× MCP23017 (I²C), 3× 74HC595 + 3× 74HC165
+implémentations de `IBusDriver` : 4× MCP23017 (I²C), 3× 74HC595 + 3× 74HC165
 (SPI, pose simultanée, **variante préférable**), ou ATmega2560 conservé.
 
 ## État du projet
@@ -62,23 +62,23 @@ implémentations de `IBusDriver` — 4× MCP23017 (I²C), 3× 74HC595 + 3× 74HC
 
 **Aucun relevé matériel n'a encore été fait.** Les valeurs par défaut sont
 marquées `PROVISOIRE §12.x` dans le code et listées dans
-[`docs/questions_ouvertes.md`](docs/questions_ouvertes.md) — à lire avant toute
+[`docs/questions_ouvertes.md`](docs/questions_ouvertes.md), à lire avant toute
 mise en service.
 
 ## Documentation
 
-- **[`DEPLOY.md`](DEPLOY.md) — procédure de déploiement complète**, du relevé de
+- **[`DEPLOY.md`](DEPLOY.md) : procédure de déploiement complète**, du relevé de
   couverture éliminatoire au procès-verbal de recette.
-- **[`BOM.md`](BOM.md) — nomenclature complète**, matériel, outillage,
+- **[`BOM.md`](BOM.md) : nomenclature complète**, matériel, outillage,
   récurrent et coût sur 10 ans.
-- **[`docs/ETAT_PROJET.md`](docs/ETAT_PROJET.md) — état, déploiement, kanban.
+- **[`docs/ETAT_PROJET.md`](docs/ETAT_PROJET.md) : état, déploiement, kanban.
   Point d'entrée, tenu à jour à chaque modification.**
-- [`CLAUDE.md`](CLAUDE.md) — règles de contribution et pièges rencontrés
-- [`docs/chronogrammes.md`](docs/chronogrammes.md) — les quatre phases, front par front
-- [`docs/signal_map.md`](docs/signal_map.md) — bus X/Y et numérotation octale
-- [`docs/procedures_essai.md`](docs/procedures_essai.md) — du poste de dev à l'AGV
-- [`docs/protocole_mega.md`](docs/protocole_mega.md) — liaison inter-MCU
-- [`docs/questions_ouvertes.md`](docs/questions_ouvertes.md) — **le §12, à faire trancher**
+- [`CLAUDE.md`](CLAUDE.md) : règles de contribution et pièges rencontrés
+- [`docs/chronogrammes.md`](docs/chronogrammes.md) : les quatre phases, front par front
+- [`docs/signal_map.md`](docs/signal_map.md) : bus X/Y et numérotation octale
+- [`docs/procedures_essai.md`](docs/procedures_essai.md) : du poste de dev à l'AGV
+- [`docs/protocole_mega.md`](docs/protocole_mega.md) : liaison inter-MCU
+- [`docs/questions_ouvertes.md`](docs/questions_ouvertes.md) : **le §12, à faire trancher**
 
 ## Licence et propriété
 

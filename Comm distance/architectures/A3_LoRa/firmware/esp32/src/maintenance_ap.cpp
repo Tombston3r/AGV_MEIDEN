@@ -24,7 +24,7 @@ esp_err_t handle_agvdump(httpd_req_t* req) {
 esp_err_t handle_root(httpd_req_t* req) {
   static const char* kPage =
       "<!doctype html><meta charset=utf-8><title>AGV maintenance</title>"
-      "<h1>AGV — maintenance</h1>"
+      "<h1>AGV : maintenance</h1>"
       "<p>Fenêtre de maintenance ouverte. Le Wi-Fi se refermera automatiquement.</p>"
       "<p><a href=\"/agvdump\">/agvdump</a></p>";
   httpd_resp_set_type(req, "text/html; charset=utf-8");

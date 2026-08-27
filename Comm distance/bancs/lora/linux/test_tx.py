@@ -10,7 +10,7 @@ En face, faire tourner `test_rx.py` sur l'autre poste, ou l'environnement
 
 Le budget de rapport cyclique est appliqué : le script REFUSE d'émettre
 au-delà de 1 % sur une heure glissante. C'est une obligation réglementaire
-(EN 300 220 / ERC 70-03), pas une précaution — un essai d'endurance est
+(EN 300 220 / ERC 70-03), pas une précaution : un essai d'endurance est
 justement le moment où l'on risque de la franchir sans s'en rendre compte.
 """
 
@@ -88,7 +88,7 @@ def main():
         now = time.monotonic()
         if not duty.allows(attendu_ms / 1000.0, now):
             refusees += 1
-            print(f"[{i:3}] REFUSÉ — budget de rapport cyclique épuisé "
+            print(f"[{i:3}] REFUSÉ : budget de rapport cyclique épuisé "
                   f"({duty.used_s(now):.1f} s utilisées sur {duty.budget_s:.1f} s)")
             time.sleep(args.interval)
             continue

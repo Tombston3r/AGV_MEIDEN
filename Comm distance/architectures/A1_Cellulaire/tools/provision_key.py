@@ -3,7 +3,7 @@
 
 La clé vit en NVS sur l'AGV et sur le poste fixe.
 Sans elle, la liaison démarre EN CLAIR : le firmware le journalise bruyamment,
-mais ne refuse pas de démarrer — un site sans clé doit rester diagnosticable.
+mais ne refuse pas de démarrer : un site sans clé doit rester diagnosticable.
 
     # Générer une clé et l'écrire dans un fichier de partition NVS
     python3 tools/provision_key.py generate --out build/nvs_agv.csv

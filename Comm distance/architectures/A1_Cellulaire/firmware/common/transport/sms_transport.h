@@ -1,4 +1,4 @@
-// Transport SMS — architecture 2 variante A (brief §8.1).
+// Transport SMS : architecture 2 variante A (brief §8.1).
 //
 // AVERTISSEMENT PORTÉ PAR LE CODE, PAS SEULEMENT PAR LA DOC :
 // le SMS n'offre ni latence bornée, ni ordre de remise, ni garantie de remise,

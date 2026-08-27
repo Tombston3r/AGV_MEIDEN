@@ -1,4 +1,4 @@
-"""Tests du poste fixe UniPi — chaîne EnOcean -> MQTT (planification §3)."""
+"""Tests du poste fixe UniPi : chaîne EnOcean -> MQTT (planification §3)."""
 
 from __future__ import annotations
 

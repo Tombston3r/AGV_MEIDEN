@@ -14,7 +14,7 @@ Trois usages :
     python3 tools/replay_frames.py replay releve.txt
 
 Le décodage est volontairement tolérant : une trame illisible est signalée avec
-sa raison, jamais silencieusement ignorée — c'est tout l'intérêt en diagnostic.
+sa raison, jamais silencieusement ignorée : c'est tout l'intérêt en diagnostic.
 """
 
 from __future__ import annotations
@@ -92,7 +92,7 @@ def cmd_replay(args: argparse.Namespace) -> int:
             frame = Frame.decode(bytes.fromhex(text), expected_version=None)
         except (FrameError, ValueError) as exc:
             bad += 1
-            print(f"ligne {lineno}: REJETÉE — {exc}")
+            print(f"ligne {lineno}: REJETÉE : {exc}")
             continue
         ok += 1
         print(f"ligne {lineno}: {frame.type.name} node={frame.node_id} seq={frame.seq} "

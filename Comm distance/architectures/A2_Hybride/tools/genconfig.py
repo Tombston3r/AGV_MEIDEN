@@ -124,7 +124,7 @@ def literal(path: str, value: Any) -> str:
 def render(profile: dict[str, Any], source: Path) -> str:
     lines: list[str] = [
         "// ===========================================================================",
-        "//  FICHIER GÉNÉRÉ — NE PAS ÉDITER À LA MAIN.",
+        "//  FICHIER GÉNÉRÉ : NE PAS ÉDITER À LA MAIN.",
         f"//  Source : {source.as_posix()}",
         "//  Régénération : python3 tools/genconfig.py <profil.yaml> <sortie.h>",
         "// ===========================================================================",
@@ -150,12 +150,12 @@ def render(profile: dict[str, Any], source: Path) -> str:
             continue
         note = PROVISIONAL_KEYS.get(path)
         if note:
-            lines.append(f"// PROVISOIRE {note} — valeur non relevée sur la V5.0.1.")
+            lines.append(f"// PROVISOIRE {note} : valeur non relevée sur la V5.0.1.")
         lines.append(f"#define {macro_name(path)} {literal(path, value)}")
 
     lines.append("")
     lines.append("// --- Brochage (§12.2) : mapping signal -> position dans le mot bus. ---")
-    lines.append("// PROVISOIRE §12.2 — divergence CN61/62/63 vs CN62/63/64 non tranchée.")
+    lines.append("// PROVISOIRE §12.2 : divergence CN61/62/63 vs CN62/63/64 non tranchée.")
     for name, bit in sorted(pinmap_x, key=lambda kv: kv[1]):
         lines.append(f"#define CFG_PIN_{name} {bit}u")
     for name, bit in sorted(pinmap_y, key=lambda kv: kv[1]):

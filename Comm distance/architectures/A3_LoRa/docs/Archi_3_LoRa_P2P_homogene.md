@@ -1,6 +1,6 @@
-# Architecture 1 — LoRa 868 MHz point-à-point privé (solution homogène)
+# Architecture 1 : LoRa 868 MHz point-à-point privé (solution homogène)
 
-> Document de référence — projet « Remplacement de la carte AIO AGV Control V5.0.1 »
+> Document de référence : projet « Remplacement de la carte AIO AGV Control V5.0.1 »
 > AGV MEIDEN à guidage magnétique, appel depuis boutons déportés vers points d'arrêt.
 
 ---
@@ -60,7 +60,7 @@ Trois flux fonctionnels :
 | Temps d'antenne (16 o, SF9/125k) | ≈ 100 ms | Base du calcul de rapport cyclique |
 | Latence bouton → exécution | ≈ 200–250 ms (appel + accusé) | Aller ~100 ms + retournement + ACK ~100 ms |
 
-**Contrainte de rapport cyclique (ERC 70-03 / EN 300 220)** — c'est le point de dimensionnement le plus souvent oublié :
+**Contrainte de rapport cyclique (ERC 70-03 / EN 300 220)** : c'est le point de dimensionnement le plus souvent oublié :
 
 - En g1 (1 %) avec 100 ms de ToA → **1 émission toutes les 10 s maximum par équipement**. Suffisant pour un bouton d'appel, tendu pour la télémétrie.
 - Télémétrie AGV à 30 s de période → 100 ms / 30 s = **0,33 %** → conforme en g1.
@@ -84,8 +84,8 @@ Octet N+1..2 : CRC16-CCITT sur les octets 0..N
 | Type | Code | Payload | Sens |
 |---|---|---|---|
 | `CMD_GOTO` | 0x10 | station (u16) + vitesse (u8, 0-15) | Bouton → AGV |
-| `CMD_STOP` | 0x11 | — | Bouton → AGV |
-| `CMD_CLEAR` | 0x12 | — (vide la file de courses) | Bouton → AGV |
+| `CMD_STOP` | 0x11 | - | Bouton → AGV |
+| `CMD_CLEAR` | 0x12 | : (vide la file de courses) | Bouton → AGV |
 | `TELEMETRY` | 0x20 | station courante (u16), vitesse (u8), état (u8), nb courses en file (u8), Vbat (u8) | AGV → broadcast |
 | `ACK` | 0x30 | seq acquitté (u8), code résultat (u8) | AGV → bouton |
 | `NACK` | 0x31 | seq (u8), code erreur (u8) | AGV → bouton |
@@ -110,12 +110,12 @@ C'est la partie la plus critique du redesign, et elle est **identique dans les t
 2. Poser la vitesse sur les 4 lignes dédiées
 3. Attendre le temps de stabilisation (t_setup, à mesurer à l'oscilloscope sur la carte d'origine)
 4. Lever X82 (front de validation « start »)
-5. Attendre Y05 (accusé automate) — timeout et compteur de tentatives (`Start tries`)
+5. Attendre Y05 (accusé automate) : timeout et compteur de tentatives (`Start tries`)
 6. Retomber X82
 
 La séquence d'arrêt est symétrique : X83 / Y10, avec son propre compteur.
 
-**File de courses** : jusqu'à 5 destinations en attente. Sur la carte d'origine elle n'existe qu'en RAM du MEGA — elle est perdue à chaque coupure. **Amélioration à intégrer** : la stocker en NVS (flash ESP32), ce qui rend le système robuste au redémarrage. C'est un gain fonctionnel gratuit du redesign.
+**File de courses** : jusqu'à 5 destinations en attente. Sur la carte d'origine elle n'existe qu'en RAM du MEGA, elle est perdue à chaque coupure. **Amélioration à intégrer** : la stocker en NVS (flash ESP32), ce qui rend le système robuste au redémarrage. C'est un gain fonctionnel gratuit du redesign.
 
 **Isolation électrique** : optocoupleurs sur les 43 lignes, dans les deux sens.
 - Sorties X : MCP23017 → PC847 (LED) → phototransistor côté automate, avec résistance de tirage adaptée au rail de l'automate.
@@ -128,7 +128,7 @@ Chaque bouton est un nœud autonome sur pile :
 
 - Sommeil profond permanent (< 2 µA), réveil sur front du bouton (interruption GPIO)
 - Émission de la trame `CMD_GOTO`, attente d'ACK jusqu'à 400 ms, jusqu'à 3 tentatives
-- Retour visuel : LED verte fixe 2 s = ACK reçu ; LED rouge clignotante = pas d'accusé après 3 essais (l'opérateur sait immédiatement que l'appel n'est pas passé — fonction absente de la solution EnOcean pure)
+- Retour visuel : LED verte fixe 2 s = ACK reçu ; LED rouge clignotante = pas d'accusé après 3 essais (l'opérateur sait immédiatement que l'appel n'est pas passé, fonction absente de la solution EnOcean pure)
 - Consommation : ~120 mA pendant 100 ms d'émission. Avec une pile Li-SOCl₂ ER14505 (2,6 Ah), et 100 appels/jour, l'autonomie est dominée par l'autodécharge → **> 5 ans réalistes**, à valider par calcul de budget énergétique complet
 - Ajout d'un bouton = flasher un `node_id` + une station. Aucune modification côté AGV.
 
@@ -156,7 +156,7 @@ Chaque bouton est un nœud autonome sur pile :
 | | |
 |---|---|
 | **Boutons sur pile** | Maintenance à prévoir (remplacement tous les ~5 ans), et un journal de suivi. C'est le seul vrai reproche du client par rapport à l'EnOcean |
-| **Rapport cyclique réglementaire** | Bride la fréquence de télémétrie. Impose un choix de sous-bande documenté et un compteur de duty cycle dans le firmware — sinon non-conformité EN 300 220 |
+| **Rapport cyclique réglementaire** | Bride la fréquence de télémétrie. Impose un choix de sous-bande documenté et un compteur de duty cycle dans le firmware : sinon non-conformité EN 300 220 |
 | **Half-duplex** | Le RFM95W ne peut pas émettre et écouter simultanément. Le firmware AGV doit alterner proprement écoute / émission, avec fenêtre d'ACK. Détail de firmware, mais à concevoir dès le départ |
 | **Collisions possibles si le parc grossit** | Pas de mécanisme d'accès au médium type CSMA en LoRa nu. Au-delà de ~10 boutons très sollicités, il faudra ajouter un LBT (Listen Before Talk) ou une fenêtre temporelle par nœud |
 | **Charge de développement côté intégrateur** | La fiabilisation (ACK, retransmission, séquence, idempotence) est à concevoir et tester en interne. Rien n'est fourni par un standard |
@@ -177,19 +177,19 @@ Prix indicatifs HT, petites quantités, 2026. À reconsulter au moment de l'acha
 |---|---|---:|---:|---:|
 | ESP32-WROOM-32E-N8 | Module MCU Wi-Fi/BT, 8 Mo flash | 1 | 5,00 € | 5,00 € |
 | RFM95W-868S2 | Module LoRa SX1276 868 MHz | 1 | 10,00 € | 10,00 € |
-| — | Connecteur U.FL + pigtail SMA femelle | 1 | 3,00 € | 3,00 € |
-| — | Antenne 868 MHz 1/4 onde 2 dBi, embase SMA | 1 | 6,00 € | 6,00 € |
+| - | Connecteur U.FL + pigtail SMA femelle | 1 | 3,00 € | 3,00 € |
+| - | Antenne 868 MHz 1/4 onde 2 dBi, embase SMA | 1 | 6,00 € | 6,00 € |
 | MCP23017-E/SP | Expandeur I²C 16 GPIO | 4 | 2,50 € | 10,00 € |
 | PC847 | Optocoupleur quadruple (43 voies → 11 boîtiers) | 11 | 0,60 € | 6,60 € |
-| — | Résistances 1 %, condensateurs découplage, LED d'état | lot | — | 8,00 € |
+| - | Résistances 1 %, condensateurs découplage, LED d'état | lot | - | 8,00 € |
 | TSR 1-2450 | Convertisseur DC/DC 24 V → 5 V, 1 A, non isolé | 1 | 7,00 € | 7,00 € |
 | AP2112K-3.3 | LDO 3,3 V 600 mA pour ESP32 + radio | 1 | 0,60 € | 0,60 € |
 | SMBJ33A | Diode TVS protection alimentation 24 V | 2 | 0,50 € | 1,00 € |
-| — | Connecteur SUB-D 25 mâle, coudé CI | 1 | 3,00 € | 3,00 € |
-| — | Connecteur SUB-D 25 femelle, coudé CI | 1 | 3,00 € | 3,00 € |
-| — | PCB 4 couches ~120 × 100 mm (série de 5) | 1 | 12,00 € | 12,00 € |
-| — | Boîtier ABS/alu, fixation, presse-étoupes | 1 | 25,00 € | 25,00 € |
-| — | Connecteur de programmation (UART/USB-C ou pogo) | 1 | 3,00 € | 3,00 € |
+| - | Connecteur SUB-D 25 mâle, coudé CI | 1 | 3,00 € | 3,00 € |
+| - | Connecteur SUB-D 25 femelle, coudé CI | 1 | 3,00 € | 3,00 € |
+| - | PCB 4 couches ~120 × 100 mm (série de 5) | 1 | 12,00 € | 12,00 € |
+| - | Boîtier ABS/alu, fixation, presse-étoupes | 1 | 25,00 € | 25,00 € |
+| - | Connecteur de programmation (UART/USB-C ou pogo) | 1 | 3,00 € | 3,00 € |
 | | | | **Total carte AGV** | **≈ 103 €** |
 
 ### 6.2 Bouton d'appel (× nombre de stations)
@@ -198,8 +198,8 @@ Prix indicatifs HT, petites quantités, 2026. À reconsulter au moment de l'acha
 |---|---|---:|---:|---:|
 | STM32L071KBU6 | MCU ultra-basse consommation (ou ESP32-C3 si on privilégie l'homogénéité de toolchain) | 1 | 3,50 € | 3,50 € |
 | RFM95W-868S2 | Module LoRa 868 MHz | 1 | 10,00 € | 10,00 € |
-| — | Antenne 868 MHz + embase SMA | 1 | 6,00 € | 6,00 € |
-| — | Bouton poussoir industriel Ø22 IP65, coup de poing ou affleurant | 1 | 12,00 € | 12,00 € |
+| - | Antenne 868 MHz + embase SMA | 1 | 6,00 € | 6,00 € |
+| - | Bouton poussoir industriel Ø22 IP65, coup de poing ou affleurant | 1 | 12,00 € | 12,00 € |
 | ER14505 | Pile Li-SOCl₂ 3,6 V 2,6 Ah + support | 1 | 6,00 € | 6,00 € |
 | TPS62740 | Convertisseur buck ultra-basse conso (ou LDO si budget serré) | 1 | 2,00 € | 2,00 € |
 
@@ -208,9 +208,9 @@ Prix indicatifs HT, petites quantités, 2026. À reconsulter au moment de l'acha
 > (1,8–3,7 V) acceptent directement. Le besoin réel est un **réservoir
 > capacitif** pour l'impulsion d'émission. Voir [`../BOM.md`](../BOM.md),
 > section « Analyse critique de cette nomenclature ».
-| — | LED bicolore verte/rouge + résistances | 1 | 1,00 € | 1,00 € |
-| — | PCB 2 couches ~50 × 50 mm | 1 | 3,00 € | 3,00 € |
-| — | Boîtier IP65 avec presse-étoupe et embase antenne | 1 | 18,00 € | 18,00 € |
+| - | LED bicolore verte/rouge + résistances | 1 | 1,00 € | 1,00 € |
+| - | PCB 2 couches ~50 × 50 mm | 1 | 3,00 € | 3,00 € |
+| - | Boîtier IP65 avec presse-étoupe et embase antenne | 1 | 18,00 € | 18,00 € |
 | | | | **Total par bouton** | **≈ 62 €** |
 
 ### 6.3 Outillage et mise au point (non récurrent)
@@ -219,7 +219,7 @@ Prix indicatifs HT, petites quantités, 2026. À reconsulter au moment de l'acha
 |---|---:|---|
 | Dongle RTL-SDR + antenne | 30 € | Mesure d'occupation réelle de la bande 868 MHz avant installation (`rtl_power`). **Argument objectif à opposer au client sur la crainte de collision** |
 | Analyseur logique 8 voies (type Saleae clone) | 15 € | Relevé des chronogrammes du bus X/Y sur la carte d'origine |
-| Oscilloscope (existant ?) | — | Mesure d'amplitude sur Y05 — **prérequis bloquant au schéma** |
+| Oscilloscope (existant ?) | - | Mesure d'amplitude sur Y05 : **prérequis bloquant au schéma** |
 
 ### 6.4 Coût total du système (2 stations)
 
@@ -241,7 +241,7 @@ Prix indicatifs HT, petites quantités, 2026. À reconsulter au moment de l'acha
 3. **Chronogrammes du bus X/Y** à l'analyseur logique → mesurer t_setup, t_hold, la durée de l'impulsion X82 et le délai maximal d'apparition de Y05.
 4. **Campagne RTL-SDR** dans l'usine, aux heures de production → objectiver l'occupation de la bande 868 MHz et choisir la sous-bande définitive.
 5. **Essai de portée en charge** entre le point le plus éloigné du parcours magnétique et un bouton, avec l'AGV en mouvement et les machines en marche.
-6. **Confirmation du rôle des fils jaune/orange/rouge repris au Kapton** (liaison série ESP32 ↔ MEGA ?) — pour savoir si on peut réutiliser le connecteur d'origine.
+6. **Confirmation du rôle des fils jaune/orange/rouge repris au Kapton** (liaison série ESP32 ↔ MEGA ?), pour savoir si on peut réutiliser le connecteur d'origine.
 
 ---
 

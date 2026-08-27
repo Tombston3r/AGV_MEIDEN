@@ -47,13 +47,13 @@ fi
 
 # Le destinataire doit savoir ce qu'il a entre les mains, et d'où ça vient.
 cat > "$DEST/EXPORT.md" <<EOF
-# Export autonome — $ARCHI
+# Export autonome : $ARCHI
 
 Extrait du dépôt AGV MEIDEN le $HORODATAGE$( [[ -n "$(git -C "$RACINE" rev-parse --short HEAD 2>/dev/null)" ]] && echo " (commit $(git -C "$RACINE" rev-parse --short HEAD))" ).
 
 Cet ensemble contient tout le nécessaire :
 
-- l'architecture complète — firmware, tests, nomenclature, déploiement ;
+- l'architecture complète : firmware, tests, nomenclature, déploiement ;
 - \`docs/BRIEF.md\` : la référence unique du projet, où renvoient les \`§N\` ;
 - \`docs/COMPARAISON.md\` : le comparatif des quatre architectures ;$( [[ -n "$CARTE" ]] && printf '\n- `materiel/%s` : le projet KiCad de la carte.' "$CARTE" )
 

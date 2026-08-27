@@ -3,7 +3,7 @@
 // Objet de ce fichier : prouver que chaque point non relevé sur la carte
 // d'origine est un PARAMÈTRE lu depuis la configuration, et non une valeur
 // figée dans la logique. Le jour où le relevé arrive, seul le profil YAML
-// change — aucune ligne de logique.
+// change : aucune ligne de logique.
 //
 // Convention : chaque test est nommé point_12_N_....
 #include <string>
@@ -70,7 +70,7 @@ struct Rig {
 
 }  // namespace
 
-// §12.1 — Amplitude réelle des lignes Y (6 V ou 24 V) : conditionne le
+// §12.1, Amplitude réelle des lignes Y (6 V ou 24 V) : conditionne le
 // debounce. Le paramètre est y_debounce_us.
 TEST(point_12_1_debounce_Y_vient_du_profil) {
   YDebouncer fast(500);
@@ -91,7 +91,7 @@ TEST(point_12_1_debounce_Y_vient_du_profil) {
   CHECK_EQ(r.profile.bus.y_debounce_us, 12345u);
 }
 
-// §12.2 — Brochage des SUB-D 25 non tranché (CN61/62/63 vs CN62/63/64).
+// §12.2 : Brochage des SUB-D 25 non tranché (CN61/62/63 vs CN62/63/64).
 // Le mapping signal -> broche vit dans profiles/*.yaml, modifiable sans
 // recompiler la logique.
 TEST(point_12_2_brochage_vient_du_fichier_de_configuration) {
@@ -117,7 +117,7 @@ TEST(point_12_2_un_brochage_different_fonctionne_sans_toucher_la_logique) {
   CHECK_EQ(r.seq->counters().current_station, 9u);
 }
 
-// §12.3 — Logique automate PNP ou NPN : inverse la polarité des 22 voies X.
+// §12.3, Logique automate PNP ou NPN : inverse la polarité des 22 voies X.
 TEST(point_12_3_polarite_PNP_NPN_est_un_booleen_de_configuration) {
   Rig pnp;
   pnp.build();
@@ -137,7 +137,7 @@ TEST(point_12_3_polarite_PNP_NPN_est_un_booleen_de_configuration) {
   CHECK(pnp.bus->lastX() != npn.bus->lastX());
 }
 
-// §12.4 — t_setup du bus X avant le strobe X93.
+// §12.4 : t_setup du bus X avant le strobe X93.
 TEST(point_12_4_t_setup_est_respecte_et_parametrable) {
   Rig strict;
   strict.timings.required_setup_us = 1000;
@@ -150,7 +150,7 @@ TEST(point_12_4_t_setup_est_respecte_et_parametrable) {
   CHECK_EQ(strict.seq->counters().write_tries, 1u);
 }
 
-// §12.5 — Timeouts des accusés Y22 / Y05 / Y10 : paramètres DISTINCTS.
+// §12.5, Timeouts des accusés Y22 / Y05 / Y10 : paramètres DISTINCTS.
 TEST(point_12_5_les_trois_timeouts_sont_distincts_et_effectifs) {
   const HardwareProfile& p = default_profile();
   // Trois champs séparés dans la configuration.
@@ -187,7 +187,7 @@ TEST(point_12_5_timeout_d_arrivee_Y10_est_instrumente) {
   CHECK_EQ(r.seq->counters().y10_timeouts, 1u);
 }
 
-// §12.6 — Correspondance des repères sérigraphiés T9…T24 avec les signaux Y.
+// §12.6 : Correspondance des repères sérigraphiés T9…T24 avec les signaux Y.
 // Non relevée : le code n'en dépend jamais, il ne manipule que des noms de
 // signaux. Le champ `*_op_return` est exposé SYMBOLIQUEMENT pour pouvoir être
 // recalé sur la sortie agvdump d'origine sans réécrire la logique.
@@ -201,7 +201,7 @@ TEST(point_12_6_aucun_repere_serigraphie_n_est_cable_dans_la_logique) {
   CHECK(c.write_op_return == OpReturn::Ok);
 }
 
-// §12.7 — Protocole ESP32 <-> application mobile « AIO AGV Remote » non
+// §12.7 : Protocole ESP32 <-> application mobile « AIO AGV Remote » non
 // documenté. TRANCHÉ par la planification (§1) : l'application mobile est
 // abandonnée au profit des boutons EnOcean et de l'interface web du poste
 // fixe. Le champ `ver` de la trame reste néanmoins réservé, pour qu'un second
@@ -217,11 +217,11 @@ TEST(point_12_7_le_protocole_reste_versionne) {
   CHECK(decode_frame(buf, len, out, 2) == FrameError::Ok);
 }
 
-// §12.8 — TCM 515 (Rx seul) ou TCM 310 (bidirectionnel). Dans cette
+// §12.8 : TCM 515 (Rx seul) ou TCM 310 (bidirectionnel). Dans cette
 // architecture il n'y a NI broker NI poste sur le chemin de l'accusé : l'AGV
 // répond directement en LoRa à celui qui l'a appelé. L'accusé ne dépend donc
 // que d'un aller-retour radio, et le budget de rapport cyclique doit lui
-// laisser de la place — c'est ce que ce test contraint.
+// laisser de la place : c'est ce que ce test contraint.
 TEST(point_12_8_l_accuse_tient_dans_le_budget_legal) {
   const LoraConfig cfg;
   // Une trame de 9 octets à SF9, puis son accusé : les deux doivent tenir dans
@@ -234,10 +234,10 @@ TEST(point_12_8_l_accuse_tient_dans_le_budget_legal) {
   CHECK(budget.can_transmit(air_us, 1));   // l'accusé passe juste après
 }
 
-// §12.9 — Runtime disponible sur l'UniPi E413 commandé (Mervis vs Linux).
+// §12.9 : Runtime disponible sur l'UniPi E413 commandé (Mervis vs Linux).
 // Ici l'UniPi porte le poste fixe ET le broker MQTT : la question devient
 // bloquante, pas seulement gênante. Le contrat entre l'AGV et le poste est du
-// JSON sur MQTT — indépendant de la plateforme, du langage et de l'endianness.
+// JSON sur MQTT : indépendant de la plateforme, du langage et de l'endianness.
 TEST(point_12_9_le_contrat_reseau_est_independant_de_la_plateforme) {
   char buf[128];
   json::Writer w(buf, sizeof(buf));
@@ -255,9 +255,9 @@ TEST(point_12_9_le_contrat_reseau_est_independant_de_la_plateforme) {
   CHECK(std::string(buf).find("\"dest\":300") != std::string::npos);
 }
 
-// §12.10 — Variante matérielle d'interface bus. TRANCHÉ dans cette
+// §12.10 : Variante matérielle d'interface bus. TRANCHÉ dans cette
 // architecture : la carte V5.0.1 est conservée, l'ATmega2560 pose le bus par
-// ses ports. Ce qui reste à vérifier, c'est que la logique n'en dépend pas —
+// ses ports. Ce qui reste à vérifier, c'est que la logique n'en dépend pas :
 // le simulateur doit rester une implémentation valide de IBusDriver.
 TEST(point_12_10_le_materiel_est_celui_de_la_carte_conservee) {
   const HardwareProfile& p = default_profile();
@@ -271,7 +271,7 @@ TEST(point_12_10_le_materiel_est_celui_de_la_carte_conservee) {
 }
 
 // Spécifique à cette architecture : le repli heartbeat est un PARAMÈTRE, pas
-// une constante — le seuil de 2 s vient de la planification, pas du code.
+// une constante : le seuil de 2 s vient de la planification, pas du code.
 TEST(point_heartbeat_le_seuil_de_repli_vient_du_profil) {
   const HardwareProfile& p = default_profile();
   CHECK_EQ(p.heartbeat.timeout_ms, 2000u);

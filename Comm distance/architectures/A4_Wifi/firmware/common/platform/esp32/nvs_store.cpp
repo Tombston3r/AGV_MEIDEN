@@ -6,7 +6,7 @@ bool NvsStore::begin(const char* namespace_name) {
   esp_err_t err = nvs_flash_init();
   if (err == ESP_ERR_NVS_NO_FREE_PAGES || err == ESP_ERR_NVS_NEW_VERSION_FOUND) {
     // Partition inutilisable : on la réinitialise. La file de courses est
-    // perdue, ce qui est le comportement sûr — mieux vaut une file vide qu'une
+    // perdue, ce qui est le comportement sûr : mieux vaut une file vide qu'une
     // course fantôme.
     nvs_flash_erase();
     err = nvs_flash_init();

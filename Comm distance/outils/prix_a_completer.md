@@ -28,7 +28,7 @@ catalogue serait du temps perdu tant que le reste n'est pas figé.
 ### ⚠️ Ce total n'est pas un budget
 
 Le total ci-dessous additionne **toutes les lignes à leur quantité maximale,
-alternatives comprises** — les trois postes fixes UniPi, les trois étages de
+alternatives comprises** : les trois postes fixes UniPi, les trois étages de
 sortie possibles, les deux variantes d'interface bus. Aucun projet ne les
 achète tous.
 
@@ -38,7 +38,7 @@ options s'excluent proprement.
 
 | | HT |
 |---|---:|
-| **Enveloppe de sourcing** — 42 lignes, quantités maximales | **~1 630 €** |
+| **Enveloppe de sourcing** : 42 lignes, quantités maximales | **~1 630 €** |
 
 ---
 
@@ -48,7 +48,7 @@ options s'excluent proprement.
 |:-:|---|---|---:|---|---:|---|
 | ⭐ | `Unipi Gate G100` | Passerelle Linux DIN, 2× Eth, USB, RS485 | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Unipi+Gate+G100) · [Unipi](https://www.unipi.technology/search?query=Unipi+Gate+G100) | *200,00 €* | |
 | | `Unipi Gate G110` | Idem + 2ᵉ port RS485 isolé | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Unipi+Gate+G110) · [Unipi](https://www.unipi.technology/search?query=Unipi+Gate+G110) | *224,00 €* | |
-| | `UniPi E413` **si le modèle existe encore** | Automate à E/S — pour comparaison | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=UniPi+E413) · [Unipi](https://www.unipi.technology/search?query=E413) | *375,00 €* | |
+| | `UniPi E413` **si le modèle existe encore** | Automate à E/S, pour comparaison | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=UniPi+E413) · [Unipi](https://www.unipi.technology/search?query=E413) | *375,00 €* | |
 | ⭐ | `UniPi E413` **variante LTE** | Idem, avec modem LTE intégré | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=UniPi+E413) · [Unipi](https://www.unipi.technology/search?query=E413) | *350,00 €* | |
 | ⭐ | `Mega2560 Pro` (clone, format compact) | Module MCU du projet KiCad | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Mega2560+Pro) · [Amazon](https://www.amazon.fr/s?k=Mega2560+Pro) | *18,00 €* | |
 | ⭐ | `ESP32-DEVKITC-32D-F` | Module Wi-Fi/BT sur support | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ESP32-DEVKITC-32D-F) | *12,00 €* | |
@@ -68,7 +68,7 @@ options s'excluent proprement.
 
 | ⭐ | Réf. à rechercher | Désignation | Qté | Lien d'achat | *Repère HT* | **PU TTC** |
 |:-:|---|---|---:|---|---:|---|
-| ⭐ | `IRF520` (Vishay, TO-220) | MOSFET N canal — étage de sortie | 23 | [RS](https://fr.rs-online.com/web/c/?searchTerm=IRF520) | *0,60 €* | |
+| ⭐ | `IRF520` (Vishay, TO-220) | MOSFET N canal : étage de sortie | 23 | [RS](https://fr.rs-online.com/web/c/?searchTerm=IRF520) | *0,60 €* | |
 | ⭐ | `PC847` (Sharp) | Optocoupleur quadruple | 11 | [RS](https://fr.rs-online.com/web/c/?searchTerm=PC847) | *0,60 €* | |
 | | `SN74HC595N` (TI, DIP-16) | Registre à décalage, sortie | 3 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SN74HC595N) | *0,50 €* | |
 | | `SN74HC165N` (TI, DIP-16) | Registre à décalage, entrée | 3 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SN74HC165N) | *0,50 €* | |
@@ -86,7 +86,7 @@ options s'excluent proprement.
 | | `AP2112K-3.3TRG1` (Diodes Inc) | LDO 3,3 V 600 mA | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=AP2112K-3.3TRG1) | *0,60 €* | |
 | | `220 µF tantale + 10 µF X7R` | Réservoir d'impulsion émission LoRa (bouton) | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=220+%C2%B5F+tantale+%2B+10+%C2%B5F+X7R) | *0,50 €* | |
 | | `BAT54` | Schottky de protection pile (bouton) | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=BAT54) | *0,17 €* | |
-| | `ULN2803A` | **Alternative** à 23× IRF520 — étage de sortie Wi-Fi | 3 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ULN2803A) | *1,20 €* | |
+| | `ULN2803A` | **Alternative** à 23× IRF520 : étage de sortie Wi-Fi | 3 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ULN2803A) | *1,20 €* | |
 | | `IRL520N` | **Alternative** logic-level, même brochage que l'IRF520 | 23 | [RS](https://fr.rs-online.com/web/c/?searchTerm=IRL520N) | *1,10 €* | |
 | | `SMBJ33A` (Littelfuse) | Diode TVS 33 V | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SMBJ33A) | *0,50 €* | |
 | | `ER14505` ou `LS14500` (Saft) | Pile Li-SOCl₂ 3,6 V AA + support | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ER14505) | *6,00 €* | |
@@ -118,11 +118,11 @@ options s'excluent proprement.
 
 ## Ce dont je n'ai PAS besoin
 
-Ces lignes ne sont pas des articles de catalogue — inutile de les chercher :
+Ces lignes ne sont pas des articles de catalogue : inutile de les chercher :
 
 | Ligne | Pourquoi |
 |---|---|
-| **Antennes** (LoRa, EnOcean, Wi-Fi, LTE) et pigtails | Accessoires arbitrables selon le budget — voir ci-dessus |
+| **Antennes** (LoRa, EnOcean, Wi-Fi, LTE) et pigtails | Accessoires arbitrables selon le budget : voir ci-dessus |
 | **Boîtiers, coffrets rail DIN, enveloppes murales** | Idem |
 | **Poussoir Ø22 de façade** | Idem |
 | PCB 2 et 4 couches | Devis chez un fabricant (JLCPCB, Eurocircuits, PCBWay) à partir des Gerber |

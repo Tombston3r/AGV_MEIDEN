@@ -1,6 +1,6 @@
 // Wi-Fi de maintenance de l'AGV (brief §9.4).
 //
-// Le Wi-Fi est DÉSACTIVÉ PAR DÉFAUT — c'est tout l'intérêt du remplacement de
+// Le Wi-Fi est DÉSACTIVÉ PAR DÉFAUT : c'est tout l'intérêt du remplacement de
 // la V5.0.1 : ne plus polluer le 2,4 GHz saturé du site en permanence.
 // Il s'ouvre sur contact ILS (aimant) ou bouton, et se referme automatiquement
 // après `wifi_window_s` (600 s par défaut). Pendant la fenêtre, l'ESP32 sert le

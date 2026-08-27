@@ -97,7 +97,7 @@ TEST(temps_d_antenne_lora_sf9_ordre_de_grandeur) {
   // CONSÉQUENCE À REMONTER AU PROJET : le §6 vise ~200 ms de latence typique.
   // À SF9, l'aller seul coûte déjà 165 ms d'antenne ; avec l'ACK, un
   // aller-retour tourne autour de 330 ms, et trois tentatives dépassent la
-  // seconde — au-delà du « pire cas ~800 ms » annoncé. SF7 (~46 ms) tient la
+  // seconde, au-delà du « pire cas ~800 ms » annoncé. SF7 (~46 ms) tient la
   // cible ; c'est un arbitrage portée/latence à trancher avec le client.
   const uint32_t us = lora_airtime_us(13, 9, 125000, 5);
   CHECK(us > 140000u);

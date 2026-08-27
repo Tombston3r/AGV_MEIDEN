@@ -1,4 +1,4 @@
-// Stockage NVS (flash ESP32) — implémentation de IPersistentStore.
+// Stockage NVS (flash ESP32) : implémentation de IPersistentStore.
 //
 // Porte la file de courses (§4.5), la table d'appairage EnOcean (§7), la clé
 // AES et le compteur de nonce. Une NVS illisible ne doit jamais empêcher le

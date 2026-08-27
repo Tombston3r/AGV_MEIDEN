@@ -1,4 +1,4 @@
-// Câblage de l'ATmega2560 sur les SUB-D 25 — TABLE RELEVÉE.
+// Câblage de l'ATmega2560 sur les SUB-D 25 : TABLE RELEVÉE.
 //
 // Source : relevé de câblage fourni par le client (nappe 25 fils + connecteurs
 // IDC SUB-D 25, cosses serties côté AGV sur CN61 à CN64).
@@ -14,7 +14,7 @@
 //     vitesse) n'est aligné sur un port : la pose se fait par masques.
 //
 //  2. PORTA, PORTB et PORTG sont MIXTES (sorties X et entrées Y sur le même
-//     port). Toute écriture de DDR ou de PORT doit être masquée — un
+//     port). Toute écriture de DDR ou de PORT doit être masquée : un
 //     `DDRA = 0xFF` mettrait D23/Y21 en sortie contre l'automate.
 //
 //  3. Les 10 bits d'adresse sont sur PORTA, PORTC, PORTG et PORTL : quatre
@@ -49,7 +49,7 @@ inline AvrBusMap bus_map() {
   m.ports[kPortK] = {&PORTK, &DDRK, &PINK};
   m.ports[kPortL] = {&PORTL, &DDRL, &PINL};
 
-  // --- SORTIES X (SUB-D femelle) — index = position dans profiles/pinmap.x ---
+  // --- SORTIES X (SUB-D femelle) : index = position dans profiles/pinmap.x ---
   //                            broche MEGA    SUB-D   AGV     rôle
   m.x[0]  = {kPortL, 6};  // X82  D43         pin 10  CN63 B5  standby release (départ)
   m.x[1]  = {kPortA, 3};  // X83  D25         pin 23  CN63 A5  standby stop
@@ -74,7 +74,7 @@ inline AvrBusMap bus_map() {
   m.x[20] = {kPortA, 7};  // XA6  D29         pin 9   CN62 B9  destination x256
   m.x[21] = {kPortA, 2};  // XA7  D24         pin 22  CN62 A9  destination x512
 
-  // --- ENTRÉES Y (SUB-D mâle) — index = position dans profiles/pinmap.y ------
+  // --- ENTRÉES Y (SUB-D mâle) : index = position dans profiles/pinmap.y ------
   m.y[0]  = {kPortB, 5};  // Y03  D11         pin 2   CN62 B3  défaut (error lamp flag)
   m.y[1]  = {kPortJ, 0};  // Y05  D15         pin 15  CN62 A3  moving flag
   m.y[2]  = {kPortH, 6};  // Y10  D9          pin 3   CN63 B1  in station flag

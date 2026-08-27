@@ -2,7 +2,7 @@
 //
 // C'est le microcontrôleur qui porte la mission : séquenceur trois phases,
 // file de 5 courses, décodage de position. Il ne connaît ni le Wi-Fi, ni MQTT,
-// ni le poste fixe — seulement une liaison série et un heartbeat.
+// ni le poste fixe, seulement une liaison série et un heartbeat.
 //
 // REPLI DE SÉCURITÉ NON NÉGOCIABLE (planification §2) :
 // si le heartbeat de l'ESP32 disparaît plus de `heartbeat.timeout_ms`, l'ATmega
@@ -86,7 +86,7 @@ class MegaApp {
   bool started_ = false;
 
   // Idempotence : les 8 dernières séquences vues (brief §5.1). Volontairement
-  // court — la mémoire de l'ATmega est comptée, et l'ESP32 filtre déjà.
+  // court : la mémoire de l'ATmega est comptée, et l'ESP32 filtre déjà.
   static constexpr uint8_t kSeenMax = 8;
   uint8_t seen_[kSeenMax] = {};
   uint8_t seen_count_ = 0;

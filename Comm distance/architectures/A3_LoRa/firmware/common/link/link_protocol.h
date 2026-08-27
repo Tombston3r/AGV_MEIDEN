@@ -1,6 +1,6 @@
 // Protocole série ESP32 <-> ATmega2560 sur la carte V5.0.1 (planification §2.4).
 //
-// RÉPARTITION DES RÔLES — c'est la décision structurante de cette architecture :
+// RÉPARTITION DES RÔLES : c'est la décision structurante de cette architecture :
 //
 //   ATmega2560 : séquenceur X/Y, file de 5 courses, décodage de position.
 //                Il pose les 22 lignes en un cycle (`PORTx = valeur`), propriété
@@ -35,9 +35,9 @@ enum class Cmd : uint8_t {
   // ESP32 -> MEGA
   Heartbeat = 0x01,   // payload : vide. Rearme le repli de sécurité.
   Goto = 0x02,        // payload : seq(1) station(2) speed(1) flags(1)
-  Stop = 0x03,        // payload : flags(1) — bit 0 : purge de la file
+  Stop = 0x03,        // payload : flags(1), bit 0 : purge de la file
   GetState = 0x04,    // payload : vide
-  ClearFault = 0x05,  // payload : vide — acquittement opérateur
+  ClearFault = 0x05,  // payload : vide, acquittement opérateur
   Ping = 0x06,        // payload : vide
 
   // MEGA -> ESP32

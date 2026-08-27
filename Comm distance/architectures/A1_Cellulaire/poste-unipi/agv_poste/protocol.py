@@ -1,4 +1,4 @@
-"""Trame applicative AGV — implémentation Python du protocole du brief §5.1.
+"""Trame applicative AGV : implémentation Python du protocole du brief §5.1.
 
 Miroir strict de `firmware/common/proto/frame.h`. Toute évolution doit être
 faite des deux côtés le même jour : le champ `ver` existe pour que la version

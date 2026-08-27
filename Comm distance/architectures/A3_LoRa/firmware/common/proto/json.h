@@ -24,7 +24,7 @@ class Writer {
   void field(const char* key, uint32_t value);
   void field(const char* key, bool value);
   void field(const char* key, const char* value);
-  // Termine l'objet. Retourne la longueur écrite, 0 si le tampon a débordé —
+  // Termine l'objet. Retourne la longueur écrite, 0 si le tampon a débordé,
   // jamais un JSON tronqué, qui serait accepté puis mal interprété.
   size_t end();
 

@@ -64,7 +64,7 @@ def attendre_missions(n, delai_s=3.0):
 
 
 def motifs_du_journal(jour=None):
-    """Motifs du journal, restreints à une date locale si demandé — les
+    """Motifs du journal, restreints à une date locale si demandé : les
     événements produits au démarrage (heure réelle) ne comptent pas."""
     _, corps, _ = requete("GET", "/api/journal")
     return [e["motif"] for e in corps["evenements"]

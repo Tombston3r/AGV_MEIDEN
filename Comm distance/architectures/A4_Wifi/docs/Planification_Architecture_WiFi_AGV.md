@@ -1,4 +1,4 @@
-# AGV MEIDEN — Architecture Wi-Fi sur réseau d'entreprise
+# AGV MEIDEN : Architecture Wi-Fi sur réseau d'entreprise
 ## Document de planification
 
 **Version** : 1.0
@@ -10,13 +10,13 @@
 
 ```
 ┌────────────────────┐
-│  Boutons EnOcean   │   PTM 210 — auto-alimentés, sans pile
+│  Boutons EnOcean   │   PTM 210 : auto-alimentés, sans pile
 │  (× N marqueurs)   │   868 MHz, 3 sous-télégrammes par appui
 └─────────┬──────────┘
           │  EnOcean 868 MHz (~30 m indoor)
           ▼
 ┌──────────────────────────────────────────────────┐
-│         POSTE FIXE — UniPi E413                   │
+│         POSTE FIXE : UniPi E413                   │
 │  • TCM 515 (récepteur EnOcean, UART/ESP3)        │
 │  • Broker MQTT local (Mosquitto)                  │
 │  • Table de correspondance ID EnOcean → station   │
@@ -32,7 +32,7 @@
            │  802.11 (2,4 GHz avec ESP32-WROOM-32E)
            ▼
 ┌──────────────────────────────────────────────────┐
-│              AGV — Carte V5.0.1                   │
+│              AGV : Carte V5.0.1                   │
 │  • ESP32 : client Wi-Fi (STA) + client MQTT       │
 │            + liaison série vers ATmega            │
 │  • ATmega2560 : séquenceur X/Y, file de courses,  │
@@ -53,7 +53,7 @@
 
 ---
 
-## 2. Protocole applicatif — MQTT
+## 2. Protocole applicatif : MQTT
 
 Broker Mosquitto hébergé sur l'UniPi. L'ESP32 est client, le poste fixe est client et broker.
 
@@ -71,11 +71,11 @@ Broker Mosquitto hébergé sur l'UniPi. L'ESP32 est client, le poste fixe est cl
 - Numéro de séquence monotone sur `cmd` → rejet des doublons
 - Horodatage + péremption 30 s → une commande retardée ne s'exécute jamais
 
-**Repli de sécurité (non négociable)** : l'ESP32 entretient une ligne de heartbeat matérielle vers l'ATmega. Si le heartbeat disparaît plus de 2 s, l'ATmega termine le mouvement en cours, s'arrête à la station suivante et refuse toute nouvelle commande jusqu'au retour de la liaison. La chaîne de sécurité (arrêt d'urgence, bumpers, scrutateur) reste entièrement indépendante — cette carte est un organe de commande, pas de sécurité (ISO 3691-4).
+**Repli de sécurité (non négociable)** : l'ESP32 entretient une ligne de heartbeat matérielle vers l'ATmega. Si le heartbeat disparaît plus de 2 s, l'ATmega termine le mouvement en cours, s'arrête à la station suivante et refuse toute nouvelle commande jusqu'au retour de la liaison. La chaîne de sécurité (arrêt d'urgence, bumpers, scrutateur) reste entièrement indépendante, cette carte est un organe de commande, pas de sécurité (ISO 3691-4).
 
 ---
 
-## 3. Phase 0 — Prérequis bloquants
+## 3. Phase 0 : Prérequis bloquants
 
 Aucune de ces tâches ne peut être contournée. Elles conditionnent toutes les phases suivantes.
 
@@ -93,7 +93,7 @@ Aucune de ces tâches ne peut être contournée. Elles conditionnent toutes les 
 
 ---
 
-## 4. Phase 1 — Infrastructure réseau
+## 4. Phase 1 : Infrastructure réseau
 
 Prérequis : 0.1, 0.2, 0.7
 
@@ -108,7 +108,7 @@ Prérequis : 0.1, 0.2, 0.7
 
 ---
 
-## 5. Phase 2 — Firmware AGV
+## 5. Phase 2 : Firmware AGV
 
 Prérequis : 0.4, 0.5, 0.6
 
@@ -123,11 +123,11 @@ Prérequis : 0.4, 0.5, 0.6
 | 2.7 | ESP32 : client MQTT (publication `state`/`ack`, abonnement `cmd`, LWT) | 2 j |
 | 2.8 | ESP32 : Wi-Fi de maintenance à la demande (AP temporaire déclenché par ILS ou bouton, extinction auto après 10 min) pour préserver la procédure `agvdump` existante | 1-2 j |
 
-**Charge : 15-21 jours-homme.** La tâche 2.1 est le poste le plus lourd et le plus risqué du projet — c'est la réécriture d'une logique temps réel dont on n'a pas les sources.
+**Charge : 15-21 jours-homme.** La tâche 2.1 est le poste le plus lourd et le plus risqué du projet, c'est la réécriture d'une logique temps réel dont on n'a pas les sources.
 
 ---
 
-## 6. Phase 3 — Poste fixe UniPi
+## 6. Phase 3 : Poste fixe UniPi
 
 Prérequis : 0.1, 0.3
 
@@ -145,7 +145,7 @@ Prérequis : 0.1, 0.3
 
 ---
 
-## 7. Phase 4 — Intégration et essais
+## 7. Phase 4 : Intégration et essais
 
 | # | Tâche | Charge |
 |---|---|---|
@@ -159,7 +159,7 @@ Prérequis : 0.1, 0.3
 
 ### Critères d'acceptation à faire valider par le client AVANT les essais
 
-Faire fixer ces seuils par le client, puis les consigner au compte rendu — le critère devient le sien, pas le vôtre.
+Faire fixer ces seuils par le client, puis les consigner au compte rendu : le critère devient le sien, pas le vôtre.
 
 | Indicateur | Seuil à négocier |
 |---|---|
@@ -171,7 +171,7 @@ Faire fixer ces seuils par le client, puis les consigner au compte rendu — le 
 
 ---
 
-## 8. Phase 5 — Documentation et clôture
+## 8. Phase 5 : Documentation et clôture
 
 | # | Tâche | Charge |
 |---|---|---|
@@ -188,12 +188,12 @@ Faire fixer ces seuils par le client, puis les consigner au compte rendu — le 
 
 | Phase | Charge | Peut démarrer |
 |---|---|---|
-| 0 — Prérequis | 8-13 j | Immédiatement |
-| 1 — Infrastructure réseau | 4-6 j | Après 0.1, 0.2, 0.7 |
-| 2 — Firmware AGV | 15-21 j | Après 0.4, 0.5, 0.6 |
-| 3 — Poste fixe | 11-15 j | Après 0.1, 0.3 — **en parallèle de la Phase 2** |
-| 4 — Intégration | 11-15 j | Après 2 et 3 |
-| 5 — Documentation | 8-11 j | En continu, clôture après 4 |
+| 0 : Prérequis | 8-13 j | Immédiatement |
+| 1 : Infrastructure réseau | 4-6 j | Après 0.1, 0.2, 0.7 |
+| 2 : Firmware AGV | 15-21 j | Après 0.4, 0.5, 0.6 |
+| 3 (Poste fixe | 11-15 j | Après 0.1, 0.3) **en parallèle de la Phase 2** |
+| 4 : Intégration | 11-15 j | Après 2 et 3 |
+| 5 : Documentation | 8-11 j | En continu, clôture après 4 |
 | **Total** | **57-81 jours-homme** | |
 
 Les Phases 2 et 3 sont parallélisables si deux personnes travaillent sur le projet. En solo, compter sur la somme.
@@ -233,12 +233,12 @@ Les Phases 2 et 3 sont parallélisables si deux personnes travaillent sur le pro
 
 ## 12. Points à trancher avec le client
 
-1. **Le sans-pile est-il une exigence réelle** ou un confort ? Si c'est un confort, des boutons Wi-Fi ou filaires simplifient l'architecture (mais l'autonomie d'un bouton Wi-Fi sur pile se compte en mois, pas en années — l'EnOcean garde donc l'avantage).
+1. **Le sans-pile est-il une exigence réelle** ou un confort ? Si c'est un confort, des boutons Wi-Fi ou filaires simplifient l'architecture (mais l'autonomie d'un bouton Wi-Fi sur pile se compte en mois, pas en années : l'EnOcean garde donc l'avantage).
 2. **Historique ou état instantané ?** Si un historique consultable sur plusieurs semaines est attendu, l'UniPi est justifié. Sinon, un ESP32 avec module Ethernet ferait le même travail pour 10 € au lieu de 375 €.
 3. **Le service informatique acceptera-t-il un équipement OT sur son réseau**, avec VLAN dédié et notification de changement ? La réponse conditionne le choix entre cette architecture et l'architecture LoRa.
 4. **Quel seuil de latence** au-delà duquel un opérateur considère que l'appel a échoué ? À faire fixer par le client avant les essais.
-5. **Combien de marqueurs à terme ?** Le bus 10 bits de l'AGV en adresse 1024, donc aucune limite matérielle — mais le nombre de boutons conditionne la nomenclature et les tests de portée.
+5. **Combien de marqueurs à terme ?** Le bus 10 bits de l'AGV en adresse 1024, donc aucune limite matérielle, mais le nombre de boutons conditionne la nomenclature et les tests de portée.
 
 ---
 
-*Document de planification — à mettre à jour au fil des arbitrages. Voir le document de synthèse des architectures pour la comparaison avec les variantes LoRa et cellulaire.*
+*Document de planification, à mettre à jour au fil des arbitrages. Voir le document de synthèse des architectures pour la comparaison avec les variantes LoRa et cellulaire.*

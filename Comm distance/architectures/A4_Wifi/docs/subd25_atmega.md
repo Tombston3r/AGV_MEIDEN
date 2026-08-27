@@ -1,4 +1,4 @@
-# SUB-D 25 ↔ ATmega2560 — table de câblage RELEVÉE
+# SUB-D 25 ↔ ATmega2560 : table de câblage RELEVÉE
 
 > **Source** : relevé de câblage fourni par le client. Ce n'est plus une
 > hypothèse : c'est la table de référence.
@@ -18,7 +18,7 @@ Les broches 1 et 14 de chaque SUB-D sont les masses (0 V).
 
 ---
 
-## Alimentation — le rôle réel du L7806CV
+## Alimentation : le rôle réel du L7806CV
 
 Analyse du PCB : les fils 24 et 25 de la nappe d'entrée amènent **RP24B (24 V)**
 depuis **CN64 A6 et B6**. Un **L7806CV** abaisse ce 24 V à **6 V**, qui alimente
@@ -42,7 +42,7 @@ Trois cas, aux conséquences très différentes :
 tension. C'est une mesure de trente secondes qui écarte une question de
 fiabilité à long terme.
 
-### Ce que ça pourrait vouloir dire — hypothèse à confirmer
+### Ce que ça pourrait vouloir dire : hypothèse à confirmer
 
 Si le 6 V alimente bien directement l'ATmega, c'est peut-être **délibéré** :
 les sorties du microcontrôleur suivent V_CC, donc les lignes X sortiraient
@@ -55,14 +55,14 @@ l'infirment : la tension V_CC, et l'amplitude d'une ligne Y.
 
 ---
 
-## ⚠️ Niveaux du bus — ce qui reste inconnu
+## ⚠️ Niveaux du bus : ce qui reste inconnu
 
 Le rôle du L7806 étant élucidé, **plus rien ne renseigne sur les niveaux du
 bus** :
 
 - **amplitude des lignes Y** (§12.1) : toujours inconnue. Le relevé les amène
   directement sur des broches d'ATmega. Mesurer sur `Y05` avant de brancher la
-  nappe d'entrées — au-delà de V_CC + 0,5 V, l'entrée est détruite ;
+  nappe d'entrées, au-delà de V_CC + 0,5 V, l'entrée est détruite ;
 - **topologie des entrées de l'automate** : tirées à une tension quelconque
   (la carte devrait alors seulement tirer à la masse), ou attendant un courant
   fourni par la carte ? Non déterminé.
@@ -78,14 +78,14 @@ MOSFET tire la ligne de l'automate à la masse et ne sort jamais de niveau haut.
 Conséquence sur le firmware : le microcontrôleur pilote une **grille**, pas la
 ligne de l'automate. Il doit être en **sortie poussée**
 (`bus.x_open_drain: false`, valeur du profil). Le mode collecteur ouvert côté
-microcontrôleur laisserait la grille **flottante** à l'état actif — un MOSFET à
+microcontrôleur laisserait la grille **flottante** à l'état actif : un MOSFET à
 grille flottante peut conduire partiellement, ce qui est le pire état possible
 sur un étage de puissance.
 
 L'inversion est faite par le MOSFET : microcontrôleur à l'état haut → MOSFET
 passant → ligne automate tirée à 0 V.
 
-⚠️ **23 MOSFET pour 22 voies X** — `T13` est absent de la numérotation. À
+⚠️ **23 MOSFET pour 22 voies X** : `T13` est absent de la numérotation. À
 vérifier au schéma : voie de réserve, ou signal supplémentaire non identifié.
 
 Le mode collecteur ouvert reste implémenté et testé : il redevient le mode sûr
@@ -97,20 +97,20 @@ pour toute carte dépourvue d'étage de sortie.
 
 Deux points ouverts du brief sont **tranchés** par cette table :
 
-- **§12.2 — brochage SUB-D** : les connecteurs AGV sont CN61 à CN64, et non le
+- **§12.2, brochage SUB-D** : les connecteurs AGV sont CN61 à CN64, et non le
   jeu CN61/62/63 seul. La divergence des deux tables qui circulaient est levée.
-- **§12.6 — ordre des bits** : les libellés constructeur donnent les poids sans
+- **§12.6, ordre des bits** : les libellés constructeur donnent les poids sans
   ambiguïté (`Station/Marker x1` … `x512`, `Speed x1` … `x8`). L'ordre codé dans
   `kDefaultLayout` est confirmé, il n'est plus provisoire.
 
 ---
 
-## Entrées — SUB-D 25 mâle (AGV → carte)
+## Entrées : SUB-D 25 mâle (AGV → carte)
 
 | Fil | SUB-D | MEGA | Port AVR | Signal | Connecteur | Broche | Description |
 |---:|---:|---|---|---|---|---|---|
-| 1 | 1 | GND | — | 0 V | CN62 | B2 | masse |
-| 2 | 14 | GND | — | 0 V | CN62 | A2 | masse |
+| 1 | 1 | GND | - | 0 V | CN62 | B2 | masse |
+| 2 | 14 | GND | - | 0 V | CN62 | A2 | masse |
 | 3 | 2 | D11 | **PB5** | `Y03` | CN62 | B3 | défaut (error lamp flag) |
 | 4 | 15 | D15 | **PJ0** | `Y05` | CN62 | A3 | moving flag |
 | 5 | 3 | D9 | **PH6** | `Y10` | CN63 | B1 | in station flag |
@@ -132,19 +132,19 @@ Deux points ouverts du brief sont **tranchés** par cette table :
 | 21 | 11 | D10 | **PB4** | `Y32` | CN64 | B2 | position ×128 |
 | 22 | 24 | A9 | **PK1** | `Y33` | CN64 | A2 | position ×256 |
 | 23 | 12 | D12 | **PB6** | `Y34` | CN64 | B3 | position ×512 |
-| 24 | 25 | 24 V → L7806CV → 6 V | — | RP24B | CN64 | A6 | **alimentation de l'ATmega** |
-| 25 | 13 | 24 V → L7806CV → 6 V | — | RP24B | CN64 | B6 | **alimentation de l'ATmega** |
+| 24 | 25 | 24 V → L7806CV → 6 V | - | RP24B | CN64 | A6 | **alimentation de l'ATmega** |
+| 25 | 13 | 24 V → L7806CV → 6 V | - | RP24B | CN64 | B6 | **alimentation de l'ATmega** |
 
 Rappel de numérotation **octale** : après `Y27` vient `Y30`. La plage
-`Y23`…`Y34` compte **10** signaux, pas 12 — et les libellés `×1` à `×512` le
+`Y23`…`Y34` compte **10** signaux, pas 12, et les libellés `×1` à `×512` le
 confirment.
 
-## Sorties — SUB-D 25 femelle (carte → AGV)
+## Sorties : SUB-D 25 femelle (carte → AGV)
 
 | Fil | SUB-D | MEGA | Port AVR | Signal | Connecteur | Broche | Description |
 |---:|---:|---|---|---|---|---|---|
-| 1 | 1 | GND | — | 0 V | CN61 | B7 | masse |
-| 2 | 14 | GND | — | 0 V | CN61 | A7 | masse |
+| 1 | 1 | GND | - | 0 V | CN61 | B7 | masse |
+| 2 | 14 | GND | - | 0 V | CN61 | A7 | masse |
 | 3 | 2 | D39 | **PG2** | `X96` | CN61 | B6 | destination ×1 |
 | 4 | 15 | D49 | **PL0** | `X97` | CN61 | A6 | destination ×2 |
 | 5 | 3 | D33 | **PC4** | `X94` | CN61 | B5 | type de donnée (station ou marqueur) |
@@ -167,11 +167,11 @@ confirment.
 | 22 | 24 | D51 | **PB2** | `X85` | CN63 | A6 | changement de sens |
 | 23 | 12 | D30 | **PC7** | `X86` | CN63 | B7 | vitesse bit 1 |
 | 24 | 25 | D48 | **PL1** | `X87` | CN63 | A7 | vitesse bit 2 |
-| 25 | 13 | D27 | PA5 | — | — | — | **non connecté** |
+| 25 | 13 | D27 | PA5 | - | : | - | **non connecté** |
 
 ---
 
-## Répartition sur les ports — ce qui contraint le firmware
+## Répartition sur les ports : ce qui contraint le firmware
 
 Les 43 signaux occupent **onze ports**, par bits épars.
 
@@ -179,17 +179,17 @@ Les 43 signaux occupent **onze ports**, par bits épars.
 |---|---|---|---|
 | **PORTA** | bits 0, 2, 3, 4, 6, 7 | **bit 1** (`Y21`) | ⚠️ **mixte** |
 | **PORTB** | bits 2, 3 | **bits 4, 5, 6** | ⚠️ **mixte** |
-| PORTC | bits 0, 2, 4, 6, 7 | — | |
-| PORTD | — | bits 0, 2 | |
-| PORTE | — | bits 3, 4, 5 | |
-| PORTF | — | bits 1, 3, 5, 7 | |
+| PORTC | bits 0, 2, 4, 6, 7 | - | |
+| PORTD | - | bits 0, 2 | |
+| PORTE | - | bits 3, 4, 5 | |
+| PORTF | - | bits 1, 3, 5, 7 | |
 | **PORTG** | bits 0, 2 | **bit 5** (`Y24`) | ⚠️ **mixte** |
-| PORTH | — | bits 0, 3, 4, 5, 6 | |
-| PORTJ | — | bit 0 | |
-| PORTK | — | bit 1 | |
-| PORTL | bits 0 à 6 | — | |
+| PORTH | - | bits 0, 3, 4, 5, 6 | |
+| PORTJ | - | bit 0 | |
+| PORTK | - | bit 1 | |
+| PORTL | bits 0 à 6 | - | |
 
-### Conséquence 1 — trois ports mixtes
+### Conséquence 1 : trois ports mixtes
 
 `PORTA`, `PORTB` et `PORTG` portent des sorties X **et** des entrées Y. Toute
 écriture de `DDRx` ou de `PORTx` doit être **masquée**. Un `DDRA = 0xFF`
@@ -200,7 +200,7 @@ Le driver applique donc partout un `|= masque_X` / `&= ~masque_Y`, et une
 lecture-modification-écriture sur les données. C'est vérifié par le test
 `avr_les_ports_mixtes_ne_voient_pas_leur_direction_ecrasee`.
 
-### Conséquence 2 — la pose n'est plus strictement simultanée
+### Conséquence 2 : la pose n'est plus strictement simultanée
 
 Les sorties occupent 5 ports → **5 écritures** par pose complète, ~0,3 µs à
 16 MHz. Les 10 bits d'adresse s'étalent sur 4 ports (`PORTA`, `PORTC`, `PORTG`,
@@ -212,7 +212,7 @@ Ce n'est pas la simultanéité stricte d'un `PORTA = x`, mais :
 |---|---|---|
 | **Ce câblage** | ~0,3 µs | ~0,25 µs |
 | 4× MCP23017 (I²C) | ~150 µs | ~25 µs |
-| `t_setup` attendu | — | 200 µs (PROVISOIRE §12.4) |
+| `t_setup` attendu | - | 200 µs (PROVISOIRE §12.4) |
 
 L'écart résiduel est **800 fois plus petit** que le `t_setup` provisoire. Il
 reste à confirmer au banc que l'automate ne voit rien passer d'incohérent : la
@@ -223,7 +223,7 @@ mesure se lit dans `port_writes_per_pose()` et à l'analyseur logique.
 ## Contrôle du câblage avant mise en service
 
 Même avec une table relevée, un contrôle s'impose : une nappe peut être sertie à
-l'envers, et un mot d'adresse mal câblé **n'échoue pas** — il envoie l'AGV à la
+l'envers, et un mot d'adresse mal câblé **n'échoue pas** : il envoie l'AGV à la
 mauvaise station.
 
 **Automate DÉBRANCHÉ. Les deux SUB-D 25 déconnectés.**

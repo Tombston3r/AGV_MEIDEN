@@ -1,4 +1,4 @@
-// Tests du moteur de planning — horloge simulée, fuseau Europe/Paris forcé.
+// Tests du moteur de planning : horloge simulée, fuseau Europe/Paris forcé.
 //
 // Les dates d'heure d'été utilisées sont réelles : en 2026, passage à l'heure
 // d'été le 29 mars (02:00 -> 03:00), retour le 25 octobre (03:00 -> 02:00).
@@ -19,7 +19,7 @@ int g_echecs = 0;
 #define CHECK(cond)                                                        \
   do {                                                                     \
     if (!(cond)) {                                                         \
-      std::printf("    ECHEC %s:%d — %s\n", __FILE__, __LINE__, #cond);    \
+      std::printf("    ECHEC %s:%d : %s\n", __FILE__, __LINE__, #cond);    \
       ++g_echecs;                                                          \
     }                                                                      \
   } while (0)
@@ -183,7 +183,7 @@ void boot_ne_rejoue_pas_la_journee() {
 }
 
 void grace_a_cheval_sur_minuit() {
-  // Mission d'hier 23:58, vue à 00:01 : dans la grâce, elle part — sous la
+  // Mission d'hier 23:58, vue à 00:01 : dans la grâce, elle part, sous la
   // validation du JOUR COURANT (la règle §3.2 porte sur la date du jour).
   const time_t now = T(2026, 8, 28, 0, 1);
   Moteur m = moteur_valide({entree_simple("nuit", 23, 58)}, now);
@@ -314,7 +314,7 @@ void interruption_en_deplacement_leve_une_alerte() {
 }
 
 void interruption_a_l_arret_ne_leve_rien() {
-  // LA règle demandée : hors déplacement, une coupure est banale — fin de
+  // LA règle demandée : hors déplacement, une coupure est banale, fin de
   // poste, maintenance, quelqu'un devant un AGV à quai. Crier au loup à chaque
   // fois viderait l'alerte de son sens.
   const time_t occ = T(2026, 8, 27, 6, 0);
@@ -393,7 +393,7 @@ void liste_des_prochaines_occurrences() {
 }  // namespace
 
 int main() {
-  // Europe/Paris, règles DST comprises — identique à la cible (§2.4).
+  // Europe/Paris, règles DST comprises : identique à la cible (§2.4).
   setenv("TZ", "CET-1CEST,M3.5.0,M10.5.0/3", 1);
   tzset();
 

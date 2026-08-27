@@ -1,4 +1,4 @@
-// Signaux du bus MEIDEN — numérotation OCTALE (convention Meiden/Mitsubishi).
+// Signaux du bus MEIDEN : numérotation OCTALE (convention Meiden/Mitsubishi).
 //
 // Piège principal (brief §4.2) : Y23…Y34 ne compte pas 12 signaux mais 10, car
 // après Y27 vient Y30. Toute énumération de plage doit passer par les

@@ -1,7 +1,7 @@
-# Déploiement — architecture Wi-Fi (carte V5.0.1 conservée)
+# Déploiement : architecture Wi-Fi (carte V5.0.1 conservée)
 
 > Procédure opérationnelle complète : de la première mesure au procès-verbal de
-> recette. À dérouler **dans l'ordre** — chaque phase suppose la précédente
+> recette. À dérouler **dans l'ordre** : chaque phase suppose la précédente
 > validée.
 >
 > État du projet et kanban : [`docs/ETAT_PROJET.md`](docs/ETAT_PROJET.md).
@@ -19,7 +19,7 @@ c'est l'accord IT et la fenêtre d'arrêt de production.
 
 L'AGV tourne en production depuis cinq ans. Le firmware d'origine n'existe ni en
 sources ni en sauvegarde connue. **Dès que vous écrivez dans la flash de
-l'ATmega ou de l'ESP32, l'ancien système est perdu** — sauf si la phase 2
+l'ATmega ou de l'ESP32, l'ancien système est perdu** : sauf si la phase 2
 réussit à le relire.
 
 Si les bits de protection interdisent la lecture, le retour arrière n'existe
@@ -35,13 +35,13 @@ La phase 1 n'est pas une formalité.
 ### 3. L'accord du service informatique conditionne tout le reste
 
 Cette architecture met un équipement OT sur le réseau d'entreprise. Sans VLAN,
-adressage et règles de pare-feu accordés, rien ne fonctionne — et ce délai ne
+adressage et règles de pare-feu accordés, rien ne fonctionne, et ce délai ne
 dépend pas de l'équipe projet. **À lancer le jour 1**, en parallèle de tout le
 reste.
 
 ---
 
-## Phase 0 — Ce qu'il faut avoir en main
+## Phase 0 : Ce qu'il faut avoir en main
 
 ### Matériel
 
@@ -77,7 +77,7 @@ git clone <url-du-depot> && cd architectures/A4_Wifi
 
 ---
 
-## Phase 1 — Mesures préalables ⚠️ BLOQUANTES
+## Phase 1 : Mesures préalables ⚠️ BLOQUANTES
 
 **Aucune de ces mesures ne peut être sautée.** Elles décident du câblage et de
 paramètres qui, mal réglés, provoquent des pannes intermittentes ou détruisent
@@ -90,14 +90,14 @@ Durée : une demi-journée. Carte d'origine **encore en place et fonctionnelle**
 Automate sous tension, AGV en fonctionnement normal.
 
 ```
-Sonde sur Y05 (CN62 A2) — voir docs/subd25_atmega.md
+Sonde sur Y05 (CN62 A2) : voir docs/subd25_atmega.md
 ```
 
 - [ ] Amplitude mesurée au niveau haut : ______ V
 - [ ] Amplitude mesurée au niveau bas : ______ V
 
 **Si la tension dépasse V_CC + 0,5 V de l'ATmega** : il faut interposer des
-optocoupleurs ou des diviseurs. C'est du matériel à ajouter — arrêter ici et
+optocoupleurs ou des diviseurs. C'est du matériel à ajouter : arrêter ici et
 traiter ce point avant d'aller plus loin.
 
 ### 1.2 Tension d'alimentation de l'ATmega
@@ -143,18 +143,18 @@ procédures d'atelier du client.
 
 ---
 
-## Phase 2 — Sauvegarde des firmwares d'origine
+## Phase 2 : Sauvegarde des firmwares d'origine
 
 **C'est la seule chance de pouvoir revenir en arrière.**
 
 ```bash
 mkdir -p sauvegarde-origine && cd sauvegarde-origine
 
-# ESP32 — 4 Mo de flash, ajuster si le module diffère
+# ESP32 : 4 Mo de flash, ajuster si le module diffère
 esptool.py --port /dev/ttyUSB0 --baud 460800 \
            read_flash 0 0x400000 esp32_origine.bin
 
-# ATmega2560 via ISP — flash, EEPROM et fusibles
+# ATmega2560 via ISP : flash, EEPROM et fusibles
 avrdude -c usbasp -p m2560 -U flash:r:mega_origine.hex:i
 avrdude -c usbasp -p m2560 -U eeprom:r:mega_eeprom.hex:i
 avrdude -c usbasp -p m2560 -U lfuse:r:lfuse.txt:h \
@@ -173,7 +173,7 @@ le client, par écrit, avant la phase 8.
 
 ---
 
-## Phase 3 — Poste de développement
+## Phase 3 : Poste de développement
 
 ```bash
 python3 tools/genconfig.py profiles/default.yaml \
@@ -192,7 +192,7 @@ python3 -m pytest tests -q && ruff check . && mypy --strict agv_poste && cd ..
 
 ---
 
-## Phase 4 — Renseigner le profil
+## Phase 4 : Renseigner le profil
 
 Éditer `profiles/default.yaml` **et rien d'autre** : c'est la source de vérité
 unique. Reporter les mesures de la phase 1.
@@ -220,7 +220,7 @@ make test
 
 ---
 
-## Phase 5 — Validation au banc, sans AGV
+## Phase 5 : Validation au banc, sans AGV
 
 Le simulateur d'automate rejoue les quatre phases du séquenceur avec les timings
 relevés.
@@ -238,7 +238,7 @@ make test FILTER=point_12       # les paramètres non figés
 
 ---
 
-## Phase 6 — Contrôle du câblage ⚠️ AUTOMATE DÉBRANCHÉ
+## Phase 6 : Contrôle du câblage ⚠️ AUTOMATE DÉBRANCHÉ
 
 La table de câblage est relevée, mais une nappe peut être sertie à l'envers. Une
 erreur ici **n'échoue pas** : elle envoie l'AGV à la mauvaise station.
@@ -271,11 +271,11 @@ Toute divergence se corrige dans `firmware/mega/src/board_ports.h`, puis
 
 ---
 
-## Phase 7 — Infrastructure réseau
+## Phase 7 : Infrastructure réseau
 
 Prérequis : accord du service informatique obtenu.
 
-1. **VLAN et adressage** — côté client : VLAN OT, réservation de l'IP statique
+1. **VLAN et adressage**, côté client : VLAN OT, réservation de l'IP statique
    de l'AGV, règles de pare-feu autorisant l'AGV à joindre le broker.
 2. **Mosquitto sur l'UniPi** :
 
@@ -285,7 +285,7 @@ sudo mosquitto_passwd -c /etc/mosquitto/passwd agv1
 sudo mosquitto_passwd    /etc/mosquitto/passwd poste
 ```
 
-   Configuration minimale à durcir — **les ACL par topic ne sont pas
+   Configuration minimale à durcir : **les ACL par topic ne sont pas
    optionnelles** : l'AGV ne doit pouvoir publier que sur ce qui le concerne.
 
 ```
@@ -322,7 +322,7 @@ mosquitto_sub -h <unipi> -p 8883 --cafile ca.crt -u poste -P <mdp> -t 'agv/1/#' 
 - [ ] Un client mal authentifié est refusé
 - [ ] Un client `agv1` ne peut **pas** publier sur `agv/1/cmd`
 
-4. **Couverture Wi-Fi** — relevé RSSI à la hauteur réelle de l'antenne AGV, sur
+4. **Couverture Wi-Fi** : relevé RSSI à la hauteur réelle de l'antenne AGV, sur
    le trajet complet, en heures de production.
 
 - [ ] RSSI minimum relevé sur le parcours : ______ dBm
@@ -335,7 +335,7 @@ perdus.
 
 ---
 
-## Phase 8 — Flash des deux firmwares
+## Phase 8 : Flash des deux firmwares
 
 ⚠️ Ne pas commencer sans la phase 2 (sauvegarde) et la décision écrite du client
 si la sauvegarde a échoué.
@@ -355,7 +355,7 @@ pio run -e esp32 -t upload     # 2. Wi-Fi, MQTT, heartbeat
 
 ---
 
-## Phase 9 — Poste fixe UniPi
+## Phase 9 : Poste fixe UniPi
 
 ```bash
 sudo useradd -r -s /usr/sbin/nologin agv
@@ -375,11 +375,11 @@ journalctl -u agv-poste -f
 
 ---
 
-## Phase 10 — Appairage et première course
+## Phase 10 : Appairage et première course
 
 ### 10.1 Appairage des boutons
 
-Pour chaque point d'appel, **depuis son emplacement définitif** — la portée se
+Pour chaque point d'appel, **depuis son emplacement définitif** : la portée se
 teste là où le bouton sera posé, pas sur l'établi.
 
 - [ ] Mode appairage ouvert, station saisie
@@ -405,7 +405,7 @@ vérifier chaque appairage au journal, un par un.
 
 ---
 
-## Phase 11 — Recette : essais de dégradation
+## Phase 11, Recette : essais de dégradation
 
 C'est cette phase qui distingue une installation qui marche d'une installation
 qui tient. À faire valider par le client.

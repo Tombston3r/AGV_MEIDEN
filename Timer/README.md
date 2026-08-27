@@ -1,4 +1,4 @@
-# Timer — planning journalier des déplacements AGV
+# Timer : planning journalier des déplacements AGV
 
 Déclenchement **automatique de missions à horaires programmés**, validé chaque
 jour par un opérateur. Cadrage complet :
@@ -6,12 +6,12 @@ jour par un opérateur. Cadrage complet :
 
 > ⚠️ Changement de nature : on passe d'un appel à la demande à un déclenchement
 > autonome sur horloge. La sécurité machine (§9 de la spec, EN ISO 3691-4) est
-> à traiter **avant** la mise en service — sélecteur physique d'autorisation,
+> à traiter **avant** la mise en service : sélecteur physique d'autorisation,
 > authentification de l'IHM.
 
 ## Ce qui existe : le moteur (spec §4)
 
-C++ pur, horloge injectée, zéro dépendance ESP-IDF/Arduino — même approche que
+C++ pur, horloge injectée, zéro dépendance ESP-IDF/Arduino, même approche que
 le codec LoRa de `Comm distance/`. Il couvre :
 
 - occurrences par **masque de jours**, bornes de validité, exceptions (fériés) ;
@@ -21,10 +21,10 @@ le codec LoRa de `Comm distance/`. Il couvre :
   de la journée au redémarrage ;
 - **durée de mission** (5 min par défaut, `duree_mission_s`) : occupation réelle
   de l'AGV, et détection des départs trop rapprochés ;
-- **idempotence** par `(id, date locale)` — le 02:30 double de l'automne ne
+- **idempotence** par `(id, date locale)` : le 02:30 double de l'automne ne
   part qu'une fois ;
 - **heure d'été de printemps** : exécution au premier instant existant
-  (03:00), décalage signalé — ou saut, par configuration *(décision produit du
+  (03:00), décalage signalé, ou saut, par configuration *(décision produit du
   2026-08-27 : exécuter)* ;
 - **gel sur heure non fiable** (§2.3) : rien ne part, rien n'est consommé ;
 - **arrêt de sécurité rapporté** : coupure de la chaîne **pendant un
@@ -34,11 +34,11 @@ le codec LoRa de `Comm distance/`. Il couvre :
 - journal borné motivé, liste des **prochaines occurrences calculées** (la vue
   IHM la plus utile).
 
-## Lancer les tests — et le banc
+## Lancer les tests, et le banc
 
 ```bash
 make test    # moteur (25) + codec (13) + dump d'atelier (3) + contrat API (12)
-make banc    # http://127.0.0.1:8081 — l'API sur le vrai moteur, horloge pilotable
+make banc    # http://127.0.0.1:8081 : l'API sur le vrai moteur, horloge pilotable
 ```
 
 Aucun matériel requis : fuseau Europe/Paris forcé, dates d'heure d'été réelles
@@ -49,25 +49,25 @@ de 2026 (29 mars, 25 octobre). Le banc et son mode d'emploi :
 
 | Chemin | Rôle |
 |---|---|
-| `Spec Planning Journalier.md` | cadrage — décisions, points ouverts |
+| `Spec Planning Journalier.md` | cadrage : décisions, points ouverts |
 | `moteur/planning.{h,cpp}` | le moteur, C++ pur |
-| `moteur/serialisation.{h,cpp}` | document ↔ JSON — **le même schéma sert l'API (§6) et la persistance (§3.3)** |
+| `moteur/serialisation.{h,cpp}` | document ↔ JSON : **le même schéma sert l'API (§6) et la persistance (§3.3)** |
 | `banc_api/` | **banc local de l'API** : le vrai moteur, horloge simulée, IHM (frise + diagnostic `agvdump`) |
-| `atelier/` | **copie conforme** du rendu `/agvdump` de A4 — format d'atelier du client, comparé à son original par les tests |
+| `atelier/` | **copie conforme** du rendu `/agvdump` de A4 : format d'atelier du client, comparé à son original par les tests |
 | `test/` | 19 + 13 tests natifs, horloge simulée |
-| `docs/ALIGNEMENT_COMM_DISTANCE.md` | **confrontation de la spec au dépôt** — à lire avant d'implémenter la suite |
+| `docs/ALIGNEMENT_COMM_DISTANCE.md` | **confrontation de la spec au dépôt**, à lire avant d'implémenter la suite |
 | `docs/ETAT_PROJET.md` | état, kanban, journal |
 
 ## Ce qui reste (voir le kanban)
 
 📍 **Déploiement sur la carte V5.0.1** : le chemin complet, ce qui manque et
-dans quel ordre — [`docs/CHEMIN_V5.md`](docs/CHEMIN_V5.md).
+dans quel ordre : [`docs/CHEMIN_V5.md`](docs/CHEMIN_V5.md).
 
-Dans l'ordre : **client SNTP** — `set_wall_clock()` existe mais n'est appelé
-nulle part, l'heure vaut 0 et le moteur reste gelé —, puis **DS3231** (le
+Dans l'ordre : **client SNTP**, `set_wall_clock()` existe mais n'est appelé
+nulle part, l'heure vaut 0 et le moteur reste gelé -, puis **DS3231** (le
 Wi-Fi du site est saturé), puis la **persistance en NVS** (`NvsStore` existe,
 LittleFS est inutile), puis les **routes REST en permanence** sur l'interface
-cliente avec authentification, puis le **chaînage** vers le séquenceur — qui
+cliente avec authentification, puis le **chaînage** vers le séquenceur, qui
 lui **existe déjà, testé**.
 
 Chemin détaillé et raccourcis : [`docs/CHEMIN_V5.md`](docs/CHEMIN_V5.md).

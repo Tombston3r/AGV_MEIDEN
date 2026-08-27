@@ -2,7 +2,7 @@
 
 Le test le plus important est `test_vecteur_partage_avec_le_firmware` : il fige
 un octet-à-octet identique à celui produit par le C++. Si les deux
-implémentations divergent, l'AGV cesse d'obéir au poste — silencieusement.
+implémentations divergent, l'AGV cesse d'obéir au poste : silencieusement.
 """
 
 from __future__ import annotations

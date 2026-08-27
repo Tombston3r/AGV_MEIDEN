@@ -14,7 +14,7 @@ des `PTM 210`.
 
 - **Liste des boutons enregistrés**, avec nom, identifiant et heure du dernier
   appui vu ;
-- **Ajout d'un bouton** de deux façons — saisir l'identifiant, ou **le détecter
+- **Ajout d'un bouton** de deux façons : saisir l'identifiant, ou **le détecter
   en appuyant dessus**. Tant que la fenêtre d'ajout est ouverte, le banc écoute :
   l'appui d'un bouton **remplit l'identifiant tout seul**, dans le panneau de
   détection comme dans le champ de saisie ;
@@ -54,9 +54,9 @@ mais absent de `/opt` donne exactement les symptômes du défaut qu'il corrige.
 | Page chargée | Pastille **verte**, « à l'écoute », port du dongle affiché |
 | Appui sur un bouton **enregistré** | Fenêtre **verte** : nom, code, heure, niveau reçu |
 | Appui sur un bouton **inconnu** | Fenêtre **ambre** « Bouton non enregistré » |
-| **Un** appui | **Une seule** fenêtre — jamais trois |
+| **Un** appui | **Une seule** fenêtre, jamais trois |
 | Relâchement | Aucune fenêtre supplémentaire |
-| Fenêtre d'ajout ouverte, puis appui | L'identifiant **se remplit seul** — aucune fenêtre ambre |
+| Fenêtre d'ajout ouverte, puis appui | L'identifiant **se remplit seul** : aucune fenêtre ambre |
 
 Un appui qui produit trois fenêtres, ou deux fenêtres par pression, est un
 défaut : voir la section suivante.
@@ -67,7 +67,7 @@ Un `PTM 210` **émet trois sous-télégrammes par appui**, et **émet aussi au
 relâchement**. Sans traitement, une pression afficherait **six** fenêtres.
 
 Le banc déduplique sur `(identifiant, données)` dans une fenêtre de 400 ms, et
-ne retient que le front d'appui — le bit *energy bow* du télégramme RPS. C'est
+ne retient que le front d'appui : le bit *energy bow* du télégramme RPS. C'est
 la même logique que celle du firmware ; les tests la vérifient explicitement.
 
 ## Identifiants : toujours en hexadécimal
@@ -109,7 +109,7 @@ persistance et tolérance à un registre corrompu.
 
 - **Aucun accusé vers le bouton.** Un `PTM 210` n'a pas de récepteur et le
   dongle est en réception seule : l'opérateur ne saura jamais, depuis le
-  bouton, si son appui a été reçu. C'est une limite du matériel, pas du banc —
+  bouton, si son appui a été reçu. C'est une limite du matériel, pas du banc,
   et c'est l'argument principal en faveur des boutons LoRa de
   [`A3_LoRa/`](../../architectures/A3_LoRa/), qui rendent un accusé visuel.
 - **Aucune authentification.** Un télégramme `PTM 210` est en clair et

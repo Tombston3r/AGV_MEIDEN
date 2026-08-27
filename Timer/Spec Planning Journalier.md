@@ -1,4 +1,4 @@
-# Spécification — Planning journalier des déplacements (carte AGV V5.0.1)
+# Spécification : Planning journalier des déplacements (carte AGV V5.0.1)
 
 > Document de cadrage destiné à l'implémentation. Il fixe les décisions prises,
 > signale les points encore ouverts et ne présume pas du découpage en modules.
@@ -28,7 +28,7 @@ fonctionnalité logicielle (voir §9).
 | Resynchronisation | NTP pendant les fenêtres de maintenance → écriture DS3231 | Corrige la dérive cumulée. |
 | Fuseau horaire | `setenv("TZ", ...)` + `tzset()` | Gère les transitions été/hiver automatiquement. |
 
-### 2.2 Bibliothèque `ESP32Time` — écartée
+### 2.2 Bibliothèque `ESP32Time` : écartée
 
 Ce n'est pas une base de temps : c'est une surcouche Arduino autour de
 `settimeofday()` / `localtime_r()`. Elle n'apporte rien que la libc de l'ESP-IDF
@@ -47,9 +47,9 @@ composant pour ce wrapper n'a pas d'intérêt.
 
 Machine à trois états, exposée dans la télémétrie et l'IHM :
 
-- `TIME_UNTRUSTED` — **planning gelé**, alarme IHM
-- `TIME_RTC` — heure issue du DS3231, exécution autorisée
-- `TIME_NTP` — resynchronisée récemment
+- `TIME_UNTRUSTED` : **planning gelé**, alarme IHM
+- `TIME_RTC` : heure issue du DS3231, exécution autorisée
+- `TIME_NTP` : resynchronisée récemment
 
 Une heure fausse, sur un système qui déclenche des déplacements, est pire qu'une
 absence d'heure. Le passage en `TIME_UNTRUSTED` doit être franc et visible.
@@ -115,7 +115,7 @@ d'exécution qui expire chaque jour. Rien n'est effacé, mais rien ne part sans 
 geste explicite.
 
 `valide_par` + `valide_le` fournissent au passage la traçabilité de qui a
-autorisé quels déplacements — utile le jour où il y a un incident.
+autorisé quels déplacements : utile le jour où il y a un incident.
 
 ### 3.3 Persistance
 
@@ -153,7 +153,7 @@ consommée. Règle au passage le changement d'heure d'automne, où 02:30 existe 
 fois.
 
 **Changement d'heure de printemps.** Les entrées entre 02:00 et 03:00 n'existent
-pas ce jour-là. Choix à faire : exécution à 03:00 ou saut — mais l'IHM doit
+pas ce jour-là. Choix à faire : exécution à 03:00 ou saut, mais l'IHM doit
 l'indiquer.
 
 ---
@@ -164,7 +164,7 @@ l'indiquer.
 *mission*, consommée par un séquenceur :
 
 1. Pose de l'adresse station sur les 22 signaux X
-2. Respect du `t_setup` (**valeur non encore mesurée — voir §10**)
+2. Respect du `t_setup` (**valeur non encore mesurée : voir §10**)
 3. Attente d'acquittement sur les signaux Y
 4. Timeout + retry borné
 5. Refus d'empiler une nouvelle destination tant que la précédente n'est pas
@@ -209,7 +209,7 @@ compris ce qu'il a saisi.
 ### Bandeau de validation (non contournable)
 
 ```
-Planning du 27/08 non validé — aucun déplacement automatique
+Planning du 27/08 non validé : aucun déplacement automatique
 Planning en mémoire : 6 missions (dernière validation : 26/08 par M. Dupont)
 [ Reprendre le planning d'hier ]  [ Modifier ]  [ Valider la journée ]
 ```
@@ -245,7 +245,7 @@ du premier redémarrage réel. Argument valable surtout en prototype.
 
 Sur un redémarrage **logiciel** (`esp_restart()`), le domaine RTC n'est pas coupé
 et l'ESP-IDF restitue l'heure système au boot. Le reboot programmé ne fait donc
-pas perdre l'heure — contrairement à une coupure d'alimentation ou un brownout.
+pas perdre l'heure : contrairement à une coupure d'alimentation ou un brownout.
 Cela ne dispense pas du DS3231 : disjoncteur, maintenance et déplacement de
 l'AGV restent des scénarios réels.
 
@@ -256,7 +256,7 @@ l'AGV restent des scénarios réels.
   quai.** Un redémarrage en cours de déplacement relâche les sorties X sans que
   le contrôleur MEIDEN en soit informé.
 
-### 7.4 Instrumentation mémoire — à faire indépendamment
+### 7.4 Instrumentation mémoire, à faire indépendamment
 
 Si le heap se dégrade au fil des jours, c'est une fuite ou une fragmentation. Le
 reboot la **masque** au lieu de la corriger. Risque : livrer un système qui fuit
@@ -289,7 +289,7 @@ Utile pour la démonstration client autant que pour le débogage.
 
 ---
 
-## 9. Sécurité machine — à traiter avant le codage
+## 9. Sécurité machine, à traiter avant le codage
 
 Le passage au déclenchement autonome sur horloge est un **changement de mode de
 fonctionnement au sens sécurité machine**. L'**EN ISO 3691-4** s'applique aux
@@ -299,7 +299,7 @@ le trajet à 06:00 alors que personne n'a rien demandé).
 Minimum à prévoir :
 
 - **Sélecteur physique « autorisation planning »** en série avec l'exécution
-- **Authentification** sur l'interface web — elle commande désormais un véhicule,
+- **Authentification** sur l'interface web : elle commande désormais un véhicule,
   plus seulement une consultation
 - Journal horodaté (§8)
 

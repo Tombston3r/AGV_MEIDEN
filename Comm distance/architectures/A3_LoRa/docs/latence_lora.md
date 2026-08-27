@@ -1,4 +1,4 @@
-# Latence LoRa et budget de rapport cyclique — chiffres à valider avec le client
+# Latence LoRa et budget de rapport cyclique : chiffres à valider avec le client
 
 > Ce document remonte un écart entre l'objectif de latence du brief (§6) et ce
 > que donne le paramétrage radio annoncé. Il ne tranche pas : c'est un
@@ -27,12 +27,12 @@ seconde.
 
 Trois issues possibles, à trancher avec le client :
 
-1. **SF7** — tient la cible (92 ms aller-retour, 280 ms pire cas) au prix d'une
+1. **SF7** : tient la cible (92 ms aller-retour, 280 ms pire cas) au prix d'une
    portée et d'une pénétration réduites. À valider par un relevé de couverture
    le long du parcours, machines en marche.
 2. **SF9 conservé, objectif de latence révisé** à ~350 ms typique / ~1 s pire
    cas. Pour un AGV appelé à un point d'arrêt, c'est probablement sans
-   conséquence opérationnelle — mais ça doit être dit, pas subi.
+   conséquence opérationnelle, mais ça doit être dit, pas subi.
 3. **SF adaptatif** : SF7 en nominal, repli SF9 sur échec. Complexité
    supplémentaire dans l'ordonnanceur half-duplex ; à ne faire que si le relevé
    montre des zones réellement difficiles.
@@ -40,7 +40,7 @@ Trois issues possibles, à trancher avec le client :
 Le paramètre vit dans `profiles/*.yaml` (`lora.spreading_factor`) : changer de
 SF ne demande aucune modification de code.
 
-## Budget de rapport cyclique — obligation réglementaire
+## Budget de rapport cyclique : obligation réglementaire
 
 EN 300 220 / ERC 70-03 : **1 % sur 1 h glissante**, soit 36 s de temps d'antenne
 par heure. Implémenté dans `DutyCycleBudget`, qui **refuse** l'émission au-delà

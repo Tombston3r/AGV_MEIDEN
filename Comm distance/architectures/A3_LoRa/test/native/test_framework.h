@@ -2,7 +2,7 @@
 //
 // PlatformIO/Unity est la cible officielle (brief §11) ; ce shim permet de faire
 // tourner exactement les mêmes tests avec un simple g++, sans toolchain
-// embarquée — utile en intégration continue et sur un poste sans PlatformIO.
+// embarquée : utile en intégration continue et sur un poste sans PlatformIO.
 #pragma once
 
 #include <cstdio>

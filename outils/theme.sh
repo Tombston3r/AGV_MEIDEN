@@ -6,7 +6,7 @@
 #
 # Le thème vit une seule fois dans docs/theme/, mais chaque interface en porte
 # une copie : les dossiers sont livrables seuls (docs/ORGANISATION.md). Une
-# copie sans contrôle est une divergence en sursis — d'où ce script, et sa
+# copie sans contrôle est une divergence en sursis : d'où ce script, et sa
 # place dans les recettes de déploiement.
 set -euo pipefail
 

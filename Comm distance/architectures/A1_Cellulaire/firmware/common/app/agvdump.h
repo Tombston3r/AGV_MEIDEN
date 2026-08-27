@@ -3,7 +3,7 @@
 // COMPATIBILITÉ : la procédure de diagnostic `agvdump` est utilisée en
 // production par le client. Les NOMS de champs et de compteurs sont repris
 // littéralement du firmware d'origine. La mise en page exacte de la V5.0.1
-// n'est PAS relevée — PROVISOIRE §12.6 : à recaler sur un dump réel avant
+// n'est PAS relevée, PROVISOIRE §12.6 : à recaler sur un dump réel avant
 // mise en service, sinon les procédures d'atelier deviennent caduques.
 #pragma once
 

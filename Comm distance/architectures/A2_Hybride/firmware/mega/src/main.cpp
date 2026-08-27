@@ -1,4 +1,4 @@
-// Firmware ATmega2560 de la carte AIO AGV Control V6.0 — RÉÉCRIT.
+// Firmware ATmega2560 de la carte AIO AGV Control V6.0 : RÉÉCRIT.
 //
 // Le firmware d'origine n'est pas disponible (ni sources, ni lecture de flash
 // garantie : planification 0.5). Celui-ci est écrit à partir du comportement
@@ -63,7 +63,7 @@ class AvrCritical final : public agv::ICriticalSection {
 };
 
 // La liaison vers l'ESP32 est câblée sur D52/D53, qui ne sont pas des broches
-// d'UART matériel — voir board_ports.h. Les trois UART du MEGA ont leur RX
+// d'UART matériel : voir board_ports.h. Les trois UART du MEGA ont leur RX
 // occupé par un signal du bus.
 SoftwareSerial g_link(agv::board::kLinkRxPin, agv::board::kLinkTxPin);
 
@@ -89,7 +89,7 @@ agv::MegaApp* g_app = nullptr;
 // Active une sortie X à la fois et annonce laquelle sur la liaison série.
 // Permet de relever au multimètre la correspondance signal <-> broche SUB-D,
 // automate DÉBRANCHÉ. Sans ce relevé, la table de board_ports.h reste une
-// hypothèse — et un mot d'adresse mal câblé envoie l'AGV à la mauvaise station.
+// hypothèse, et un mot d'adresse mal câblé envoie l'AGV à la mauvaise station.
 bool g_discovery = false;
 uint8_t g_discovery_bit = 0;
 uint32_t g_discovery_last_ms = 0;
@@ -111,7 +111,7 @@ void discovery_tick(uint32_t now_ms) {
 void setup() {
   const agv::HardwareProfile& profile = agv::default_profile();
 
-  // Console de mise au point (USB) — jamais dans le chemin de commande.
+  // Console de mise au point (USB), jamais dans le chemin de commande.
   Serial.begin(115200);
   g_link.begin(profile.link.baud);
   g_link.listen();
@@ -151,7 +151,7 @@ void loop() {
     const int c = Serial.read();
     if (c == 'd') {
       g_discovery = true;
-      Serial.println(F("# MODE DECOUVERTE — automate DEBRANCHE obligatoire"));
+      Serial.println(F("# MODE DECOUVERTE : automate DEBRANCHE obligatoire"));
     } else if (c == 'n') {
       g_discovery = false;
       g_bus->writeX(0);

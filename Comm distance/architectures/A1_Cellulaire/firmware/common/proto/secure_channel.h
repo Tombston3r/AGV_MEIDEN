@@ -1,4 +1,4 @@
-// Chiffrement du payload applicatif — AES-128-CTR, clé partagée en NVS (§5.1).
+// Chiffrement du payload applicatif : AES-128-CTR, clé partagée en NVS (§5.1).
 //
 // Format du paquet chiffré :
 //   [node_id 2 octets en clair][nonce 4 octets en clair][trame chiffrée 9 ou 13]
@@ -11,13 +11,13 @@
 //
 // Le node_id voyage en clair en tête : le récepteur en a besoin pour
 // reconstruire l'IV avant de pouvoir déchiffrer. Le couple (node_id, nonce)
-// garantit l'unicité du flux entre nœuds partageant la même clé — sans lui,
+// garantit l'unicité du flux entre nœuds partageant la même clé, sans lui,
 // deux nœuds repartant du même compteur réutiliseraient le même keystream.
 // Le nonce est un compteur monotone persisté en NVS : il ne doit JAMAIS être
 // rejoué avec la même clé.
 //
 // LIMITE ASSUMÉE À SIGNALER : CTR + CRC-16 protège de l'écoute, pas de la
-// falsification — CTR est malléable et le CRC n'est pas une signature. Un
+// falsification : CTR est malléable et le CRC n'est pas une signature. Un
 // attaquant qui connaît le clair peut modifier des bits ciblés et recalculer le
 // CRC. Pour de l'authentification réelle il faut un MAC (AES-CMAC 4 à 8 octets).
 // La spécification §5.1 demande explicitement CTR ; l'ajout d'un CMAC est

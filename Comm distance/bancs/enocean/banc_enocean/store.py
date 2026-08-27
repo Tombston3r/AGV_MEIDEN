@@ -99,7 +99,7 @@ class Registre:
 
 
 def parse_id(texte: str) -> int:
-    """Accepte 00:29:B1:C4, 0029B1C4 ou 0x0029B1C4 — TOUJOURS en hexadécimal.
+    """Accepte 00:29:B1:C4, 0029B1C4 ou 0x0029B1C4, TOUJOURS en hexadécimal.
 
     Les identifiants sont imprimés sous des formes variées selon le fabricant
     de l'enveloppe murale ; refuser une seule d'entre elles serait une source
@@ -108,7 +108,7 @@ def parse_id(texte: str) -> int:
     ⚠ La lecture est hexadécimale sans exception, y compris pour une chaîne
     ne contenant que des chiffres : « 2732996 » est un hexadécimal valide, et
     tenter de deviner entre les deux bases produirait un identifiant faux une
-    fois sur deux — le genre de panne qu'on met une après-midi à comprendre.
+    fois sur deux : le genre de panne qu'on met une après-midi à comprendre.
     Les identifiants EnOcean sont toujours notés en hexadécimal.
     """
     t = texte.strip().replace(":", "").replace("-", "").replace(" ", "")

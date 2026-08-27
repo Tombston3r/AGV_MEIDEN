@@ -7,7 +7,7 @@
 #   ./tools/flash.sh mega-bridge    [/dev/ttyACM0]
 #
 # Le profil est régénéré AVANT le build : jamais de binaire flashé avec un
-# generated_profile.h périmé — ce serait flasher des timings qui ne sont pas
+# generated_profile.h périmé : ce serait flasher des timings qui ne sont pas
 # ceux du profil relevé.
 set -euo pipefail
 

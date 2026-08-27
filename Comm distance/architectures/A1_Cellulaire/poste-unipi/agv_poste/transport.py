@@ -3,7 +3,7 @@
 Le brief est explicite : « Si le cellulaire est imposé par le client, c'est la
 variante B qu'il faut coder, jamais le SMS. » Les deux sont fournis pour
 l'analyse comparative, mais `SmsTransport` journalise un avertissement au
-démarrage — un transport à latence non bornée pilotant un engin mobile ne doit
+démarrage : un transport à latence non bornée pilotant un engin mobile ne doit
 jamais être mis en service par inadvertance.
 """
 
@@ -100,7 +100,7 @@ class SmsTransport:
 
 
 class MqttTransport:
-    """LTE-M / NB-IoT + MQTT — la seule variante cellulaire défendable (§8.2).
+    """LTE-M / NB-IoT + MQTT : la seule variante cellulaire défendable (§8.2).
 
     QoS 1 minimum, Last Will and Testament sur `status` pour une détection
     immédiate de la perte de l'AGV, TLS si le broker est hors site.

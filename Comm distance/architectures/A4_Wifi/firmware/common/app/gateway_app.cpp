@@ -187,7 +187,7 @@ void GatewayApp::on_link_byte(uint8_t byte) {
 void GatewayApp::tick() {
   const uint32_t now = clock_.now_ms();
 
-  // 1. Heartbeat — la seule chose qui autorise l'ATmega à rouler. Émis même
+  // 1. Heartbeat : la seule chose qui autorise l'ATmega à rouler. Émis même
   //    quand MQTT est déconnecté : le Wi-Fi peut tomber sans que la carte soit
   //    en danger, et couper le heartbeat immobiliserait l'AGV pour rien.
   if ((now - last_heartbeat_ms_) >= profile_.heartbeat.period_ms) {

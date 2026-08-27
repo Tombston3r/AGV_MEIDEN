@@ -48,7 +48,7 @@ void LoraGatewayApp::tick() {
     request_state();
   }
 
-  // L'ATmega ne répond plus : on le signale, sans rien décider à sa place —
+  // L'ATmega ne répond plus : on le signale, sans rien décider à sa place,
   // c'est LUI qui porte le repli de sécurité, sur perte du heartbeat.
   if (have_link_rx_ && now - last_link_rx_ms_ > profile_.link.reply_timeout_ms * 4) {
     if (link_up_) ++stats_.link_timeouts;

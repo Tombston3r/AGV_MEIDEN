@@ -156,7 +156,7 @@ void SimBusDriver::step_events() {
     set_y(agv::y::Y10, true);
     bounce(agv::y::Y10);
     // La destination atteinte est consommée : l'AGV ne connaît plus qu'une
-    // seule destination à la fois (brief §1) — d'où la file portée par la carte.
+    // seule destination à la fois (brief §1) : d'où la file portée par la carte.
     has_destination_ = false;
     set_y(agv::y::Y21, true);
   }

@@ -4,7 +4,7 @@ namespace agv {
 
 FrameVerdict ReplayWindow::classify(uint16_t node_id, uint8_t seq, bool has_ts, uint32_t ts_s,
                                     uint32_t now_s, uint32_t max_age_s) const {
-  // 1. Doublon : priorité absolue, y compris sur une trame périmée — un
+  // 1. Doublon : priorité absolue, y compris sur une trame périmée, un
   //    ré-envoi tardif d'une commande déjà exécutée doit être ré-acquitté,
   //    jamais réexécuté.
   for (size_t i = 0; i < count_; ++i) {

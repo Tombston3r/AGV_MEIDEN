@@ -20,7 +20,7 @@ ls -l /dev/serial/by-id/
 **Attendu** : une entrée contenant `EnOcean` ou `FT232`.
 Si rien n'apparaît, `dmesg | tail -20` dira si le noyau a vu le périphérique.
 
-## 2. Installer — et mettre à jour
+## 2. Installer, et mettre à jour
 
 ```bash
 sudo apt install python3-serial      # une seule fois
@@ -53,7 +53,7 @@ journalctl -u banc-enocean -n 20
 **Attendu** :
 
 ```
-banc EnOcean sur http://0.0.0.0:8080 — dongle /dev/serial/by-id/usb-EnOcean_..., 0 bouton(s) enregistré(s)
+banc EnOcean sur http://0.0.0.0:8080 : dongle /dev/serial/by-id/usb-EnOcean_..., 0 bouton(s) enregistré(s)
 ```
 
 Si la ligne dit `aucun dongle EnOcean détecté`, revenir à l'étape 1.
@@ -66,7 +66,7 @@ Ouvrir `http://<IP-UNIPI>:8080`.
 |---|---|---|
 | 1 | Charger la page | Pastille **verte**, « à l'écoute », le port affiché |
 | 2 | Appuyer sur un bouton non enregistré | Fenêtre **ambre** « Bouton non enregistré » avec un code à 8 chiffres hexadécimaux |
-| 3 | Appuyer **une** fois | **Une seule** fenêtre — pas trois |
+| 3 | Appuyer **une** fois | **Une seule** fenêtre : pas trois |
 | 4 | « Ajouter un bouton », puis appuyer | Le code **se remplit seul**, en vert et dans le champ de saisie. Aucune fenêtre ambre |
 | 5 | Nommer et enregistrer | Le bouton apparaît dans la liste |
 | 6 | Réappuyer dessus | Fenêtre **verte** : nom, code, heure, niveau reçu |
@@ -74,7 +74,7 @@ Ouvrir `http://<IP-UNIPI>:8080`.
 
 Le point 3 est le plus important : un `PTM 210` émet **trois sous-télégrammes
 par appui**. Trois fenêtres signifieraient que la déduplication ne fonctionne
-pas — et en production, trois courses pour un appui.
+pas, et en production, trois courses pour un appui.
 
 Le point 7 vaut autant : le module émet aussi au **relâchement**. Une fenêtre
 de plus signifierait deux courses par pression.
@@ -85,7 +85,7 @@ Promener le bouton le long du parcours, en regardant le niveau reçu.
 
 **Attendu** : au-delà de **−90 dBm**, la marge devient faible. L'EnOcean porte
 une trentaine de mètres en intérieur, et c'est **le maillon court** des
-architectures A1, A2 et A4 — pas la liaison LoRa ni le Wi-Fi.
+architectures A1, A2 et A4 : pas la liaison LoRa ni le Wi-Fi.
 
 Noter les points où les appuis se perdent : ce sont eux qui décideront de
 l'emplacement du poste fixe.
@@ -94,10 +94,10 @@ l'emplacement du poste fixe.
 
 | Symptôme | Cause probable |
 |---|---|
-| Page sans aucun style, ou fond noir | `theme.css` non déployé — relancer `outils/theme.sh --appliquer` puis `./deployer.sh` |
-| La fenêtre d'ajout reste affichée en permanence | **version déployée périmée** — relancer `./deployer.sh` et comparer la version du bandeau à celle du dépôt |
+| Page sans aucun style, ou fond noir | `theme.css` non déployé : relancer `outils/theme.sh --appliquer` puis `./deployer.sh` |
+| La fenêtre d'ajout reste affichée en permanence | **version déployée périmée** : relancer `./deployer.sh` et comparer la version du bandeau à celle du dépôt |
 | Fenêtre ambre alors que la boîte d'ajout est ouverte | l'écoute n'est plus armée : le navigateur ne joint plus le banc, vérifier la pastille |
 | `Permission denied` sur le port | l'utilisateur `banc` n'est pas dans `dialout` |
-| Trois fenêtres par appui | déduplication inopérante — ouvrir une anomalie |
+| Trois fenêtres par appui | déduplication inopérante : ouvrir une anomalie |
 | Aucune fenêtre, pastille verte | mauvais dongle, ou bouton hors bande 868 MHz |
-| Pastille rouge | le service est tombé — `journalctl -u banc-enocean -f` |
+| Pastille rouge | le service est tombé : `journalctl -u banc-enocean -f` |

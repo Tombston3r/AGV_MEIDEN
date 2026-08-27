@@ -18,7 +18,7 @@ namespace oled {
 constexpr int kColonnes = 21;   // 128 px / 6 px par caractère
 constexpr int kLignes = 8;      // 64 px / 8 px par ligne
 
-// Suppose le bus I²C DÉJÀ démarré — c'est `tbeam::alimenter_radio()` qui s'en
+// Suppose le bus I²C DÉJÀ démarré : c'est `tbeam::alimenter_radio()` qui s'en
 // charge, l'AXP192 et l'écran partageant le même bus.
 bool begin();
 bool present();

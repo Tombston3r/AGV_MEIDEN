@@ -1,4 +1,4 @@
-# AGV MEIDEN — architecture SMS + EnOcean
+# AGV MEIDEN : architecture SMS + EnOcean
 
 > **Dossier d'architecture autonome.** Boutons EnOcean sans pile au poste fixe,
 > liaison cellulaire (SMS ou LTE-M/MQTT) vers l'AGV. Il se construit et se teste
@@ -39,7 +39,7 @@ carte maintient une file de **5 courses**, désormais persistée en NVS.
    raison : elle tourne en production depuis cinq ans.
 6. **Poser la question plutôt que supposer** sur tout ce qui touche au §12.
 
-## Tenue de la documentation — obligatoire
+## Tenue de la documentation : obligatoire
 
 `docs/ETAT_PROJET.md` est le document de référence du projet : ce qui est fait,
 comment déployer, et le kanban de ce qui reste. **Il est mis à jour après chaque

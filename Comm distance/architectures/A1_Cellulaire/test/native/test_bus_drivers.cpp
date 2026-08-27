@@ -1,7 +1,7 @@
 // Tests des trois variantes matérielles d'interface bus (brief §4.4, §12.10).
 //
 // Elles sont interchangeables derrière IBusDriver ; ces tests vérifient les
-// propriétés qui les distinguent — c'est ce qui doit rester vrai quel que soit
+// propriétés qui les distinguent : c'est ce qui doit rester vrai quel que soit
 // le choix final du client.
 #include <map>
 #include <utility>

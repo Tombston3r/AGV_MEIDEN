@@ -8,7 +8,7 @@ strictement simultané).
 
 Le MEGA est un **organe de pose**, rien de plus. Il n'applique ni `t_setup`, ni
 polarité, ni timeout, et ne connaît ni la file de courses ni le séquenceur.
-Toute la logique — donc tous les paramètres du §12 — reste dans l'ESP32.
+Toute la logique (donc tous les paramètres du §12) reste dans l'ESP32.
 
 Motif : si les deux firmwares portaient la même vérité (un `t_setup` ici, un
 autre là), ils divergeraient au premier relevé et personne ne saurait lequel
@@ -58,12 +58,12 @@ Réponse :
 ## Contraintes de temps
 
 - L'ESP32 borne son attente de réponse (20 ms par défaut). Un MEGA muet fait
-  échouer la pose, ce qui met le séquenceur en défaut `BUS_WRITE_ERROR` — jamais
+  échouer la pose, ce qui met le séquenceur en défaut `BUS_WRITE_ERROR`, jamais
   un blocage de la tâche bus.
 - L'aller-retour complet à 500 kbauds coûte ~0,3 ms pour 8 octets dans chaque
   sens. C'est **le** coût de cette variante : la pose est instantanée, mais elle
   est précédée d'un aller-retour UART. À comparer aux ~150 µs des MCP23017 et
-  aux ~3 µs des 74HC595 — qui n'ont, eux, pas de liaison intermédiaire.
+  aux ~3 µs des 74HC595, qui n'ont, eux, pas de liaison intermédiaire.
 
 ## Mise à zéro au démarrage
 

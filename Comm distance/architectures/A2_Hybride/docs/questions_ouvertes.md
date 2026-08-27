@@ -1,4 +1,4 @@
-# Questions ouvertes — à poser avant de figer quoi que ce soit
+# Questions ouvertes, à poser avant de figer quoi que ce soit
 
 > Reprend le §12 du brief. Chaque ligne est un paramètre du logiciel, jamais une
 > constante. Tant qu'une case « Relevé » est vide, la valeur du profil est
@@ -13,16 +13,16 @@
 | 12.5 | Timeouts Y22 / Y05 / Y10 | 300 ms / 1 500 ms / 120 s | `profiles/*.yaml` | ☐ |
 | 12.6 | Ordre des bits d'adresse et de vitesse | **CONFIRMÉ** par les libellés ×1…×512 du relevé | `bus/bus_signals.h` | ✅ |
 | 12.6b | Repères sérigraphiés T9…T24 ↔ signaux Y | non utilisés par le code | `docs/signal_map.md` | ☐ |
-| 12.7 | Protocole application mobile « AIO AGV Remote » | **abandonné** au profit des boutons EnOcean + IHM web (planif. §1) | — | ✅ |
+| 12.7 | Protocole application mobile « AIO AGV Remote » | **abandonné** au profit des boutons EnOcean + IHM web (planif. §1) | - | ✅ |
 | 12.8 | TCM 515 (Rx seul) ou TCM 310 (bidirectionnel) | `enocean.rx_only: true` | `profiles/*.yaml` | ☐ |
 | 12.9 | Runtime du poste fixe | **LEVÉ si l'Unipi Gate G100 est retenu** : livré sous Debian, donc Python 3.11 + systemd sans question | `poste-unipi/` | ✅* |
 | 12.10 | Variante d'interface bus | **tranché** : carte conservée, ports de l'ATmega | `bus/avr_port_bus.h` | ✅ |
 | W1 | Câblage ATmega ↔ SUB-D 25 | **RELEVÉ** : 11 ports, 3 mixtes (PA, PB, PG) | `firmware/mega/src/board_ports.h` | ✅ |
-| ~~**W1b**~~ | ~~Amplitude des lignes Y~~ — **vérifiée par le client le 2026-08-21** : connexion directe confirmée compatible. *Relever la valeur mesurée ici pour la traçabilité.* | compatible | matériel | ✅ **RÉSOLU** |
+| ~~**W1b**~~ | ~~Amplitude des lignes Y~~, **vérifiée par le client le 2026-08-21** : connexion directe confirmée compatible. *Relever la valeur mesurée ici pour la traçabilité.* | compatible | matériel | ✅ **RÉSOLU** |
 | W1d | Topologie des entrées de l'automate (tirées ou attendant un courant ?) | `x_open_drain: true` (mode qui ne détruit rien) | `profiles/*.yaml` | ☐ |
 | W1e | Tension V_CC réelle de l'ATmega (le L7806CV sort 6 V) | non mesurée | matériel | ☐ |
 | W1c | Pull-ups internes sur les Y (collecteur ouvert ?) | `y_pullups: false` | `profiles/*.yaml` | ☐ |
-| ~~W2~~ | ~~UART reliant l'ESP32 à l'ATmega~~ — **relevé au projet KiCad** : ce n'est **pas** un UART matériel côté MEGA. `ESP32 IO17` → `MEGA D52` en direct, `MEGA D53` → pont 2,2 k/4,7 k → `ESP32 IO16`. Les trois UART du MEGA sont inutilisables, leurs broches RX portant `Y13`, `Y11` et `Y05`. Firmware passé en `SoftwareSerial` à 38 400 bauds. | D52/D53 | `board_ports.h`, `board_pins.h` | ✅ **RÉSOLU** |
+| ~~W2~~ | ~~UART reliant l'ESP32 à l'ATmega~~, **relevé au projet KiCad** : ce n'est **pas** un UART matériel côté MEGA. `ESP32 IO17` → `MEGA D52` en direct, `MEGA D53` → pont 2,2 k/4,7 k → `ESP32 IO16`. Les trois UART du MEGA sont inutilisables, leurs broches RX portant `Y13`, `Y11` et `Y05`. Firmware passé en `SoftwareSerial` à 38 400 bauds. | D52/D53 | `board_ports.h`, `board_pins.h` | ✅ **RÉSOLU** |
 | W3 | Ligne de heartbeat matérielle dédiée | aucune identifiée ; heartbeat par trame série | `board_ports.h` | ☐ |
 | W4 | Connecteur ICSP pour flasher l'ATmega | supposé présent | procédure de déploiement | ☐ |
 | W5 | Paramètres réseau (SSID, IP, VLAN, 802.1X) | placeholders | `profiles/*.yaml` | ☐ |
@@ -31,7 +31,7 @@
 
 ## Questions à poser au client / à l'atelier
 
-### Électrique — à lever avant le premier branchement
+### Électrique, à lever avant le premier branchement
 
 Le L7806CV est l'**alimentation** de l'ATmega : 24 V venant de CN64 A6/B6,
 abaissés à 6 V. Il ne renseigne donc en rien sur les niveaux du bus, qui
@@ -43,7 +43,7 @@ restent entièrement inconnus.
    la plus urgente du projet.
 0b. **Quelle tension arrive réellement sur V_CC de l'ATmega ?** Si le 6 V du
    L7806CV l'alimente directement, on est au **maximum absolu** du datasheet
-   (6,0 V) et hors plage recommandée (4,5–5,5 V à 16 MHz) — un L7806 sort
+   (6,0 V) et hors plage recommandée (4,5–5,5 V à 16 MHz) : un L7806 sort
    jusqu'à 6,24 V. Vérifier si le 6 V va sur V_CC, sur un second régulateur, ou
    sur `Vin` d'une carte Arduino (où 6 V est au contraire trop bas).
 0c. **Les entrées de l'automate sont-elles tirées vers une tension, ou
@@ -76,7 +76,7 @@ restent entièrement inconnus.
    format actuel reprend les noms de compteurs mais pas la mise en page exacte.
 9. L'application mobile « AIO AGV Remote » peut-elle être définitivement
    abandonnée ? La planification la remplace par les boutons EnOcean et l'IHM
-   web du poste — à confirmer avec les opérateurs, pas seulement avec le
+   web du poste, à confirmer avec les opérateurs, pas seulement avec le
    donneur d'ordre.
 10. Un accusé de réception côté opérateur est-il exigé ? Le TCM 515 est en
     réception seule : le retour passe par un voyant câblé au poste ou un
@@ -91,7 +91,7 @@ restent entièrement inconnus.
 12. Combien de temps une course en attente reste-t-elle pertinente après une
     coupure d'alimentation ? (`course_validity_min`, 30 min par défaut)
 
-### Réseau — PRÉREQUIS BLOQUANTS de cette architecture
+### Réseau : PRÉREQUIS BLOQUANTS de cette architecture
 13. Le relevé **RSRP/RSRQ en tous points du parcours**, aux heures de
     production et machines en marche, a-t-il été fait ? Un seul point d'arrêt
     sous −110 dBm **disqualifie l'architecture** (Archi_2 §7.1).
@@ -101,4 +101,4 @@ restent entièrement inconnus.
 15. Le calendrier d'extinction 2G/3G des opérateurs a-t-il été vérifié à jour ?
     Il impose de partir sur LTE-M/Cat-M1 ou Cat-1 bis (Archi_2 §5).
 16. Le chiffrage sur 10 ans a-t-il été mis en regard des architectures sans
-    coût récurrent ? (~15 000 € en SMS contre ~0 € en ISM — Archi_2 §6.2)
+    coût récurrent ? (~15 000 € en SMS contre ~0 € en ISM : Archi_2 §6.2)

@@ -1,16 +1,16 @@
-# Organisation du dépôt — pourquoi, et où poser une nouveauté
+# Organisation du dépôt : pourquoi, et où poser une nouveauté
 
 **Ce document vaut pour tout le dépôt**, les deux chantiers compris :
 `Comm distance/` et `Timer/`.
 
 ## La règle, en une phrase
 
-**Tout ce qui sert à une chose vit avec elle** — et *tout* comprend la
+**Tout ce qui sert à une chose vit avec elle**, et *tout* comprend la
 documentation.
 
 ## La paire obligatoire
 
-Tout dossier livrable — chantier, architecture, banc — porte **deux**
+Tout dossier livrable (chantier, architecture, banc) porte **deux**
 documents. Pas un.
 
 | Fichier | Ce qu'il répond |
@@ -21,15 +21,15 @@ documents. Pas un.
 La séparation n'est pas cosmétique : le `README` s'adresse à qui découvre, le
 `DEPLOY` à qui a les mains dans la machine et veut savoir **ce qu'il doit voir**
 à chaque étape. Écrire l'un en croyant couvrir l'autre laisse toujours la
-recette de côté — celle qui dit qu'un appui EnOcean produisant trois fenêtres
+recette de côté : celle qui dit qu'un appui EnOcean produisant trois fenêtres
 est un défaut, ou qu'un RSSI sous −115 dBm condamne une implantation.
 
 ⚠️ **Un `DEPLOY.md` reste dû même quand rien n'est déployable.** Il décrit alors
-le chemin ordonné vers la mise en service et **ce qui l'interdit aujourd'hui** —
+le chemin ordonné vers la mise en service et **ce qui l'interdit aujourd'hui** :
 voir [`../Timer/DEPLOY.md`](../Timer/DEPLOY.md), dont la phase 0 est faite de
 verrous non logiciels.
 
-S'y ajoute `docs/ETAT_PROJET.md` — état, kanban, journal — **tenu à jour à
+S'y ajoute `docs/ETAT_PROJET.md` (état, kanban, journal) **tenu à jour à
 chaque modification**.
 
 ## Où poser une nouveauté
@@ -42,17 +42,17 @@ chaque modification**.
 | Un **projet KiCad** | `Comm distance/materiel/<NOM_REV>/` | une entrée dans `materiel/README.md` |
 | Un **script partagé** | `Comm distance/outils/` | une entrée dans `outils/README.md` |
 | Un **document transverse** | `docs/` (racine) | un lien depuis le `README.md` racine |
-| Une **interface web** | `<dossier>/web/` | une copie de `docs/theme/theme.css` — posée par `outils/theme.sh --appliquer` |
+| Une **interface web** | `<dossier>/web/` | une copie de `docs/theme/theme.css` : posée par `outils/theme.sh --appliquer` |
 
 Si l'on hésite entre une architecture et un banc : un banc **prouve quelque
-chose** — sur du matériel, ou sur un contrat — une architecture **fait rouler
+chose** (sur du matériel, ou sur un contrat) une architecture **fait rouler
 l'AGV**.
 
 ### Le thème est commun à toutes les interfaces
 
 Fond blanc, texte noir, bleu outremer, logo AIO : une IHM d'architecture, un
 banc et le planning doivent se ressembler. La feuille vit une seule fois dans
-[`theme/theme.css`](theme/theme.css) et chaque interface en porte une copie —
+[`theme/theme.css`](theme/theme.css) et chaque interface en porte une copie,
 même raison que pour le reste, les dossiers sont livrables seuls.
 
 `outils/theme.sh` signale les copies qui ont dérivé et repropage l'original.
@@ -77,8 +77,8 @@ Les projets KiCad vivent une seule fois dans `materiel/`, même quand deux
 architectures partagent une carte.
 
 Ce n'est pas une exception arbitraire : la duplication du matériel s'est déjà
-retournée contre le projet. Trois copies divergentes de la V6.0 ont coexisté —
-dont une que KiCad avait recréée à un chemin renommé — et il a fallu comparer
+retournée contre le projet. Trois copies divergentes de la V6.0 ont coexisté,
+dont une que KiCad avait recréée à un chemin renommé, et il a fallu comparer
 les schémas pour déterminer laquelle portait le travail réel. Un firmware
 dupliqué se compare par `diff` ; deux schémas KiCad divergents, non.
 

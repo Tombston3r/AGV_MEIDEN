@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Génère les trois feuilles de sourcing (BOM.md) des architectures.
 
-Les prix vivent ICI, en un seul endroit, et les totaux sont CALCULÉS — jamais
+Les prix vivent ICI, en un seul endroit, et les totaux sont CALCULÉS, jamais
 recopiés à la main. C'est ce qui garantit qu'un récapitulatif ne peut pas
 diverger de son propre détail, comme c'était arrivé sur l'outillage LoRa.
 
@@ -41,7 +41,7 @@ def lien(ref, source):
     """
     pcb = "[JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx)"
     if any(m in ref for m in NON_RECHERCHABLE):
-        return pcb if source == "PCB" else "—"
+        return pcb if source == "PCB" else "-"
     q = quote_plus(_terme(ref))
     rs = f"[RS](https://fr.rs-online.com/web/c/?searchTerm={q})"
     if source == "RS":
@@ -62,7 +62,7 @@ def eur(x):
 class Section:
     """Un poste de la nomenclature.
 
-    `core=False` marque un accessoire **arbitrable selon le budget** — antenne,
+    `core=False` marque un accessoire **arbitrable selon le budget** : antenne,
     boîtier, enveloppe murale, câble. Ces lignes restent définies ici, mais ne
     sont **ni affichées ni comptées** : elles brouillaient la lecture sans rien
     apporter à la décision technique. Leur montant est rappelé en un seul
@@ -83,7 +83,7 @@ class Section:
 
     @property
     def ht(self):
-        """Coût des seuls composants retenus — c'est lui qui alimente les totaux."""
+        """Coût des seuls composants retenus : c'est lui qui alimente les totaux."""
         return sum(q * p for _, _, q, _, p, c in self.lines if c)
 
     @property
@@ -92,7 +92,7 @@ class Section:
 
     @property
     def ht_complet(self):
-        """Accessoires compris — pour les comparaisons économiques."""
+        """Accessoires compris, pour les comparaisons économiques."""
         return self.ht + self.ht_accessoires
 
     @property
@@ -114,9 +114,9 @@ class Section:
         out.append(f"| **Sous-total** | | | | | | **☐** | ***{eur(self.ttc)}*** |")
         return "\n".join(out) + "\n"
 
-HEADER = """# Nomenclature — {titre}
+HEADER = """# Nomenclature {titre}
 {total}
-## ⚠️ Feuille de sourcing — à compléter avant usage
+## ⚠️ Feuille de sourcing, à compléter avant usage
 
 Ce document est une **liste d'achat à remplir**, pas un devis. Les colonnes
 `Réf. catalogue`, `PU TTC` et `Total TTC` sont vides : c'est le service achats
@@ -124,10 +124,10 @@ qui les renseigne depuis le catalogue.
 
 | Colonne | Ce qu'elle contient |
 |---|---|
-| `Réf. fabricant` | **Référence exacte à rechercher** — c'est ce qui rend la ligne non ambiguë |
+| `Réf. fabricant` | **Référence exacte à rechercher** : c'est ce qui rend la ligne non ambiguë |
 | `Lien d'achat` | **Recherche pré-remplie chez le distributeur**, RS en premier chaque fois que c'est plausible. Un second lien n'apparaît que lorsque RS ne distribue probablement pas la référence |
 | `Réf. catalogue` / `PU TTC` / `Total TTC` | **À remplir** |
-| *`Repère TTC`* | Estimation de départ, **en italique** — voir l'avertissement ci-dessous |
+| *`Repère TTC`* | Estimation de départ, **en italique** : voir l'avertissement ci-dessous |
 
 ### ⚠️ Ce sont des liens de RECHERCHE, pas des fiches produit
 
@@ -135,7 +135,7 @@ Chaque lien lance une **recherche sur la référence fabricant** chez le
 distributeur. Aucun numéro de stock n'a été vérifié : le site de RS bloque
 l'accès automatisé, il n'était donc pas possible de confirmer qu'une fiche
 produit existe ni à quel prix. Inventer des numéros de stock aurait produit des
-liens crédibles menant à la mauvaise pièce — le pire résultat possible sur une
+liens crédibles menant à la mauvaise pièce : le pire résultat possible sur une
 liste d'achat.
 
 C'est au service achats de retenir la bonne fiche et d'en reporter la référence
@@ -161,7 +161,7 @@ Ces repères servent à deux choses, et à rien d'autre :
 
 **Le total d'une feuille complétée sera nettement supérieur au total des
 repères.** C'est normal, et c'est le prix de la traçabilité d'un distributeur
-référencé — disponibilité, garantie, facture, fiches techniques.
+référencé : disponibilité, garantie, facture, fiches techniques.
 
 ### Note pour l'arbitrage
 
@@ -180,7 +180,7 @@ TAIL_SOURCING = """
 1. Rechercher chaque `Réf. fabricant` sur [fr.rs-online.com](https://fr.rs-online.com).
 2. Renseigner la référence RS (numéro de stock), le prix unitaire TTC et le total.
 3. Si la référence est absente du catalogue RS : chercher sur Amazon, et
-   **noter la source dans la colonne `Réf. catalogue`** — la traçabilité de
+   **noter la source dans la colonne `Réf. catalogue`** : la traçabilité de
    l'origine compte autant que le prix.
 4. Attention aux **conditionnements** : un IRF520 ou une résistance se vend
    souvent par 5, 10 ou 100. Le prix unitaire affiché peut correspondre à un
@@ -195,39 +195,39 @@ TAIL_SOURCING = """
 """
 
 # ===========================================================================
-#  LoRa — A3 (homogène) et A2 (hybride EnOcean)
+#  LoRa : A3 (homogène) et A2 (hybride EnOcean)
 # ===========================================================================
-carte = Section("Carte AGV neuve — **variante de repli**, commune à A3 et A2",
+carte = Section("Carte AGV neuve : **variante de repli**, commune à A3 et A2",
                 "Carte neuve à fabriquer. La V5.0.1 d'origine est **conservée intacte** :\nc'est le retour arrière de cette architecture.")
 carte.add("Module MCU Wi-Fi/BT, 8 Mo flash", "ESP32-WROOM-32E-N8", 1, "RS", 5.00)
 carte.add("Module LoRa SX1276 868 MHz", "RFM95W-868S2 (HopeRF)", 1, "Amazon", 10.00)
 carte.add("Pigtail U.FL → SMA femelle + passe-cloison", "Amphenol 336312-24-0100", 1, "RS", 3.00, core=False)
 carte.add("Antenne 868 MHz 1/4 onde 2 dBi, embase SMA", "Siretta ALPHA-1A ou équiv.", 1, "RS", 6.00, core=False)
-carte.add("Optocoupleur quadruple — 43 voies", "PC847 (Sharp)", 11, "RS", 0.60)
+carte.add("Optocoupleur quadruple : 43 voies", "PC847 (Sharp)", 11, "RS", 0.60)
 carte.add("Convertisseur DC/DC 24 V → 5 V 1 A", "TSR 1-2450 (Traco Power)", 1, "RS", 7.00)
 carte.add("LDO 3,3 V 600 mA", "AP2112K-3.3TRG1 (Diodes)", 1, "RS", 0.60)
 carte.add("Diode TVS protection 24 V", "SMBJ33A (Littelfuse)", 2, "RS", 0.50)
 carte.add("Résistances 1 %, découplages, LED d'état", "lot", 1, "RS", 8.00)
-carte.add("ILS (reed) + aimant — Wi-Fi de maintenance", "Standex KSK-1A66 ou équiv.", 1, "RS", 2.00)
+carte.add("ILS (reed) + aimant : Wi-Fi de maintenance", "Standex KSK-1A66 ou équiv.", 1, "RS", 2.00)
 carte.add("SUB-D 25 mâle et femelle, coudés CI", "Amphenol L717SDB25xA4CH4F", 2, "RS", 3.00)
 carte.add("PCB 4 couches ~120 × 100 mm (série de 5)", "Gerber projet", 1, "PCB", 12.00)
 carte.add("Boîtier, fixation, presse-étoupes, conn. de prog.", "Hammond 1590 ou Fibox", 1, "RS", 28.00, core=False)
 
-bus595 = Section("Interface bus — variante `shift595` (recommandée)")
+bus595 = Section("Interface bus : variante `shift595` (recommandée)")
 bus595.add("Registre à décalage sortie 8 bits", "SN74HC595N (TI)", 3, "RS", 0.50)
 bus595.add("Registre à décalage entrée 8 bits", "SN74HC165N (TI)", 3, "RS", 0.50)
 
-busmcp = Section("Interface bus — variante `mcp23017` (alternative)")
+busmcp = Section("Interface bus : variante `mcp23017` (alternative)")
 busmcp.add("Expandeur I²C 16 GPIO", "MCP23017-E/SP (Microchip)", 4, "RS", 2.50)
 
 # Variante alignée sur la topologie de la V5.0.1 : un ATmega porte les 43 lignes
 # sur ses propres broches. Elle SUPPRIME les 11 PC847 de la carte.
-busavr = Section("Interface bus — variante `avr_port` (alignée sur la V5.0.1)",
+busavr = Section("Interface bus : variante `avr_port` (alignée sur la V5.0.1)",
                  "⚠️ Cette variante **retire les 11 `PC847`** de la carte AGV ci-dessus :\n"
                  "les 43 lignes arrivent directement sur les broches de l'ATmega. Ne pas\n"
                  "additionner les deux. Voir « Peut-on se passer des optocoupleurs ? ».")
-busavr.add("Module MCU 5 V, 70 E/S — porte les 43 lignes du bus", "Mega2560 Pro (format compact)", 1, "Amazon", 18.00)
-busavr.add("Réseau Darlington collecteur ouvert — étage des 22 sorties X", "ULN2803A (TI)", 3, "RS", 1.20)
+busavr.add("Module MCU 5 V, 70 E/S : porte les 43 lignes du bus", "Mega2560 Pro (format compact)", 1, "Amazon", 18.00)
+busavr.add("Réseau Darlington collecteur ouvert : étage des 22 sorties X", "ULN2803A (TI)", 3, "RS", 1.20)
 
 # La V6.0 est la V5.0.1 au composant près, PLUS un RFM95W-868S2. Elle est donc
 # construite à partir de la nomenclature KiCad de la V5.0.1 (`w_carte`, définie
@@ -237,21 +237,21 @@ def carte_v6():
                 "**Nomenclature réelle**, extraite de\n"
                 "[`../../materiel/AIO_AGV_Control_V6.0/`](../../materiel/AIO_AGV_Control_V6.0/) :\n"
                 "58 composants placés au PCB.\n\n"
-                "C'est la **V5.0.1 au composant près, plus un `RFM95W-868S2`** — le\n"
+                "C'est la **V5.0.1 au composant près, plus un `RFM95W-868S2`** : le\n"
                 "diff des deux projets KiCad ne montre aucun autre écart. La radio est\n"
                 "**intégrée à la carte**, câblée sur le SPI libre de l'ESP32 : il n'y a\n"
                 "ni carte fille ni câblage volant.\n\n"
                 "⚠️ Cette carte est **fabriquée**. La V5.0.1 d'origine reste intacte sur\n"
-                "le chariot — c'est le retour arrière de cette architecture.")
+                "le chariot : c'est le retour arrière de cette architecture.")
     for desig, ref, qty, source, ht, core in w_carte.lines:
         s.add(desig, ref, qty, source, ht, core)
-    s.add("**Module LoRa SX1276 868 MHz** — l'unique écart avec la V5.0.1",
+    s.add("**Module LoRa SX1276 868 MHz** : l'unique écart avec la V5.0.1",
           "RFM95W-868S2 (HopeRF, U2)", 1, "Amazon", 10.00, core=True)
     s.add("Pigtail U.FL → SMA femelle + passe-cloison", "Amphenol 336312-24-0100", 1, "RS", 3.00, core=False)
     s.add("Antenne 868 MHz 1/4 onde 2 dBi, embase SMA", "Siretta ALPHA-1A ou équiv.", 1, "RS", 6.00, core=False)
     return s
 
-bouton_pile = Section("**[A3]** Bouton d\'appel sur pile — l\'unité")
+bouton_pile = Section("**[A3]** Bouton d\'appel sur pile : l\'unité")
 bouton_pile.add("MCU ultra-basse consommation", "STM32L071KBU6 (ST)", 1, "RS", 3.50, core=True)
 bouton_pile.add("Module LoRa 868 MHz", "RFM95W-868S2 (HopeRF)", 1, "Amazon", 10.00, core=True)
 bouton_pile.add("Antenne 868 MHz + embase SMA", "Siretta ALPHA-1A ou équiv.", 1, "RS", 6.00, core=False)
@@ -277,24 +277,24 @@ poste_enocean.add("24 V → 5 V → 3,3 V", "TSR 1-2450 + AP2112K-3.3", 1, "RS",
 poste_enocean.add("PCB 2 couches ~100 × 80 mm", "Gerber projet", 1, "PCB", 6.00)
 poste_enocean.add("Boîtier mural IP54, presse-étoupes, embases SMA", "Fibox ou Hammond 1554", 1, "RS", 30.00, core=False)
 
-bouton_enocean = Section("**[A2]** Bouton EnOcean sans pile — l'unité")
+bouton_enocean = Section("**[A2]** Bouton EnOcean sans pile : l'unité")
 bouton_enocean.add("Module émetteur auto-alimenté, **sans pile**", "PTM 210 (EnOcean, EU 868)", 1, "Spécialiste", 30.00)
 bouton_enocean.add("Enveloppe / poussoir mural compatible PTM 210", "Eltako, NodOn ou Trio2Sys", 1, "Spécialiste", 12.00, core=False)
 bouton_enocean.add("Plaque de repérage station gravée", "sur mesure", 1, "Amazon", 4.00, core=False)
 
-outil_lora = Section("Outillage — non récurrent")
-outil_lora.add("Dongle RTL-SDR + antenne — occupation de la bande 868 MHz", "RTL-SDR Blog V4", 1, "Amazon", 30.00)
-outil_lora.add("Analyseur logique 8 voies — chronogrammes X/Y", "clone Saleae 24 MHz", 1, "Amazon", 15.00)
+outil_lora = Section("Outillage : non récurrent")
+outil_lora.add("Dongle RTL-SDR + antenne : occupation de la bande 868 MHz", "RTL-SDR Blog V4", 1, "Amazon", 30.00)
+outil_lora.add("Analyseur logique 8 voies : chronogrammes X/Y", "clone Saleae 24 MHz", 1, "Amazon", 15.00)
 outil_lora.add("Adaptateur USB-série 3,3 V", "FTDI FT232RL ou CP2102", 1, "Amazon", 6.00)
-outil_lora.add("Mesure de courant µA — sommeil profond **[A3]**", "multimètre à faible burden voltage", 1, "Amazon", 9.00)
+outil_lora.add("Mesure de courant µA : sommeil profond **[A3]**", "multimètre à faible burden voltage", 1, "Amazon", 9.00)
 
 # LORA_SECTIONS n'existe plus : chaque architecture LoRa compose la sienne
 # près de son write(), la carte V6.0 dépendant de `w_carte` défini plus bas.
 
 # ===========================================================================
-#  Wi-Fi — carte V5.0.1 conservée
+#  Wi-Fi : carte V5.0.1 conservée
 # ===========================================================================
-w_carte = Section("**[A4]** Carte AGV — extraite du projet KiCad",
+w_carte = Section("**[A4]** Carte AGV : extraite du projet KiCad",
                   "**Nomenclature réelle**, extraite de\n"
                   "[`../../materiel/AIO_AGV_Control_V5.0.1/`](../../materiel/AIO_AGV_Control_V5.0.1/) :\n"
                   "57 composants placés au PCB. Ce n'est plus une estimation d'étude.\n\n"
@@ -302,12 +302,12 @@ w_carte = Section("**[A4]** Carte AGV — extraite du projet KiCad",
                   "ATmega2560 + ESP32 de l'originale, sur supports, avec son propre étage de\n"
                   "sortie. La ligne « carte AGV à 0 € » des versions précédentes de ce\n"
                   "document était donc fausse.")
-w_carte.add("Module MCU — carte Mega2560 Pro sur support", "Clone Mega2560 Pro (A1)", 1, "Amazon", 18.00)
+w_carte.add("Module MCU : carte Mega2560 Pro sur support", "Clone Mega2560 Pro (A1)", 1, "Amazon", 18.00)
 w_carte.add("Module Wi-Fi/BT sur support", "ESP32-DEVKITC-32D-F (U1)", 1, "RS", 12.00)
-w_carte.add("**Étage de sortie** — MOSFET N canal TO-220", "IRF520 (Vishay, T1–T24)", 23, "RS", 0.60)
+w_carte.add("**Étage de sortie** : MOSFET N canal TO-220", "IRF520 (Vishay, T1–T24)", 23, "RS", 0.60)
 w_carte.add("Résistances de grille des MOSFET", "1 kΩ THT 0411 (R1–R24)", 23, "RS", 0.05)
 w_carte.add("Diviseurs de mesure", "4,7 k / 2,2 k / 22 k / 220 k (R30, R31, R40, R41)", 4, "RS", 0.05)
-w_carte.add("Régulateur 6 V — alimentation de l'ATmega", "L7806CV (LM1)", 1, "RS", 0.90)
+w_carte.add("Régulateur 6 V : alimentation de l'ATmega", "L7806CV (LM1)", 1, "RS", 0.90)
 w_carte.add("Convertisseur DC/DC **isolé** 24 V → 5 V, 5 W", "TDN 5-2411WISM (Traco, TDN1)", 1, "RS", 25.00)
 w_carte.add("Diode de protection DO-41", "1N4007 ou équiv. (D1)", 1, "RS", 0.10)
 w_carte.add("Connecteur SUB-D 25 **mâle** coudé CI (entrées)", "Amphenol DB25P564CTXLF (J1)", 1, "RS", 6.00)
@@ -331,11 +331,11 @@ w_antenne.add("Antenne 2,4 GHz 2 dBi, embase SMA, déportée", "Siretta DELTA-6A
 w_antenne.add("Pigtail U.FL → SMA femelle + passe-cloison", "Amphenol 336312-24-0100", 1, "RS", 8.00, core=False)
 w_antenne.add("Support de fixation, visserie", "lot", 1, "RS", 4.00, core=False)
 
-w_poste = Section("**[A4]** Poste fixe — Unipi Gate G100",
+w_poste = Section("**[A4]** Poste fixe : Unipi Gate G100",
                   "Le poste porte le récepteur EnOcean, le broker MQTT et l'interface de\n"
                   "supervision. **Le Gate G100 remplace l'E413 initialement prévu** : voir\n"
                   "la justification en fin de document.")
-w_poste.add("Passerelle Linux DIN — Debian, 16 Go eMMC, 2× Ethernet, USB 3.0, RS485", "Unipi Gate G100", 1, "Spécialiste", 200.00)
+w_poste.add("Passerelle Linux DIN : Debian, 16 Go eMMC, 2× Ethernet, USB 3.0, RS485", "Unipi Gate G100", 1, "Spécialiste", 200.00)
 w_poste.add("Récepteur EnOcean 868 MHz, UART ESP3", "TCM 515 (EnOcean)", 1, "Spécialiste", 28.00)
 w_poste.add("Antenne EnOcean 868 MHz déportée + pigtail", "EnOcean ANT300 ou équiv.", 1, "Spécialiste", 10.00, core=False)
 w_poste.add("Adaptateur USB-série vers le TCM 515", "FTDI FT232RL", 1, "RS", 8.00)
@@ -343,49 +343,49 @@ w_poste.add("Alimentation rail DIN 230 V → 24 V 15 W", "MEAN WELL HDR-15-24", 
 w_poste.add("Coffret rail DIN, bornier, presse-étoupes", "Fibox ou Schneider", 1, "RS", 20.00, core=False)
 w_poste.add("Câble Ethernet blindé vers le réseau usine", "Cat 6 S/FTP, 5 m", 1, "RS", 6.00, core=False)
 
-w_boutons = Section("**[A4]** Boutons d'appel EnOcean — 2 stations")
+w_boutons = Section("**[A4]** Boutons d'appel EnOcean : 2 stations")
 w_boutons.add("Module émetteur auto-alimenté, **sans pile**", "PTM 210 (EnOcean, EU 868)", 2, "Spécialiste", 30.00)
 w_boutons.add("Enveloppe / poussoir mural compatible PTM 210", "Eltako, NodOn ou Trio2Sys", 2, "Spécialiste", 12.00, core=False)
 w_boutons.add("Plaque de repérage station gravée", "sur mesure", 2, "Amazon", 4.00, core=False)
 w_boutons.add("Fixation, visserie, adhésif industriel", "3M VHB ou équiv.", 2, "RS", 4.00, core=False)
 
-w_outil = Section("Outillage — non récurrent")
-w_outil.add("Programmateur ISP — **sauvegarde puis flash de l'ATmega**", "USBasp ou USBtinyISP", 1, "Amazon", 8.00)
-w_outil.add("Adaptateur USB-série 3,3 V — ESP32 et liaison inter-MCU", "FTDI FT232RL ou CP2102", 1, "Amazon", 6.00)
-w_outil.add("Analyseur logique 8 voies — chronogrammes X/Y", "clone Saleae 24 MHz", 1, "Amazon", 15.00)
-w_outil.add("Jeu de cosses + pince à sertir — confection du harnais", "Knipex ou Engineer PA-09", 1, "RS", 45.00)
+w_outil = Section("Outillage : non récurrent")
+w_outil.add("Programmateur ISP : **sauvegarde puis flash de l'ATmega**", "USBasp ou USBtinyISP", 1, "Amazon", 8.00)
+w_outil.add("Adaptateur USB-série 3,3 V : ESP32 et liaison inter-MCU", "FTDI FT232RL ou CP2102", 1, "Amazon", 6.00)
+w_outil.add("Analyseur logique 8 voies : chronogrammes X/Y", "clone Saleae 24 MHz", 1, "Amazon", 15.00)
+w_outil.add("Jeu de cosses + pince à sertir : confection du harnais", "Knipex ou Engineer PA-09", 1, "RS", 45.00)
 w_outil.add("Kit réseau : testeur RJ45, sertisseuse", "lot", 1, "Amazon", 31.00)
 
 WIFI_SECTIONS = [w_carte, w_harnais, w_antenne, w_poste, w_boutons, w_outil]
 
 # ===========================================================================
-#  SMS + EnOcean — variante B (LTE-M / MQTT)
+#  SMS + EnOcean : variante B (LTE-M / MQTT)
 # ===========================================================================
-s_carte = Section("**[A1]** Carte AGV — variante LTE-M",
+s_carte = Section("**[A1]** Carte AGV : variante LTE-M",
                   "Carte neuve à fabriquer. La V5.0.1 d'origine est **conservée intacte**.")
 s_carte.add("Module MCU, 8 Mo flash", "ESP32-WROOM-32E-N8", 1, "RS", 5.00)
 s_carte.add("Modem LTE-M / NB-IoT, très basse consommation", "SIM7080G (SIMCom)", 1, "Amazon", 18.00)
 s_carte.add("Antenne LTE 4 dBi déportée + pigtail U.FL → SMA", "Siretta ECHO-9 ou équiv.", 1, "RS", 12.00, core=False)
 s_carte.add("Support SIM nano, protection ESD", "Molex 785900001", 1, "RS", 1.50)
-s_carte.add("Optocoupleur quadruple — 43 voies", "PC847 (Sharp)", 11, "RS", 0.60)
+s_carte.add("Optocoupleur quadruple : 43 voies", "PC847 (Sharp)", 11, "RS", 0.60)
 s_carte.add("Convertisseur DC/DC 24 V → 5 V 1 A", "TSR 1-2450 (Traco Power)", 1, "RS", 7.00)
 s_carte.add("LDO 3,3 V 600 mA", "AP2112K-3.3TRG1 (Diodes)", 1, "RS", 0.60)
 s_carte.add("Diode TVS protection 24 V", "SMBJ33A (Littelfuse)", 2, "RS", 0.50)
-s_carte.add("**Réservoir capacitif** — pics d'émission modem (2 A)", "470 µF low-ESR 16 V", 1, "RS", 3.00)
+s_carte.add("**Réservoir capacitif** : pics d'émission modem (2 A)", "470 µF low-ESR 16 V", 1, "RS", 3.00)
 s_carte.add("Résistances 1 %, découplages, LED d'état", "lot", 1, "RS", 8.00)
-s_carte.add("ILS (reed) + aimant — Wi-Fi de maintenance", "Standex KSK-1A66 ou équiv.", 1, "RS", 2.00)
+s_carte.add("ILS (reed) + aimant : Wi-Fi de maintenance", "Standex KSK-1A66 ou équiv.", 1, "RS", 2.00)
 s_carte.add("SUB-D 25 mâle et femelle, coudés CI", "Amphenol L717SDB25xA4CH4F", 2, "RS", 3.00)
 s_carte.add("PCB 4 couches ~120 × 100 mm (série de 5)", "Gerber projet", 1, "PCB", 12.00)
 s_carte.add("Boîtier, fixation, presse-étoupes, conn. de prog.", "Hammond 1590 ou Fibox", 1, "RS", 28.00, core=False)
 
-s_poste_esp = Section("**[A1]** Poste fixe — option A : ESP32 (recommandée)",
+s_poste_esp = Section("**[A1]** Poste fixe, option A : ESP32 (recommandée)",
                       "Suffit dès lors que l'historique long terme n'est pas exigé.")
 s_poste_esp.add("Module MCU, 8 Mo flash (LittleFS + pages web)", "ESP32-WROOM-32E-N8", 1, "RS", 5.00)
 s_poste_esp.add("Modem LTE-M / NB-IoT", "SIM7080G (SIMCom)", 1, "Amazon", 18.00)
 s_poste_esp.add("Antenne LTE déportée + pigtail", "Siretta ECHO-9 ou équiv.", 1, "RS", 12.00, core=False)
 s_poste_esp.add("Récepteur EnOcean 868 MHz, UART ESP3", "TCM 515 (EnOcean)", 1, "Spécialiste", 28.00)
 s_poste_esp.add("Antenne EnOcean déportée", "EnOcean ANT300 ou équiv.", 1, "Spécialiste", 8.00, core=False)
-s_poste_esp.add("Ethernet SPI + RJ45 — **liaison filaire**", "WIZnet WIZ850io (W5500)", 1, "RS", 6.00)
+s_poste_esp.add("Ethernet SPI + RJ45 : **liaison filaire**", "WIZnet WIZ850io (W5500)", 1, "RS", 6.00)
 s_poste_esp.add("LED d'accusé, LED de vie, boutons appairage/reset", "lot", 1, "RS", 3.50, core=False)
 s_poste_esp.add("Alimentation rail DIN 230 V → 24 V 15 W", "MEAN WELL HDR-15-24", 1, "RS", 14.00)
 s_poste_esp.add("24 V → 5 V → 3,3 V", "TSR 1-2450 + AP2112K-3.3", 1, "RS", 8.00)
@@ -394,11 +394,11 @@ s_poste_esp.add("Boîtier mural IP54, presse-étoupes, embases SMA", "Fibox ou H
 s_poste_esp.add("Support SIM, passifs", "Molex 785900001 + lot", 1, "RS", 3.00)
 s_poste_esp.add("Câble Ethernet blindé", "Cat 6 S/FTP, 5 m", 1, "RS", 6.00, core=False)
 
-s_poste_gate = Section("**[A1]** Poste fixe — option B : Unipi Gate G100 (**si Ethernet disponible**)",
+s_poste_gate = Section("**[A1]** Poste fixe, option B : Unipi Gate G100 (**si Ethernet disponible**)",
                   "Le modem du poste ne sert à rien dès qu'une prise réseau est à portée :\n"
                   "le poste parle au broker par le fil. Cela **supprime une SIM sur deux** et\n"
                   "ouvre la gamme Gate, qui n'a pas de cellulaire. Debian d'origine.")
-s_poste_gate.add("Passerelle Linux DIN — Debian, 16 Go eMMC, 2× Ethernet, USB 3.0, RS485", "Unipi Gate G100", 1, "Spécialiste", 200.00)
+s_poste_gate.add("Passerelle Linux DIN : Debian, 16 Go eMMC, 2× Ethernet, USB 3.0, RS485", "Unipi Gate G100", 1, "Spécialiste", 200.00)
 s_poste_gate.add("Récepteur EnOcean 868 MHz, UART ESP3", "TCM 515 (EnOcean)", 1, "Spécialiste", 28.00)
 s_poste_gate.add("Antenne EnOcean 868 MHz déportée + pigtail", "EnOcean ANT300 ou équiv.", 1, "Spécialiste", 10.00, core=False)
 s_poste_gate.add("Adaptateur USB-série vers le TCM 515", "FTDI FT232RL", 1, "RS", 8.00)
@@ -406,24 +406,24 @@ s_poste_gate.add("Alimentation rail DIN 230 V → 24 V 15 W", "MEAN WELL HDR-15-
 s_poste_gate.add("Coffret rail DIN, bornier, presse-étoupes", "Fibox ou Schneider", 1, "RS", 20.00, core=False)
 s_poste_gate.add("Câble Ethernet blindé vers le réseau usine", "Cat 6 S/FTP, 5 m", 1, "RS", 6.00, core=False)
 
-s_poste_unipi = Section("**[A1]** Poste fixe — option C : UniPi E413 LTE (**seulement sans Ethernet**)",
+s_poste_unipi = Section("**[A1]** Poste fixe, option C : UniPi E413 LTE (**seulement sans Ethernet**)",
                   "À ne retenir que si le poste est hors de portée d'une prise réseau. Le\n"
-                  "modem intégré est alors la raison d'être du modèle — et son surcoût.")
+                  "modem intégré est alors la raison d'être du modèle, et son surcoût.")
 s_poste_unipi.add("Automate compact Linux, E/S TOR, modem LTE intégré", "UniPi E413 (variante LTE)", 1, "Spécialiste", 350.00)
 s_poste_unipi.add("Antenne LTE externe déportée", "Siretta ECHO-9 ou équiv.", 1, "RS", 15.00, core=False)
 s_poste_unipi.add("Récepteur EnOcean + antenne", "TCM 515 + ANT300", 1, "Spécialiste", 36.00)
 s_poste_unipi.add("Coffret rail DIN, alimentation, bornier", "Fibox + MEAN WELL HDR-15-24", 1, "RS", 34.00, core=False)
 s_poste_unipi.add("Câble Ethernet blindé", "Cat 6 S/FTP, 5 m", 1, "RS", 4.00, core=False)
 
-s_boutons = Section("**[A1]** Boutons d'appel EnOcean — 2 stations")
+s_boutons = Section("**[A1]** Boutons d'appel EnOcean : 2 stations")
 s_boutons.add("Module émetteur auto-alimenté, **sans pile**", "PTM 210 (EnOcean, EU 868)", 2, "Spécialiste", 30.00)
 s_boutons.add("Enveloppe / poussoir mural compatible PTM 210", "Eltako, NodOn ou Trio2Sys", 2, "Spécialiste", 12.00, core=False)
 s_boutons.add("Plaque de repérage station gravée", "sur mesure", 2, "Amazon", 4.00, core=False)
 s_boutons.add("Fixation, visserie", "lot", 2, "RS", 4.00, core=False)
 
-s_outil = Section("Outillage — non récurrent")
-s_outil.add("Analyseur logique 8 voies — chronogrammes X/Y", "clone Saleae 24 MHz", 1, "Amazon", 15.00)
-s_outil.add("Adaptateur USB-série 3,3 V — mise au point pile AT", "FTDI FT232RL ou CP2102", 1, "Amazon", 6.00)
+s_outil = Section("Outillage : non récurrent")
+s_outil.add("Analyseur logique 8 voies : chronogrammes X/Y", "clone Saleae 24 MHz", 1, "Amazon", 15.00)
+s_outil.add("Adaptateur USB-série 3,3 V : mise au point pile AT", "FTDI FT232RL ou CP2102", 1, "Amazon", 6.00)
 s_outil.add("Jeu de cosses, pince à sertir, consommables", "Knipex ou Engineer PA-09", 1, "RS", 24.00)
 
 SMS_SECTIONS = [s_carte, s_poste_esp, s_poste_gate, s_poste_unipi, s_boutons, s_outil]
@@ -467,15 +467,15 @@ def bloc_total(totaux):
     out += ["",
             "Ces totaux ne comptent que les **composants déterminants**.",
             "",
-            "Les accessoires arbitrables selon le budget — antennes, boîtiers,",
-            "coffrets, enveloppes murales, câbles — sont volontairement **hors",
+            "Les accessoires arbitrables selon le budget : antennes, boîtiers,",
+            "coffrets, enveloppes murales, câbles : sont volontairement **hors",
             "nomenclature** : ils se substituent librement d'un fournisseur à l'autre",
             "et ne changent rien à la conception. La dernière colonne rappelle ce",
             "qu'ils pèsent, pour que ce total ne soit jamais pris pour un coût",
             "d'achat complet.",
             "",
             "⚠️ [`{cmp}`]({cmp}) et le `README.md` racine comparent les architectures",
-            "**accessoires compris** — sans quoi le classement serait faussé. Leurs",
+            "**accessoires compris**, sans quoi le classement serait faussé. Leurs",
             "chiffres sont donc plus élevés que ceux-ci, et c'est normal.",
             ""]
     return "\n".join(out)
@@ -488,11 +488,11 @@ rupture de stock :
 
 | Référence | Équivalents |
 |---|---|
-| `IRF520` | `IRL520N` — version **logic-level**, brochage identique |
+| `IRF520` | `IRL520N` : version **logic-level**, brochage identique |
 | `RFM95W-868S2` | Tout module SX1276 868 MHz au même brochage |
 | `TSR 1-2450` | `OKI-78SR-5/1.5-W36-C` (Murata), même brochage |
 | `AP2112K-3.3TRG1` | `MCP1700T-3302E`, `XC6206P332MR` |
-| `ER14505` | `LS14500` (Saft), `SL-360` (Tadiran) — Li-SOCl₂ 3,6 V AA |
+| `ER14505` | `LS14500` (Saft), `SL-360` (Tadiran) : Li-SOCl₂ 3,6 V AA |
 | `TCM 515` | `TCM 310` si l'accusé opérateur n'est pas retenu |
 """
 
@@ -504,7 +504,7 @@ rupture de stock :
 | Référence | Équivalents |
 |---|---|
 | `PC847` | `LTV-847`, `TLP281-4`, tout optocoupleur quadruple à sortie transistor |
-| `SN74HC595N` | `MC74HC595AN`, `CD74HC595E` — boîtier DIP-16 |
+| `SN74HC595N` | `MC74HC595AN`, `CD74HC595E` : boîtier DIP-16 |
 | `SN74HC165N` | `MC74HC165AN`, `CD74HC165E` |
 | `TSR 1-2450` | `OKI-78SR-5/1.5-W36-C` (Murata), même brochage |
 | `AP2112K-3.3TRG1` | `MCP1700T-3302E`, `XC6206P332MR` |
@@ -518,8 +518,8 @@ rupture de stock :
 
 | Référence | Équivalents |
 |---|---|
-| `IRF520` | `IRL520N` — version **logic-level**, brochage identique |
-| `TDN 5-2411WISM` | `TSR 1-2450` **si l'isolation n'est pas requise** — voir l'analyse |
+| `IRF520` | `IRL520N` : version **logic-level**, brochage identique |
+| `TDN 5-2411WISM` | `TSR 1-2450` **si l'isolation n'est pas requise** : voir l'analyse |
 | `L7806CV` | Sans objet si l'ATmega est alimenté depuis le 5 V de la carte |
 | `DB25P564CTXLF` | Tout SUB-D 25 coudé CI au même pas |
 """
@@ -550,11 +550,11 @@ ht_lora_pur = carte_v6_ht + 2 * bouton_pile.ht + outil_lora.ht
 ht_hybride = carte_v6_ht + poste_enocean.ht + 2 * bouton_enocean.ht + outil_lora.ht
 r1, _ = recap([("Carte AGV `V6.0` (nomenclature KiCad)", carte_v6_ht, False),
                ("2 boutons sur pile", 2 * bouton_pile.ht, False),
-               ("Outillage", outil_lora.ht, False)], "Récapitulatif — variante A3 (LoRa homogène)")
+               ("Outillage", outil_lora.ht, False)], "Récapitulatif : variante A3 (LoRa homogène)")
 r3, _ = recap([("Carte AGV `V6.0` (nomenclature KiCad)", carte_v6_ht, False),
                ("Poste fixe EnOcean → LoRa", poste_enocean.ht, False),
                ("2 boutons PTM 210", 2 * bouton_enocean.ht, False),
-               ("Outillage", outil_lora.ht, False)], "Récapitulatif — variante A2 (EnOcean + LoRa)")
+               ("Outillage", outil_lora.ht, False)], "Récapitulatif : variante A2 (EnOcean + LoRa)")
 
 cross = []
 for n in (2, 4, 6, 8, 12):
@@ -571,30 +571,30 @@ ANALYSE_LORA = f"""---
 
 ## Analyse critique de cette nomenclature
 
-### ✅ Corrigé — le convertisseur du bouton était inutile
+### ✅ Corrigé : le convertisseur du bouton était inutile
 
 La nomenclature d'étude prévoyait un `TPS62740` (buck ultra-basse consommation)
 entre la pile et l'électronique. Il n'a pas lieu d'être : une pile Li-SOCl₂
-délivre **3,6 V**, et les deux consommateurs l'acceptent directement —
+délivre **3,6 V**, et les deux consommateurs l'acceptent directement :
 `STM32L071` de 1,65 à 3,6 V, `RFM95W` de 1,8 à 3,7 V. Le convertisseur ajoutait
 un composant, un courant de repos et un mode de panne, pour rien.
 
 Le vrai besoin est ailleurs : une cellule Li-SOCl₂ a une **impédance interne
 élevée**, et l'émission LoRa tire ~120 mA pendant quelques centaines de
 millisecondes. Sans réservoir, la tension s'effondre et le microcontrôleur
-redémarre — panne classique, et intermittente, donc pénible à diagnostiquer.
+redémarre : panne classique, et intermittente, donc pénible à diagnostiquer.
 
 `TPS62740` remplacé par **220 µF tantale + 10 µF X7R** : {gain} d'économie, un
 composant de moins, et le problème réellement traité.
 
-Une diode Schottky est ajoutée en protection de la pile — {bat} — contre une
+Une diode Schottky est ajoutée en protection de la pile ({bat}) contre une
 inversion au remplacement.
 
 ### ⚠️ L'`IRF520` n'est pas un MOSFET « logic-level »
 
 La V6.0 hérite de l'étage de sortie de la V5.0.1 : **23 `IRF520`**, dont la
 tension de seuil est spécifiée de 2 à 4 V et le `Rds(on)` garanti à Vgs = 10 V.
-Attaqué par une broche à 5 V, il conduit — mais hors des conditions du
+Attaqué par une broche à 5 V, il conduit, mais hors des conditions du
 constructeur.
 
 Pour quelques milliampères sur une entrée d'automate, cela fonctionne. Ce n'est
@@ -603,19 +603,19 @@ avant de l'attribuer à autre chose le jour où une voie se comporte mal en
 température. L'`IRL520` est la version logic-level du même composant, **au même
 brochage** : une substitution sans reroutage.
 
-### ⚠️ À vérifier — l'autonomie annoncée
+### ⚠️ À vérifier : l'autonomie annoncée
 
 5 à 8 ans sur une `ER14505` de 2,6 Ah suppose un sommeil profond sous 2 µA et
 quelques appuis par jour. **À mesurer au banc** (phase 7 de `DEPLOY.md`) : un
 courant de repos de 20 µA au lieu de 2 divise l'autonomie par cinq, et
 transforme une maintenance décennale en corvée annuelle.
 
-### ✅ Confirmé — les 43 lignes sur les broches de l'ATmega
+### ✅ Confirmé : les 43 lignes sur les broches de l'ATmega
 
 La V6.0 reprend la topologie de la V5.0.1 : le `Mega2560 Pro` porte les 43
 lignes sur ses propres broches, sans expandeur ni registre à décalage. Le
 relevé de câblage montre que les 22 sorties occupent 5 ports, soit **5
-écritures ≈ 0,3 µs** en section critique — 500 fois plus rapide qu'un expandeur
+écritures ≈ 0,3 µs** en section critique : 500 fois plus rapide qu'un expandeur
 I²C.
 
 Le driver `avr_port_bus.cpp` est déjà écrit et testé, et le relevé complet vit
@@ -649,9 +649,9 @@ courante ne les distingue au premier coup d'œil.
 ### La V6.0, c'est la V5.0.1 plus une radio
 
 Le diff des deux projets KiCad est sans ambiguïté : **58 empreintes contre 57,
-un seul écart, le `RFM95W-868S2`.** Tout le reste — `Mega2560 Pro`,
+un seul écart, le `RFM95W-868S2`.** Tout le reste : `Mega2560 Pro`,
 `ESP32-DEVKITC`, les 23 `IRF520` et leurs résistances de grille, le `L7806CV`,
-le `TDN 5-2411WISM`, les deux SUB-D 25 — est strictement identique.
+le `TDN 5-2411WISM`, les deux SUB-D 25 : est strictement identique.
 
 La radio est **intégrée à la carte**, câblée sur le SPI que l'ESP32 laissait
 libre. Le relevé confirme le brochage :
@@ -666,7 +666,7 @@ libre. Le relevé confirme le brochage :
 
 ⚠️ **`RESET` n'est pas câblée.** Un module figé ne se récupérera qu'en coupant
 l'alimentation de la carte : aucun reset logiciel n'est possible. Une GPIO libre
-suffirait à corriger cela sur une V6.1 — il en reste largement.
+suffirait à corriger cela sur une V6.1 : il en reste largement.
 
 ⚠️ **`IO16` et `IO17` sont interdites** : elles portent la liaison série vers le
 `Mega2560 Pro`.
@@ -682,7 +682,7 @@ hypothèse de travail ; la V6.0 la remplace, et **elle est plus chère** :
 | Carte AGV | {eur(18.00)} HT *(greffe)* | **{eur(carte_v6_ht)} HT** *(fabriquée)* |
 
 La carte est à produire, comme celle de l'architecture A4. En contrepartie il
-n'y a **ni carte fille, ni câblage volant dans un chariot qui vibre** — ce qui,
+n'y a **ni carte fille, ni câblage volant dans un chariot qui vibre** : ce qui,
 sur un équipement destiné à durer, vaut largement l'écart.
 
 La V5.0.1 d'origine **reste intacte sur le chariot** : c'est le retour arrière
@@ -690,7 +690,7 @@ de cette architecture.
 
 ### La liaison entre les deux microcontrôleurs n'est pas un UART
 
-Le relevé KiCad corrige une hypothèse qui était fausse — et le firmware a été
+Le relevé KiCad corrige une hypothèse qui était fausse, et le firmware a été
 corrigé en conséquence.
 
 ```
@@ -704,18 +704,18 @@ ESP32 IO17 (U2TXD) ───────── MEGA D52 (PB1)          3,3 V lus
 ```
 
 Côté ESP32 c'est bien `UART2`. **Côté MEGA, D52 et D53 ne sont pas des broches
-d'UART matériel** — et les trois UART du MEGA sont inutilisables, car leurs
+d'UART matériel**, et les trois UART du MEGA sont inutilisables, car leurs
 broches de réception portent des signaux du bus : `D19`/`PD2` = `Y13`,
 `D17`/`PH0` = `Y11`, `D15`/`PJ0` = **`Y05`**, le drapeau de déplacement.
 
 Un `Serial1.begin()` aurait mis `Y13` en sortie **contre la sortie de
 l'automate**. Le firmware passe donc en `SoftwareSerial` sur D52/D53, à
-**38 400 bauds** — 115 200 n'est pas tenable en émulation logicielle sur AVR.
+**38 400 bauds** : 115 200 n'est pas tenable en émulation logicielle sur AVR.
 
 ### Pourquoi pas un Unipi Gate pour ce poste ?
 
 La question se pose puisque le poste de l'architecture Wi-Fi a été ramené à une
-passerelle Unipi Gate G100. **Ici, non — et pour une raison de fond, pas de
+passerelle Unipi Gate G100. **Ici, non, et pour une raison de fond, pas de
 prix.**
 
 Le Gate est un boîtier DIN fermé : Ethernet, RS485, un port USB. **Aucun
@@ -740,11 +740,11 @@ L'asymétrie avec l'architecture Wi-Fi est donc logique :
 | | Poste Wi-Fi | Poste LoRa |
 |---|---|---|
 | Doit héberger un broker MQTT | **oui** | non |
-| Doit piloter une radio au niveau PHY | non — le réseau est Ethernet | **oui** — SX1276 sur SPI |
+| Doit piloter une radio au niveau PHY | non (le réseau est Ethernet | **oui**) SX1276 sur SPI |
 | Matériel qui en découle | boîtier Linux industriel | microcontrôleur avec SPI |
 | Retenu | Unipi Gate G100 (~{eur(200 * TVA)} TTC) | carte ESP32 (~{eur(poste_enocean.ht * TVA)} TTC) |
 
-⚠️ **Deux antennes 868 MHz sur le même boîtier** — EnOcean et LoRa. Les espacer
+⚠️ **Deux antennes 868 MHz sur le même boîtier** : EnOcean et LoRa. Les espacer
 d'au moins 20 cm, ou en déporter une. Une désensibilisation du récepteur EnOcean
 par l'émetteur LoRa se traduirait par des appuis perdus, silencieusement.
 
@@ -759,7 +759,7 @@ Le point de bascule est à **{bascule} stations**. En dessous, A3 coûte moins
 à des boutons à {eur(bouton_enocean.ht_complet * TVA)} au lieu de
 {eur(bouton_pile.ht_complet * TVA)}, et supprime les piles.
 
-⚠️ Ce tableau raisonne **accessoires compris** — boîtier IP65 et poussoir Ø22
+⚠️ Ce tableau raisonne **accessoires compris** : boîtier IP65 et poussoir Ø22
 du bouton A3, enveloppe murale du bouton A2. C'est une comparaison économique,
 pas une liste d'achat : les retirer inverserait artificiellement le classement,
 puisque c'est précisément l'enveloppe du bouton A3 qui le rend cher.
@@ -775,10 +775,10 @@ puisque c'est précisément l'enveloppe du bouton A3 qui le rend cher.
 
 | Poste | Annuel |
 |---|---:|
-| Abonnement opérateur | **0 €** — bande ISM libre |
-| Infrastructure | **0 €** — aucune |
+| Abonnement opérateur | **0 €** : bande ISM libre |
+| Infrastructure | **0 €** : aucune |
 | **[A3]** Remplacement des piles | ~{eur(6 * TVA)} par bouton tous les 5 à 8 ans |
-| **[A2]** Piles | **0 €** — PTM 210 auto-alimentés |
+| **[A2]** Piles | **0 €** : PTM 210 auto-alimentés |
 
 **C'est l'architecture la moins chère des trois sur dix ans.**
 
@@ -790,7 +790,7 @@ puisque c'est précisément l'enveloppe du bouton A3 qui le rend cher.
 |---|---|---|
 | PCB 4 couches + assemblage | 3 à 5 semaines | **Chemin critique matériel** |
 | **[A3]** PCB bouton + boîtiers IP65 | 3 à 5 semaines | En parallèle de la carte AGV |
-| `RFM95W-868S2` | 1 à 3 semaines | **Contrefaçons fréquentes** — acheter chez un distributeur référencé, pas sur une place de marché |
+| `RFM95W-868S2` | 1 à 3 semaines | **Contrefaçons fréquentes** : acheter chez un distributeur référencé, pas sur une place de marché |
 | `PTM 210` / `TCM 515` | 1 à 2 semaines | Peu distribués par RS : prévoir un distributeur EnOcean |
 | `ER14505` Li-SOCl₂ | 1 à 2 semaines | **Restrictions de transport aérien** sur le lithium |
 | `ESP32-DEVKITC`, `Mega2560 Pro`, `IRF520` | stock | Faible |
@@ -812,20 +812,20 @@ l'antenne, la puissance d'émission et le nombre de nœuds.
 """
 
 # Un dossier par architecture : A3 et A2 ont chacun leur nomenclature. Les
-# sections communes — carte V6.0, variantes d'interface bus, outillage — sont
+# sections communes (carte V6.0, variantes d'interface bus, outillage) sont
 # répétées dans les deux, comme le reste du dossier autonome.
 COMMUN_LORA = [v6]
 
 write(RACINE / "architectures/A3_LoRa/BOM.md",
-      "A3 — LoRa P2P homogène, boutons sur pile", "../../docs/COMPARAISON.md",
+      "A3 : LoRa P2P homogène, boutons sur pile", "../../docs/COMPARAISON.md",
       COMMUN_LORA + [bouton_pile, outil_lora], lora_extra(r1) + ANALYSE_LORA,
-      totaux=[("A3 — LoRa homogène, 2 boutons sur pile", ht_lora_pur,
+      totaux=[("A3 : LoRa homogène, 2 boutons sur pile", ht_lora_pur,
                acc_de(v6, outil_lora) + 2 * bouton_pile.ht_accessoires)])
 
 write(RACINE / "architectures/A2_Hybride/BOM.md",
-      "A2 — Hybride EnOcean + LoRa", "../../docs/COMPARAISON.md",
+      "A2 : Hybride EnOcean + LoRa", "../../docs/COMPARAISON.md",
       COMMUN_LORA + [poste_enocean, bouton_enocean, outil_lora], lora_extra(r3) + ANALYSE_LORA,
-      totaux=[("A2 — EnOcean + LoRa, 2 boutons sans pile", ht_hybride,
+      totaux=[("A2 : EnOcean + LoRa, 2 boutons sans pile", ht_hybride,
                acc_de(v6, poste_enocean, outil_lora) + 2 * bouton_enocean.ht_accessoires)])
 print(f"A3 = {ht_lora_pur:.2f} HT / {ht_lora_pur*TVA:.2f} TTC ; A2 = {ht_hybride:.2f} HT / {ht_hybride*TVA:.2f} TTC")
 
@@ -854,13 +854,13 @@ mais deux méritent une décision avant fabrication.
 ### ⚠️ L'`IRF520` n'est pas un MOSFET « logic-level »
 
 Sa tension de seuil est spécifiée **de 2 à 4 V**, et son `Rds(on)` est garanti à
-**Vgs = 10 V**. Attaqué par une broche à 5 V, il conduit — mais hors des
+**Vgs = 10 V**. Attaqué par une broche à 5 V, il conduit, mais hors des
 conditions du constructeur, et avec une résistance à l'état passant très
 supérieure à celle annoncée.
 
 **Pour les courants en jeu, quelques milliampères sur une entrée d'automate,
 cela fonctionne.** La chute de tension reste négligeable même à 10 Ω. Ce n'est
-donc pas un défaut bloquant — c'est un choix hors spécification, qu'il faut
+donc pas un défaut bloquant : c'est un choix hors spécification, qu'il faut
 connaître avant de l'attribuer à autre chose le jour où une voie se comporte mal
 en température.
 
@@ -869,7 +869,7 @@ Si le PCB n'est pas encore fabriqué, deux alternatives valent d'être pesées :
 | Solution | Coût | Surface | Remarque |
 |---|---:|---|---|
 | `IRF520` ×23 (actuel) | ~{irf} | **23 boîtiers TO-220** | Hors spec à 5 V, très encombrant |
-| `IRL520` ×23 | ~{irl} | idem | Version **logic-level** du même composant, brochage identique — **substitution sans reroutage** |
+| `IRL520` ×23 | ~{irl} | idem | Version **logic-level** du même composant, brochage identique : **substitution sans reroutage** |
 | `ULN2803A` ×3 | ~{uln} | 3 boîtiers DIP-18 | Réseau Darlington à collecteur ouvert : même fonction, **résistances de grille supprimées**, surface divisée par dix |
 
 L'`IRL520` est le changement le moins risqué : même boîtier, même brochage,
@@ -879,7 +879,7 @@ valider contre le seuil d'entrée de l'automate** avant de le retenir.
 
 ### ⚠️ Isolation : le convertisseur isolé et l'étage à MOSFET se contredisent
 
-Le `TDN 5-2411WISM` est un convertisseur **isolé 1,5 kV** — le poste le plus
+Le `TDN 5-2411WISM` est un convertisseur **isolé 1,5 kV** : le poste le plus
 cher de la carte. Or les MOSFET de sortie tirent les lignes de l'automate vers
 **la masse de la carte** : il y a donc bien une masse commune avec l'automate,
 et l'isolation galvanique n'existe pas au niveau des signaux.
@@ -889,7 +889,7 @@ Deux lectures possibles, et il faut trancher :
 - **l'isolation sert à découpler le 24 V de l'AGV du rail logique** (bruit,
   transitoires du chariot). Elle est alors justifiée, et le convertisseur reste ;
 - **l'isolation était censée s'appliquer aux signaux.** Dans ce cas elle est
-  inopérante, et un `TSR 1-2450` non isolé à ~{tsr} remplacerait le `TDN` — soit
+  inopérante, et un `TSR 1-2450` non isolé à ~{tsr} remplacerait le `TDN`, soit
   **{eco} d'économie** sur la ligne la plus chère de la carte.
 
 ### ⚠️ Le 6 V du `L7806CV` alimente un microcontrôleur prévu pour 5,5 V
@@ -899,8 +899,8 @@ Rappel de [`docs/subd25_atmega.md`](docs/subd25_atmega.md) : 6,0 V est le
 carte. Si le Mega peut être alimenté depuis ce 5 V, le `L7806CV` devient inutile
 et le microcontrôleur revient dans sa plage recommandée.
 
-À vérifier au schéma : le 6 V va-t-il sur `Vin` du module Mega — auquel cas il
-est *trop bas* pour son régulateur — ou directement sur `V_CC` ?
+À vérifier au schéma : le 6 V va-t-il sur `Vin` du module Mega, auquel cas il
+est *trop bas* pour son régulateur, ou directement sur `V_CC` ?
 """
 
 WIFI_EXTRA = f"""---
@@ -910,7 +910,7 @@ WIFI_EXTRA = f"""---
 L'extraction du projet KiCad ne fait pas que donner des prix : elle renseigne
 deux points qui étaient ouverts.
 
-### 1. L'étage de sortie est à MOSFET — `x_open_drain` doit être `false`
+### 1. L'étage de sortie est à MOSFET : `x_open_drain` doit être `false`
 
 Les 22 voies X passent par **23 IRF520** (MOSFET N canal, TO-220) attaqués par
 des résistances de grille de 1 kΩ. C'est un étage à **collecteur ouvert
@@ -920,7 +920,7 @@ de niveau haut.
 Conséquence directe sur le firmware : le microcontrôleur pilote une **grille**,
 pas la ligne de l'automate. Il doit donc être en **sortie poussée**
 (`bus.x_open_drain: false`). Le mode collecteur ouvert côté microcontrôleur
-laisserait la grille **flottante** à l'état actif — un MOSFET à grille flottante
+laisserait la grille **flottante** à l'état actif : un MOSFET à grille flottante
 peut conduire partiellement, ce qui est le pire état possible sur un étage de
 puissance.
 
@@ -932,7 +932,7 @@ schéma : voie de réserve, ou signal supplémentaire non identifié.
 
 ### 2. Les 21 entrées Y n'ont aucune protection
 
-La carte ne compte que **quatre résistances** hors étage de sortie — deux
+La carte ne compte que **quatre résistances** hors étage de sortie : deux
 diviseurs (`R30`/`R31` et `R40`/`R41`), vraisemblablement pour une mesure de
 tension. **Aucun optocoupleur, aucun diviseur sur les 21 lignes `Y`** : elles
 arrivent directement sur les broches du Mega.
@@ -949,7 +949,7 @@ la logique sont séparées.
 
 ---
 
-## Adaptation de niveaux — CONDITIONNEL
+## Adaptation de niveaux : CONDITIONNEL
 
 ⚠️ **Poste chiffré à titre conservatoire, en attente de mesure.**
 
@@ -980,13 +980,13 @@ semaines de délai, pas seulement un coût.
 |---|---:|
 | Abonnement opérateur | **0 €** |
 | Infrastructure Wi-Fi | à la charge du client (existante) |
-| Piles des boutons | **0 €** — PTM 210 auto-alimentés |
+| Piles des boutons | **0 €** : PTM 210 auto-alimentés |
 
 ### Pourquoi le Gate G100 et non l'E413
 
 Le service du poste n'utilise, en tout et pour tout, **un port série et de
 l'Ethernet** : le récepteur EnOcean d'un côté, le broker MQTT de l'autre. Les
-boutons étant EnOcean, **aucune entrée TOR n'est utilisée** —
+boutons étant EnOcean, **aucune entrée TOR n'est utilisée** :
 `agv_poste/io_backend.py` n'est même pas appelé par le service.
 
 Payer un automate à entrées/sorties revient donc à financer du matériel qui ne
@@ -997,11 +997,11 @@ sert pas.
 | Prix indicatif | **~200 €** | 375 à 479 € |
 | Système | **Debian Linux** | à vérifier (§12.9) |
 | Ethernet | **2 ports** (Gb + 100M) | 1 |
-| USB | 1× USB 3.0 — pour le TCM 515 | selon modèle |
+| USB | 1× USB 3.0, pour le TCM 515 | selon modèle |
 | RS485 | 1 (2 isolés sur G110) | selon modèle |
 | Alimentation | 6–36 VDC | 24 V |
 | Stockage | 16 Go eMMC + microSD | 8 Go eMMC |
-| Entrées/sorties TOR | **aucune** | plusieurs — **inutilisées ici** |
+| Entrées/sorties TOR | **aucune** | plusieurs : **inutilisées ici** |
 
 Trois gains au-delà du prix :
 
@@ -1009,7 +1009,7 @@ Trois gains au-delà du prix :
    le service Python 3.11 et systemd fonctionnent sans question. L'incertitude
    « Mervis ou Linux ? » qui bloquait le dossier ne se pose plus.
 2. **Deux ports Ethernet** permettent de séparer physiquement le VLAN OT du
-   raccordement de maintenance — un argument de plus auprès du service
+   raccordement de maintenance : un argument de plus auprès du service
    informatique.
 3. **16 Go d'eMMC** au lieu de 8 : de la marge pour le journal d'événements.
 
@@ -1030,7 +1030,7 @@ formelle.
 ### Alternative encore moins chère
 
 Si aucun historique long terme n'est attendu, un ESP32 avec module Ethernet
-remplit la même fonction pour ~{eur(85 * TVA)} au lieu de {eur(w_poste.ht * TVA)} — soit
+remplit la même fonction pour ~{eur(85 * TVA)} au lieu de {eur(w_poste.ht * TVA)}, soit
 **{eur((w_poste.ht - 85) * TVA)} d'économie**. Le Gate ne se justifie que par la
 persistance, l'hébergement du broker et le fait d'être un matériel industriel
 référencé.
@@ -1043,9 +1043,9 @@ référencé.
 |---|---|---|
 | `UniPi E413` | 2 à 6 semaines | **Chemin critique matériel.** Vérifier la référence exacte et le runtime livré (§12.9) avant commande |
 | `PTM 210` / `TCM 515` | 1 à 2 semaines | Peu distribués par RS : prévoir un distributeur EnOcean |
-| PCB + assemblage de la carte AGV | 3 à 5 semaines | **Chemin critique matériel** — la carte est fabriquée, pas réutilisée |
+| PCB + assemblage de la carte AGV | 3 à 5 semaines | **Chemin critique matériel** : la carte est fabriquée, pas réutilisée |
 | `TDN 5-2411WISM` | 1 à 3 semaines | Convertisseur isolé : poste le plus cher de la carte |
-| Adaptation de niveaux | 3 à 5 semaines **si nécessaire** | Conditionnel à la mesure W1b — d'où l'urgence de la faire |
+| Adaptation de niveaux | 3 à 5 semaines **si nécessaire** | Conditionnel à la mesure W1b : d'où l'urgence de la faire |
 | Points d'accès Wi-Fi additionnels | variable | À la charge du client, dépend du relevé 0.2 |
 
 **Ne rien commander avant la phase 1 de [`DEPLOY.md`](DEPLOY.md)** : le relevé de
@@ -1063,10 +1063,10 @@ change la nomenclature.
 """
 
 write(RACINE / "architectures/A4_Wifi/BOM.md",
-      "A4 — Wi-Fi + EnOcean (carte V5.0.1 conservée)", "../../docs/COMPARAISON.md",
+      "A4 : Wi-Fi + EnOcean (carte V5.0.1 conservée)", "../../docs/COMPARAISON.md",
       WIFI_SECTIONS, WIFI_EXTRA + ANALYSE_WIFI,
       equivalences=EQUIV_V5,
-      totaux=[("A4 — Wi-Fi + EnOcean", wifi_ht,
+      totaux=[("A4 : Wi-Fi + EnOcean", wifi_ht,
                acc_de(w_carte, w_harnais, w_antenne, w_poste, w_boutons, w_outil))])
 
 # --- SMS + EnOcean ----------------------------------------------------------
@@ -1082,7 +1082,7 @@ rs_, _ = recap([("Carte AGV (variante `shift595`)", s_carte595, False),
                 ("Poste fixe ESP32 (option A)", s_poste_esp.ht, False),
                 ("2 boutons EnOcean", s_boutons.ht, False),
                 ("Outillage", s_outil.ht, False)],
-               "Récapitulatif — variante B (LTE-M / MQTT), poste ESP32")
+               "Récapitulatif : variante B (LTE-M / MQTT), poste ESP32")
 
 poste_esp = eur(s_poste_esp.ht * TVA)
 # Modem + antenne + support SIM du poste, inutiles s'il est raccordé en Ethernet.
@@ -1092,34 +1092,34 @@ ANALYSE_SMS = f"""---
 
 ## Analyse critique de cette nomenclature
 
-### ✅ Corrigé — le réservoir capacitif était dimensionné pour le mauvais modem
+### ✅ Corrigé : le réservoir capacitif était dimensionné pour le mauvais modem
 
 La nomenclature d'étude annonçait des pics de **2 A**. C'est la valeur d'un
 `SIM7600E-H` (LTE Cat-1), retenu dans la **variante SMS**. Le `SIM7080G` de la
 variante recommandée est un modem **LTE-M / NB-IoT** : ses pics d'émission sont
 de l'ordre de **0,5 à 0,7 A**.
 
-La ligne reste — un réservoir est nécessaire — mais son dimensionnement change,
+La ligne reste (un réservoir est nécessaire) mais son dimensionnement change,
 et il ne faut pas surdimensionner l'alimentation pour un besoin qui n'existe
 pas. À confirmer sur la fiche technique du modem effectivement commandé.
 
-### ✅ Corrigé — le poste UniPi peut descendre en gamme
+### ✅ Corrigé : le poste UniPi peut descendre en gamme
 
 Même constat que dans l'architecture Wi-Fi : les boutons sont **EnOcean**, donc
 `agv_poste/io_backend.py` n'est jamais appelé. Les entrées TOR de l'`E413` sont
 payées et inutilisées.
 
-L'`E413` était pourtant imposé par une contrainte réelle — son **modem
+L'`E413` était pourtant imposé par une contrainte réelle : son **modem
 cellulaire intégré**. C'est cette contrainte qui tombe : si le poste est
 raccordé en Ethernet, il n'a aucune raison de passer par le réseau de
 l'opérateur, et le modem disparaît avec elle. La gamme **Gate** redevient
 alors éligible.
 
-D'où la scission en deux options : **B — Unipi Gate G100** dès qu'une prise
-réseau existe, **C — E413 LTE** seulement sinon. L'option A (ESP32 à
+D'où la scission en deux options : **B, Unipi Gate G100** dès qu'une prise
+réseau existe, **C : E413 LTE** seulement sinon. L'option A (ESP32 à
 {poste_esp}) reste la moins chère dans les deux cas.
 
-### ⚠️ À vérifier — la limitation de courant des optocoupleurs
+### ⚠️ À vérifier : la limitation de courant des optocoupleurs
 
 Comme pour l'architecture LoRa : 43 canaux de `PC847` demandent 43 résistances
 de limitation dimensionnées pour la tension réelle des lignes (§12.1). À sortir
@@ -1128,8 +1128,8 @@ du forfait « passifs » une fois la mesure faite.
 ### ⚠️ Deux antennes cellulaires, deux abonnements
 
 L'AGV **et** le poste portent chacun un `SIM7080G` et une SIM. C'est ce qui
-double le coût récurrent. Si le poste dispose d'un raccordement Ethernet — ce
-qui est le cas dès qu'il est dans un local technique — **son modem est inutile**
+double le coût récurrent. Si le poste dispose d'un raccordement Ethernet : ce
+qui est le cas dès qu'il est dans un local technique : **son modem est inutile**
 et il parle au broker par le réseau filaire : {eco_sim} de matériel et la moitié
 du récurrent en moins.
 
@@ -1146,14 +1146,14 @@ ici : `shift595` est retenue par défaut. Sous-total carte AGV complète :
 ***{eur(s_carte595 * TVA)}*** TTC ({eur(s_carte595)} HT).
 
 {rs_}
-### Avec un poste UniPi — laquelle des deux options ?
+### Avec un poste UniPi : laquelle des deux options ?
 
 | Poste | *Repère TTC* | *Repère HT* | Récurrent |
 |---|---:|---:|---|
-| **B — Unipi Gate G100** *(si Ethernet)* | ***{eur(sms_gate_ht * TVA)}*** | ***{eur(sms_gate_ht)}*** | **1 SIM** |
-| **C — UniPi E413 LTE** *(sans Ethernet)* | *{eur(sms_uni_ht * TVA)}* | *{eur(sms_uni_ht)}* | 2 SIM |
+| **B : Unipi Gate G100** *(si Ethernet)* | ***{eur(sms_gate_ht * TVA)}*** | ***{eur(sms_gate_ht)}*** | **1 SIM** |
+| **C : UniPi E413 LTE** *(sans Ethernet)* | *{eur(sms_uni_ht * TVA)}* | *{eur(sms_uni_ht)}* | 2 SIM |
 
-**{eur((s_poste_unipi.ht - s_poste_gate.ht) * TVA)} d'écart de matériel — et la
+**{eur((s_poste_unipi.ht - s_poste_gate.ht) * TVA)} d'écart de matériel, et la
 moitié du récurrent.** Le Gate n'a pas de modem cellulaire ; c'est précisément ce
 qui le rend éligible ici, puisqu'un poste raccordé en Ethernet n'en a aucun
 besoin. Il apporte au passage Debian d'origine, deux ports Ethernet et 16 Go
@@ -1182,14 +1182,14 @@ l'historique long terme et d'un matériel référencé.
 | Poste | HT | TTC |
 |---|---:|---:|
 | 2 SIM M2M data LTE-M, ~1,50 €/mois | 36 €/an | {eur(36 * TVA)}/an |
-| Broker MQTT — VPS mutualisé | 60 €/an | {eur(60 * TVA)}/an |
+| Broker MQTT : VPS mutualisé | 60 €/an | {eur(60 * TVA)}/an |
 | *Alternative* : Mosquitto sur un serveur usine existant | 0 €/an | 0 €/an |
 | **Total récurrent** | **{eur(96)}/an** | **{eur(96 * TVA)}/an** |
 
 Héberger le broker sur un serveur du client supprime le poste VPS **et** la
 dépendance à un tiers. À proposer systématiquement.
 
-### Coût sur 10 ans — variante B
+### Coût sur 10 ans : variante B
 
 | | Poste ESP32 | Poste UniPi |
 |---|---:|---:|
@@ -1200,13 +1200,13 @@ dépendance à un tiers. À proposer systématiquement.
 
 ---
 
-## Variante A — SMS, pour mémoire
+## Variante A : SMS, pour mémoire
 
 Chiffrée pour la comparaison. **Ne pas déployer** en liaison principale : ni
 latence bornée, ni ordre de remise, ni garantie de remise.
 
-⚠️ Ce tableau est chiffré **accessoires compris** — antennes, coffrets,
-câblage — contrairement au reste du document. C'est la nomenclature d'étude
+⚠️ Ce tableau est chiffré **accessoires compris** : antennes, coffrets,
+câblage : contrairement au reste du document. C'est la nomenclature d'étude
 d'origine, conservée telle quelle : elle ne sert qu'à donner l'ordre de
 grandeur du récurrent, qui est l'argument décisif.
 
@@ -1255,15 +1255,15 @@ d'interface bus conditionne le routage du PCB.
 """
 
 write(RACINE / "architectures/A1_Cellulaire/BOM.md",
-      "A1 — Cellulaire + EnOcean (SMS ou LTE-M)", "../../docs/COMPARAISON.md",
+      "A1 : Cellulaire + EnOcean (SMS ou LTE-M)", "../../docs/COMPARAISON.md",
       [s_carte, bus595, busmcp, s_poste_esp, s_poste_gate, s_poste_unipi, s_boutons, s_outil],
       SMS_EXTRA + ANALYSE_SMS,
       equivalences=EQUIV_CARTE_NEUVE,
-      totaux=[("A1 — poste ESP32 (recommandé)", sms_esp_ht,
+      totaux=[("A1 : poste ESP32 (recommandé)", sms_esp_ht,
                acc_de(s_carte, s_poste_esp, s_boutons, s_outil)),
-              ("A1 — poste Unipi Gate G100", sms_gate_ht,
+              ("A1 : poste Unipi Gate G100", sms_gate_ht,
                acc_de(s_carte, s_poste_gate, s_boutons, s_outil)),
-              ("A1 — poste UniPi E413 LTE", sms_uni_ht,
+              ("A1 : poste UniPi E413 LTE", sms_uni_ht,
                acc_de(s_carte, s_poste_unipi, s_boutons, s_outil))])
 
 print()
@@ -1280,13 +1280,13 @@ sms_complet  = sms_esp_ht  + _acc(s_carte, s_poste_esp, s_boutons, s_outil)
 gate_complet = sms_gate_ht + _acc(s_carte, s_poste_gate, s_boutons, s_outil)
 uni_complet  = sms_uni_ht  + _acc(s_carte, s_poste_unipi, s_boutons, s_outil)
 
-print("=== COMPLETS — accessoires compris, HT (pour README/COMPARAISON) ===")
+print("=== COMPLETS : accessoires compris, HT (pour README/COMPARAISON) ===")
 for nom, v in (("LoRa A3", complet_lora_pur), ("LoRa A2", complet_hybride),
                ("Wi-Fi", wifi_complet), ("LTE-M ESP32", sms_complet),
                ("LTE-M Gate", gate_complet), ("LTE-M UniPi", uni_complet)):
     print(f"{nom:14} {v:8.2f}")
 print()
-print("=== TOTAUX BOM — composants déterminants seuls (HT / TTC) ===")
+print("=== TOTAUX BOM : composants déterminants seuls (HT / TTC) ===")
 print(f"LoRa A3      {ht_lora_pur:8.2f} / {ht_lora_pur*TVA:8.2f}")
 print(f"LoRa A2      {ht_hybride:8.2f} / {ht_hybride*TVA:8.2f}")
 print(f"Wi-Fi        {wifi_ht:8.2f} / {wifi_ht*TVA:8.2f}")

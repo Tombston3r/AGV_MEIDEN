@@ -1,4 +1,4 @@
-"""Trame applicative AGV — encodage, décodage, CRC.
+"""Trame applicative AGV : encodage, décodage, CRC.
 
 Portage fidèle de `firmware/common/proto/frame.cpp` et `crc16.cpp` du cœur
 métier. C'est ce qui donne son intérêt aux essais : le poste et l'AGV ne

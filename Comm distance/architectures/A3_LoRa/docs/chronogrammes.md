@@ -27,7 +27,7 @@ Y22  ─────────────────────────
 ```
 
 - Étapes 1 à 4 posées **en une seule écriture bus** : `X94`, adresse, vitesse et
-  `X92` partent ensemble. C'est ce qui donne son sens à `t_setup_us` — le
+  `X92` partent ensemble. C'est ce qui donne son sens à `t_setup_us` : le
   compte-à-rebours démarre au dernier changement de donnée.
 - `X93` ne monte qu'après `t_setup_us`. Un strobe trop précoce est ignoré par
   l'automate : l'écriture est perdue et rattrapée au réessai, au prix d'un
@@ -90,7 +90,7 @@ Course terminée → dépilement de la course suivante (retour à l'étape 1), o
 Absence de trame valide pendant `link_watchdog_s` (30 s par défaut) :
 
 1. `AgvApp` appelle `Sequencer::request_safe_stop(LinkLost)`.
-2. La course **en cours va jusqu'au point d'arrêt suivant** — jamais de coupure
+2. La course **en cours va jusqu'au point d'arrêt suivant**, jamais de coupure
    en pleine allée, jamais d'état indéterminé.
 3. Aucune course supplémentaire n'est lancée ; les sorties retombent au repos.
 4. LED `FAULT` allumée jusqu'à acquittement opérateur (`clear_fault()`).

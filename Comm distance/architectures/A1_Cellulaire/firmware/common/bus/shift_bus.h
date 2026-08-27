@@ -1,6 +1,6 @@
 // Variante B du §4.4 : 3× 74HC595 (sorties) + 3× 74HC165 (entrées) sur SPI.
 //
-// C'est la variante PRÉFÉRABLE : ~3 µs de pose, et surtout SIMULTANÉE — les 22
+// C'est la variante PRÉFÉRABLE : ~3 µs de pose, et surtout SIMULTANÉE, les 22
 // lignes basculent au même front de latch RCLK, propriété que le MEGA d'origine
 // avait gratuitement avec `PORTA = x` et que les MCP23017 n'ont pas.
 //

@@ -8,7 +8,7 @@ l'API avant qu'un ESP32 n'existe.
 
 - un compilateur C++17 (`g++` ou `clang++`) ;
 - `python3` pour les tests de contrat ;
-- rien d'autre — aucune bibliothèque, aucun accès réseau.
+- rien d'autre : aucune bibliothèque, aucun accès réseau.
 
 ## 1. Construire
 
@@ -39,17 +39,17 @@ make banc
 
 ```
 BANC_API PORT=8081
-banc API planning sur http://127.0.0.1:8081 — horloge simulee x1
+banc API planning sur http://127.0.0.1:8081 : horloge simulee x1
 ```
 
 Le banc écoute **uniquement sur `127.0.0.1`**, en dur dans le code. Il n'est
-joignable ni depuis le réseau, ni depuis une autre machine — voir §5.
+joignable ni depuis le réseau, ni depuis une autre machine : voir §5.
 
 `--port 0` fait choisir un port libre par le système, et la ligne `BANC_API
 PORT=` l'annonce : c'est ce qu'utilisent les tests pour tourner en parallèle
 sans se marcher dessus.
 
-## 3. Recette — vingt gestes
+## 3. Recette : vingt gestes
 
 Ouvrir <http://127.0.0.1:8081>.
 
@@ -61,11 +61,11 @@ Ouvrir <http://127.0.0.1:8081>.
 | 4 | Cliquer sur la frise **avant** le curseur | Refus : « l'heure est passée » |
 | 5 | **Valider la journée** (nom obligatoire) | Bandeau **vert** avec votre nom |
 | 6 | Avancer jusqu'à l'heure du drapeau | Drapeau passe **vert**, ligne ✓ dans les logs avec l'heure prévue |
-| 7 | **📢 L'AGV vient à ce poste** | Marqueur vert « appel » sur la frise à l'heure courante, ✓ immédiat dans les logs — **même bandeau rouge** : l'appel est un geste opérateur, hors validation |
+| 7 | **📢 L'AGV vient à ce poste** | Marqueur vert « appel » sur la frise à l'heure courante, ✓ immédiat dans les logs, **même bandeau rouge** : l'appel est un geste opérateur, hors validation |
 | 8 | **+1 jour** | Le drapeau du jour disparaît (départ à date unique), bandeau repasse **rouge** |
-| 9 | Poser un drapeau, **simuler heure douteuse**, avancer | **Rien ne part**, badge `HEURE NON FIABLE — GELÉ` ; rétablir dans les 5 min simulées → le départ part |
-| 10 | Cliquer un drapeau posé | Confirmation, puis retrait — et bandeau rouge à nouveau |
-| 11 | Deux onglets : poser un drapeau dans chacun | Le second reçoit « planning modifié ailleurs — rechargé, recommencez » (**409** en dessous) |
+| 9 | Poser un drapeau, **simuler heure douteuse**, avancer | **Rien ne part**, badge `HEURE NON FIABLE : GELÉ` ; rétablir dans les 5 min simulées → le départ part |
+| 10 | Cliquer un drapeau posé | Confirmation, puis retrait, et bandeau rouge à nouveau |
+| 11 | Deux onglets : poser un drapeau dans chacun | Le second reçoit « planning modifié ailleurs, rechargé, recommencez » (**409** en dessous) |
 | 12 | **⚙ Gestion des postes** : ajouter le poste 3, le retirer | La pastille apparaît puis disparaît ; les drapeaux déjà posés vers ce poste restent sur la frise |
 | 13 | Poser un départ à **3 min** d'un autre | Refusé : « un trajet dure 5 min, l'AGV serait encore en route » |
 | 14 | Regarder l'axe des heures | Le bloc d'occupation fait **quelques pixels** (5 min sur 24 h), pas la largeur de l'étiquette |
@@ -73,13 +73,13 @@ Ouvrir <http://127.0.0.1:8081>.
 | 16 | Onglet **agvdump** | Le relevé s'affiche en clair, `[AGV STATE]` à zéro (pas d'ATmega sur le banc) |
 | 17 | Simulation : **⛔ coupure EN déplacement** | Bandeau rouge nommant le départ, sa destination et l'heure ; départs suspendus |
 | 18 | Acquitter avec un nom | Bandeau levé, départs rétablis, ligne au journal |
-| 19 | Simulation : **coupure à l'arrêt** | **Aucun** bandeau — ligne au journal seulement |
-| 20 | `curl -s localhost:8081/agvdump` | **Texte brut**, `Content-Type: text/plain`, commençant par `AIO AGV CONTROL - DUMP` — le format d'atelier, intact |
+| 19 | Simulation : **coupure à l'arrêt** | **Aucun** bandeau, ligne au journal seulement |
+| 20 | `curl -s localhost:8081/agvdump` | **Texte brut**, `Content-Type: text/plain`, commençant par `AIO AGV CONTROL - DUMP` : le format d'atelier, intact |
 
 Les points **3, 5, 6 et 9** sont ceux qui comptent : un départ qui partirait
 sans validation, ou qui repartirait deux fois, est le défaut que ce banc existe
 pour attraper (§3.2). Le point **7** vérifie que l'appel, lui, passe **sans**
-validation — c'est un humain qui demande, pas l'horloge.
+validation : c'est un humain qui demande, pas l'horloge.
 
 Le point **11** est celui qu'on oublie : un poste atelier et un poste bureau
 ouverts en même temps, c'est le cas courant, et sans verrou optimiste le second
@@ -104,7 +104,7 @@ curl -s localhost:8081/api/missions
 
 **Attendu** : une mission `demo` vers la station 7, prévue `06:00:00`.
 
-## 5. Ce que ce banc ne fait pas — et pourquoi
+## 5. Ce que ce banc ne fait pas, et pourquoi
 
 - **Aucune authentification.** C'est délibéré : sur `127.0.0.1`, elle
   n'apporterait rien et masquerait le fait qu'elle **reste à faire sur la
@@ -122,15 +122,15 @@ curl -s localhost:8081/api/missions
 
 | Symptôme | Cause probable |
 |---|---|
-| `impossible d'ecouter sur 127.0.0.1:8081` | port déjà pris — `make banc` deux fois, ou `--port 0` |
-| Page blanche, API qui répond | mauvais dossier web — lancer depuis `Timer/`, ou passer `--web` |
+| `impossible d'ecouter sur 127.0.0.1:8081` | port déjà pris : `make banc` deux fois, ou `--port 0` |
+| Page blanche, API qui répond | mauvais dossier web : lancer depuis `Timer/`, ou passer `--web` |
 | `428` sur chaque publication | `If-Match` absent : recharger la page pour reprendre l'ETag |
-| `409` répété | un autre onglet a publié entretemps — la page se recharge seule, refaire le geste |
+| `409` répété | un autre onglet a publié entretemps : la page se recharge seule, refaire le geste |
 | Le drapeau posé ne part jamais | bandeau rouge : poser un drapeau **révoque la validation**, revalider |
-| Drapeau gris alors que l'AGV devait partir | saut motivé — lire la ligne ✗ des logs (grâce dépassée, pause, non validé) |
+| Drapeau gris alors que l'AGV devait partir | saut motivé : lire la ligne ✗ des logs (grâce dépassée, pause, non validé) |
 | Liseré ambre sur un drapeau | départ trop rapproché du précédent : l'AGV sera encore en route, le séquenceur refusera |
-| Étiquettes qui se recouvrent malgré tout | plus de dix rangées nécessaires — augmenter `GEO.rangsMax` dans `web/index.html` |
-| `make test` : « DIVERGENCE » sur `agvdump.cpp` | la copie du rendu d'atelier ne correspond plus à celle de A4 — **reporter la correction**, ne pas la contourner |
-| Page sans aucun style | `theme.css` absent ou servi en `text/html` — lancer `outils/theme.sh` depuis la racine |
+| Étiquettes qui se recouvrent malgré tout | plus de dix rangées nécessaires : augmenter `GEO.rangsMax` dans `web/index.html` |
+| `make test` : « DIVERGENCE » sur `agvdump.cpp` | la copie du rendu d'atelier ne correspond plus à celle de A4, **reporter la correction**, ne pas la contourner |
+| Page sans aucun style | `theme.css` absent ou servi en `text/html` : lancer `outils/theme.sh` depuis la racine |
 | Aucune mission alors que l'heure est passée | bandeau rouge (non validée), badge pause, ou occurrence déjà consommée |
-| Rien ne bouge après « Aller à » une date passée | l'horloge ne va que vers le futur — redémarrer le banc |
+| Rien ne bouge après « Aller à » une date passée | l'horloge ne va que vers le futur : redémarrer le banc |

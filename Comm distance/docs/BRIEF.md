@@ -1,4 +1,4 @@
-# Brief projet — Remplacement carte AIO AGV Control V5.0.1
+# Brief projet : Remplacement carte AIO AGV Control V5.0.1
 
 > À placer en `CLAUDE.md` à la racine du dépôt.
 > Rôle attendu : développement de l'ensemble du logiciel embarqué et poste fixe.
@@ -35,7 +35,7 @@ Monorepo, structure attendue :
 
 ```
 /firmware
-  /agv                  ESP32 embarqué sur l'AGV — le cœur du projet
+  /agv                  ESP32 embarqué sur l'AGV : le cœur du projet
   /poste-esp32          Poste fixe en variante ESP32 (A3 / A2)
   /bouton-lora          Nœud bouton sur pile (A3 uniquement)
   /common               Bibliothèques partagées (protocole, CRC, transport, config)
@@ -71,7 +71,7 @@ que le firmware ne prenne la main.
 Plusieurs paramètres matériels ne sont **pas encore relevés sur la carte d'origine**. Ils sont
 listés au §12. Règle absolue : **aucun de ces paramètres ne doit apparaître en dur dans le code.**
 Ils vivent dans un fichier de configuration unique (`common/config/hardware_profile.h` +
-`profiles/*.yaml`), avec des valeurs par défaut explicitement marquées `// PROVISOIRE — voir §12`.
+`profiles/*.yaml`), avec des valeurs par défaut explicitement marquées `// PROVISOIRE : voir §12`.
 
 ### 3.3 Compatibilité avec l'existant
 
@@ -86,7 +86,7 @@ compteurs), sinon les procédures d'atelier deviennent caduques. Voir §9.
 C'est la partie critique. Elle est **identique dans les trois architectures** et doit être
 totalement découplée de la couche transport.
 
-### 4.1 Bus X — 22 sorties (carte → automate)
+### 4.1 Bus X : 22 sorties (carte → automate)
 
 | Groupe | Signaux | Rôle |
 |---|---|---|
@@ -96,7 +96,7 @@ totalement découplée de la couche transport.
 | Marche / arrêt | `X82` (standby release / start), `X83` (standby stop) | |
 | Protocole d'écriture | `X92` (instruction data input switch), `X93` (write strobe), `X94` (type de donnée : station ou comptage de marqueurs), `X95` (frein externe) | |
 
-### 4.2 Bus Y — 21 entrées (automate → carte)
+### 4.2 Bus Y : 21 entrées (automate → carte)
 
 | Groupe | Signaux | Rôle |
 |---|---|---|
@@ -139,7 +139,7 @@ littéralement à la section `AGV STATE` de `agvdump`.
 Implémente ça en **machine à états explicite** (pas de `delay()`, pas de blocage), avec
 transitions journalisées et instrumentation de chaque timeout.
 
-### 4.4 Déterminisme temporel — point d'attention majeur
+### 4.4 Déterminisme temporel : point d'attention majeur
 
 Le MEGA d'origine posait les 10 bits d'adresse en un seul cycle (`PORTA = x`). Le remplacement
 n'a pas cette propriété gratuite. Trois variantes matérielles sont en discussion :
@@ -161,7 +161,7 @@ en section critique pendant la pose adresse+vitesse+strobe. La pile radio/modem 
 
 Jusqu'à **5 destinations**. Sur la carte d'origine elle n'existe qu'en RAM et se perd à chaque
 coupure. **Amélioration à intégrer** : persistance en **NVS** (flash ESP32), avec restauration
-au boot et politique de validité (une course de plus de X minutes est écartée — X configurable).
+au boot et politique de validité (une course de plus de X minutes est écartée : X configurable).
 
 Champs à exposer, noms compatibles `agvdump` : `nb_courses_programmed`, `programmed_courses[5]`.
 
@@ -185,9 +185,9 @@ public:
 
 Implémentations : `LoRaTransport`, `SmsTransport`, `MqttLteTransport`.
 Le sélecteur se fait à la compilation (`-D TRANSPORT_LORA`) **et** à l'exécution si plusieurs
-sont compilées — l'architecture retenue prévoit LoRa en principal + SMS en complément alerte.
+sont compilées : l'architecture retenue prévoit LoRa en principal + SMS en complément alerte.
 
-### 5.1 Trame applicative — commune à tous les transports
+### 5.1 Trame applicative : commune à tous les transports
 
 Compacte, versionnée, avec numéro de séquence :
 
@@ -211,7 +211,7 @@ privé : sans lui, n'importe qui avec un module à 10 € peut appeler l'AGV.
 
 ---
 
-## 6. Architecture 1 — LoRa P2P
+## 6. Architecture 1 : LoRa P2P
 
 - Module **RFM95W / SX1276** sur SPI.
 - 868 MHz, **SF9**, BW 125 kHz, CR 4/5, sync word privé (≠ 0x34 réservé LoRaWAN).
@@ -228,12 +228,12 @@ privé : sans lui, n'importe qui avec un module à 10 € peut appeler l'AGV.
 - Sommeil profond permanent (< 2 µA), réveil sur front GPIO.
 - Émission `CMD_GOTO`, attente d'ACK jusqu'à 400 ms, 3 tentatives.
 - Retour visuel : LED verte fixe 2 s = ACK reçu ; LED rouge clignotante = échec après 3 essais.
-  **Cette fonction est absente de la solution EnOcean pure** — c'est un argument à conserver.
+  **Cette fonction est absente de la solution EnOcean pure** : c'est un argument à conserver.
 - Ajout d'un bouton = flasher un `node_id` + une station. Aucune modification côté AGV.
 
 ---
 
-## 7. Architecture 3 — EnOcean + LoRa (retenue)
+## 7. Architecture 3 : EnOcean + LoRa (retenue)
 
 Chaîne : bouton **PTM 210** (sans pile) → récepteur **TCM 515** (UART, protocole ESP3) sur
 l'ESP32 du poste fixe → traduction en trame LoRa → **RFM95W** → ESP32 AGV.
@@ -251,9 +251,9 @@ l'ESP32 du poste fixe → traduction en trame LoRa → **RFM95W** → ESP32 AGV.
 
 ---
 
-## 8. Architecture 2 — Cellulaire
+## 8. Architecture 2 : Cellulaire
 
-### 8.1 Variante A — SMS
+### 8.1 Variante A : SMS
 
 Poste fixe : **UniPi E413 (variante à modem LTE intégré)** ou ESP32 + SIM7600E-H.
 AGV : ESP32 + **SIM7600E-H**, piloté en AT sur UART2.
@@ -263,7 +263,7 @@ remise, ni garantie de remise, ni protection contre les doublons.** Le firmware 
 
 - Numéroter et acquitter **au niveau applicatif** de bout en bout (le SR opérateur ne prouve
   que la remise au terminal, pas le traitement).
-- **Rejeter toute trame plus ancienne que la dernière traitée** (`seq` avec fenêtre) — c'est la
+- **Rejeter toute trame plus ancienne que la dernière traitée** (`seq` avec fenêtre) : c'est la
   seule protection contre un `STOP` qui arriverait avant le `GOTO` qu'il annule.
 - Refuser d'exécuter une commande dont l'horodatage dépasse `max_command_age_s` (défaut : 15 s).
   Une commande vieille de 3 minutes sortie du SMSC ne doit **jamais** faire bouger l'AGV.
@@ -274,7 +274,7 @@ Gérer : PIN, APN, roaming, perte d'attachement, SIM éjectée, modem muet.
 **Chien de garde matériel obligatoire** (TPL5010) : la pile AT peut se bloquer sans que le
 watchdog logiciel ne le voie.
 
-### 8.2 Variante B — LTE-M/NB-IoT + MQTT
+### 8.2 Variante B : LTE-M/NB-IoT + MQTT
 
 Modem **SIM7080G**, broker **Mosquitto** (VPS ou serveur usine).
 Topics : `agv/<id>/cmd`, `agv/<id>/ack`, `agv/<id>/telemetry`, `agv/<id>/status`.
@@ -364,20 +364,20 @@ automate rapide qu'un automate lent, et vérifier que le séquenceur tient dans 
 
 ---
 
-## 12. Points ouverts — à ne jamais figer en dur
+## 12. Points ouverts, à ne jamais figer en dur
 
 Ces éléments ne sont **pas encore relevés**. Le code doit les traiter comme des paramètres.
 Si tu as besoin d'une valeur pour avancer, prends la valeur par défaut, marque-la
 `// PROVISOIRE §12` et **signale-le dans ton compte rendu**.
 
-1. **Amplitude réelle des lignes Y** (6 V rail LM7806 ou 24 V) — relevé oscillo sur `Y05`. Impacte le matériel, pas le code, mais conditionne les seuils de debounce.
-2. **Brochage réel des SUB-D 25** — divergence non tranchée entre deux tables de câblage (CN61/62/63 vs CN62/63/64). Le mapping signal → broche doit vivre dans un fichier de configuration unique et modifiable sans recompiler la logique.
-3. **Logique de l'automate : PNP ou NPN** — inverse la polarité des 22 voies X. Prévoir un booléen de configuration `bus_x_active_high`.
-4. **`t_setup` du bus X** — temps de stabilisation avant le strobe `X93`. Chronogramme oscillo à relever sur la V5.0.1. Paramètre `t_setup_us`, défaut provisoire 200 µs.
-5. **Timeouts des accusés** `Y22`, `Y05`, `Y10` — à relever, pas à deviner. Paramètres distincts.
+1. **Amplitude réelle des lignes Y** (6 V rail LM7806 ou 24 V) : relevé oscillo sur `Y05`. Impacte le matériel, pas le code, mais conditionne les seuils de debounce.
+2. **Brochage réel des SUB-D 25** : divergence non tranchée entre deux tables de câblage (CN61/62/63 vs CN62/63/64). Le mapping signal → broche doit vivre dans un fichier de configuration unique et modifiable sans recompiler la logique.
+3. **Logique de l'automate : PNP ou NPN**, inverse la polarité des 22 voies X. Prévoir un booléen de configuration `bus_x_active_high`.
+4. **`t_setup` du bus X** : temps de stabilisation avant le strobe `X93`. Chronogramme oscillo à relever sur la V5.0.1. Paramètre `t_setup_us`, défaut provisoire 200 µs.
+5. **Timeouts des accusés** `Y22`, `Y05`, `Y10`, à relever, pas à deviner. Paramètres distincts.
 6. **Correspondance des repères** T9, T10, T12, T13, T20…T24 sérigraphiés sur la V5.0.1 avec les signaux Y.
-7. **Protocole ESP32 ↔ application mobile « AIO AGV Remote »** — non documenté. Décider si on le reproduit ou si l'application est abandonnée au profit de l'interface web.
-8. **TCM 515 (Rx seul) ou TCM 310 (bidirectionnel)** — conditionne l'existence d'un retour d'accusé côté opérateur EnOcean.
+7. **Protocole ESP32 ↔ application mobile « AIO AGV Remote »** : non documenté. Décider si on le reproduit ou si l'application est abandonnée au profit de l'interface web.
+8. **TCM 515 (Rx seul) ou TCM 310 (bidirectionnel)** : conditionne l'existence d'un retour d'accusé côté opérateur EnOcean.
 9. **Runtime disponible sur l'UniPi E413** commandé.
 10. **Variante matérielle d'interface bus** retenue : MCP23017 / 74HC595+165 / ATmega2560 conservé.
 
@@ -398,11 +398,11 @@ Si tu as besoin d'une valeur pour avancer, prends la valeur par défaut, marque-
 
 ## 14. Ordre de travail suggéré
 
-1. `/sim` — simulateur logiciel de l'automate + tests natifs.
-2. `/common` — trame, CRC, AES, idempotence, `IBusDriver`, `ITransport`, couche de configuration.
-3. `/firmware/agv` — séquenceur trois phases contre le simulateur, file NVS, machine à états.
-4. `LoRaTransport` + `/firmware/poste-esp32` — chaîne A3 complète, ordonnanceur half-duplex.
-5. `/web` — supervision WebSocket + `/agvdump` compatible.
+1. `/sim` : simulateur logiciel de l'automate + tests natifs.
+2. `/common` : trame, CRC, AES, idempotence, `IBusDriver`, `ITransport`, couche de configuration.
+3. `/firmware/agv` : séquenceur trois phases contre le simulateur, file NVS, machine à états.
+4. `LoRaTransport` + `/firmware/poste-esp32` : chaîne A3 complète, ordonnanceur half-duplex.
+5. `/web` : supervision WebSocket + `/agvdump` compatible.
 6. Décodeur EnOcean ESP3 + mode appairage → chaîne A2.
 7. `SmsTransport` et `MqttLteTransport` → chaîne A1.
 8. `AlertGateway` (SMS bas volume, toutes architectures).

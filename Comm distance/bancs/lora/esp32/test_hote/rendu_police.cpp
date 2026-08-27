@@ -2,7 +2,7 @@
 //
 // Une table de police écrite à la main ne se relit pas : elle se REGARDE. Ce
 // programme la rend lisible, et vérifie que chaque glyphe imprimable est non
-// vide — un glyphe oublié donnerait un blanc silencieux à l'écran.
+// vide : un glyphe oublié donnerait un blanc silencieux à l'écran.
 #include <cstdio>
 #include <cstring>
 

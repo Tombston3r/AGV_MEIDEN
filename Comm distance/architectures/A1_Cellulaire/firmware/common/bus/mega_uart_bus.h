@@ -1,7 +1,7 @@
 // Variante C du §4.4 : ATmega2560 conservé comme organe de pose du bus.
 //
 // Le MEGA garde sa propriété gratuite (`PORTA = x`, < 1 µs, simultané) et
-// l'ESP32 lui parle par un protocole inter-MCU UART, à définir — c'est fait
+// l'ESP32 lui parle par un protocole inter-MCU UART, à définir : c'est fait
 // ici, et documenté dans docs/protocole_mega.md :
 //
 //   ESP32 -> MEGA : A5 | cmd | len | payload[len] | crc16(cmd..payload)
@@ -13,7 +13,7 @@
 //   cmd 0x04 PING   payload vide                        -> réponse version(1)
 //
 // Le MEGA applique lui-même t_setup et la polarité ? NON : il reste un simple
-// organe de pose. Toute la logique — donc tous les paramètres du §12 — demeure
+// organe de pose. Toute la logique (donc tous les paramètres du §12) demeure
 // dans l'ESP32, sinon deux firmwares porteraient la même vérité.
 #pragma once
 

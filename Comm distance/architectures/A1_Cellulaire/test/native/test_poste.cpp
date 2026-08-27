@@ -34,7 +34,7 @@ class CaptureTransport final : public ITransport {
 };
 
 // data 0x10 : energy bow armé (appui), bascule 0. Le champ « rocker » vit dans
-// les bits 7..5 — un 0x30 désignerait la bascule 1, pas la 0.
+// les bits 7..5 : un 0x30 désignerait la bascule 1, pas la 0.
 std::vector<uint8_t> rps_frame(uint32_t sender_id, uint8_t data) {
   std::vector<uint8_t> d = {kRorgRps,
                             data,

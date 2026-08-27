@@ -1,7 +1,7 @@
 // Implémentations ESP-IDF des ports matériels.
 //
 // Ce répertoire est le SEUL endroit du dépôt autorisé à inclure des en-têtes
-// ESP-IDF. Tout le reste de /common compile en natif — c'est ce qui rend le
+// ESP-IDF. Tout le reste de /common compile en natif : c'est ce qui rend le
 // simulateur et les tests possibles.
 #pragma once
 

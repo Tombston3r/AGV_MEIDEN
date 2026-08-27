@@ -1,4 +1,4 @@
-// Décodeur EnOcean Serial Protocol 3 (ESP3) — architecture 3 (brief §7).
+// Décodeur EnOcean Serial Protocol 3 (ESP3) : architecture 3 (brief §7).
 //
 // Chaîne : bouton PTM 210 (sans pile) -> récepteur TCM 515 (UART) -> ESP32.
 //
@@ -8,7 +8,7 @@
 //
 // ⚠ Le TCM 515 est RÉCEPTION SEULE : aucun retour visuel n'est possible vers le
 // bouton EnOcean. Si un accusé côté opérateur est exigé, il faut un TCM 310
-// (bidirectionnel) ou un voyant déporté câblé — point ouvert §12.8.
+// (bidirectionnel) ou un voyant déporté câblé : point ouvert §12.8.
 #pragma once
 
 #include <cstddef>

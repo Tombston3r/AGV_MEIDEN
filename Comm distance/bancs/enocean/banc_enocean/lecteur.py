@@ -3,9 +3,9 @@
 C'est ici que vivent les deux règles qui font la différence entre un banc
 utilisable et un banc qui ment :
 
-  1. **Déduplication** — un PTM 210 émet TROIS sous-télégrammes par appui.
+  1. **Déduplication** : un PTM 210 émet TROIS sous-télégrammes par appui.
      Sans filtre, une pression afficherait trois fenêtres.
-  2. **Appui seulement** — le module émet aussi au RELÂCHEMENT. On ne retient
+  2. **Appui seulement** : le module émet aussi au RELÂCHEMENT. On ne retient
      que le front d'appui, sinon chaque pression compte double.
 """
 

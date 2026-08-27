@@ -1,7 +1,7 @@
 [project]
 name = "agv-poste"
 version = "0.1.0"
-description = "Poste fixe AGV MEIDEN — architecture Wi-Fi (UniPi E413 + Mosquitto)"
+description = "Poste fixe AGV MEIDEN : architecture Wi-Fi (UniPi E413 + Mosquitto)"
 requires-python = ">=3.11"
 dependencies = []
 

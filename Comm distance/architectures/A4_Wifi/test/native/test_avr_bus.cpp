@@ -2,8 +2,8 @@
 //
 // Le banc reproduit la table de firmware/mega/src/board_ports.h avec de simples
 // octets à la place des registres AVR. C'est ce qui permet de vérifier en natif
-// les propriétés qui comptent — masquage des ports mixtes, regroupement des
-// écritures — sans avoir la carte sous la main.
+// les propriétés qui comptent : masquage des ports mixtes, regroupement des
+// écritures, sans avoir la carte sous la main.
 #include <vector>
 
 #include "bus/avr_port_bus.h"
@@ -57,7 +57,7 @@ struct AvrBench {
     for (uint8_t p = 0; p < kPortCount; ++p) {
       map.ports[p] = {&port[p].out, &port[p].dir, &port[p].in};
     }
-    // Câblage réel — voir firmware/mega/src/board_ports.h.
+    // Câblage réel : voir firmware/mega/src/board_ports.h.
     map.x[0]  = {kL, 6};  map.x[1]  = {kA, 3};  map.x[2]  = {kA, 0};  map.x[3]  = {kB, 2};
     map.x[4]  = {kC, 7};  map.x[5]  = {kL, 1};  map.x[6]  = {kC, 6};  map.x[7]  = {kL, 3};
     map.x[8]  = {kA, 4};  map.x[9]  = {kL, 2};  map.x[10] = {kC, 4};  map.x[11] = {kB, 3};
@@ -199,7 +199,7 @@ TEST(avr_adresse_10_bits_correctement_eclatee_sur_quatre_ports) {
 
   CHECK_EQ(decode_field(b.posed_word(), layout.x_station_bits, kStationBits), 682u);
 
-  // Vérification côté registres, en sortie poussée — le mode du matériel réel,
+  // Vérification côté registres, en sortie poussée : le mode du matériel réel,
   // où la broche attaque une grille de MOSFET :
   // XA7 (bit 21) = PORTA bit 2 doit être à 1.
   CHECK(((b.port[kA].out >> 2) & 1u) == 1u);
@@ -239,7 +239,7 @@ TEST(avr_lecture_reassemble_les_21_entrees_eparses) {
 TEST(avr_le_profil_est_en_sortie_poussee_car_l_etage_est_a_mosfet) {
   // Le projet KiCad montre 23 IRF520 avec résistances de grille : le collecteur
   // ouvert est fait par le MATÉRIEL. La broche du microcontrôleur attaque une
-  // grille et doit donc être poussée — la laisser flotter mettrait le MOSFET
+  // grille et doit donc être poussée : la laisser flotter mettrait le MOSFET
   // dans un état indéterminé, le pire cas sur un étage de puissance.
   CHECK(!default_profile().bus.x_open_drain);
 }
@@ -253,7 +253,7 @@ TEST(avr_collecteur_ouvert_ne_sort_jamais_de_niveau_haut) {
   // C'est la protection : une sortie poussée contre un tirage côté automate
   // ferait remonter du courant dans la diode de protection de la broche.
   // En collecteur ouvert, les registres de données des X restent à 0 quoi
-  // qu'il arrive — la broche tire à la masse ou se met en haute impédance.
+  // qu'il arrive : la broche tire à la masse ou se met en haute impédance.
   AvrBench b;
   b.profile.bus.x_open_drain = true;
   AvrPortBus bus = b.make();

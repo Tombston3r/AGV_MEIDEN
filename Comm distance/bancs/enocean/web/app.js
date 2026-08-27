@@ -1,5 +1,5 @@
 'use strict';
-// Banc EnOcean — aucune bibliothèque : la UniPi peut être hors réseau.
+// Banc EnOcean, aucune bibliothèque : la UniPi peut être hors réseau.
 
 const $ = (id) => document.getElementById(id);
 const etat = { boutons: [], capture: null, onglet: 'detecter', renouvellement: null };
@@ -114,7 +114,7 @@ function appliquerCapture(d) {
   $('attente').hidden = true;
   $('capture').hidden = false;
   $('capture-code').textContent = d.code;
-  $('capture-rssi').textContent = `${d.rssi_dbm} dBm — ${heure(d.heure)}`;
+  $('capture-rssi').textContent = `${d.rssi_dbm} dBm : ${heure(d.heure)}`;
   $('dernier').hidden = true;
   // L'identifiant est aussi déposé dans le champ de saisie : il devient
   // visible et corrigeable, et l'onglet « Saisir » montre la même chose.
@@ -151,7 +151,7 @@ function validerActif() {
 // La visibilité de la fenêtre est portée par un style EN LIGNE, et non par
 // l'attribut `hidden` seul. Raison : `hidden` n'est qu'un `display: none` de
 // la feuille par défaut, que la moindre règle d'auteur déclarant `display`
-// écrase — c'est ce qui laissait la boîte ouverte en permanence. Un style en
+// écrase : c'est ce qui laissait la boîte ouverte en permanence. Un style en
 // ligne, lui, l'emporte sur toute règle de feuille sans `!important`, y compris
 // sur une CSS périmée servie par le cache du navigateur.
 function afficherModale(visible) {

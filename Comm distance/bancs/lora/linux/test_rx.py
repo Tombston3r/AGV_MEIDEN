@@ -72,7 +72,7 @@ def main():
             charge, rssi, snr = paquet
             if not charge:
                 crc_radio += 1
-                print("  CRC LoRa invalide — trame écartée par le modem")
+                print("  CRC LoRa invalide : trame écartée par le modem")
                 continue
 
             rssis.append(rssi)
@@ -126,7 +126,7 @@ def main():
             print("\n⚠️  RSSI sous −115 dBm : marge insuffisante. Un chariot chargé")
             print("    entre les deux antennes suffira à couper la liaison.")
     else:
-        print("aucune trame reçue — vérifier fréquence, SF et mot de synchronisation")
+        print("aucune trame reçue : vérifier fréquence, SF et mot de synchronisation")
 
     radio.close()
     return 0 if valides else 1

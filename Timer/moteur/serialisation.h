@@ -1,4 +1,4 @@
-// Document de planning <-> JSON — le MÊME schéma sert l'API (§6) et la
+// Document de planning <-> JSON : le MÊME schéma sert l'API (§6) et la
 // persistance LittleFS (§3.3). C++ pur, comme le moteur.
 //
 // Le parseur est STRICT : clé inconnue, borne dépassée, heure invalide ou
@@ -26,7 +26,7 @@ std::string document_vers_json(const Document& d);
 bool document_depuis_json(const std::string& json, Document& out,
                           std::string& erreur);
 
-// Lecture d'un champ au premier niveau d'un petit objet JSON — pour les corps
+// Lecture d'un champ au premier niveau d'un petit objet JSON, pour les corps
 // de requêtes simples ({"par": "dupont"}, {"secondes": 3600}…). Bâtis sur le
 // vrai tokenizeur : pas de recherche naïve de sous-chaîne.
 std::optional<long long> json_entier(const std::string& json, const std::string& cle);

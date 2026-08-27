@@ -1,8 +1,8 @@
-# AGV MEIDEN — A3 — LoRa P2P 868 MHz, boutons sur pile
+# AGV MEIDEN (A3) LoRa P2P 868 MHz, boutons sur pile
 
 > **Dossier d'architecture autonome.** Des boutons sur pile émettent
 > directement en LoRa vers la carte V6.0 : **ni poste fixe, ni réseau, ni abonnement**.
-> La carte est la **`AIO_AGV_Control_V6.0`** — la V5.0.1 augmentée d'un
+> La carte est la **`AIO_AGV_Control_V6.0`** : la V5.0.1 augmentée d'un
 > `RFM95W-868S2`. Ses DEUX firmwares sont réécrits. Son logiciel se construit et se teste
 > sans rien emprunter ailleurs ; le matériel et le brief sont partagés.
 > Index des architectures : `../README.md`.
@@ -23,7 +23,7 @@ depuis des boutons déportés. La carte remplacée **porte la mémoire de missio
 l'AGV ne connaît qu'une destination à la fois et l'oublie au redémarrage. La
 carte maintient une file de **5 courses**, désormais persistée en NVS.
 
-## Répartition des rôles — à ne pas inverser
+## Répartition des rôles, à ne pas inverser
 
 L'**ATmega2560** porte la mission : séquenceur, file de courses, décodage de
 position, repli de sécurité. L'**ESP32** ne fait que du réseau et **ne touche
@@ -53,7 +53,7 @@ Wi-Fi, du DHCP, du broker et du poste fixe. C'est précisément ce qu'on évite.
    raison : elle tourne en production depuis cinq ans.
 6. **Poser la question plutôt que supposer** sur tout ce qui touche au §12.
 
-## Tenue de la documentation — obligatoire
+## Tenue de la documentation : obligatoire
 
 `docs/ETAT_PROJET.md` est le document de référence du projet : ce qui est fait,
 comment déployer, et le kanban de ce qui reste. **Il est mis à jour après chaque
@@ -125,7 +125,7 @@ cd poste-unipi && python3 -m pytest tests -q && ruff check . && mypy --strict ag
 - **Brochage SUB-D non relevé** : `firmware/mega/src/board_ports.h` est une
   HYPOTHÈSE. Un mot d'adresse mal câblé n'échoue pas, il envoie l'AGV à la
   mauvaise station. Passer par le mode découverte avant tout branchement.
-- **Heartbeat** : l'ESP32 continue de l'émettre quand le Wi-Fi tombe — la carte
+- **Heartbeat** : l'ESP32 continue de l'émettre quand le Wi-Fi tombe, la carte
   va bien, c'est le réseau qui est absent. Le couper immobiliserait l'AGV pour
   rien.
 - **Ordre de flash** : ATmega d'abord. Il démarre en `safe_stop` et attend le

@@ -1,7 +1,7 @@
 // Port matériel du module RFM95W / SX1276 (brief §6).
 //
-// Isolé pour que `LoraTransport` — ordonnanceur half-duplex, retransmissions et
-// budget de rapport cyclique — soit testable en natif avec une radio factice.
+// Isolé pour que `LoraTransport` : ordonnanceur half-duplex, retransmissions et
+// budget de rapport cyclique, soit testable en natif avec une radio factice.
 #pragma once
 
 #include <cstddef>

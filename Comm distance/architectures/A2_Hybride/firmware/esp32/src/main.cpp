@@ -1,4 +1,4 @@
-// Firmware ESP32 de la carte AIO AGV Control V5.0.1 — RÉÉCRIT.
+// Firmware ESP32 de la carte AIO AGV Control V5.0.1 : RÉÉCRIT.
 //
 // Changement de rôle par rapport à l'existant (planification §1) :
 //   avant : point d'accès `agv_atelier`, piloté par l'application mobile
@@ -7,7 +7,7 @@
 // Responsabilités (planification §2.6 à §2.8) :
 //   - client Wi-Fi STA avec reconnexion et IP statique ;
 //   - client MQTT : publication `state`/`ack`, abonnement `cmd`, LWT ;
-//   - heartbeat vers l'ATmega — c'est ce qui autorise l'AGV à rouler ;
+//   - heartbeat vers l'ATmega : c'est ce qui autorise l'AGV à rouler ;
 //   - point d'accès de maintenance à la demande, servant `/agvdump`.
 //
 // L'ESP32 NE TOUCHE JAMAIS AU BUS MEIDEN. Toute la commande passe par
@@ -72,7 +72,7 @@ void on_wifi_event(void*, esp_event_base_t base, int32_t id, void* data) {
     g_wifi_up = false;
     // Reconnexion immédiate : en mouvement, chaque seconde de coupure est une
     // commande potentiellement perdue. Le heartbeat vers l'ATmega continue
-    // pendant ce temps — la carte n'est pas en défaut, c'est le réseau.
+    // pendant ce temps : la carte n'est pas en défaut, c'est le réseau.
     ESP_LOGW(TAG, "Wi-Fi perdu, reconnexion");
     esp_wifi_connect();
   } else if (base == IP_EVENT && id == IP_EVENT_STA_GOT_IP) {
@@ -234,7 +234,7 @@ void maintenance_task(void*) {
 
 extern "C" void app_main() {
   const agv::HardwareProfile& profile = agv::default_profile();
-  ESP_LOGI(TAG, "ESP32 carte V5.0.1 — client Wi-Fi, profil=%s", profile.name);
+  ESP_LOGI(TAG, "ESP32 carte V5.0.1 : client Wi-Fi, profil=%s", profile.name);
 
   esp_err_t err = nvs_flash_init();
   if (err == ESP_ERR_NVS_NO_FREE_PAGES || err == ESP_ERR_NVS_NEW_VERSION_FOUND) {

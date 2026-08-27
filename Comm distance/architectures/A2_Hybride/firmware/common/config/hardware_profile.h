@@ -1,4 +1,4 @@
-// Profil matériel/applicatif — point d'entrée unique de la configuration.
+// Profil matériel/applicatif : point d'entrée unique de la configuration.
 //
 // Le header généré ne fournit que les VALEURS PAR DÉFAUT. Tout le code exploite
 // la structure `HardwareProfile` en runtime : c'est ce qui permet aux tests du
@@ -41,7 +41,7 @@ struct BusConfig {
   uint32_t t_hold_us;      // §12.4 maintien après strobe
   uint32_t y_debounce_us;  // §12.1 dépend de l'amplitude réelle des Y
   bool y_pullups;          // §12.1 collecteur ouvert ou sortie poussée ?
-  // §12.3 — topologie de l'étage de sortie inconnue. En collecteur ouvert, la
+  // §12.3 : topologie de l'étage de sortie inconnue. En collecteur ouvert, la
   // broche ne sort jamais de niveau haut : elle tire à la masse ou se met en
   // haute impédance. Mode qui ne peut rien détruire, à défaut de savoir si
   // l'automate tire ses entrées vers une tension quelconque.

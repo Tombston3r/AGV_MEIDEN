@@ -48,7 +48,7 @@ bool begin() {
       0xA8, 0x3F,        // multiplexage : 64 lignes
       0xD3, 0x00,        // pas de décalage vertical
       0x40,              // début de ligne 0
-      0x8D, 0x14,        // pompe de charge interne — sans elle, écran noir
+      0x8D, 0x14,        // pompe de charge interne, sans elle, écran noir
       0x20, 0x00,        // adressage horizontal
       0xA1, 0xC8,        // orientation : origine en haut à gauche
       0xDA, 0x12,        // brochage COM

@@ -4,7 +4,7 @@
 // accusés Y22 / Y05 / Y10 avec délais paramétrables, position courante sur
 // Y23…Y34, injection de timeouts, de défauts Y03 et de rebonds.
 // Permet de développer et tester 90 % du logiciel sans matériel, en temps
-// simulé — aucun appel bloquant, aucune horloge réelle.
+// simulé : aucun appel bloquant, aucune horloge réelle.
 #pragma once
 
 #include <cstdint>

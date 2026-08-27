@@ -1,8 +1,8 @@
-# Table des signaux — bus MEIDEN
+# Table des signaux : bus MEIDEN
 
 > Source de vérité exécutable : `profiles/default.yaml`, section `pinmap`.
 > Ce document explique ; il ne configure rien. En cas d'écart, **le profil YAML
-> fait foi** — et si le profil diverge du comportement observé sur la
+> fait foi**, et si le profil diverge du comportement observé sur la
 > V5.0.1, **c'est la carte d'origine qui fait foi** (brief §15).
 
 ## Numérotation octale
@@ -15,7 +15,7 @@ Convention Meiden/Mitsubishi : les repères sont en **octal**. Après `Y27` vien
 - Toute itération de plage doit passer par `octal_step()` / `octal_span()` de
   `bus/bus_signals.h`. Une boucle décimale inventerait `Y28` et `Y29`.
 
-## Bus X — 22 sorties (carte → automate)
+## Bus X : 22 sorties (carte → automate)
 
 | Signal | Bit | Groupe | Rôle |
 |---|---:|---|---|
@@ -35,7 +35,7 @@ Convention Meiden/Mitsubishi : les repères sont en **octal**. Après `Y27` vien
 | `X97` | 13 | Destination | b1 |
 | `XA0`…`XA7` | 14…21 | Destination | b2…b9 |
 
-## Bus Y — 21 entrées (automate → carte)
+## Bus Y : 21 entrées (automate → carte)
 
 | Signal | Bit | Groupe | Rôle |
 |---|---:|---|---|
