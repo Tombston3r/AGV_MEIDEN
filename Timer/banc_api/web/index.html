@@ -18,6 +18,9 @@
   --attention: #C77700;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
+/* L'attribut hidden doit gagner contre toute règle display — leçon du banc
+   EnOcean : la moindre règle d'auteur le bat sinon. */
+[hidden] { display: none !important; }
 body { background: #fff; color: var(--texte);
   font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
 main { max-width: 1100px; margin: 0 auto; padding: 0 1rem 2rem; display: grid; gap: 1rem; }
@@ -62,10 +65,21 @@ input { font: inherit; border: 1px solid var(--bord); border-radius: 8px; paddin
 .curseur::after { content: attr(data-heure); position: absolute; top: 2px; left: 5px;
   font-size: .72rem; color: var(--outremer); font-weight: 700; white-space: nowrap; }
 .drapeau { position: absolute; transform: translateX(-7px); cursor: pointer; }
-.drapeau .mat { width: 2px; height: 34px; background: currentColor; margin-left: 5px; }
-.drapeau .fanion { font-size: .74rem; font-weight: 700; color: #fff; background: currentColor;
-  border-radius: 4px; padding: .05rem .35rem; white-space: nowrap; }
+.drapeau .mat { width: 2px; background: currentColor; margin-left: 5px; }
+/* ⚠ Ne JAMAIS poser `color` sur .fanion : `background: currentColor` se
+   résout contre la couleur de l'élément LUI-MÊME. Un `color: #fff` ici rend
+   le fanion blanc-sur-blanc — c'est le bug « les marqueurs ne s'affichent
+   pas » de l'itération 2. La couleur d'état vit sur .drapeau, le blanc du
+   texte sur le span. */
+.drapeau .fanion { font-size: .74rem; font-weight: 700; background: currentColor;
+  border-radius: 4px; padding: .05rem .35rem; white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(0,0,0,.3); }
 .drapeau .fanion span { color: #fff; }
+/* Le mât descend jusqu'à l'axe des heures : le drapeau est PLANTÉ. */
+.drapeau[data-rang="0"] { top: 8px; }
+.drapeau[data-rang="0"] .mat { height: 76px; }
+.drapeau[data-rang="1"] { top: 36px; }
+.drapeau[data-rang="1"] .mat { height: 48px; }
 .drapeau.attente { color: var(--outremer); }
 .drapeau.fait { color: var(--ok); }
 .drapeau.saute { color: #8A8FA3; }
@@ -88,6 +102,17 @@ th { color: var(--discret); font-weight: 600; }
   border-radius: 10px; padding: .7rem 1rem; max-width: 380px; opacity: 0; transition: opacity .25s; }
 #toast.visible { opacity: 1; }
 .sim { background: #FAFAFC; }
+
+.voile { position: fixed; inset: 0; background: rgba(17,17,17,.45);
+  display: none; align-items: center; justify-content: center; padding: 1rem; z-index: 50; }
+.modale { background: #fff; border-radius: 12px; padding: 1.3rem; width: 100%;
+  max-width: 420px; box-shadow: 0 12px 40px rgba(0,0,0,.25); }
+.modale h3 { color: var(--outremer); margin-bottom: .8rem; }
+.modale ul { list-style: none; margin-bottom: .9rem; }
+.modale li { display: flex; align-items: center; justify-content: space-between;
+  padding: .4rem .2rem; border-bottom: 1px solid var(--bord); }
+.modale .danger { border-color: var(--alerte); color: var(--alerte); }
+.modale .danger:hover { background: #FBEAE9; }
 </style>
 </head>
 <body>
@@ -128,8 +153,7 @@ th { color: var(--discret); font-weight: 600; }
       <button id="drapeau-a-prendre" onclick="prendreDrapeau()" disabled>🚩 Prendre le drapeau</button>
       <button class="primaire" onclick="appeler()" id="btn-appel" disabled>📢 L'AGV vient à ce poste</button>
       <span style="flex:1"></span>
-      <input id="nouveau-poste" type="number" min="0" max="1023" placeholder="n° station" style="width:7.5rem">
-      <button onclick="ajouterPoste()">Ajouter un poste</button>
+      <button onclick="ouvrirPostes()">⚙ Gestion des postes</button>
     </div>
     <p class="discret" style="margin-top:.5rem">Choisir un poste, prendre le drapeau, puis cliquer sur la frise
       pour programmer le départ — ou appeler l'AGV immédiatement.</p>
@@ -160,6 +184,22 @@ th { color: var(--discret); font-weight: 600; }
     </div>
   </section>
 </main>
+<div id="voile-postes" class="voile" hidden>
+  <div class="modale" role="dialog" aria-modal="true" aria-labelledby="titre-postes">
+    <h3 id="titre-postes">Gestion des postes</h3>
+    <ul id="liste-postes"></ul>
+    <div class="ligne">
+      <input id="nouveau-poste" type="number" min="0" max="1023"
+             placeholder="n° de station (0-1023)" style="flex:1">
+      <button class="primaire" onclick="ajouterPoste()">Ajouter</button>
+    </div>
+    <p class="discret" style="margin:.6rem 0">Un poste est une station du parcours.
+      Retirer un poste ne retire que la pastille : les départs déjà posés restent.</p>
+    <div class="ligne" style="justify-content:flex-end">
+      <button onclick="fermerPostes()">Fermer</button>
+    </div>
+  </div>
+</div>
 <div id="toast"></div>
 
 <script>
@@ -167,7 +207,10 @@ th { color: var(--discret); font-weight: 600; }
 const $ = (id) => document.getElementById(id);
 let etag = null, entrees = [], jour = [], missions = [], journal = [];
 let etatTemps = {}, posteChoisi = null, drapeauEnMain = false;
-const postes = JSON.parse(localStorage.getItem('aio-postes') || '[10, 20, 42]');
+// Clé versionnée : l'ancienne palette (10/20/42) était une invention du banc,
+// les postes réels de l'installation sont le 1 et le 2.
+const postes = JSON.parse(localStorage.getItem('aio-postes-v2') || '[1, 2]');
+const sauverPostes = () => localStorage.setItem('aio-postes-v2', JSON.stringify(postes));
 $('valide-par').value = localStorage.getItem('aio-nom') || '';
 
 async function api(methode, chemin, corps, entetes) {
@@ -228,7 +271,7 @@ function poserDrapeau(locale, texte, etat, rang, surClic) {
   const d = document.createElement('div');
   d.className = 'drapeau ' + etat;
   d.style.left = posDansJour(locale) + '%';
-  d.style.top = (10 + rang * 38) + 'px';
+  d.dataset.rang = rang;
   d.innerHTML = `<div class="fanion"><span>${texte}</span></div><div class="mat"></div>`;
   if (surClic) d.onclick = (e) => { e.stopPropagation(); surClic(); };
   $('frise').appendChild(d);
@@ -396,15 +439,61 @@ async function appeler() {
   rafraichir();
 }
 
+// --- Gestion des postes (popup) --------------------------------------------
+function afficherPostes(visible) {
+  const voile = $('voile-postes');
+  voile.hidden = !visible;
+  voile.style.display = visible ? 'flex' : 'none';   // gagne sur toute feuille
+}
+
+function ouvrirPostes() {
+  rendreListePostes();
+  afficherPostes(true);
+  $('nouveau-poste').focus();
+}
+const fermerPostes = () => afficherPostes(false);
+
+function rendreListePostes() {
+  const liste = $('liste-postes');
+  liste.innerHTML = '';
+  for (const p of [...postes].sort((a, b) => a - b)) {
+    const li = document.createElement('li');
+    const nom = document.createElement('span');
+    nom.textContent = 'Poste ' + p;
+    const retirer = document.createElement('button');
+    retirer.className = 'danger';
+    retirer.textContent = 'Retirer';
+    retirer.onclick = () => {
+      postes.splice(postes.indexOf(p), 1);
+      sauverPostes();
+      if (posteChoisi === p) { posteChoisi = null; drapeauEnMain = false; }
+      rendreListePostes();
+      rendrePostes();
+    };
+    li.append(nom, retirer);
+    liste.appendChild(li);
+  }
+  if (!postes.length) liste.innerHTML = '<li class="discret">Aucun poste — ajoutez-en un.</li>';
+}
+
 function ajouterPoste() {
   const n = Number($('nouveau-poste').value);
   if (!Number.isInteger(n) || n < 0 || n > 1023) { toast('Station entre 0 et 1023.'); return; }
-  if (!postes.includes(n)) postes.push(n);
-  localStorage.setItem('aio-postes', JSON.stringify(postes));
+  if (postes.includes(n)) { toast(`Le poste ${n} existe déjà.`); return; }
+  postes.push(n);
+  sauverPostes();
   posteChoisi = n;
   $('nouveau-poste').value = '';
+  rendreListePostes();
   rendrePostes();
 }
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') fermerPostes();
+});
+$('voile-postes').addEventListener('click', (e) => {
+  if (e.target === $('voile-postes')) fermerPostes();
+});
 
 const vitesse = (f) => api('POST', '/api/sim/vitesse', { facteur: f }).then(rafraichir);
 const avancer = (s) => api('POST', '/api/sim/avancer', { secondes: s }).then(rafraichir);
@@ -418,6 +507,11 @@ function allerA() {
   if (v) api('POST', '/api/sim/heure', { locale: v.replace('T', ' ') }).then(rafraichir);
 }
 
+// Rendu synchrone AVANT le premier échange réseau : pastilles et graduations
+// doivent exister dès la première peinture. L'oubli de cet appel a laissé la
+// section Postes vide — sans pastille, aucun geste n'était possible.
+rendrePostes();
+rendreFrise();
 chargerPlanning().then(rafraichir);
 setInterval(() => { chargerPlanning(); rafraichir(); }, 900);
 </script>

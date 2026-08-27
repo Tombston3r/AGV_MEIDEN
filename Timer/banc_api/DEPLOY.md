@@ -48,13 +48,13 @@ joignable ni depuis le réseau, ni depuis une autre machine — voir §5.
 PORT=` l'annonce : c'est ce qu'utilisent les tests pour tourner en parallèle
 sans se marcher dessus.
 
-## 3. Recette — onze gestes
+## 3. Recette — douze gestes
 
 Ouvrir <http://127.0.0.1:8081>.
 
 | # | Geste | Attendu |
 |---|---|---|
-| 1 | Charger la page | Logo **AIO** en haut à gauche, frise 00h–24h avec curseur, bandeau **rouge** « non validé » |
+| 1 | Charger la page | Logo **AIO** en haut à gauche, frise 00h–24h avec curseur, pastilles **Poste 1 / Poste 2**, bandeau **rouge** « non validé » |
 | 2 | Choisir un poste, **🚩 Prendre le drapeau**, survoler la frise | Un drapeau fantôme suit la souris, heure au pas de 5 min |
 | 3 | Cliquer sur la frise **après** le curseur | Drapeau **outremer** posé ; message « revalidez la journée » |
 | 4 | Cliquer sur la frise **avant** le curseur | Refus : « l'heure est passée » |
@@ -65,6 +65,7 @@ Ouvrir <http://127.0.0.1:8081>.
 | 9 | Poser un drapeau, **simuler heure douteuse**, avancer | **Rien ne part**, badge `HEURE NON FIABLE — GELÉ` ; rétablir dans les 5 min simulées → le départ part |
 | 10 | Cliquer un drapeau posé | Confirmation, puis retrait — et bandeau rouge à nouveau |
 | 11 | Deux onglets : poser un drapeau dans chacun | Le second reçoit « planning modifié ailleurs — rechargé, recommencez » (**409** en dessous) |
+| 12 | **⚙ Gestion des postes** : ajouter le poste 3, le retirer | La pastille apparaît puis disparaît ; les drapeaux déjà posés vers ce poste restent sur la frise |
 
 Les points **3, 5, 6 et 9** sont ceux qui comptent : un départ qui partirait
 sans validation, ou qui repartirait deux fois, est le défaut que ce banc existe

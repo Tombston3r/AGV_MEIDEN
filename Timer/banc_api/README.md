@@ -16,6 +16,9 @@ compris :
   la frise à l'heure voulue (pas de 5 min, un fantôme suit la souris). Le
   drapeau posé est un départ **du jour uniquement** (`debut = fin =
   aujourd'hui`) — la frise représente la journée, pas une récurrence ;
+- **postes** : `Poste 1` et `Poste 2` par défaut — les postes réels de
+  l'installation. *⚙ Gestion des postes* ouvre la fenêtre d'ajout/retrait ;
+  retirer un poste ne retire que la pastille, jamais les départs déjà posés ;
 - **retirer un départ** : cliquer sur son drapeau. Si l'entrée est récurrente,
   la confirmation le dit en toutes lettres avant de supprimer ;
 - **appeler l'AGV** : choisir son poste, *L'AGV vient à ce poste* 📢 — mission
