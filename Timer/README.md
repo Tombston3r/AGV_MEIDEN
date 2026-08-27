@@ -19,6 +19,8 @@ le codec LoRa de `Comm distance/`. Il couvre :
   la validation d'hier ne vaut pas, traçabilité `valide_par`/`valide_le` ;
 - **fenêtre de grâce** (5 min par défaut) : rattrapage borné, jamais de rejeu
   de la journée au redémarrage ;
+- **durée de mission** (5 min par défaut, `duree_mission_s`) : occupation réelle
+  de l'AGV, et détection des départs trop rapprochés ;
 - **idempotence** par `(id, date locale)` — le 02:30 double de l'automne ne
   part qu'une fois ;
 - **heure d'été de printemps** : exécution au premier instant existant

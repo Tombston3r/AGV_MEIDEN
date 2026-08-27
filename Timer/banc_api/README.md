@@ -26,7 +26,28 @@ compris :
 - **logs des départs** : chaque départ confirmé ✓ (avec l'heure prévue), chaque
   saut ✗ avec son motif ;
 - couleurs des drapeaux : **outremer** à venir, **vert** effectué ou appel,
-  **gris** sauté.
+  **gris** sauté ; un liseré **ambre** signale un départ trop rapproché du
+  précédent.
+
+### L'échelle est honnête
+
+Un trajet dure **au plus 5 minutes** à vitesse lente, soit **0,35 %** d'une
+journée. La frise dessine donc deux choses distinctes :
+
+| | Ce que c'est |
+|---|---|
+| **le bloc sur l'axe** | l'occupation **réelle** de l'AGV — 5 min, quelques pixels |
+| **l'étiquette au-dessus** | un simple libellé, détaché, qui n'engage aucune durée |
+
+Les confondre — étiquette posée sur l'axe — laissait lire **deux heures**
+d'immobilisation pour cinq minutes de trajet. La durée vit dans
+`Config::duree_mission_s` (moteur), exposée par `/api/time` : une seule source
+de vérité, pas une constante de feuille de style.
+
+Poser un départ à moins de 5 min d'un autre est **refusé à la saisie** : le
+séquenceur refuse d'empiler une destination tant que la précédente n'est pas
+acquittée (§5), le départ serait perdu. Les plannings déjà enregistrés qui
+présentent ce cas sont signalés (liseré ambre + compteur sous la frise).
 
 ⚠️ Poser ou retirer un drapeau **révoque la validation de la journée** : le
 bandeau repasse rouge, et rien ne part tant qu'elle n'est pas revalidée. Ce

@@ -293,6 +293,13 @@ std::vector<Moteur::Prochaine> Moteur::prochaines(time_t now, size_t n) const {
   }
   std::sort(out.begin(), out.end(),
             [](const Prochaine& a, const Prochaine& b) { return a.quand < b.quand; });
+
+  // Chevauchement : deux départs plus proches que la durée d'une mission.
+  for (size_t i = 1; i < out.size(); ++i) {
+    if (out[i].quand - out[i - 1].quand < static_cast<time_t>(cfg_.duree_mission_s)) {
+      out[i].conflit = true;
+    }
+  }
   if (out.size() > n) out.resize(n);
   return out;
 }

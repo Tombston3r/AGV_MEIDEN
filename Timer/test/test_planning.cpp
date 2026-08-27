@@ -296,6 +296,19 @@ void invalidation_revoque_l_autorisation() {
   CHECK(!m.journee_validee(occ + 60));
 }
 
+void chevauchement_signale_dans_la_liste() {
+  // Un trajet dure au plus 5 min : deux départs à 3 min d'intervalle se
+  // chevauchent, et le second sera refusé par le séquenceur (§5).
+  Moteur m;
+  m.definir_entrees({entree_simple("a", 8, 0), entree_simple("b", 8, 3),
+                     entree_simple("c", 9, 0)});
+  const auto liste = m.prochaines(T(2026, 8, 27, 7, 0), 3);
+  CHECK(liste.size() == 3);
+  CHECK(!liste[0].conflit);   // 08:00, rien avant
+  CHECK(liste[1].conflit);    // 08:03, l'AGV est encore en route
+  CHECK(!liste[2].conflit);   // 09:00, largement après
+}
+
 void liste_des_prochaines_occurrences() {
   Moteur m;
   m.definir_entrees(
@@ -333,6 +346,7 @@ int main() {
   RUN(heure_non_fiable_gele_tout);
   RUN(entree_suspendue_ignoree);
   RUN(invalidation_revoque_l_autorisation);
+  RUN(chevauchement_signale_dans_la_liste);
   RUN(liste_des_prochaines_occurrences);
 
   std::printf("\n%d tests, %d echec(s)\n", g_tests, g_echecs);

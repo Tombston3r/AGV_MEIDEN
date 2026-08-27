@@ -48,6 +48,13 @@ struct Config {
   // Fenêtre de rattrapage après l'heure prévue (§4.2). Au-delà : saut
   // journalisé. C'est elle qui interdit de rejouer la journée au démarrage.
   uint32_t grace_s = 300;
+  // Durée pendant laquelle l'AGV est occupé par une mission — un trajet prend
+  // au plus 5 minutes à vitesse lente. Sert à DEUX choses : représenter
+  // honnêtement l'occupation sur la frise, et signaler deux départs qui se
+  // chevauchent. Le séquenceur refusant d'empiler une destination tant que la
+  // précédente n'est pas acquittée (§5), un chevauchement se solderait par un
+  // départ perdu — autant le voir à la saisie.
+  uint32_t duree_mission_s = 300;
   DstPrintemps dst = DstPrintemps::ExecuterAuPremierInstant;
 };
 
@@ -147,6 +154,9 @@ class Moteur {
     std::string id;
     uint16_t station = 0;
     bool decalee_dst = false;
+    // Ce départ commence avant que le précédent ne soit terminé : l'AGV sera
+    // encore en route, le séquenceur refusera la destination.
+    bool conflit = false;
   };
   std::vector<Prochaine> prochaines(time_t now, size_t n) const;
 

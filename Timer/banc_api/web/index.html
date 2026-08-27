@@ -56,35 +56,47 @@ input { font: inherit; border: 1px solid var(--bord); border-radius: 8px; paddin
 
 /* --- La frise --------------------------------------------------------- */
 .frise-cadre { position: relative; margin-top: .5rem; }
-.frise { position: relative; height: 130px; border: 1px solid var(--bord);
+.frise { position: relative; height: 140px; border: 1px solid var(--bord);
   border-radius: 10px; background: linear-gradient(#fff, #FAFBFF); overflow: hidden; }
 .frise.armee { cursor: crosshair; box-shadow: inset 0 0 0 2px var(--outremer); }
 .heure-tick { position: absolute; bottom: 0; height: 26px; border-left: 1px solid var(--bord);
   padding-left: .25rem; font-size: .72rem; color: var(--discret); }
 .curseur { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--outremer); }
-.curseur::after { content: attr(data-heure); position: absolute; top: 2px; left: 5px;
-  font-size: .72rem; color: var(--outremer); font-weight: 700; white-space: nowrap; }
-.drapeau { position: absolute; transform: translateX(-7px); cursor: pointer; }
-.drapeau .mat { width: 2px; background: currentColor; margin-left: 5px; }
+.curseur::after { content: attr(data-heure); position: absolute; bottom: 2px; left: 4px;
+  font-size: .72rem; color: var(--outremer); font-weight: 700; white-space: nowrap;
+  background: #fff; padding: 0 2px; border-radius: 2px; }
+/* Un trajet dure au plus 5 min, soit 0,35 % d'une frise de 24 h. L'OCCUPATION
+   est donc dessinée à sa largeur RÉELLE, sur l'axe ; l'ÉTIQUETTE flotte
+   au-dessus, détachée, et n'engage aucune durée. Les confondre — étiquette
+   posée sur l'axe — laissait lire deux heures d'immobilisation pour cinq
+   minutes de trajet. */
+.occupation { position: absolute; bottom: 26px; height: 12px; border-radius: 2px;
+  background: currentColor; min-width: 3px; cursor: pointer; }
+.occupation::after { content: ''; position: absolute; inset: -6px -4px; }
+
+.drapeau { position: absolute; cursor: pointer; }
 /* ⚠ Ne JAMAIS poser `color` sur .fanion : `background: currentColor` se
    résout contre la couleur de l'élément LUI-MÊME. Un `color: #fff` ici rend
    le fanion blanc-sur-blanc — c'est le bug « les marqueurs ne s'affichent
-   pas » de l'itération 2. La couleur d'état vit sur .drapeau, le blanc du
-   texte sur le span. */
+   pas » de l'itération 2. */
 .drapeau .fanion { font-size: .74rem; font-weight: 700; background: currentColor;
-  border-radius: 4px; padding: .05rem .35rem; white-space: nowrap;
-  box-shadow: 0 1px 3px rgba(0,0,0,.3); }
+  border-radius: 4px; padding: .05rem .4rem; white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(0,0,0,.28); transform: translateX(-50%); }
 .drapeau .fanion span { color: #fff; }
-/* Le mât descend jusqu'à l'axe des heures : le drapeau est PLANTÉ. */
-.drapeau[data-rang="0"] { top: 8px; }
-.drapeau[data-rang="0"] .mat { height: 76px; }
-.drapeau[data-rang="1"] { top: 36px; }
-.drapeau[data-rang="1"] .mat { height: 48px; }
+/* Amorce fine, centrée : elle RELIE l'étiquette à l'instant sans rien couvrir. */
+.drapeau .amorce { width: 1px; background: currentColor; opacity: .55; margin: 0 auto; }
+.drapeau[data-rang="0"] { top: 4px; }
+.drapeau[data-rang="0"] .amorce { height: 62px; }
+.drapeau[data-rang="1"] { top: 26px; }
+.drapeau[data-rang="1"] .amorce { height: 40px; }
+.drapeau[data-rang="2"] { top: 48px; }
+.drapeau[data-rang="2"] .amorce { height: 18px; }
+.drapeau.conflit .fanion { outline: 2px solid var(--attention); }
 .drapeau.attente { color: var(--outremer); }
 .drapeau.fait { color: var(--ok); }
 .drapeau.saute { color: #8A8FA3; }
 .drapeau.appel { color: var(--ok); }
-.drapeau.fantome { color: var(--outremer); opacity: .55; pointer-events: none; }
+.drapeau.fantome, .occupation.fantome { color: var(--outremer); opacity: .5; pointer-events: none; }
 .legende { display: flex; gap: 1.2rem; margin-top: .5rem; font-size: .82rem; color: var(--discret); }
 .pastille { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: .3rem; }
 
@@ -141,6 +153,7 @@ th { color: var(--discret); font-weight: 600; }
         <span><span class="pastille" style="background:var(--outremer)"></span>départ prévu</span>
         <span><span class="pastille" style="background:var(--ok)"></span>effectué / appel</span>
         <span><span class="pastille" style="background:#8A8FA3"></span>sauté</span>
+        <span id="occupation-legende" class="discret"></span>
         <span id="aide-placement" class="discret"></span>
       </div>
     </div>
@@ -235,9 +248,26 @@ const posDansJour = (locale) => {
 };
 const aujourdhui = () => (etatTemps.locale || '').slice(0, 10);
 
+// Bord droit de la dernière étiquette posée, par rangée. Une étiquette se
+// place dans la première rangée libre : alterner à l'aveugle faisait se
+// recouvrir deux départs proches.
+let rangees = [];
+function rangeeLibre(gauche, texte) {
+  const largeur = (texte.length * 6.6 + 12) / $('frise').clientWidth * 100;
+  const debut = gauche - largeur / 2;
+  for (let r = 0; r < 3; ++r) {
+    if (rangees[r] === undefined || debut > rangees[r] + 0.4) {
+      rangees[r] = debut + largeur;
+      return r;
+    }
+  }
+  return 2;
+}
+
 function rendreFrise() {
   const frise = $('frise');
   frise.innerHTML = '';
+  rangees = [];
   for (let h = 0; h <= 24; h += 2) {
     const tick = document.createElement('div');
     tick.className = 'heure-tick';
@@ -259,20 +289,41 @@ function rendreFrise() {
     e.quand.startsWith(aujourdhui())).map((e) => e.id));
 
   jour.forEach((occ, i) => {
-    const etat = faites.has(occ.id) ? 'fait' : sautees.has(occ.id) ? 'saute' : 'attente';
+    let etat = faites.has(occ.id) ? 'fait' : sautees.has(occ.id) ? 'saute' : 'attente';
+    if (occ.conflit) etat += ' conflit';
     poserDrapeau(occ.locale, `${occ.locale.slice(11, 16)} → P${occ.station}`,
-                 etat, i % 2, () => retirer(occ));
+                 etat, null, () => retirer(occ));
   });
+  const conflits = jour.filter((o) => o.conflit).length;
+  $('occupation-legende').textContent = conflits
+    ? `⚠ ${conflits} départ(s) trop rapproché(s) : l'AGV sera encore en route`
+    : `occupation réelle : ${Math.round((etatTemps.duree_mission_s || 300) / 60)} min par trajet`;
   missions.filter((m) => m.id === 'appel' && m.emise.startsWith(aujourdhui()))
-    .forEach((m, i) => poserDrapeau(m.emise, `📢 P${m.station}`, 'appel', i % 2));
+    .forEach((m) => poserDrapeau(m.emise, `📢 P${m.station}`, 'appel', null));
 }
 
+// Largeur d'une mission en % de la journée — la VRAIE, pas celle du texte.
+const largeurMission = () => ((etatTemps.duree_mission_s || 300) / 86400) * 100;
+
 function poserDrapeau(locale, texte, etat, rang, surClic) {
+  const gauche = posDansJour(locale);
+  if (rang === null) rang = rangeeLibre(gauche, texte);
+
+  // 1. L'occupation, à l'échelle, sur l'axe.
+  const occ = document.createElement('div');
+  occ.className = 'occupation ' + etat;
+  occ.style.left = gauche + '%';
+  occ.style.width = largeurMission() + '%';
+  occ.title = `${texte} — AGV occupé ${Math.round((etatTemps.duree_mission_s || 300) / 60)} min`;
+  if (surClic) occ.onclick = (e) => { e.stopPropagation(); surClic(); };
+  $('frise').appendChild(occ);
+
+  // 2. L'étiquette, détachée, reliée par une amorce d'un pixel.
   const d = document.createElement('div');
   d.className = 'drapeau ' + etat;
-  d.style.left = posDansJour(locale) + '%';
+  d.style.left = gauche + '%';
   d.dataset.rang = rang;
-  d.innerHTML = `<div class="fanion"><span>${texte}</span></div><div class="mat"></div>`;
+  d.innerHTML = `<div class="fanion"><span>${texte}</span></div><div class="amorce"></div>`;
   if (surClic) d.onclick = (e) => { e.stopPropagation(); surClic(); };
   $('frise').appendChild(d);
   return d;
@@ -362,7 +413,7 @@ $('frise').addEventListener('mousemove', (e) => {
   if (!drapeauEnMain) return;
   const { locale } = heureAuPoint(e);
   poserDrapeau(aujourdhui() + ' ' + locale + ':00',
-               `${locale} → P${posteChoisi}`, 'attente fantome', 0);
+               `${locale} → P${posteChoisi}`, 'fantome', 0);
 });
 $('frise').addEventListener('mouseleave', () =>
   document.querySelectorAll('.fantome').forEach((f) => f.remove()));
@@ -381,6 +432,21 @@ $('frise').addEventListener('click', async (e) => {
   const { locale } = heureAuPoint(e);
   if (aujourdhui() + ' ' + locale + ':00' <= etatTemps.locale) {
     toast(`${locale} est déjà passé — placez le drapeau à droite du curseur.`);
+    return;
+  }
+  // L'AGV ne fait qu'un trajet à la fois : le séquenceur refuse d'empiler une
+  // destination tant que la précédente n'est pas acquittée (§5). Autant le
+  // dire à la saisie plutôt que de perdre un départ en exploitation.
+  const dureeMin = Math.round((etatTemps.duree_mission_s || 300) / 60);
+  const [hh, mm] = locale.split(':').map(Number);
+  const minutes = hh * 60 + mm;
+  const voisin = jour.find((o) => {
+    const [oh, om] = o.locale.slice(11, 16).split(':').map(Number);
+    return Math.abs(oh * 60 + om - minutes) < dureeMin;
+  });
+  if (voisin) {
+    toast(`Trop près de ${voisin.locale.slice(11, 16)} → P${voisin.station} : ` +
+          `un trajet dure ${dureeMin} min, l'AGV serait encore en route.`);
     return;
   }
   const date = Number(aujourdhui().replaceAll('-', ''));

@@ -15,6 +15,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
+#include <algorithm>
 #include <chrono>
 #include <csignal>
 #include <cstdio>
@@ -243,18 +244,36 @@ void route_jour(Banc& banc, int fd) {
   const time_t debut_du_jour = mktime(&local);
   const Date aujourdhui = date_locale(now);
 
-  std::string out = "{\"occurrences\":[";
-  bool premier = true;
+  struct Ligne {
+    time_t quand;
+    std::string id;
+    uint16_t station;
+    bool dst;
+  };
+  std::vector<Ligne> lignes;
   for (const Entree& e : banc.moteur.entrees()) {
     if (!e.enabled) continue;
     const auto occ = prochaine_occurrence(e, debut_du_jour, banc.cfg);
     if (!occ || date_locale(occ->quand) != aujourdhui) continue;
-    if (!premier) out += ',';
-    premier = false;
-    out += "{\"id\":\"" + e.id + "\",\"quand\":" + std::to_string(occ->quand) +
-           ",\"locale\":\"" + heure_locale(occ->quand) + "\",\"station\":" +
-           std::to_string(e.station) +
-           ",\"decalee_dst\":" + (occ->decalee_dst ? "true" : "false") + "}";
+    lignes.push_back({occ->quand, e.id, e.station, occ->decalee_dst});
+  }
+  std::sort(lignes.begin(), lignes.end(),
+            [](const Ligne& a, const Ligne& b) { return a.quand < b.quand; });
+
+  std::string out = "{\"occurrences\":[";
+  for (size_t i = 0; i < lignes.size(); ++i) {
+    // Même règle que `Moteur::prochaines()` : deux départs plus proches que la
+    // durée d'une mission se chevauchent.
+    const bool conflit =
+        i > 0 && lignes[i].quand - lignes[i - 1].quand <
+                     static_cast<time_t>(banc.cfg.duree_mission_s);
+    if (i) out += ',';
+    out += "{\"id\":\"" + lignes[i].id + "\",\"quand\":" +
+           std::to_string(lignes[i].quand) + ",\"locale\":\"" +
+           heure_locale(lignes[i].quand) + "\",\"station\":" +
+           std::to_string(lignes[i].station) +
+           ",\"decalee_dst\":" + (lignes[i].dst ? "true" : "false") +
+           ",\"conflit\":" + (conflit ? "true" : "false") + "}";
   }
   out += "]}";
   repondre(fd, 200, out);
@@ -268,6 +287,8 @@ void route_time(Banc& banc, int fd) {
       "\",\"fiable\":" + (banc.heure_fiable ? "true" : "false") +
       ",\"source\":\"simulation\",\"facteur\":" +
       std::to_string(banc.horloge.facteur()) +
+      ",\"duree_mission_s\":" + std::to_string(banc.cfg.duree_mission_s) +
+      ",\"grace_s\":" + std::to_string(banc.cfg.grace_s) +
       ",\"journee_validee\":" + (banc.moteur.journee_validee(now) ? "true" : "false") +
       ",\"valide_par\":\"" + v.valide_par + "\"" +
       ",\"pause\":" + (banc.moteur.en_pause() ? "true" : "false") + "}";
