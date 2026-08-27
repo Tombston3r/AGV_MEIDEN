@@ -112,6 +112,16 @@ th { color: var(--discret); font-weight: 600; }
   border-radius: 10px; padding: .7rem 1rem; max-width: 380px; opacity: 0; transition: opacity .25s; }
 #toast.visible { opacity: 1; }
 .sim { background: #FAFAFC; }
+/* Barre d'onglets : deux pages servies par le même ESP32 sur la cible. */
+.onglets { display: flex; gap: .25rem; margin-left: auto; }
+.onglet { text-decoration: none; font-weight: 600; font-size: .9rem;
+  color: var(--outremer); padding: .4rem .95rem; border-radius: 8px 8px 0 0;
+  border: 1px solid var(--bord); border-bottom: none; background: #fff;
+  font-family: ui-monospace, Menlo, Consolas, monospace; margin-bottom: -1px; }
+.onglet:hover { background: var(--outremer-pale); }
+.onglet.actif { background: var(--outremer); color: #fff; border-color: var(--outremer); }
+header { align-items: flex-end; }
+
 
 .voile { position: fixed; inset: 0; background: rgba(17,17,17,.45);
   display: none; align-items: center; justify-content: center; padding: 1rem; z-index: 50; }
@@ -132,6 +142,10 @@ th { color: var(--discret); font-weight: 600; }
   <span class="horloge" id="horloge">—</span>
   <span class="badge" id="badge-fiable">heure fiable</span>
   <span class="badge" id="badge-pause" hidden>EN PAUSE</span>
+  <nav class="onglets">
+    <a href="/" class="onglet actif">agvschedule</a>
+    <a href="/agvdump.html" class="onglet">agvdump</a>
+  </nav>
 </header>
 
 <main>

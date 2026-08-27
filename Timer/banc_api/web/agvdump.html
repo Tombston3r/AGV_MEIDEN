@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AIO — agvdump</title>
+<style>
+/* Thème : fond blanc, texte noir, bleu outremer pour l'action. */
+:root {
+  --outremer: #1F2DB3;
+  --outremer-fonce: #16208A;
+  --outremer-pale: #ECEEFF;
+  --texte: #111111;
+  --discret: #5A5F6E;
+  --bord: #D9DCE6;
+  --ok: #1E7E34;
+  --alerte: #B3261E;
+  --attention: #C77700;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+/* L'attribut hidden doit gagner contre toute règle display — leçon du banc
+   EnOcean : la moindre règle d'auteur le bat sinon. */
+[hidden] { display: none !important; }
+body { background: #fff; color: var(--texte);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+main { max-width: 1100px; margin: 0 auto; padding: 0 1rem 2rem; display: grid; gap: 1rem; }
+
+header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1rem;
+  border-bottom: 2px solid var(--outremer); margin-bottom: 1rem; flex-wrap: wrap; }
+.logo { font-size: 1.6rem; font-weight: 800; color: var(--outremer); letter-spacing: .04em; }
+.titre { font-size: 1.05rem; font-weight: 600; flex: 1 1 auto; }
+.horloge { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 1.25rem; }
+.badge { border-radius: 999px; padding: .1rem .65rem; font-size: .8rem;
+  background: var(--outremer-pale); color: var(--outremer); font-weight: 600; }
+.badge.alerte { background: var(--alerte); color: #fff; }
+
+section { border: 1px solid var(--bord); border-radius: 12px; padding: 1rem; }
+h2 { font-size: .92rem; color: var(--discret); text-transform: uppercase;
+  letter-spacing: .06em; margin-bottom: .7rem; }
+button { font: inherit; cursor: pointer; border-radius: 8px; padding: .45rem .9rem;
+  border: 1px solid var(--outremer); background: #fff; color: var(--outremer); font-weight: 600; }
+button:hover { background: var(--outremer-pale); }
+button.primaire { background: var(--outremer); color: #fff; }
+button.primaire:hover { background: var(--outremer-fonce); }
+input { font: inherit; border: 1px solid var(--bord); border-radius: 8px; padding: .4rem .6rem; }
+.ligne { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+.discret { color: var(--discret); font-size: .85rem; }
+
+.bandeau { border-radius: 12px; padding: .9rem 1rem; font-weight: 600; color: #fff;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.bandeau.rouge { background: var(--alerte); }
+.bandeau.vert { background: var(--ok); }
+.bandeau input { border: none; }
+.bandeau button { border-color: #fff; background: transparent; color: #fff; }
+.bandeau button:hover { background: rgba(255,255,255,.15); }
+
+/* --- La frise --------------------------------------------------------- */
+.frise-cadre { position: relative; margin-top: .5rem; }
+.frise { position: relative; border: 1px solid var(--bord); border-radius: 10px;
+  background: linear-gradient(#fff, #FAFBFF); overflow: hidden;
+  /* La hauteur est posée par rendreFrise() : elle suit le nombre de rangées
+     réellement occupées. Fixée ici, la frise saturait dès trois départs. */
+  height: 150px; transition: height .18s; }
+.frise.armee { cursor: crosshair; box-shadow: inset 0 0 0 2px var(--outremer); }
+.heure-tick { position: absolute; bottom: 0; height: 26px; border-left: 1px solid var(--bord);
+  padding-left: .25rem; font-size: .72rem; color: var(--discret); }
+.curseur { position: absolute; top: 0; bottom: 0; width: 2px;
+  background: var(--outremer); z-index: 3; }
+.curseur::after { content: attr(data-heure); position: absolute; bottom: 2px; left: 4px;
+  font-size: .72rem; color: var(--outremer); font-weight: 700; white-space: nowrap;
+  background: #fff; padding: 0 2px; border-radius: 2px; }
+/* Un trajet dure au plus 5 min, soit 0,35 % d'une frise de 24 h. L'OCCUPATION
+   est donc dessinée à sa largeur RÉELLE, sur l'axe ; l'ÉTIQUETTE flotte
+   au-dessus, détachée, et n'engage aucune durée. Les confondre — étiquette
+   posée sur l'axe — laissait lire deux heures d'immobilisation pour cinq
+   minutes de trajet. */
+.occupation { position: absolute; height: 12px; border-radius: 2px;
+  background: currentColor; min-width: 3px; cursor: pointer; z-index: 1; }
+.occupation::after { content: ''; position: absolute; inset: -6px -4px; }
+
+.drapeau { position: absolute; cursor: pointer; z-index: 2; }
+/* ⚠ Ne JAMAIS poser `color` sur .fanion : `background: currentColor` se
+   résout contre la couleur de l'élément LUI-MÊME. Un `color: #fff` ici rend
+   le fanion blanc-sur-blanc — c'est le bug « les marqueurs ne s'affichent
+   pas » de l'itération 2. */
+.drapeau .fanion { font-size: .74rem; font-weight: 700; background: currentColor;
+  border-radius: 4px; padding: .05rem .4rem; white-space: nowrap;
+  box-shadow: 0 1px 3px rgba(0,0,0,.28); transform: translateX(-50%); }
+.drapeau .fanion span { color: #fff; }
+/* Amorce fine, centrée : elle RELIE l'étiquette à l'instant sans rien couvrir. */
+.drapeau .amorce { width: 1px; background: currentColor; opacity: .55; margin: 0 auto; }
+.drapeau.conflit .fanion { outline: 2px solid var(--attention); }
+.drapeau.attente { color: var(--outremer); }
+.drapeau.fait { color: var(--ok); }
+.drapeau.saute { color: #8A8FA3; }
+.drapeau.appel { color: var(--ok); }
+.drapeau.fantome, .occupation.fantome { color: var(--outremer); opacity: .5; pointer-events: none; }
+.legende { display: flex; gap: 1.2rem; margin-top: .5rem; font-size: .82rem; color: var(--discret); }
+.pastille { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: .3rem; }
+
+/* --- Postes ------------------------------------------------------------ */
+.poste { border: 1.5px solid var(--outremer); color: var(--outremer); border-radius: 999px;
+  padding: .35rem .9rem; cursor: pointer; font-weight: 700; background: #fff; }
+.poste.choisi { background: var(--outremer); color: #fff; }
+#drapeau-a-prendre { font-size: 1rem; }
+table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+th, td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid var(--bord); }
+th { color: var(--discret); font-weight: 600; }
+.etat-fait { color: var(--ok); font-weight: 700; }
+.etat-saute { color: var(--attention); font-weight: 600; }
+#toast { position: fixed; right: 1rem; bottom: 1rem; background: var(--texte); color: #fff;
+  border-radius: 10px; padding: .7rem 1rem; max-width: 380px; opacity: 0; transition: opacity .25s; }
+#toast.visible { opacity: 1; }
+.sim { background: #FAFAFC; }
+/* Barre d'onglets : deux pages servies par le même ESP32 sur la cible. */
+.onglets { display: flex; gap: .25rem; margin-left: auto; }
+.onglet { text-decoration: none; font-weight: 600; font-size: .9rem;
+  color: var(--outremer); padding: .4rem .95rem; border-radius: 8px 8px 0 0;
+  border: 1px solid var(--bord); border-bottom: none; background: #fff;
+  font-family: ui-monospace, Menlo, Consolas, monospace; margin-bottom: -1px; }
+.onglet:hover { background: var(--outremer-pale); }
+.onglet.actif { background: var(--outremer); color: #fff; border-color: var(--outremer); }
+header { align-items: flex-end; }
+
+
+.voile { position: fixed; inset: 0; background: rgba(17,17,17,.45);
+  display: none; align-items: center; justify-content: center; padding: 1rem; z-index: 50; }
+.modale { background: #fff; border-radius: 12px; padding: 1.3rem; width: 100%;
+  max-width: 420px; box-shadow: 0 12px 40px rgba(0,0,0,.25); }
+.modale h3 { color: var(--outremer); margin-bottom: .8rem; }
+.modale ul { list-style: none; margin-bottom: .9rem; }
+.modale li { display: flex; align-items: center; justify-content: space-between;
+  padding: .4rem .2rem; border-bottom: 1px solid var(--bord); }
+.modale .danger { border-color: var(--alerte); color: var(--alerte); }
+.modale .danger:hover { background: #FBEAE9; }
+</style>
+<style>
+main { max-width: 1100px; margin: 0 auto; padding: 0 1rem 2rem; display: grid; gap: 1rem; }
+.dump { background: #FAFBFF; border: 1px solid var(--bord); border-radius: 10px;
+  padding: 1rem 1.2rem; font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: .88rem; overflow-x: auto; }
+/* `table { width:100% }` du thème écarterait les deux colonnes de toute la
+   largeur : ici la clé et la valeur doivent rester lisibles ensemble. */
+.dump table { border-collapse: collapse; width: auto; }
+.dump td.cle { min-width: 15rem; }
+.dump td { padding: .12rem .5rem .12rem 0; border: none; white-space: nowrap; }
+.dump td.cle { color: var(--discret); }
+.dump td.val { font-weight: 700; }
+.dump td.val.on { color: var(--ok); }
+.dump td.val.off { color: var(--discret); }
+.dump td.val.mal { color: var(--alerte); }
+.section-dump { color: var(--outremer); font-weight: 700; padding-top: .7rem; }
+.avert { background: #FFF6E5; border: 1px solid var(--attention); border-radius: 10px;
+  padding: .8rem 1rem; font-size: .9rem; }
+pre.brut { background: #111; color: #E6EDF3; border-radius: 10px; padding: 1rem;
+  overflow-x: auto; font-size: .82rem; }
+</style>
+</head>
+<body>
+<header>
+  <span class="logo">AIO</span>
+  <span class="titre">Diagnostic agvdump</span>
+  <nav class="onglets">
+    <a href="/" class="onglet">agvschedule</a>
+    <a href="/agvdump.html" class="onglet actif">agvdump</a>
+  </nav>
+</header>
+
+<main>
+  <div class="avert">
+    <strong>Le format de <code>/agvdump</code> ne change pas.</strong> Les noms de
+    champs et de compteurs sont repris du firmware d'origine et lus par les
+    procédures d'atelier du client (§3.3) : cette page ne fait que les
+    <em>présenter</em>. Le texte brut reste servi tel quel sur
+    <a href="/agvdump">/agvdump</a>.
+  </div>
+
+  <section>
+    <h2><span class="discret" id="age">—</span></h2>
+    <div class="dump" id="dump">chargement…</div>
+    <div class="ligne" style="margin-top:.8rem">
+      <button onclick="charger()">Rafraîchir</button>
+      <button onclick="basculerBrut()" id="btn-brut">Voir le texte brut</button>
+      <a href="/agvdump" download="agvdump.txt"><button>Télécharger</button></a>
+    </div>
+    <pre class="brut" id="brut" hidden></pre>
+  </section>
+
+  <section>
+    <h2>Ce que le banc ne peut pas montrer</h2>
+    <p class="discret">Il n'y a <strong>pas d'ATmega</strong> sur ce banc : les champs
+    de la section <code>[AGV STATE]</code> restent à leur valeur de repos, et
+    <code>mcu_link_up</code> vaut 0. Sur la cible, ils arrivent par la liaison série.
+    Les compteurs renseignés ici sont ceux que le <strong>planning</strong> connaît
+    réellement : <code>heartbeats_sent</code> compte les départs partis,
+    <code>cmd_expired</code> les départs sautés, <code>link_timeouts</code> les
+    passages en heure non fiable.</p>
+  </section>
+</main>
+
+<script>
+'use strict';
+const $ = (id) => document.getElementById(id);
+let brutVisible = false;
+
+// Les champs booléens du dump, et le sens qu'il faut leur donner : pour
+// certains, 1 est une bonne nouvelle ; pour d'autres, c'est l'inverse.
+const BON_SI_UN = new Set(['heartbeat_ok', 'mcu_link_up', 'wifi_up', 'mqtt_up', 'in_station']);
+const MAUVAIS_SI_UN = new Set(['plc_fault', 'safe_stop', 'no_destination']);
+
+async function charger() {
+  const texte = await (await fetch('/agvdump', { cache: 'no-store' })).text();
+  $('brut').textContent = texte;
+
+  const table = document.createElement('table');
+  for (const ligne of texte.split('\n')) {
+    const tr = document.createElement('tr');
+    if (ligne.startsWith('[') || (ligne && !ligne.includes('='))) {
+      const td = document.createElement('td');
+      td.colSpan = 2;
+      td.className = 'section-dump';
+      td.textContent = ligne;
+      tr.appendChild(td);
+    } else if (ligne.includes('=')) {
+      const i = ligne.indexOf('=');
+      const cle = ligne.slice(0, i);
+      const val = ligne.slice(i + 1);
+      const tdc = document.createElement('td');
+      tdc.className = 'cle';
+      tdc.textContent = cle;
+      const tdv = document.createElement('td');
+      tdv.className = 'val';
+      tdv.textContent = val === '' ? '—' : val;
+      if (val === '1' || val === '0') {
+        const vrai = val === '1';
+        if (BON_SI_UN.has(cle)) tdv.classList.add(vrai ? 'on' : 'off');
+        else if (MAUVAIS_SI_UN.has(cle)) tdv.classList.add(vrai ? 'mal' : 'off');
+      }
+      if (cle === 'fault' && val !== 'NONE') tdv.classList.add('mal');
+      tr.append(tdc, tdv);
+    } else {
+      continue;
+    }
+    table.appendChild(tr);
+  }
+  $('dump').replaceChildren(table);
+  $('age').textContent = 'relevé à ' + new Date().toLocaleTimeString('fr-FR');
+}
+
+function basculerBrut() {
+  brutVisible = !brutVisible;
+  $('brut').hidden = !brutVisible;
+  $('btn-brut').textContent = brutVisible ? 'Masquer le texte brut' : 'Voir le texte brut';
+}
+
+charger();
+setInterval(charger, 2000);
+</script>
+</body>
+</html>

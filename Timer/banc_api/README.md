@@ -6,6 +6,34 @@ testé en temps réel est inutilisable : ici on se place à 05:59, on accélère
 ×600, on franchit minuit, on simule une heure douteuse — et on regarde ce que
 fait le moteur qui partira en production.
 
+## Deux pages, une barre d'onglets
+
+| Onglet | Page | Rôle |
+|---|---|---|
+| **agvschedule** | `/` | la frise du jour, la pose des départs, l'appel |
+| **agvdump** | `/agvdump.html` | le **diagnostic d'atelier**, mis en forme |
+
+Sur la cible, les deux seront servies par le **même** serveur web de l'ESP32 :
+la barre reflète cette réalité, elle n'est pas un artifice du banc.
+
+### ⚠️ Le format de `/agvdump` ne change pas
+
+`GET /agvdump` renvoie du **texte brut**, dans le format exact du firmware
+d'origine (brief §3.3) — les procédures d'atelier du client lisent ces noms de
+champs. `agvdump.html` ne fait que le **présenter** : elle va chercher ce
+même texte et le met en page. Le brut reste accessible, et téléchargeable.
+
+Le rendu est une **copie octet pour octet** de celui de
+`Comm distance/architectures/A4_Wifi/` — et `test/test_agvdump.cpp` **compare
+la copie à son original** à chaque `make test`. Sans ce contrôle, une copie est
+une divergence en sursis.
+
+Sur le banc il n'y a **pas d'ATmega** : la section `[AGV STATE]` reste à sa
+valeur de repos et la page le dit. Les compteurs renseignés sont ceux que le
+planning connaît vraiment — `heartbeats_sent` compte les départs partis,
+`cmd_expired` les départs sautés, `link_timeouts` les passages en heure non
+fiable.
+
 ## L'interface (itération 2)
 
 Thème **blanc / noir / bleu outremer**, logo AIO en haut à gauche. La journée

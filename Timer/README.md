@@ -34,7 +34,7 @@ le codec LoRa de `Comm distance/`. Il couvre :
 ## Lancer les tests — et le banc
 
 ```bash
-make test    # moteur (19) + codec JSON (13) + contrat API (10)
+make test    # moteur (20) + codec (13) + dump d'atelier (3) + contrat API (12)
 make banc    # http://127.0.0.1:8081 — l'API sur le vrai moteur, horloge pilotable
 ```
 
@@ -49,7 +49,8 @@ de 2026 (29 mars, 25 octobre). Le banc et son mode d'emploi :
 | `Spec Planning Journalier.md` | cadrage — décisions, points ouverts |
 | `moteur/planning.{h,cpp}` | le moteur, C++ pur |
 | `moteur/serialisation.{h,cpp}` | document ↔ JSON — **le même schéma sert l'API (§6) et la persistance (§3.3)** |
-| `banc_api/` | **banc local de l'API** : le vrai moteur, horloge simulée, IHM avec bandeau de validation |
+| `banc_api/` | **banc local de l'API** : le vrai moteur, horloge simulée, IHM (frise + diagnostic `agvdump`) |
+| `atelier/` | **copie conforme** du rendu `/agvdump` de A4 — format d'atelier du client, comparé à son original par les tests |
 | `test/` | 19 + 13 tests natifs, horloge simulée |
 | `docs/ALIGNEMENT_COMM_DISTANCE.md` | **confrontation de la spec au dépôt** — à lire avant d'implémenter la suite |
 | `docs/ETAT_PROJET.md` | état, kanban, journal |

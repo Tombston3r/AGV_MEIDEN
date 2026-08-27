@@ -25,6 +25,7 @@
 #include <string>
 #include <vector>
 
+#include "app/agvdump.h"
 #include "moteur/planning.h"
 #include "moteur/serialisation.h"
 
@@ -88,6 +89,7 @@ struct Banc {
   int version = 1;  // ETag du planning
   std::vector<MissionEmise> missions;
   std::string dossier_web;
+  time_t demarre_le = 0;
 
   std::string etag() const { return "\"v" + std::to_string(version) + "\""; }
 };
@@ -279,6 +281,49 @@ void route_jour(Banc& banc, int fd) {
   repondre(fd, 200, out);
 }
 
+// `/agvdump` — format d'atelier, TEXTE BRUT, servi tel quel.
+//
+// ⚠ Ce format est un contrat avec les procédures du client (brief §3.3) : les
+// outils d'atelier lisent ces noms de champs. Il ne se modernise PAS. La mise
+// en forme lisible vit dans `agvdump.html`, qui va chercher ce texte-ci.
+//
+// Sur le banc il n'y a pas d'ATmega : les champs d'état AGV restent donc à
+// leur valeur de repos, et la page le dit franchement plutôt que d'inventer
+// des valeurs qui feraient croire à un relevé réel.
+void route_agvdump(Banc& banc, int fd) {
+  const time_t now = banc.horloge.now();
+  agv::link::LinkState etat{};        // pas d'ATmega sur le banc
+  etat.queue_len = static_cast<uint8_t>(banc.moteur.prochaines(now, 5).size());
+
+  agv::AgvDumpInput in;
+  in.state = &etat;
+  in.profile_name = "banc-planning";
+  // Temps RÉEL depuis le démarrage du processus : l'horloge du banc est
+  // pilotable, et un saut au mois prochain se lirait sinon comme des
+  // semaines de fonctionnement ininterrompu.
+  in.uptime_s = static_cast<uint32_t>(::time(nullptr) - banc.demarre_le);
+  in.link_up = false;
+  in.wifi_up = false;
+  in.mqtt_up = false;
+  in.ssid = "";
+  // Compteurs que le PLANNING connaît réellement, rangés dans les champs de
+  // même sens du format d'atelier.
+  for (const auto& e : banc.moteur.journal()) {
+    if (e.motif == Motif::Executee || e.motif == Motif::ExecuteeDecaleeDst) {
+      ++in.heartbeats_sent;           // départs effectivement partis
+    } else if (e.motif == Motif::HeureNonFiable) {
+      ++in.link_timeouts;
+    } else if (e.motif != Motif::JourneeValidee &&
+               e.motif != Motif::HeureRedevenueFiable) {
+      ++in.cmd_expired;               // départs sautés, tous motifs
+    }
+  }
+
+  char tampon[2048];
+  const size_t n = agv::render_agvdump(in, tampon, sizeof(tampon));
+  repondre(fd, 200, std::string(tampon, n), "text/plain; charset=utf-8");
+}
+
 void route_time(Banc& banc, int fd) {
   const time_t now = banc.horloge.now();
   const Validation& v = banc.moteur.validation();
@@ -348,6 +393,8 @@ void traiter(Banc& banc, int fd, const Requete& req) {
     if (req.chemin == "/api/time") return route_time(banc, fd);
     if (req.chemin == "/api/missions") return route_missions(banc, fd);
     if (req.chemin == "/api/journal") return route_journal(banc, fd);
+    // Format d'atelier, texte brut — la page lisible est agvdump.html.
+    if (req.chemin == "/agvdump") return route_agvdump(banc, fd);
     return route_statique(banc, fd, req.chemin);
   }
 
@@ -461,6 +508,7 @@ int main(int argc, char** argv) {
 
   Banc banc;
   banc.dossier_web = dossier_web;
+  banc.demarre_le = ::time(nullptr);
 
   const int ecoute = socket(AF_INET, SOCK_STREAM, 0);
   const int oui = 1;

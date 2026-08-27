@@ -20,9 +20,10 @@ make test
 **Attendu :**
 
 ```
-19 tests, 0 echec(s)      moteur
+20 tests, 0 echec(s)      moteur
 13 tests, 0 echec(s)      codec JSON
-Ran 10 tests ... OK       contrat API
+ 3 tests, 0 echec(s)      fidélité du dump d'atelier
+Ran 12 tests ... OK       contrat API
 ```
 
 Si la compilation échoue, c'est le compilateur qui est trop ancien : `-std=c++17`
@@ -48,7 +49,7 @@ joignable ni depuis le réseau, ni depuis une autre machine — voir §5.
 PORT=` l'annonce : c'est ce qu'utilisent les tests pour tourner en parallèle
 sans se marcher dessus.
 
-## 3. Recette — quinze gestes
+## 3. Recette — dix-sept gestes
 
 Ouvrir <http://127.0.0.1:8081>.
 
@@ -69,6 +70,8 @@ Ouvrir <http://127.0.0.1:8081>.
 | 13 | Poser un départ à **3 min** d'un autre | Refusé : « un trajet dure 5 min, l'AGV serait encore en route » |
 | 14 | Regarder l'axe des heures | Le bloc d'occupation fait **quelques pixels** (5 min sur 24 h), pas la largeur de l'étiquette |
 | 15 | Poser une dizaine de départs dans la journée | La frise **grandit** ; les étiquettes se répartissent sur plusieurs rangées **sans se recouvrir** |
+| 16 | Onglet **agvdump** | Le relevé s'affiche en clair, `[AGV STATE]` à zéro (pas d'ATmega sur le banc) |
+| 17 | `curl -s localhost:8081/agvdump` | **Texte brut**, `Content-Type: text/plain`, commençant par `AIO AGV CONTROL - DUMP` — le format d'atelier, intact |
 
 Les points **3, 5, 6 et 9** sont ceux qui comptent : un départ qui partirait
 sans validation, ou qui repartirait deux fois, est le défaut que ce banc existe
@@ -124,5 +127,6 @@ curl -s localhost:8081/api/missions
 | Drapeau gris alors que l'AGV devait partir | saut motivé — lire la ligne ✗ des logs (grâce dépassée, pause, non validé) |
 | Liseré ambre sur un drapeau | départ trop rapproché du précédent : l'AGV sera encore en route, le séquenceur refusera |
 | Étiquettes qui se recouvrent malgré tout | plus de dix rangées nécessaires — augmenter `GEO.rangsMax` dans `web/index.html` |
+| `make test` : « DIVERGENCE » sur `agvdump.cpp` | la copie du rendu d'atelier ne correspond plus à celle de A4 — **reporter la correction**, ne pas la contourner |
 | Aucune mission alors que l'heure est passée | bandeau rouge (non validée), badge pause, ou occurrence déjà consommée |
 | Rien ne bouge après « Aller à » une date passée | l'horloge ne va que vers le futur — redémarrer le banc |
