@@ -60,6 +60,9 @@ de 2026 (29 mars, 25 octobre). Le banc et son mode d'emploi :
 
 ## Ce qui reste (voir le kanban)
 
+📍 **Déploiement sur la carte V5.0.1** : le chemin complet, ce qui manque et
+dans quel ordre — [`docs/CHEMIN_V5.md`](docs/CHEMIN_V5.md).
+
 Couche fichier de la persistance (§3.3 — le codec JSON existe), pilote DS3231
 et états de confiance (§2), portage ESP32 de l'API (le **contrat est fixé et
 testé** par le banc), intégration dans `A4_Wifi` — le séquenceur du §5

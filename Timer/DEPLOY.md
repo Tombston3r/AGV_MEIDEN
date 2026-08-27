@@ -10,6 +10,10 @@
 > physique. Voir §0.1, corrigé le 2026-08-27.
 >
 > État à jour : [`docs/ETAT_PROJET.md`](docs/ETAT_PROJET.md).
+>
+> 📍 **Cible retenue : la carte `V5.0.1`** (celle de l'architecture A4). Le
+> chemin détaillé, ce qui manque et dans quel ordre :
+> [`docs/CHEMIN_V5.md`](docs/CHEMIN_V5.md).
 
 ## Phase 0 — Ce qui interdit la mise en service aujourd'hui
 
