@@ -29,14 +29,16 @@ le codec LoRa de `Comm distance/`. Il couvre :
 - journal borné motivé, liste des **prochaines occurrences calculées** (la vue
   IHM la plus utile).
 
-## Lancer les tests
+## Lancer les tests — et le banc
 
 ```bash
-make test
+make test    # moteur (19) + codec JSON (13) + contrat API (10)
+make banc    # http://127.0.0.1:8081 — l'API sur le vrai moteur, horloge pilotable
 ```
 
-**Attendu : `18 tests, 0 echec(s)`.** Aucun matériel requis : fuseau
-Europe/Paris forcé, dates d'heure d'été réelles de 2026 (29 mars, 25 octobre).
+Aucun matériel requis : fuseau Europe/Paris forcé, dates d'heure d'été réelles
+de 2026 (29 mars, 25 octobre). Le banc et son mode d'emploi :
+[`banc_api/README.md`](banc_api/README.md).
 
 ## Structure
 
@@ -44,13 +46,16 @@ Europe/Paris forcé, dates d'heure d'été réelles de 2026 (29 mars, 25 octobre
 |---|---|
 | `Spec Planning Journalier.md` | cadrage — décisions, points ouverts |
 | `moteur/planning.{h,cpp}` | le moteur, C++ pur |
-| `test/test_planning.cpp` | 18 tests, horloge simulée |
+| `moteur/serialisation.{h,cpp}` | document ↔ JSON — **le même schéma sert l'API (§6) et la persistance (§3.3)** |
+| `banc_api/` | **banc local de l'API** : le vrai moteur, horloge simulée, IHM avec bandeau de validation |
+| `test/` | 19 + 13 tests natifs, horloge simulée |
 | `docs/ALIGNEMENT_COMM_DISTANCE.md` | **confrontation de la spec au dépôt** — à lire avant d'implémenter la suite |
 | `docs/ETAT_PROJET.md` | état, kanban, journal |
 
 ## Ce qui reste (voir le kanban)
 
-Persistance LittleFS (§3.3), pilote DS3231 et états de confiance (§2), API web
-REST + WebSocket (§6), intégration dans `A4_Wifi` — le séquenceur du §5
+Couche fichier de la persistance (§3.3 — le codec JSON existe), pilote DS3231
+et états de confiance (§2), portage ESP32 de l'API (le **contrat est fixé et
+testé** par le banc), intégration dans `A4_Wifi` — le séquenceur du §5
 **existe déjà, testé**, le moteur n'a qu'à produire des missions vers la
 liaison existante.

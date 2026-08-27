@@ -121,6 +121,9 @@ class Moteur {
   const Config& config() const { return cfg_; }
 
   bool valider_journee(Date d, const std::string& par, time_t quand);
+  // Révoque l'autorisation du jour. Appelée à chaque MODIFICATION du
+  // planning : ce qui a été validé n'est plus ce qui est en mémoire.
+  void invalider_journee() { validation_ = {}; }
   const Validation& validation() const { return validation_; }
   bool journee_validee(time_t now) const;
 

@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Banc API — Planning AGV</title>
+<style>
+:root { --fond:#0f1419; --carte:#1a2129; --bord:#2b3540; --texte:#e6edf3;
+  --discret:#8b98a5; --vert:#2ea043; --rouge:#c93c37; --ambre:#d29922; --bleu:#316dca; }
+* { box-sizing:border-box; margin:0; padding:0; }
+body { background:var(--fond); color:var(--texte);
+  font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; padding:1rem; }
+main { max-width:1080px; margin:0 auto; display:grid; gap:1rem; }
+section { background:var(--carte); border:1px solid var(--bord); border-radius:10px; padding:1rem; }
+h1 { font-size:1.2rem; margin-bottom:.2rem; }
+h2 { font-size:.95rem; color:var(--discret); text-transform:uppercase;
+  letter-spacing:.05em; margin-bottom:.6rem; }
+button { font:inherit; cursor:pointer; border-radius:8px; padding:.4rem .8rem;
+  border:1px solid var(--bord); background:transparent; color:var(--texte); }
+button:hover { filter:brightness(1.2); }
+button.primaire { background:var(--vert); border-color:transparent; font-weight:600; }
+input, textarea { font:inherit; background:var(--fond); color:var(--texte);
+  border:1px solid var(--bord); border-radius:8px; padding:.4rem .6rem; }
+textarea { width:100%; min-height:9rem; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.85rem; }
+table { width:100%; border-collapse:collapse; font-size:.9rem; }
+th, td { text-align:left; padding:.3rem .5rem; border-bottom:1px solid var(--bord); }
+th { color:var(--discret); font-weight:600; }
+.bandeau { border-radius:10px; padding:1rem; font-weight:600; display:flex;
+  align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+.bandeau.rouge { background:var(--rouge); }
+.bandeau.vert { background:var(--vert); }
+.ligne { display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; }
+.horloge { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:1.5rem; }
+.badge { border-radius:999px; padding:.1rem .6rem; font-size:.8rem; background:var(--bord); }
+.badge.alerte { background:var(--ambre); color:#1a1200; font-weight:700; }
+.erreur { color:#ff8882; font-size:.88rem; min-height:1.2rem; }
+.discret { color:var(--discret); font-size:.85rem; }
+.grille { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+@media (max-width:800px){ .grille { grid-template-columns:1fr; } }
+#journal { max-height:14rem; overflow-y:auto; font-size:.85rem; }
+#journal div { padding:.15rem 0; border-bottom:1px solid var(--bord); }
+</style>
+</head>
+<body>
+<main>
+  <div>
+    <h1>Banc API — planning journalier</h1>
+    <span class="discret">Simulation locale : le vrai moteur, une horloge pilotable. Rien ici n'existe sur la cible sauf l'API <code>/api/planning*</code> et <code>/api/time</code>.</span>
+  </div>
+
+  <div id="bandeau" class="bandeau rouge">
+    <span id="bandeau-texte">…</span>
+    <span class="ligne">
+      <input id="valide-par" placeholder="votre nom" size="12">
+      <button class="primaire" onclick="valider()">Valider la journée</button>
+    </span>
+  </div>
+
+  <section>
+    <h2>Horloge simulée</h2>
+    <div class="ligne">
+      <span class="horloge" id="horloge">—</span>
+      <span class="badge" id="badge-facteur">×1</span>
+      <span class="badge" id="badge-fiable">heure fiable</span>
+      <span class="badge" id="badge-pause" hidden>EN PAUSE</span>
+    </div>
+    <div class="ligne" style="margin-top:.6rem">
+      vitesse
+      <button onclick="vitesse(1)">×1</button>
+      <button onclick="vitesse(60)">×60</button>
+      <button onclick="vitesse(600)">×600</button>
+      avancer
+      <button onclick="avancer(60)">+1 min</button>
+      <button onclick="avancer(3600)">+1 h</button>
+      <button onclick="avancer(86400)">+1 jour</button>
+      <input type="datetime-local" id="aller-a">
+      <button onclick="allerA()">Aller à</button>
+      <button onclick="basculerFiable()" id="btn-fiable">simuler heure douteuse</button>
+    </div>
+    <p class="discret" style="margin-top:.4rem">⚠️ Vers le futur uniquement : revenir en arrière ne « dé-consomme » pas les occurrences déjà traitées — redémarrer le banc pour un scénario vierge.</p>
+  </section>
+
+  <div class="grille">
+    <section>
+      <h2>Prochaines occurrences (calculées)</h2>
+      <table><thead><tr><th>Quand</th><th>Entrée</th><th>Station</th><th></th></tr></thead>
+      <tbody id="prochaines"></tbody></table>
+    </section>
+    <section>
+      <h2>Missions parties <span class="discret">(vers le séquenceur)</span></h2>
+      <table><thead><tr><th>Émise</th><th>Prévue</th><th>Entrée</th><th>Station</th></tr></thead>
+      <tbody id="missions"></tbody></table>
+    </section>
+  </div>
+
+  <section>
+    <h2>Planning (PUT avec verrou optimiste)</h2>
+    <textarea id="editeur" spellcheck="false"></textarea>
+    <div class="ligne" style="margin-top:.5rem">
+      <button onclick="charger()">Recharger (GET)</button>
+      <button class="primaire" onclick="publier()">Publier (PUT If-Match <span id="etag">—</span>)</button>
+      <button onclick="pause()" id="btn-pause">Pause</button>
+      <button onclick="skip()">Sauter la prochaine</button>
+    </div>
+    <p class="erreur" id="erreur"></p>
+    <p class="discret">Publier révoque la validation du jour : ce qui a été validé n'est plus ce qui est en mémoire.</p>
+  </section>
+
+  <section>
+    <h2>Journal du moteur</h2>
+    <div id="journal"></div>
+  </section>
+</main>
+<script>
+'use strict';
+const $ = (id) => document.getElementById(id);
+let etag = null, enPause = false, fiable = true;
+
+async function api(methode, chemin, corps, entetes) {
+  const rep = await fetch(chemin, { method: methode,
+    headers: { ...(corps ? { 'Content-Type': 'application/json' } : {}), ...(entetes || {}) },
+    body: corps ? JSON.stringify(corps) : undefined });
+  const data = await rep.json().catch(() => ({}));
+  return { ok: rep.ok, code: rep.status, data, etag: rep.headers.get('ETag') };
+}
+
+async function rafraichir() {
+  const t = (await api('GET', '/api/time')).data;
+  $('horloge').textContent = t.locale;
+  $('badge-facteur').textContent = '×' + t.facteur;
+  fiable = t.fiable;
+  $('badge-fiable').textContent = fiable ? 'heure fiable' : 'HEURE NON FIABLE — GELÉ';
+  $('badge-fiable').className = 'badge' + (fiable ? '' : ' alerte');
+  $('btn-fiable').textContent = fiable ? 'simuler heure douteuse' : 'rétablir l\'heure';
+  enPause = t.pause;
+  $('badge-pause').hidden = !enPause;
+  $('btn-pause').textContent = enPause ? 'Reprendre' : 'Pause';
+
+  const bandeau = $('bandeau');
+  if (t.journee_validee) {
+    bandeau.className = 'bandeau vert';
+    $('bandeau-texte').textContent = 'Planning du jour validé par ' + t.valide_par + ' — exécution autorisée';
+  } else {
+    bandeau.className = 'bandeau rouge';
+    $('bandeau-texte').textContent = 'Planning du ' + t.locale.slice(0, 10) + ' NON VALIDÉ — aucun déplacement automatique';
+  }
+
+  const occ = (await api('GET', '/api/planning/next')).data.occurrences || [];
+  $('prochaines').innerHTML = occ.map((o) =>
+    `<tr><td>${o.locale}</td><td>${o.id}</td><td>${o.station}</td>` +
+    `<td>${o.decalee_dst ? '<span class="badge alerte">décalée DST</span>' : ''}</td></tr>`).join('');
+
+  const missions = (await api('GET', '/api/missions')).data.missions || [];
+  $('missions').innerHTML = missions.slice().reverse().map((m) =>
+    `<tr><td>${m.emise}</td><td>${m.prevu}</td><td>${m.id}</td><td>${m.station}</td></tr>`).join('');
+
+  const journal = (await api('GET', '/api/journal')).data.evenements || [];
+  $('journal').innerHTML = journal.slice().reverse().map((e) =>
+    `<div>${e.quand} — <strong>${e.motif}</strong>${e.id ? ' — ' + e.id : ''}</div>`).join('');
+}
+
+async function charger() {
+  const r = await api('GET', '/api/planning');
+  etag = r.etag;
+  $('etag').textContent = etag;
+  $('editeur').value = JSON.stringify(r.data, null, 2);
+  $('erreur').textContent = '';
+}
+
+async function publier() {
+  let corps;
+  try { corps = JSON.parse($('editeur').value); }
+  catch (e) { $('erreur').textContent = 'JSON local invalide : ' + e.message; return; }
+  const r = await api('PUT', '/api/planning', corps, { 'If-Match': etag });
+  if (!r.ok) {
+    $('erreur').textContent = `HTTP ${r.code} — ${r.data.erreur || '?'}`;
+    if (r.code === 409) $('erreur').textContent += ' (recharger pour reprendre la main)';
+    return;
+  }
+  etag = r.etag;
+  $('etag').textContent = etag;
+  $('erreur').textContent = '';
+}
+
+async function valider() {
+  const par = $('valide-par').value.trim();
+  const r = await api('POST', '/api/planning/validate', { par });
+  $('erreur').textContent = r.ok ? '' : (r.data.erreur || '');
+  rafraichir();
+}
+
+const vitesse = (f) => api('POST', '/api/sim/vitesse', { facteur: f }).then(rafraichir);
+const avancer = (s) => api('POST', '/api/sim/avancer', { secondes: s }).then(rafraichir);
+const pause = () => api('POST', '/api/planning/pause', { actif: !enPause }).then(rafraichir);
+const skip = () => api('POST', '/api/planning/skip').then(rafraichir);
+const basculerFiable = () => api('POST', '/api/sim/fiable', { fiable: !fiable }).then(rafraichir);
+function allerA() {
+  const v = $('aller-a').value;
+  if (v) api('POST', '/api/sim/heure', { locale: v.replace('T', ' ') }).then(rafraichir);
+}
+
+charger();
+rafraichir();
+setInterval(rafraichir, 700);
+</script>
+</body>
+</html>

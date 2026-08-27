@@ -288,6 +288,14 @@ void entree_suspendue_ignoree() {
   }
 }
 
+void invalidation_revoque_l_autorisation() {
+  const time_t occ = T(2026, 8, 27, 6, 0);
+  Moteur m = moteur_valide({entree_simple("mat", 6, 0)}, occ);
+  m.invalider_journee();
+  CHECK(!m.tick(occ + 60).has_value());
+  CHECK(!m.journee_validee(occ + 60));
+}
+
 void liste_des_prochaines_occurrences() {
   Moteur m;
   m.definir_entrees(
@@ -324,6 +332,7 @@ int main() {
   RUN(priorite_ordonne_les_simultanees);
   RUN(heure_non_fiable_gele_tout);
   RUN(entree_suspendue_ignoree);
+  RUN(invalidation_revoque_l_autorisation);
   RUN(liste_des_prochaines_occurrences);
 
   std::printf("\n%d tests, %d echec(s)\n", g_tests, g_echecs);
