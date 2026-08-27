@@ -229,6 +229,37 @@ void route_next(Banc& banc, int fd) {
   repondre(fd, 200, out);
 }
 
+// Occurrences d'AUJOURD'HUI, passées comprises — c'est la frise de l'IHM.
+// `/api/planning/next` ne donne que le futur ; la frise montre la journée.
+// Calculées par le MOTEUR (DST compris), pas recalculées en JavaScript.
+void route_jour(Banc& banc, int fd) {
+  const time_t now = banc.horloge.now();
+  tm local{};
+  localtime_r(&now, &local);
+  local.tm_hour = 0;
+  local.tm_min = 0;
+  local.tm_sec = 0;
+  local.tm_isdst = -1;
+  const time_t debut_du_jour = mktime(&local);
+  const Date aujourdhui = date_locale(now);
+
+  std::string out = "{\"occurrences\":[";
+  bool premier = true;
+  for (const Entree& e : banc.moteur.entrees()) {
+    if (!e.enabled) continue;
+    const auto occ = prochaine_occurrence(e, debut_du_jour, banc.cfg);
+    if (!occ || date_locale(occ->quand) != aujourdhui) continue;
+    if (!premier) out += ',';
+    premier = false;
+    out += "{\"id\":\"" + e.id + "\",\"quand\":" + std::to_string(occ->quand) +
+           ",\"locale\":\"" + heure_locale(occ->quand) + "\",\"station\":" +
+           std::to_string(e.station) +
+           ",\"decalee_dst\":" + (occ->decalee_dst ? "true" : "false") + "}";
+  }
+  out += "]}";
+  repondre(fd, 200, out);
+}
+
 void route_time(Banc& banc, int fd) {
   const time_t now = banc.horloge.now();
   const Validation& v = banc.moteur.validation();
@@ -292,6 +323,7 @@ void traiter(Banc& banc, int fd, const Requete& req) {
   if (req.methode == "GET") {
     if (req.chemin == "/api/planning") return route_get_planning(banc, fd);
     if (req.chemin == "/api/planning/next") return route_next(banc, fd);
+    if (req.chemin == "/api/planning/jour") return route_jour(banc, fd);
     if (req.chemin == "/api/time") return route_time(banc, fd);
     if (req.chemin == "/api/missions") return route_missions(banc, fd);
     if (req.chemin == "/api/journal") return route_journal(banc, fd);
@@ -316,6 +348,26 @@ void traiter(Banc& banc, int fd, const Requete& req) {
       if (!actif) return repondre(fd, 400, json_erreur("champ « actif » requis"));
       banc.moteur.pause(*actif);
       return repondre(fd, 200, "{\"pause\":" + std::string(*actif ? "true" : "false") + "}");
+    }
+    if (req.chemin == "/api/appel") {
+      // Geste opérateur immédiat — l'équivalent logiciel du bouton d'appel
+      // physique du chantier « Comm distance ». Il ne passe PAS par le
+      // planning : la validation quotidienne (§3.2) borne le déclenchement
+      // AUTONOME, pas un humain qui demande l'AGV à son poste.
+      const auto station = json_entier(req.corps, "station");
+      if (!station || *station < 0 || *station > 1023) {
+        return repondre(fd, 400, json_erreur("station 0-1023 requise (brief §5.1)"));
+      }
+      Mission m;
+      m.id = "appel";
+      m.station = static_cast<uint16_t>(*station);
+      m.prevu = now;
+      banc.missions.push_back({m, now});
+      std::printf("[mission] appel -> station %u (%s)\n", m.station,
+                  heure_locale(now).c_str());
+      std::fflush(stdout);
+      return repondre(fd, 200, "{\"appel\":true,\"station\":" +
+                                   std::to_string(m.station) + "}");
     }
     if (req.chemin == "/api/planning/skip") {
       banc.moteur.sauter_prochaine();

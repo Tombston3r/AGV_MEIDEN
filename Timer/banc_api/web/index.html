@@ -3,68 +3,147 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Banc API — Planning AGV</title>
+<title>AIO — Planning journalier AGV</title>
 <style>
-:root { --fond:#0f1419; --carte:#1a2129; --bord:#2b3540; --texte:#e6edf3;
-  --discret:#8b98a5; --vert:#2ea043; --rouge:#c93c37; --ambre:#d29922; --bleu:#316dca; }
-* { box-sizing:border-box; margin:0; padding:0; }
-body { background:var(--fond); color:var(--texte);
-  font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; padding:1rem; }
-main { max-width:1080px; margin:0 auto; display:grid; gap:1rem; }
-section { background:var(--carte); border:1px solid var(--bord); border-radius:10px; padding:1rem; }
-h1 { font-size:1.2rem; margin-bottom:.2rem; }
-h2 { font-size:.95rem; color:var(--discret); text-transform:uppercase;
-  letter-spacing:.05em; margin-bottom:.6rem; }
-button { font:inherit; cursor:pointer; border-radius:8px; padding:.4rem .8rem;
-  border:1px solid var(--bord); background:transparent; color:var(--texte); }
-button:hover { filter:brightness(1.2); }
-button.primaire { background:var(--vert); border-color:transparent; font-weight:600; }
-input, textarea { font:inherit; background:var(--fond); color:var(--texte);
-  border:1px solid var(--bord); border-radius:8px; padding:.4rem .6rem; }
-textarea { width:100%; min-height:9rem; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.85rem; }
-table { width:100%; border-collapse:collapse; font-size:.9rem; }
-th, td { text-align:left; padding:.3rem .5rem; border-bottom:1px solid var(--bord); }
-th { color:var(--discret); font-weight:600; }
-.bandeau { border-radius:10px; padding:1rem; font-weight:600; display:flex;
-  align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
-.bandeau.rouge { background:var(--rouge); }
-.bandeau.vert { background:var(--vert); }
-.ligne { display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; }
-.horloge { font-family:ui-monospace,Menlo,Consolas,monospace; font-size:1.5rem; }
-.badge { border-radius:999px; padding:.1rem .6rem; font-size:.8rem; background:var(--bord); }
-.badge.alerte { background:var(--ambre); color:#1a1200; font-weight:700; }
-.erreur { color:#ff8882; font-size:.88rem; min-height:1.2rem; }
-.discret { color:var(--discret); font-size:.85rem; }
-.grille { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
-@media (max-width:800px){ .grille { grid-template-columns:1fr; } }
-#journal { max-height:14rem; overflow-y:auto; font-size:.85rem; }
-#journal div { padding:.15rem 0; border-bottom:1px solid var(--bord); }
+/* Thème : fond blanc, texte noir, bleu outremer pour l'action. */
+:root {
+  --outremer: #1F2DB3;
+  --outremer-fonce: #16208A;
+  --outremer-pale: #ECEEFF;
+  --texte: #111111;
+  --discret: #5A5F6E;
+  --bord: #D9DCE6;
+  --ok: #1E7E34;
+  --alerte: #B3261E;
+  --attention: #C77700;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #fff; color: var(--texte);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+main { max-width: 1100px; margin: 0 auto; padding: 0 1rem 2rem; display: grid; gap: 1rem; }
+
+header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1rem;
+  border-bottom: 2px solid var(--outremer); margin-bottom: 1rem; flex-wrap: wrap; }
+.logo { font-size: 1.6rem; font-weight: 800; color: var(--outremer); letter-spacing: .04em; }
+.titre { font-size: 1.05rem; font-weight: 600; flex: 1 1 auto; }
+.horloge { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 1.25rem; }
+.badge { border-radius: 999px; padding: .1rem .65rem; font-size: .8rem;
+  background: var(--outremer-pale); color: var(--outremer); font-weight: 600; }
+.badge.alerte { background: var(--alerte); color: #fff; }
+
+section { border: 1px solid var(--bord); border-radius: 12px; padding: 1rem; }
+h2 { font-size: .92rem; color: var(--discret); text-transform: uppercase;
+  letter-spacing: .06em; margin-bottom: .7rem; }
+button { font: inherit; cursor: pointer; border-radius: 8px; padding: .45rem .9rem;
+  border: 1px solid var(--outremer); background: #fff; color: var(--outremer); font-weight: 600; }
+button:hover { background: var(--outremer-pale); }
+button.primaire { background: var(--outremer); color: #fff; }
+button.primaire:hover { background: var(--outremer-fonce); }
+input { font: inherit; border: 1px solid var(--bord); border-radius: 8px; padding: .4rem .6rem; }
+.ligne { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+.discret { color: var(--discret); font-size: .85rem; }
+
+.bandeau { border-radius: 12px; padding: .9rem 1rem; font-weight: 600; color: #fff;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.bandeau.rouge { background: var(--alerte); }
+.bandeau.vert { background: var(--ok); }
+.bandeau input { border: none; }
+.bandeau button { border-color: #fff; background: transparent; color: #fff; }
+.bandeau button:hover { background: rgba(255,255,255,.15); }
+
+/* --- La frise --------------------------------------------------------- */
+.frise-cadre { position: relative; margin-top: .5rem; }
+.frise { position: relative; height: 130px; border: 1px solid var(--bord);
+  border-radius: 10px; background: linear-gradient(#fff, #FAFBFF); overflow: hidden; }
+.frise.armee { cursor: crosshair; box-shadow: inset 0 0 0 2px var(--outremer); }
+.heure-tick { position: absolute; bottom: 0; height: 26px; border-left: 1px solid var(--bord);
+  padding-left: .25rem; font-size: .72rem; color: var(--discret); }
+.curseur { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--outremer); }
+.curseur::after { content: attr(data-heure); position: absolute; top: 2px; left: 5px;
+  font-size: .72rem; color: var(--outremer); font-weight: 700; white-space: nowrap; }
+.drapeau { position: absolute; transform: translateX(-7px); cursor: pointer; }
+.drapeau .mat { width: 2px; height: 34px; background: currentColor; margin-left: 5px; }
+.drapeau .fanion { font-size: .74rem; font-weight: 700; color: #fff; background: currentColor;
+  border-radius: 4px; padding: .05rem .35rem; white-space: nowrap; }
+.drapeau .fanion span { color: #fff; }
+.drapeau.attente { color: var(--outremer); }
+.drapeau.fait { color: var(--ok); }
+.drapeau.saute { color: #8A8FA3; }
+.drapeau.appel { color: var(--ok); }
+.drapeau.fantome { color: var(--outremer); opacity: .55; pointer-events: none; }
+.legende { display: flex; gap: 1.2rem; margin-top: .5rem; font-size: .82rem; color: var(--discret); }
+.pastille { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: .3rem; }
+
+/* --- Postes ------------------------------------------------------------ */
+.poste { border: 1.5px solid var(--outremer); color: var(--outremer); border-radius: 999px;
+  padding: .35rem .9rem; cursor: pointer; font-weight: 700; background: #fff; }
+.poste.choisi { background: var(--outremer); color: #fff; }
+#drapeau-a-prendre { font-size: 1rem; }
+table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+th, td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid var(--bord); }
+th { color: var(--discret); font-weight: 600; }
+.etat-fait { color: var(--ok); font-weight: 700; }
+.etat-saute { color: var(--attention); font-weight: 600; }
+#toast { position: fixed; right: 1rem; bottom: 1rem; background: var(--texte); color: #fff;
+  border-radius: 10px; padding: .7rem 1rem; max-width: 380px; opacity: 0; transition: opacity .25s; }
+#toast.visible { opacity: 1; }
+.sim { background: #FAFAFC; }
 </style>
 </head>
 <body>
-<main>
-  <div>
-    <h1>Banc API — planning journalier</h1>
-    <span class="discret">Simulation locale : le vrai moteur, une horloge pilotable. Rien ici n'existe sur la cible sauf l'API <code>/api/planning*</code> et <code>/api/time</code>.</span>
-  </div>
+<header>
+  <span class="logo">AIO</span>
+  <span class="titre">Planning journalier AGV</span>
+  <span class="horloge" id="horloge">—</span>
+  <span class="badge" id="badge-fiable">heure fiable</span>
+  <span class="badge" id="badge-pause" hidden>EN PAUSE</span>
+</header>
 
+<main>
   <div id="bandeau" class="bandeau rouge">
     <span id="bandeau-texte">…</span>
     <span class="ligne">
       <input id="valide-par" placeholder="votre nom" size="12">
-      <button class="primaire" onclick="valider()">Valider la journée</button>
+      <button onclick="valider()">Valider la journée</button>
     </span>
   </div>
 
   <section>
-    <h2>Horloge simulée</h2>
-    <div class="ligne">
-      <span class="horloge" id="horloge">—</span>
-      <span class="badge" id="badge-facteur">×1</span>
-      <span class="badge" id="badge-fiable">heure fiable</span>
-      <span class="badge" id="badge-pause" hidden>EN PAUSE</span>
+    <h2>La journée</h2>
+    <div class="frise-cadre">
+      <div class="frise" id="frise"></div>
+      <div class="legende">
+        <span><span class="pastille" style="background:var(--outremer)"></span>départ prévu</span>
+        <span><span class="pastille" style="background:var(--ok)"></span>effectué / appel</span>
+        <span><span class="pastille" style="background:#8A8FA3"></span>sauté</span>
+        <span id="aide-placement" class="discret"></span>
+      </div>
     </div>
-    <div class="ligne" style="margin-top:.6rem">
+  </section>
+
+  <section>
+    <h2>Postes</h2>
+    <div class="ligne" id="postes"></div>
+    <div class="ligne" style="margin-top:.7rem">
+      <button id="drapeau-a-prendre" onclick="prendreDrapeau()" disabled>🚩 Prendre le drapeau</button>
+      <button class="primaire" onclick="appeler()" id="btn-appel" disabled>📢 L'AGV vient à ce poste</button>
+      <span style="flex:1"></span>
+      <input id="nouveau-poste" type="number" min="0" max="1023" placeholder="n° station" style="width:7.5rem">
+      <button onclick="ajouterPoste()">Ajouter un poste</button>
+    </div>
+    <p class="discret" style="margin-top:.5rem">Choisir un poste, prendre le drapeau, puis cliquer sur la frise
+      pour programmer le départ — ou appeler l'AGV immédiatement.</p>
+  </section>
+
+  <section>
+    <h2>Logs des départs</h2>
+    <table><thead><tr><th>Heure</th><th>Départ</th><th>Poste</th><th>État</th></tr></thead>
+    <tbody id="logs"></tbody></table>
+  </section>
+
+  <section class="sim">
+    <h2>Simulation <span class="discret">(banc uniquement — n'existe pas sur la cible)</span></h2>
+    <div class="ligne">
       vitesse
       <button onclick="vitesse(1)">×1</button>
       <button onclick="vitesse(60)">×60</button>
@@ -76,45 +155,20 @@ th { color:var(--discret); font-weight:600; }
       <input type="datetime-local" id="aller-a">
       <button onclick="allerA()">Aller à</button>
       <button onclick="basculerFiable()" id="btn-fiable">simuler heure douteuse</button>
+      <button onclick="basculerPause()" id="btn-pause">Pause planning</button>
+      <button onclick="skip()">Sauter le prochain</button>
     </div>
-    <p class="discret" style="margin-top:.4rem">⚠️ Vers le futur uniquement : revenir en arrière ne « dé-consomme » pas les occurrences déjà traitées — redémarrer le banc pour un scénario vierge.</p>
-  </section>
-
-  <div class="grille">
-    <section>
-      <h2>Prochaines occurrences (calculées)</h2>
-      <table><thead><tr><th>Quand</th><th>Entrée</th><th>Station</th><th></th></tr></thead>
-      <tbody id="prochaines"></tbody></table>
-    </section>
-    <section>
-      <h2>Missions parties <span class="discret">(vers le séquenceur)</span></h2>
-      <table><thead><tr><th>Émise</th><th>Prévue</th><th>Entrée</th><th>Station</th></tr></thead>
-      <tbody id="missions"></tbody></table>
-    </section>
-  </div>
-
-  <section>
-    <h2>Planning (PUT avec verrou optimiste)</h2>
-    <textarea id="editeur" spellcheck="false"></textarea>
-    <div class="ligne" style="margin-top:.5rem">
-      <button onclick="charger()">Recharger (GET)</button>
-      <button class="primaire" onclick="publier()">Publier (PUT If-Match <span id="etag">—</span>)</button>
-      <button onclick="pause()" id="btn-pause">Pause</button>
-      <button onclick="skip()">Sauter la prochaine</button>
-    </div>
-    <p class="erreur" id="erreur"></p>
-    <p class="discret">Publier révoque la validation du jour : ce qui a été validé n'est plus ce qui est en mémoire.</p>
-  </section>
-
-  <section>
-    <h2>Journal du moteur</h2>
-    <div id="journal"></div>
   </section>
 </main>
+<div id="toast"></div>
+
 <script>
 'use strict';
 const $ = (id) => document.getElementById(id);
-let etag = null, enPause = false, fiable = true;
+let etag = null, entrees = [], jour = [], missions = [], journal = [];
+let etatTemps = {}, posteChoisi = null, drapeauEnMain = false;
+const postes = JSON.parse(localStorage.getItem('aio-postes') || '[10, 20, 42]');
+$('valide-par').value = localStorage.getItem('aio-nom') || '';
 
 async function api(methode, chemin, corps, entetes) {
   const rep = await fetch(chemin, { method: methode,
@@ -124,84 +178,248 @@ async function api(methode, chemin, corps, entetes) {
   return { ok: rep.ok, code: rep.status, data, etag: rep.headers.get('ETag') };
 }
 
-async function rafraichir() {
-  const t = (await api('GET', '/api/time')).data;
-  $('horloge').textContent = t.locale;
-  $('badge-facteur').textContent = '×' + t.facteur;
-  fiable = t.fiable;
-  $('badge-fiable').textContent = fiable ? 'heure fiable' : 'HEURE NON FIABLE — GELÉ';
-  $('badge-fiable').className = 'badge' + (fiable ? '' : ' alerte');
-  $('btn-fiable').textContent = fiable ? 'simuler heure douteuse' : 'rétablir l\'heure';
-  enPause = t.pause;
-  $('badge-pause').hidden = !enPause;
-  $('btn-pause').textContent = enPause ? 'Reprendre' : 'Pause';
+function toast(message) {
+  $('toast').textContent = message;
+  $('toast').classList.add('visible');
+  clearTimeout(toast.t);
+  toast.t = setTimeout(() => $('toast').classList.remove('visible'), 4200);
+}
 
-  const bandeau = $('bandeau');
-  if (t.journee_validee) {
-    bandeau.className = 'bandeau vert';
-    $('bandeau-texte').textContent = 'Planning du jour validé par ' + t.valide_par + ' — exécution autorisée';
-  } else {
-    bandeau.className = 'bandeau rouge';
-    $('bandeau-texte').textContent = 'Planning du ' + t.locale.slice(0, 10) + ' NON VALIDÉ — aucun déplacement automatique';
+// --- Rendu -----------------------------------------------------------------
+const posDansJour = (locale) => {
+  const [h, m, s] = locale.slice(11).split(':').map(Number);
+  return ((h * 3600 + m * 60 + (s || 0)) / 86400) * 100;
+};
+const aujourdhui = () => (etatTemps.locale || '').slice(0, 10);
+
+function rendreFrise() {
+  const frise = $('frise');
+  frise.innerHTML = '';
+  for (let h = 0; h <= 24; h += 2) {
+    const tick = document.createElement('div');
+    tick.className = 'heure-tick';
+    tick.style.left = (h / 24 * 100) + '%';
+    tick.textContent = String(h).padStart(2, '0') + 'h';
+    frise.appendChild(tick);
+  }
+  if (etatTemps.locale) {
+    const curseur = document.createElement('div');
+    curseur.className = 'curseur';
+    curseur.style.left = posDansJour(etatTemps.locale) + '%';
+    curseur.dataset.heure = etatTemps.locale.slice(11, 16);
+    frise.appendChild(curseur);
   }
 
-  const occ = (await api('GET', '/api/planning/next')).data.occurrences || [];
-  $('prochaines').innerHTML = occ.map((o) =>
-    `<tr><td>${o.locale}</td><td>${o.id}</td><td>${o.station}</td>` +
-    `<td>${o.decalee_dst ? '<span class="badge alerte">décalée DST</span>' : ''}</td></tr>`).join('');
+  const faites = new Set(missions.filter((m) => m.id !== 'appel' &&
+    m.prevu.startsWith(aujourdhui())).map((m) => m.id));
+  const sautees = new Set(journal.filter((e) => e.motif.startsWith('sautee') &&
+    e.quand.startsWith(aujourdhui())).map((e) => e.id));
 
-  const missions = (await api('GET', '/api/missions')).data.missions || [];
-  $('missions').innerHTML = missions.slice().reverse().map((m) =>
-    `<tr><td>${m.emise}</td><td>${m.prevu}</td><td>${m.id}</td><td>${m.station}</td></tr>`).join('');
-
-  const journal = (await api('GET', '/api/journal')).data.evenements || [];
-  $('journal').innerHTML = journal.slice().reverse().map((e) =>
-    `<div>${e.quand} — <strong>${e.motif}</strong>${e.id ? ' — ' + e.id : ''}</div>`).join('');
+  jour.forEach((occ, i) => {
+    const etat = faites.has(occ.id) ? 'fait' : sautees.has(occ.id) ? 'saute' : 'attente';
+    poserDrapeau(occ.locale, `${occ.locale.slice(11, 16)} → P${occ.station}`,
+                 etat, i % 2, () => retirer(occ));
+  });
+  missions.filter((m) => m.id === 'appel' && m.emise.startsWith(aujourdhui()))
+    .forEach((m, i) => poserDrapeau(m.emise, `📢 P${m.station}`, 'appel', i % 2));
 }
 
-async function charger() {
+function poserDrapeau(locale, texte, etat, rang, surClic) {
+  const d = document.createElement('div');
+  d.className = 'drapeau ' + etat;
+  d.style.left = posDansJour(locale) + '%';
+  d.style.top = (10 + rang * 38) + 'px';
+  d.innerHTML = `<div class="fanion"><span>${texte}</span></div><div class="mat"></div>`;
+  if (surClic) d.onclick = (e) => { e.stopPropagation(); surClic(); };
+  $('frise').appendChild(d);
+  return d;
+}
+
+function rendrePostes() {
+  const conteneur = $('postes');
+  conteneur.innerHTML = '';
+  for (const p of postes) {
+    const chip = document.createElement('button');
+    chip.className = 'poste' + (p === posteChoisi ? ' choisi' : '');
+    chip.textContent = 'Poste ' + p;
+    chip.onclick = () => {
+      posteChoisi = (posteChoisi === p) ? null : p;
+      drapeauEnMain = false;
+      rendrePostes();
+    };
+    conteneur.appendChild(chip);
+  }
+  $('drapeau-a-prendre').disabled = posteChoisi === null;
+  $('btn-appel').disabled = posteChoisi === null;
+  $('frise').classList.toggle('armee', drapeauEnMain);
+  $('aide-placement').textContent = drapeauEnMain
+    ? `🚩 Poste ${posteChoisi} en main — cliquez sur la frise à l'heure voulue`
+    : '';
+}
+
+function rendreLogs() {
+  const lignes = [];
+  for (const m of missions) {
+    lignes.push({ quand: m.emise, nom: m.id === 'appel' ? 'Appel opérateur' : m.id,
+                  station: m.station,
+                  etat: `<span class="etat-fait">✓ effectué${m.id === 'appel' ? '' : ' (prévu ' + m.prevu.slice(11, 16) + ')'}</span>` });
+  }
+  for (const e of journal) {
+    if (!e.motif.startsWith('sautee')) continue;
+    const entree = entrees.find((x) => x.id === e.id);
+    lignes.push({ quand: e.quand, nom: e.id, station: entree ? entree.station : '—',
+                  etat: `<span class="etat-saute">✗ ${e.motif.replace('sautee : ', 'sauté : ')}</span>` });
+  }
+  lignes.sort((a, b) => b.quand.localeCompare(a.quand));
+  $('logs').innerHTML = lignes.slice(0, 30).map((l) =>
+    `<tr><td>${l.quand}</td><td>${l.nom}</td><td>${l.station}</td><td>${l.etat}</td></tr>`).join('');
+}
+
+async function rafraichir() {
+  etatTemps = (await api('GET', '/api/time')).data;
+  jour = (await api('GET', '/api/planning/jour')).data.occurrences || [];
+  missions = (await api('GET', '/api/missions')).data.missions || [];
+  journal = (await api('GET', '/api/journal')).data.evenements || [];
+
+  $('horloge').textContent = etatTemps.locale || '—';
+  $('badge-fiable').textContent = etatTemps.fiable ? 'heure fiable' : 'HEURE NON FIABLE — GELÉ';
+  $('badge-fiable').className = 'badge' + (etatTemps.fiable ? '' : ' alerte');
+  $('btn-fiable').textContent = etatTemps.fiable ? 'simuler heure douteuse' : "rétablir l'heure";
+  $('badge-pause').hidden = !etatTemps.pause;
+  $('btn-pause').textContent = etatTemps.pause ? 'Reprendre le planning' : 'Pause planning';
+
+  const bandeau = $('bandeau');
+  if (etatTemps.journee_validee) {
+    bandeau.className = 'bandeau vert';
+    $('bandeau-texte').textContent =
+      `Planning du ${aujourdhui()} validé par ${etatTemps.valide_par} — départs autorisés`;
+  } else {
+    bandeau.className = 'bandeau rouge';
+    $('bandeau-texte').textContent =
+      `Planning du ${aujourdhui()} NON VALIDÉ — aucun départ automatique`;
+  }
+  rendreFrise();
+  rendreLogs();
+}
+
+async function chargerPlanning() {
   const r = await api('GET', '/api/planning');
   etag = r.etag;
-  $('etag').textContent = etag;
-  $('editeur').value = JSON.stringify(r.data, null, 2);
-  $('erreur').textContent = '';
+  entrees = r.data.entrees || [];
 }
 
-async function publier() {
-  let corps;
-  try { corps = JSON.parse($('editeur').value); }
-  catch (e) { $('erreur').textContent = 'JSON local invalide : ' + e.message; return; }
-  const r = await api('PUT', '/api/planning', corps, { 'If-Match': etag });
+// --- Drag & drop du drapeau -------------------------------------------------
+function prendreDrapeau() {
+  drapeauEnMain = true;
+  rendrePostes();
+}
+
+$('frise').addEventListener('mousemove', (e) => {
+  document.querySelectorAll('.fantome').forEach((f) => f.remove());
+  if (!drapeauEnMain) return;
+  const { locale } = heureAuPoint(e);
+  poserDrapeau(aujourdhui() + ' ' + locale + ':00',
+               `${locale} → P${posteChoisi}`, 'attente fantome', 0);
+});
+$('frise').addEventListener('mouseleave', () =>
+  document.querySelectorAll('.fantome').forEach((f) => f.remove()));
+
+function heureAuPoint(e) {
+  const rect = $('frise').getBoundingClientRect();
+  const frac = Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1);
+  const minutes = Math.round(frac * 1440 / 5) * 5;   // pas de 5 minutes
+  const h = String(Math.min(23, Math.floor(minutes / 60))).padStart(2, '0');
+  const m = String(minutes % 60).padStart(2, '0');
+  return { locale: `${h}:${m}`, minutes };
+}
+
+$('frise').addEventListener('click', async (e) => {
+  if (!drapeauEnMain) return;
+  const { locale } = heureAuPoint(e);
+  if (aujourdhui() + ' ' + locale + ':00' <= etatTemps.locale) {
+    toast(`${locale} est déjà passé — placez le drapeau à droite du curseur.`);
+    return;
+  }
+  const date = Number(aujourdhui().replaceAll('-', ''));
+  let id = `p${posteChoisi}-${locale.replace(':', '')}`;
+  while (entrees.some((x) => x.id === id)) id += 'b';
+  const nouvelles = entrees.concat([{ id, heure: locale, jours: 127,
+    debut: date, fin: date, station: posteChoisi }]);
+  drapeauEnMain = false;
+  await publier(nouvelles,
+    `Départ ${locale} → poste ${posteChoisi} ajouté. Revalidez la journée pour qu'il parte.`);
+});
+
+async function retirer(occ) {
+  const entree = entrees.find((x) => x.id === occ.id);
+  if (!entree) return;
+  const recurrent = !(entree.debut === entree.fin && entree.debut !== 0);
+  const question = recurrent
+    ? `« ${occ.id} » est un départ RÉCURRENT — le retirer le supprime pour tous les jours. Continuer ?`
+    : `Retirer le départ de ${occ.locale.slice(11, 16)} vers le poste ${occ.station} ?`;
+  if (!confirm(question)) return;
+  await publier(entrees.filter((x) => x.id !== occ.id), 'Départ retiré. Revalidez la journée.');
+}
+
+async function publier(nouvelles, messageOk) {
+  const r = await api('PUT', '/api/planning',
+    { schema: 1, entrees: nouvelles }, { 'If-Match': etag });
+  if (r.code === 409) {
+    await chargerPlanning();
+    toast('Le planning a été modifié ailleurs — rechargé, recommencez votre geste.');
+    return;
+  }
   if (!r.ok) {
-    $('erreur').textContent = `HTTP ${r.code} — ${r.data.erreur || '?'}`;
-    if (r.code === 409) $('erreur').textContent += ' (recharger pour reprendre la main)';
+    toast('Refusé : ' + (r.data.erreur || 'HTTP ' + r.code));
     return;
   }
   etag = r.etag;
-  $('etag').textContent = etag;
-  $('erreur').textContent = '';
+  entrees = nouvelles;
+  toast(messageOk);
+  rendrePostes();
+  rafraichir();
 }
 
+// --- Actions ----------------------------------------------------------------
 async function valider() {
   const par = $('valide-par').value.trim();
+  if (!par) { toast('Indiquez votre nom : la validation est tracée (§3.2).'); return; }
+  localStorage.setItem('aio-nom', par);
   const r = await api('POST', '/api/planning/validate', { par });
-  $('erreur').textContent = r.ok ? '' : (r.data.erreur || '');
+  toast(r.ok ? 'Journée validée — les départs prévus partiront.' : r.data.erreur);
   rafraichir();
+}
+
+async function appeler() {
+  const r = await api('POST', '/api/appel', { station: posteChoisi });
+  toast(r.ok ? `AGV appelé au poste ${posteChoisi}.` : r.data.erreur);
+  rafraichir();
+}
+
+function ajouterPoste() {
+  const n = Number($('nouveau-poste').value);
+  if (!Number.isInteger(n) || n < 0 || n > 1023) { toast('Station entre 0 et 1023.'); return; }
+  if (!postes.includes(n)) postes.push(n);
+  localStorage.setItem('aio-postes', JSON.stringify(postes));
+  posteChoisi = n;
+  $('nouveau-poste').value = '';
+  rendrePostes();
 }
 
 const vitesse = (f) => api('POST', '/api/sim/vitesse', { facteur: f }).then(rafraichir);
 const avancer = (s) => api('POST', '/api/sim/avancer', { secondes: s }).then(rafraichir);
-const pause = () => api('POST', '/api/planning/pause', { actif: !enPause }).then(rafraichir);
-const skip = () => api('POST', '/api/planning/skip').then(rafraichir);
-const basculerFiable = () => api('POST', '/api/sim/fiable', { fiable: !fiable }).then(rafraichir);
+const skip = () => api('POST', '/api/planning/skip').then(() => toast('Le prochain départ sera sauté.'));
+const basculerFiable = () =>
+  api('POST', '/api/sim/fiable', { fiable: !etatTemps.fiable }).then(rafraichir);
+const basculerPause = () =>
+  api('POST', '/api/planning/pause', { actif: !etatTemps.pause }).then(rafraichir);
 function allerA() {
   const v = $('aller-a').value;
   if (v) api('POST', '/api/sim/heure', { locale: v.replace('T', ' ') }).then(rafraichir);
 }
 
-charger();
-rafraichir();
-setInterval(rafraichir, 700);
+chargerPlanning().then(rafraichir);
+setInterval(() => { chargerPlanning(); rafraichir(); }, 900);
 </script>
 </body>
 </html>

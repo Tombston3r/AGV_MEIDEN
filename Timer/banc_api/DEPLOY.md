@@ -48,29 +48,32 @@ joignable ni depuis le réseau, ni depuis une autre machine — voir §5.
 PORT=` l'annonce : c'est ce qu'utilisent les tests pour tourner en parallèle
 sans se marcher dessus.
 
-## 3. Recette — neuf gestes
+## 3. Recette — onze gestes
 
 Ouvrir <http://127.0.0.1:8081>.
 
 | # | Geste | Attendu |
 |---|---|---|
-| 1 | Charger la page | Bandeau **rouge** « planning non validé », horloge qui avance |
-| 2 | Publier le planning (textarea → **Publier**) | ETag passe à `"v2"`, les prochaines occurrences se remplissent |
-| 3 | « Aller à » demain 05:59, puis **Valider la journée** | Bandeau **vert** avec votre nom |
-| 4 | **+1 min** | Mission dans « Missions parties », journal `executee` |
-| 5 | **+1 jour** | Bandeau repasse **rouge** : la validation d'hier ne vaut plus |
-| 6 | Valider, **simuler heure douteuse**, +1 min | **Rien ne part**, badge `HEURE NON FIABLE — GELÉ` |
-| 7 | Rétablir l'heure (dans les 5 min simulées) | La mission part : le gel n'a rien perdu |
-| 8 | Modifier le planning, **Publier** | Bandeau repasse **rouge** : toute édition révoque l'autorisation |
-| 9 | Deux onglets, publier dans l'un puis dans l'autre | Le second reçoit **409 version périmée** |
+| 1 | Charger la page | Logo **AIO** en haut à gauche, frise 00h–24h avec curseur, bandeau **rouge** « non validé » |
+| 2 | Choisir un poste, **🚩 Prendre le drapeau**, survoler la frise | Un drapeau fantôme suit la souris, heure au pas de 5 min |
+| 3 | Cliquer sur la frise **après** le curseur | Drapeau **outremer** posé ; message « revalidez la journée » |
+| 4 | Cliquer sur la frise **avant** le curseur | Refus : « l'heure est passée » |
+| 5 | **Valider la journée** (nom obligatoire) | Bandeau **vert** avec votre nom |
+| 6 | Avancer jusqu'à l'heure du drapeau | Drapeau passe **vert**, ligne ✓ dans les logs avec l'heure prévue |
+| 7 | **📢 L'AGV vient à ce poste** | Marqueur vert « appel » sur la frise à l'heure courante, ✓ immédiat dans les logs — **même bandeau rouge** : l'appel est un geste opérateur, hors validation |
+| 8 | **+1 jour** | Le drapeau du jour disparaît (départ à date unique), bandeau repasse **rouge** |
+| 9 | Poser un drapeau, **simuler heure douteuse**, avancer | **Rien ne part**, badge `HEURE NON FIABLE — GELÉ` ; rétablir dans les 5 min simulées → le départ part |
+| 10 | Cliquer un drapeau posé | Confirmation, puis retrait — et bandeau rouge à nouveau |
+| 11 | Deux onglets : poser un drapeau dans chacun | Le second reçoit « planning modifié ailleurs — rechargé, recommencez » (**409** en dessous) |
 
-Les points **4 à 8** sont ceux qui comptent. Une mission qui partirait sans
-validation, ou qui repartirait deux fois, est le défaut que ce banc existe pour
-attraper — c'est la règle centrale du §3.2 de la spec.
+Les points **3, 5, 6 et 9** sont ceux qui comptent : un départ qui partirait
+sans validation, ou qui repartirait deux fois, est le défaut que ce banc existe
+pour attraper (§3.2). Le point **7** vérifie que l'appel, lui, passe **sans**
+validation — c'est un humain qui demande, pas l'horloge.
 
-Le point **9** est celui qu'on oublie de tester : un poste atelier et un poste
-bureau ouverts en même temps, c'est le cas courant, et sans verrou optimiste le
-second écrase le premier en silence.
+Le point **11** est celui qu'on oublie : un poste atelier et un poste bureau
+ouverts en même temps, c'est le cas courant, et sans verrou optimiste le second
+écraserait le premier en silence.
 
 ## 4. Vérifier en ligne de commande
 
@@ -112,6 +115,8 @@ curl -s localhost:8081/api/missions
 | `impossible d'ecouter sur 127.0.0.1:8081` | port déjà pris — `make banc` deux fois, ou `--port 0` |
 | Page blanche, API qui répond | mauvais dossier web — lancer depuis `Timer/`, ou passer `--web` |
 | `428` sur chaque publication | `If-Match` absent : recharger la page pour reprendre l'ETag |
-| `409` répété | un autre onglet a publié entretemps — **Recharger (GET)** puis republier |
+| `409` répété | un autre onglet a publié entretemps — la page se recharge seule, refaire le geste |
+| Le drapeau posé ne part jamais | bandeau rouge : poser un drapeau **révoque la validation**, revalider |
+| Drapeau gris alors que l'AGV devait partir | saut motivé — lire la ligne ✗ des logs (grâce dépassée, pause, non validé) |
 | Aucune mission alors que l'heure est passée | bandeau rouge (non validée), badge pause, ou occurrence déjà consommée |
 | Rien ne bouge après « Aller à » une date passée | l'horloge ne va que vers le futur — redémarrer le banc |

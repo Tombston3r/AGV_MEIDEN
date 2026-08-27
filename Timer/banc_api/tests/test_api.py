@@ -172,6 +172,29 @@ class TestContratApi(unittest.TestCase):
         self.assertTrue(corps["pause"])
         requete("POST", "/api/planning/pause", {"actif": False})
 
+    def test_11_appel_immediat(self):
+        # L'appel est un geste opérateur : il part même journée non validée.
+        _, avant, _ = requete("GET", "/api/missions")
+        code, corps, _ = requete("POST", "/api/appel", {"station": 7})
+        self.assertEqual(code, 200)
+        self.assertEqual(corps["station"], 7)
+        _, apres, _ = requete("GET", "/api/missions")
+        self.assertEqual(len(apres["missions"]), len(avant["missions"]) + 1)
+        self.assertEqual(apres["missions"][-1]["id"], "appel")
+
+        code, corps, _ = requete("POST", "/api/appel", {"station": 4096})
+        self.assertEqual(code, 400)
+        self.assertIn("station", corps["erreur"])
+
+    def test_12_frise_du_jour_passe_compris(self):
+        # /next ne montre que le futur ; la frise veut TOUTE la journée.
+        requete("POST", "/api/sim/heure", {"locale": "2026-09-06 12:00"})
+        _, suivantes, _ = requete("GET", "/api/planning/next")
+        _, jour, _ = requete("GET", "/api/planning/jour")
+        self.assertEqual(jour["occurrences"][0]["locale"], "2026-09-06 06:00:00")
+        # ... alors que 06:00 est déjà passée du point de vue de /next.
+        self.assertNotIn("2026-09-06", suivantes["occurrences"][0]["locale"])
+
 
 if __name__ == "__main__":
     SRV = Serveur()

@@ -6,6 +6,30 @@ testé en temps réel est inutilisable : ici on se place à 05:59, on accélère
 ×600, on franchit minuit, on simule une heure douteuse — et on regarde ce que
 fait le moteur qui partira en production.
 
+## L'interface (itération 2)
+
+Thème **blanc / noir / bleu outremer**, logo AIO en haut à gauche. La journée
+s'affiche en **frise horizontale** 00h–24h, curseur de l'heure courante
+compris :
+
+- **poser un départ** : choisir un poste, *Prendre le drapeau* 🚩, cliquer sur
+  la frise à l'heure voulue (pas de 5 min, un fantôme suit la souris). Le
+  drapeau posé est un départ **du jour uniquement** (`debut = fin =
+  aujourd'hui`) — la frise représente la journée, pas une récurrence ;
+- **retirer un départ** : cliquer sur son drapeau. Si l'entrée est récurrente,
+  la confirmation le dit en toutes lettres avant de supprimer ;
+- **appeler l'AGV** : choisir son poste, *L'AGV vient à ce poste* 📢 — mission
+  immédiate, hors planning ;
+- **logs des départs** : chaque départ confirmé ✓ (avec l'heure prévue), chaque
+  saut ✗ avec son motif ;
+- couleurs des drapeaux : **outremer** à venir, **vert** effectué ou appel,
+  **gris** sauté.
+
+⚠️ Poser ou retirer un drapeau **révoque la validation de la journée** : le
+bandeau repasse rouge, et rien ne part tant qu'elle n'est pas revalidée. Ce
+n'est pas un bug, c'est le §3.2 — ce qui a été validé n'est plus ce qui est en
+mémoire.
+
 ## Lancer
 
 ```bash
@@ -37,9 +61,11 @@ en bas de page.
 | `GET` | `/api/planning` | document + `ETag` |
 | `PUT` | `/api/planning` | remplacement complet — `If-Match` requis (428 sinon), **409 si périmé**, **révoque la validation du jour** |
 | `GET` | `/api/planning/next` | 10 prochaines occurrences calculées |
+| `GET` | `/api/planning/jour` | occurrences d'**aujourd'hui, passées comprises** — la frise (calculées par le moteur, DST compris) |
 | `POST` | `/api/planning/validate` | `{"par":"nom"}` — autorisation du jour |
 | `POST` | `/api/planning/pause` | `{"actif":bool}` |
 | `POST` | `/api/planning/skip` | saute la prochaine occurrence |
+| `POST` | `/api/appel` | `{"station":n}` — **mission immédiate**, hors planning : le geste opérateur, pas un déclenchement autonome (la validation §3.2 ne s'y applique pas) |
 | `GET` | `/api/time` | heure, source, fiabilité, état de validation |
 | `GET` | `/api/missions`, `/api/journal` | observation du banc |
 
