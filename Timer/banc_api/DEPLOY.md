@@ -48,7 +48,7 @@ joignable ni depuis le réseau, ni depuis une autre machine — voir §5.
 PORT=` l'annonce : c'est ce qu'utilisent les tests pour tourner en parallèle
 sans se marcher dessus.
 
-## 3. Recette — quatorze gestes
+## 3. Recette — quinze gestes
 
 Ouvrir <http://127.0.0.1:8081>.
 
@@ -68,6 +68,7 @@ Ouvrir <http://127.0.0.1:8081>.
 | 12 | **⚙ Gestion des postes** : ajouter le poste 3, le retirer | La pastille apparaît puis disparaît ; les drapeaux déjà posés vers ce poste restent sur la frise |
 | 13 | Poser un départ à **3 min** d'un autre | Refusé : « un trajet dure 5 min, l'AGV serait encore en route » |
 | 14 | Regarder l'axe des heures | Le bloc d'occupation fait **quelques pixels** (5 min sur 24 h), pas la largeur de l'étiquette |
+| 15 | Poser une dizaine de départs dans la journée | La frise **grandit** ; les étiquettes se répartissent sur plusieurs rangées **sans se recouvrir** |
 
 Les points **3, 5, 6 et 9** sont ceux qui comptent : un départ qui partirait
 sans validation, ou qui repartirait deux fois, est le défaut que ce banc existe
@@ -122,5 +123,6 @@ curl -s localhost:8081/api/missions
 | Le drapeau posé ne part jamais | bandeau rouge : poser un drapeau **révoque la validation**, revalider |
 | Drapeau gris alors que l'AGV devait partir | saut motivé — lire la ligne ✗ des logs (grâce dépassée, pause, non validé) |
 | Liseré ambre sur un drapeau | départ trop rapproché du précédent : l'AGV sera encore en route, le séquenceur refusera |
+| Étiquettes qui se recouvrent malgré tout | plus de dix rangées nécessaires — augmenter `GEO.rangsMax` dans `web/index.html` |
 | Aucune mission alors que l'heure est passée | bandeau rouge (non validée), badge pause, ou occurrence déjà consommée |
 | Rien ne bouge après « Aller à » une date passée | l'horloge ne va que vers le futur — redémarrer le banc |

@@ -56,12 +56,16 @@ input { font: inherit; border: 1px solid var(--bord); border-radius: 8px; paddin
 
 /* --- La frise --------------------------------------------------------- */
 .frise-cadre { position: relative; margin-top: .5rem; }
-.frise { position: relative; height: 140px; border: 1px solid var(--bord);
-  border-radius: 10px; background: linear-gradient(#fff, #FAFBFF); overflow: hidden; }
+.frise { position: relative; border: 1px solid var(--bord); border-radius: 10px;
+  background: linear-gradient(#fff, #FAFBFF); overflow: hidden;
+  /* La hauteur est posée par rendreFrise() : elle suit le nombre de rangées
+     réellement occupées. Fixée ici, la frise saturait dès trois départs. */
+  height: 150px; transition: height .18s; }
 .frise.armee { cursor: crosshair; box-shadow: inset 0 0 0 2px var(--outremer); }
 .heure-tick { position: absolute; bottom: 0; height: 26px; border-left: 1px solid var(--bord);
   padding-left: .25rem; font-size: .72rem; color: var(--discret); }
-.curseur { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--outremer); }
+.curseur { position: absolute; top: 0; bottom: 0; width: 2px;
+  background: var(--outremer); z-index: 3; }
 .curseur::after { content: attr(data-heure); position: absolute; bottom: 2px; left: 4px;
   font-size: .72rem; color: var(--outremer); font-weight: 700; white-space: nowrap;
   background: #fff; padding: 0 2px; border-radius: 2px; }
@@ -70,11 +74,11 @@ input { font: inherit; border: 1px solid var(--bord); border-radius: 8px; paddin
    au-dessus, détachée, et n'engage aucune durée. Les confondre — étiquette
    posée sur l'axe — laissait lire deux heures d'immobilisation pour cinq
    minutes de trajet. */
-.occupation { position: absolute; bottom: 26px; height: 12px; border-radius: 2px;
-  background: currentColor; min-width: 3px; cursor: pointer; }
+.occupation { position: absolute; height: 12px; border-radius: 2px;
+  background: currentColor; min-width: 3px; cursor: pointer; z-index: 1; }
 .occupation::after { content: ''; position: absolute; inset: -6px -4px; }
 
-.drapeau { position: absolute; cursor: pointer; }
+.drapeau { position: absolute; cursor: pointer; z-index: 2; }
 /* ⚠ Ne JAMAIS poser `color` sur .fanion : `background: currentColor` se
    résout contre la couleur de l'élément LUI-MÊME. Un `color: #fff` ici rend
    le fanion blanc-sur-blanc — c'est le bug « les marqueurs ne s'affichent
@@ -85,12 +89,6 @@ input { font: inherit; border: 1px solid var(--bord); border-radius: 8px; paddin
 .drapeau .fanion span { color: #fff; }
 /* Amorce fine, centrée : elle RELIE l'étiquette à l'instant sans rien couvrir. */
 .drapeau .amorce { width: 1px; background: currentColor; opacity: .55; margin: 0 auto; }
-.drapeau[data-rang="0"] { top: 4px; }
-.drapeau[data-rang="0"] .amorce { height: 62px; }
-.drapeau[data-rang="1"] { top: 26px; }
-.drapeau[data-rang="1"] .amorce { height: 40px; }
-.drapeau[data-rang="2"] { top: 48px; }
-.drapeau[data-rang="2"] .amorce { height: 18px; }
 .drapeau.conflit .fanion { outline: 2px solid var(--attention); }
 .drapeau.attente { color: var(--outremer); }
 .drapeau.fait { color: var(--ok); }
@@ -248,6 +246,24 @@ const posDansJour = (locale) => {
 };
 const aujourdhui = () => (etatTemps.locale || '').slice(0, 10);
 
+// --- Géométrie verticale de la frise, en un seul endroit -------------------
+// Elle est calculée, pas figée : la frise grandit avec le nombre de rangées
+// occupées et redescend quand elles se libèrent. Une hauteur fixe saturait
+// dès trois départs.
+const GEO = {
+  hautMarge: 6,     // au-dessus de la première étiquette
+  pasRangee: 22,    // entre deux étiquettes
+  hauteurEtiq: 19,
+  rangsMax: 10,     // au-delà, on empile dans la dernière plutôt que grandir
+  rangsMin: 3,      // hauteur plancher, pour que la frise vide reste lisible
+  occupation: 12,   // bloc d'occupation sur l'axe
+  axe: 26,          // bandeau des graduations horaires
+  respiration: 10,  // entre la dernière étiquette et le bloc d'occupation
+};
+const hauteurFrise = (rangs) =>
+  GEO.hautMarge + Math.max(rangs, GEO.rangsMin) * GEO.pasRangee +
+  GEO.respiration + GEO.occupation + GEO.axe;
+
 // Bord droit de la dernière étiquette posée, par rangée. Une étiquette se
 // place dans la première rangée libre : alterner à l'aveugle faisait se
 // recouvrir deux départs proches.
@@ -255,13 +271,13 @@ let rangees = [];
 function rangeeLibre(gauche, texte) {
   const largeur = (texte.length * 6.6 + 12) / $('frise').clientWidth * 100;
   const debut = gauche - largeur / 2;
-  for (let r = 0; r < 3; ++r) {
+  for (let r = 0; r < GEO.rangsMax; ++r) {
     if (rangees[r] === undefined || debut > rangees[r] + 0.4) {
       rangees[r] = debut + largeur;
       return r;
     }
   }
-  return 2;
+  return GEO.rangsMax - 1;
 }
 
 function rendreFrise() {
@@ -294,6 +310,21 @@ function rendreFrise() {
     poserDrapeau(occ.locale, `${occ.locale.slice(11, 16)} → P${occ.station}`,
                  etat, null, () => retirer(occ));
   });
+  // Deuxième passe : la hauteur dépend des rangées réellement occupées, et
+  // chaque amorce doit descendre jusqu'au bloc d'occupation.
+  const rangsUtilises = rangees.length;
+  const hauteur = hauteurFrise(rangsUtilises);
+  frise.style.height = hauteur + 'px';
+  const hautOccupation = hauteur - GEO.axe - GEO.occupation;
+  for (const d of frise.querySelectorAll('.drapeau')) {
+    const haut = GEO.hautMarge + Number(d.dataset.rang) * GEO.pasRangee;
+    d.querySelector('.amorce').style.height =
+      Math.max(4, hautOccupation - haut - GEO.hauteurEtiq) + 'px';
+  }
+  for (const o of frise.querySelectorAll('.occupation')) {
+    o.style.bottom = GEO.axe + 'px';
+  }
+
   const conflits = jour.filter((o) => o.conflit).length;
   $('occupation-legende').textContent = conflits
     ? `⚠ ${conflits} départ(s) trop rapproché(s) : l'AGV sera encore en route`
@@ -323,6 +354,7 @@ function poserDrapeau(locale, texte, etat, rang, surClic) {
   d.className = 'drapeau ' + etat;
   d.style.left = gauche + '%';
   d.dataset.rang = rang;
+  d.style.top = (GEO.hautMarge + rang * GEO.pasRangee) + 'px';
   d.innerHTML = `<div class="fanion"><span>${texte}</span></div><div class="amorce"></div>`;
   if (surClic) d.onclick = (e) => { e.stopPropagation(); surClic(); };
   $('frise').appendChild(d);

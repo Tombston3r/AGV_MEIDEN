@@ -29,6 +29,18 @@ compris :
   **gris** sauté ; un liseré **ambre** signale un départ trop rapproché du
   précédent.
 
+### La frise grandit avec la journée
+
+Sa hauteur n'est pas figée : elle suit le nombre de **rangées d'étiquettes
+réellement occupées**, jusqu'à dix. Onze départs tiennent ainsi sur quatre
+rangées sans se recouvrir, là où une hauteur fixe saturait dès trois. Une
+journée vide reste à sa hauteur plancher.
+
+Le placement se fait par **détection de chevauchement** — chaque étiquette
+descend d'une rangée seulement si la précédente lui prend la place — et non
+par alternance aveugle. Toute la géométrie verticale vit dans un unique objet
+`GEO` du script : changer le pas ou le nombre de rangées est une ligne.
+
 ### L'échelle est honnête
 
 Un trajet dure **au plus 5 minutes** à vitesse lente, soit **0,35 %** d'une
