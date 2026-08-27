@@ -57,6 +57,26 @@ compris :
   **gris** sauté ; un liseré **ambre** signale un départ trop rapproché du
   précédent.
 
+### L'arrêt de sécurité, rapporté et non subi
+
+L'AGV porte sa propre chaîne de sécurité : elle coupe la puissance sur obstacle
+et n'est réarmée que par un **appui physique**. Le planning ne la remplace pas —
+il en **rapporte l'effet**, parce que l'exploitant doit savoir qu'un départ
+programmé ne s'est pas terminé.
+
+Quand la coupure survient **pendant un déplacement**, un bandeau rouge nomme le
+départ interrompu, sa destination et l'heure, rappelle le réarmement physique,
+et **suspend les départs autonomes** jusqu'à un acquittement nommé.
+
+⚠️ **Uniquement pendant un déplacement.** Une coupure à quai — maintenance, fin
+de poste, quelqu'un devant l'AGV — est journalisée sans alerte : crier au loup à
+chaque coupure viderait l'alerte de son sens. C'est le drapeau `en_deplacement`
+qui porte toute la règle, et le firmware le déduira de `SeqState::Transit` et de
+`state_flag::kMoving`.
+
+L'**appel opérateur** reste possible pendant l'alerte : c'est une décision
+humaine, comme le réarmement.
+
 ### La frise grandit avec la journée
 
 Sa hauteur n'est pas figée : elle suit le nombre de **rangées d'étiquettes
@@ -129,6 +149,7 @@ en bas de page.
 | `POST` | `/api/planning/validate` | `{"par":"nom"}` — autorisation du jour |
 | `POST` | `/api/planning/pause` | `{"actif":bool}` |
 | `POST` | `/api/planning/skip` | saute la prochaine occurrence |
+| `POST` | `/api/alerte/acquitter` | `{"par":"nom"}` — lève l'alerte d'arrêt de sécurité |
 | `POST` | `/api/appel` | `{"station":n}` — **mission immédiate**, hors planning : le geste opérateur, pas un déclenchement autonome (la validation §3.2 ne s'y applique pas) |
 | `GET` | `/api/time` | heure, source, fiabilité, état de validation |
 | `GET` | `/api/missions`, `/api/journal` | observation du banc |
@@ -141,6 +162,8 @@ en bas de page.
 | `POST /api/sim/avancer` | `{"secondes":n}` |
 | `POST /api/sim/vitesse` | `{"facteur":1..86400}` |
 | `POST /api/sim/fiable` | `{"fiable":bool}` — simule `TIME_UNTRUSTED` (§2.3) |
+| `POST /api/sim/interruption` | `{"en_deplacement":bool}` — la chaîne de sécurité coupe |
+| `POST /api/sim/arrivee` | l'AGV confirme son arrivée |
 
 ## Tests automatiques
 

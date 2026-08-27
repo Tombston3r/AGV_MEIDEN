@@ -20,7 +20,7 @@ make test
 **Attendu :**
 
 ```
-20 tests, 0 echec(s)      moteur
+25 tests, 0 echec(s)      moteur
 13 tests, 0 echec(s)      codec JSON
  3 tests, 0 echec(s)      fidélité du dump d'atelier
 Ran 12 tests ... OK       contrat API
@@ -49,7 +49,7 @@ joignable ni depuis le réseau, ni depuis une autre machine — voir §5.
 PORT=` l'annonce : c'est ce qu'utilisent les tests pour tourner en parallèle
 sans se marcher dessus.
 
-## 3. Recette — dix-sept gestes
+## 3. Recette — vingt gestes
 
 Ouvrir <http://127.0.0.1:8081>.
 
@@ -71,7 +71,10 @@ Ouvrir <http://127.0.0.1:8081>.
 | 14 | Regarder l'axe des heures | Le bloc d'occupation fait **quelques pixels** (5 min sur 24 h), pas la largeur de l'étiquette |
 | 15 | Poser une dizaine de départs dans la journée | La frise **grandit** ; les étiquettes se répartissent sur plusieurs rangées **sans se recouvrir** |
 | 16 | Onglet **agvdump** | Le relevé s'affiche en clair, `[AGV STATE]` à zéro (pas d'ATmega sur le banc) |
-| 17 | `curl -s localhost:8081/agvdump` | **Texte brut**, `Content-Type: text/plain`, commençant par `AIO AGV CONTROL - DUMP` — le format d'atelier, intact |
+| 17 | Simulation : **⛔ coupure EN déplacement** | Bandeau rouge nommant le départ, sa destination et l'heure ; départs suspendus |
+| 18 | Acquitter avec un nom | Bandeau levé, départs rétablis, ligne au journal |
+| 19 | Simulation : **coupure à l'arrêt** | **Aucun** bandeau — ligne au journal seulement |
+| 20 | `curl -s localhost:8081/agvdump` | **Texte brut**, `Content-Type: text/plain`, commençant par `AIO AGV CONTROL - DUMP` — le format d'atelier, intact |
 
 Les points **3, 5, 6 et 9** sont ceux qui comptent : un départ qui partirait
 sans validation, ou qui repartirait deux fois, est le défaut que ce banc existe

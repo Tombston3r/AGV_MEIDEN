@@ -112,6 +112,12 @@ int jour_semaine(time_t t) {
 const char* motif_texte(Motif m) {
   switch (m) {
     case Motif::Executee: return "executee";
+    case Motif::MissionArrivee: return "arrivee confirmee";
+    case Motif::MissionInterrompue:
+      return "ARRET DE SECURITE EN DEPLACEMENT : obstacle probable";
+    case Motif::ArretHorsDeplacement: return "mise hors tension a l'arret";
+    case Motif::AlerteAcquittee: return "alerte acquittee";
+    case Motif::SauteeAlerte: return "sautee : alerte non acquittee";
     case Motif::ExecuteeDecaleeDst: return "executee decalee (heure d'ete)";
     case Motif::SauteeGrace: return "sautee : vue apres la fenetre de grace";
     case Motif::SauteeNonValidee: return "sautee : journee non validee";
@@ -181,6 +187,32 @@ void Moteur::purger(time_t now) {
       consommees_.end());
 }
 
+void Moteur::mission_arrivee(time_t quand) {
+  if (mission_en_cours_.empty()) return;
+  journaliser(quand, Motif::MissionArrivee, mission_en_cours_);
+  mission_en_cours_.clear();
+}
+
+void Moteur::interruption_agv(bool en_deplacement, time_t quand) {
+  // Hors déplacement, une coupure est banale : maintenance, fin de poste,
+  // quelqu'un devant un AGV à quai. La signaler comme un obstacle ferait
+  // perdre toute valeur à l'alerte.
+  if (!en_deplacement) {
+    journaliser(quand, Motif::ArretHorsDeplacement, mission_en_cours_);
+    return;
+  }
+  journaliser(quand, Motif::MissionInterrompue, mission_en_cours_);
+  alerte_ = {true, mission_en_cours_, station_en_cours_, quand};
+  mission_en_cours_.clear();
+}
+
+bool Moteur::acquitter_alerte(const std::string& par, time_t quand) {
+  if (!alerte_.active || par.empty()) return false;
+  alerte_ = {};
+  journaliser(quand, Motif::AlerteAcquittee, par);
+  return true;
+}
+
 std::optional<Mission> Moteur::tick(time_t now, bool heure_fiable) {
   // §2.3 : heure douteuse = planning GELÉ. Ni exécution, ni consommation —
   // ce qui n'est pas parti partira (ou sera sauté) quand l'heure reviendra,
@@ -236,17 +268,18 @@ std::optional<Mission> Moteur::tick(time_t now, bool heure_fiable) {
         // Trop tard. Le motif retenu est la CAUSE du blocage, pas seulement
         // « trop tard » : c'est lui qu'on lira dans le journal.
         consommer(e.id, r.date);
-        const Motif motif = !journee_validee(now) ? Motif::SauteeNonValidee
-                            : pause_              ? Motif::SauteePause
-                                                  : Motif::SauteeGrace;
+        const Motif motif = alerte_.active     ? Motif::SauteeAlerte
+                            : !journee_validee(now) ? Motif::SauteeNonValidee
+                            : pause_                ? Motif::SauteePause
+                                                    : Motif::SauteeGrace;
         journaliser(now, motif, e.id);
         continue;
       }
 
-      // Dans la grâce mais bloquée (validation absente, pause) : on la LAISSE
-      // en attente. Levée du blocage avant la fin de grâce → elle part ;
-      // sinon elle vieillit et sort par le motif ci-dessus.
-      if (!journee_validee(now) || pause_) continue;
+      // Dans la grâce mais bloquée (validation absente, pause, alerte) : on la
+      // LAISSE en attente. Levée du blocage avant la fin de grâce → elle
+      // part ; sinon elle vieillit et sort par le motif ci-dessus.
+      if (!journee_validee(now) || pause_ || alerte_.active) continue;
 
       candidats.push_back({&e, r});
     }
@@ -273,6 +306,8 @@ std::optional<Mission> Moteur::tick(time_t now, bool heure_fiable) {
   const bool decalee = retenu.r.type == ResultatJour::Type::Decalee;
   journaliser(now, decalee ? Motif::ExecuteeDecaleeDst : Motif::Executee,
               retenu.e->id);
+  mission_en_cours_ = retenu.e->id;
+  station_en_cours_ = retenu.e->station;
   return Mission{retenu.e->id, retenu.e->station, retenu.e->flags,
                  retenu.r.quand, decalee};
 }

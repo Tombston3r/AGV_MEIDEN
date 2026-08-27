@@ -1,10 +1,13 @@
 # Déploiement du planning journalier
 
-> ⚠️ **Ce chantier n'est pas déployable en l'état.** Le moteur, le codec et le
-> contrat d'API sont écrits et testés ; le matériel, la persistance et le
-> portage ESP32 ne le sont pas. Ce document décrit le **chemin ordonné** vers
-> la mise en service, avec les points qui l'interdisent tant qu'ils ne sont
-> pas levés.
+> ⚠️ **Ce chantier n'est pas encore déployable** — pour des raisons purement
+> techniques : il n'y a **ni horloge matérielle, ni persistance, ni firmware
+> ESP32**. Le moteur, le codec et le contrat d'API sont écrits et testés ; le
+> reste est à faire.
+>
+> Ce n'est **pas** une réserve de sécurité : l'AGV porte sa propre chaîne,
+> indépendante, qui coupe la puissance sur obstacle et exige un réarmement
+> physique. Voir §0.1, corrigé le 2026-08-27.
 >
 > État à jour : [`docs/ETAT_PROJET.md`](docs/ETAT_PROJET.md).
 
@@ -13,23 +16,66 @@
 Trois verrous, à lever **avant** toute exécution automatique sur un chariot.
 Aucun n'est logiciel.
 
-### 0.1 Sécurité machine — éliminatoire
+### 0.1 Sécurité machine — à documenter, pas éliminatoire
 
-Le passage au déclenchement sur horloge est un **changement de mode de
-fonctionnement** au sens de l'**EN ISO 3691-4** (spec §9). L'analyse de risques
-est à reprendre : le scénario type est une personne sur le trajet à 06:00 alors
-que **personne n'a rien demandé**.
+**Correction du 2026-08-27.** Une version antérieure de ce document présentait
+ce point comme bloquant, sur le scénario « une personne sur le trajet à 06:00
+alors que personne n'a rien demandé ». **C'était surestimé** : l'AGV porte sa
+propre chaîne de sécurité, indépendante de ce logiciel, qui coupe la puissance
+sur obstacle et n'est réarmée que par un **appui physique**. Le risque de
+heurter quelqu'un est traité par cette chaîne, que le déplacement soit demandé
+par un opérateur ou par une horloge.
 
-Minimum exigé :
+Ce qui change réellement avec le déclenchement autonome :
 
-- **sélecteur physique « autorisation planning »**, en série avec l'exécution.
-  Impact **nomenclature** : à ajouter à la BOM de l'architecture retenue ;
-- **authentification** de l'interface web — elle commande désormais un
-  véhicule, plus seulement une consultation ;
+- **personne n'attend le mouvement.** Ce n'est plus un risque de blessure, mais
+  un risque de **surprise** — et surtout d'**indisponibilité** : un arrêt à
+  06:00 sans personne sur place laisse l'AGV bloqué jusqu'à ce que quelqu'un
+  vienne le réarmer ;
+- l'analyse de risques **gagne à être relue** (EN ISO 3691-4, changement de
+  mode de fonctionnement), mais elle documente un mode d'exploitation, elle ne
+  découvre pas un danger nouveau.
+
+Restent recommandés, pour des raisons d'**exploitation** plus que de sécurité :
+
+- **sélecteur physique « autorisation planning »**, en série avec l'exécution —
+  un verrou franc pour la maintenance, le nettoyage, les périodes où l'on ne
+  veut aucun mouvement autonome. Impact **nomenclature** ;
+- **authentification** de l'interface web : elle commande un véhicule ;
 - journal horodaté (spec §8), déjà produit par le moteur.
 
-Le moteur reste un **organe de commande, pas de sécurité** : la chaîne d'arrêt
-d'urgence, les bumpers et le scrutateur laser restent indépendants.
+Le moteur reste un **organe de commande, pas de sécurité**. Il ne remplace pas
+la chaîne : il en **rapporte l'effet** — voir §0.4.
+
+### 0.4 Arrêt de sécurité : ce que le planning en dit
+
+Quand la chaîne coupe la puissance **pendant un déplacement**, l'IHM affiche un
+bandeau rouge qui ne peut pas être manqué :
+
+```
+⛔ Arrêt de sécurité pendant un déplacement
+   Départ « livraison-matin » vers le poste 2 — interrompu à 06:00:30.
+   Réarmement physique requis sur l'AGV.
+   Les départs programmés sont suspendus jusqu'à l'acquittement.
+```
+
+Trois décisions derrière ce bandeau :
+
+- **uniquement pendant un déplacement.** Une coupure alors que l'AGV est à
+  quai — maintenance, fin de poste, quelqu'un qui passe devant — est journalisée
+  sans alerte. Crier au loup à chaque coupure viderait l'alerte de son sens ;
+- **l'alerte suspend les départs autonomes** jusqu'à acquittement nommé.
+  Repartir seul vers l'obstacle qui vient d'arrêter l'AGV est une boucle que
+  personne ne surveille. L'**appel opérateur**, lui, reste possible : c'est une
+  décision humaine ;
+- **l'acquittement logiciel est distinct du réarmement physique.** Deux gestes,
+  parce qu'ils répondent à deux questions : « la puissance est-elle rétablie ? »
+  et « quelqu'un a-t-il regardé pourquoi ? »
+
+⚠️ **Ce que le firmware devra fournir** (chantier T6) : le drapeau
+`en_deplacement` au moment de la coupure. Il se déduit de l'état du séquenceur
+existant — `SeqState::Transit` et `state_flag::kMoving` — sur la carte A4. Le
+banc le simule (`POST /api/sim/interruption`).
 
 ### 0.2 Mesure de `t_setup` — éliminatoire
 
@@ -123,6 +169,8 @@ liaison série existante.
 | 4 | Coupure secteur, redémarrage à midi | **aucune mission du matin rejouée**, sauts journalisés |
 | 5 | Pile CR2032 retirée, redémarrage | `TIME_UNTRUSTED`, planning gelé, alarme visible en IHM |
 | 6 | Reboot programmé 03:00 pendant une mission | **reboot refusé** — verrou du §7.3 |
+| 7 | Obstacle **pendant** un déplacement programmé | Bandeau ⛔ ; départs suspendus ; réarmement physique puis acquittement nommé les rétablit |
+| 8 | Coupure alors que l'AGV est **à quai** | **Aucun** bandeau — ligne au journal seulement |
 
 Les essais **4** et **5** sont ceux qui distinguent un système qu'on peut
 laisser tourner d'un système qu'il faut surveiller.
@@ -137,7 +185,9 @@ laisser tourner d'un système qu'il faut surveiller.
 | Heure juste au démarrage puis dérive de minutes | l'ESP32 tourne sur son quartz seul : le DS3231 n'est pas relu périodiquement |
 | Mission décalée d'une heure fin mars | comportement **attendu** : horaire inexistant reporté au premier instant valide (décision du 2026-08-27) |
 | Mission jouée deux fois fin octobre | idempotence en défaut : la clé doit porter la **date locale**, pas l'instant |
-| L'AGV part alors que le sélecteur est sur arrêt | le sélecteur n'est pas **en série avec l'exécution** — défaut de sécurité, arrêter l'installation |
+| L'AGV part alors que le sélecteur est sur arrêt | le sélecteur n'est pas **en série avec l'exécution** — verrou d'exploitation inopérant |
+| Bandeau ⛔ à chaque coupure, même à l'arrêt | le drapeau `en_deplacement` est mal déduit : il doit venir de `SeqState::Transit` + `kMoving`, pas d'une simple perte de liaison |
+| Aucun bandeau après un arrêt en plein trajet | la mission n'était pas suivie : `mission_arrivee()` appelée trop tôt, ou interruption non remontée |
 | Reboot 03:00 pendant une mission | verrou du §7.3 absent : à corriger avant toute exploitation |
 
 Le premier réflexe est toujours le **journal** : chaque saut y est motivé, et

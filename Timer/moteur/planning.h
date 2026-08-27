@@ -93,6 +93,11 @@ struct Mission {
 
 enum class Motif : uint8_t {
   Executee,
+  MissionArrivee,
+  MissionInterrompue,   // arrêt de sécurité EN DÉPLACEMENT : obstacle probable
+  ArretHorsDeplacement, // coupure alors que l'AGV était à l'arrêt : banal
+  AlerteAcquittee,
+  SauteeAlerte,         // départ refusé tant que l'alerte n'est pas acquittée
   ExecuteeDecaleeDst,
   SauteeGrace,        // vue trop tard : AGV hors tension, redémarrage tardif
   SauteeNonValidee,   // la journée n'a jamais été validée (§3.2)
@@ -109,6 +114,26 @@ struct Evenement {
   time_t quand = 0;
   Motif motif{};
   std::string id;  // entrée concernée, vide pour les événements globaux
+};
+
+// Arrêt de sécurité survenu PENDANT un déplacement.
+//
+// L'AGV porte sa propre chaîne de sécurité, indépendante de ce logiciel : elle
+// coupe la puissance sur obstacle et n'est réarmée que par un appui physique.
+// Le planning ne la remplace pas — il en RAPPORTE l'effet, parce que
+// l'exploitant doit savoir qu'un départ programmé ne s'est pas terminé, et
+// pourquoi.
+//
+// L'alerte survit à l'acquittement de la chaîne matérielle : elle demande un
+// geste logiciel distinct, comme le réarmement demande un geste physique. Elle
+// bloque les départs AUTONOMES entretemps — repartir seul vers un obstacle qui
+// vient d'arrêter l'AGV est une boucle que personne ne surveille — mais pas
+// les appels : un opérateur qui demande l'AGV est une décision humaine.
+struct Alerte {
+  bool active = false;
+  std::string mission;   // départ interrompu
+  uint16_t station = 0;  // destination visée
+  time_t quand = 0;
 };
 
 // Validation quotidienne (§3.2) : le planning persiste, son AUTORISATION
@@ -133,6 +158,18 @@ class Moteur {
   void invalider_journee() { validation_ = {}; }
   const Validation& validation() const { return validation_; }
   bool journee_validee(time_t now) const;
+
+  // --- Retour de l'AGV sur la mission en cours ----------------------------
+  //
+  // `en_deplacement` porte TOUTE la règle : une coupure pendant un trajet est
+  // un arrêt sur obstacle, une coupure à l'arrêt n'est qu'une mise hors
+  // tension. Confondre les deux ferait crier au loup à chaque maintenance.
+  void mission_arrivee(time_t quand);
+  void interruption_agv(bool en_deplacement, time_t quand);
+
+  const Alerte& alerte() const { return alerte_; }
+  bool acquitter_alerte(const std::string& par, time_t quand);
+  bool mission_en_cours() const { return !mission_en_cours_.empty(); }
 
   void pause(bool actif) { pause_ = actif; }
   bool en_pause() const { return pause_; }
@@ -179,6 +216,9 @@ class Moteur {
   Validation validation_{};
   bool pause_ = false;
   bool sauter_prochaine_ = false;
+  Alerte alerte_{};
+  std::string mission_en_cours_;
+  uint16_t station_en_cours_ = 0;
   bool heure_etait_fiable_ = true;
   std::vector<Consommee> consommees_;
   std::vector<Evenement> journal_;  // anneau borné à 128 entrées

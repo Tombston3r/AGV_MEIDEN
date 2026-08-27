@@ -27,6 +27,9 @@ le codec LoRa de `Comm distance/`. Il couvre :
   (03:00), décalage signalé — ou saut, par configuration *(décision produit du
   2026-08-27 : exécuter)* ;
 - **gel sur heure non fiable** (§2.3) : rien ne part, rien n'est consommé ;
+- **arrêt de sécurité rapporté** : coupure de la chaîne **pendant un
+  déplacement** → alerte nommée, départs autonomes suspendus jusqu'à
+  acquittement ; coupure à l'arrêt → journal seulement ;
 - pause globale, saut sur demande, priorités sur occurrences simultanées ;
 - journal borné motivé, liste des **prochaines occurrences calculées** (la vue
   IHM la plus utile).
@@ -34,7 +37,7 @@ le codec LoRa de `Comm distance/`. Il couvre :
 ## Lancer les tests — et le banc
 
 ```bash
-make test    # moteur (20) + codec (13) + dump d'atelier (3) + contrat API (12)
+make test    # moteur (25) + codec (13) + dump d'atelier (3) + contrat API (12)
 make banc    # http://127.0.0.1:8081 — l'API sur le vrai moteur, horloge pilotable
 ```
 

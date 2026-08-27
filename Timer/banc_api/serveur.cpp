@@ -336,7 +336,16 @@ void route_time(Banc& banc, int fd) {
       ",\"grace_s\":" + std::to_string(banc.cfg.grace_s) +
       ",\"journee_validee\":" + (banc.moteur.journee_validee(now) ? "true" : "false") +
       ",\"valide_par\":\"" + v.valide_par + "\"" +
-      ",\"pause\":" + (banc.moteur.en_pause() ? "true" : "false") + "}";
+      ",\"pause\":" + (banc.moteur.en_pause() ? "true" : "false") +
+      ",\"mission_en_cours\":" + (banc.moteur.mission_en_cours() ? "true" : "false");
+  const Alerte& a = banc.moteur.alerte();
+  out += ",\"alerte\":" + std::string(a.active ? "true" : "false");
+  if (a.active) {
+    out += ",\"alerte_mission\":\"" + a.mission + "\",\"alerte_station\":" +
+           std::to_string(a.station) + ",\"alerte_quand\":\"" +
+           heure_locale(a.quand) + "\"";
+  }
+  out += "}";
   repondre(fd, 200, out);
 }
 
@@ -445,6 +454,32 @@ void traiter(Banc& banc, int fd, const Requete& req) {
       return repondre(fd, 200, "{\"appel\":true,\"station\":" +
                                    std::to_string(m.station) + "}");
     }
+    if (req.chemin == "/api/alerte/acquitter") {
+      const auto par = json_chaine(req.corps, "par");
+      if (!par || par->empty()) {
+        return repondre(fd, 400, json_erreur("champ « par » requis : qui acquitte ?"));
+      }
+      if (!banc.moteur.acquitter_alerte(*par, now)) {
+        return repondre(fd, 409, json_erreur("aucune alerte active"));
+      }
+      return repondre(fd, 200, "{\"acquittee\":true}");
+    }
+
+    // --- Simulation de l'AGV : absent de la cible, où ces événements
+    // --- arrivent par la liaison série depuis l'ATmega.
+    if (req.chemin == "/api/sim/interruption") {
+      // `en_deplacement` porte toute la règle : c'est ce que le firmware
+      // déduira de `SeqState::Transit` et du drapeau `kMoving`.
+      const auto bouge = json_booleen(req.corps, "en_deplacement");
+      if (!bouge) return repondre(fd, 400, json_erreur("champ « en_deplacement » requis"));
+      banc.moteur.interruption_agv(*bouge, now);
+      return route_time(banc, fd);
+    }
+    if (req.chemin == "/api/sim/arrivee") {
+      banc.moteur.mission_arrivee(now);
+      return route_time(banc, fd);
+    }
+
     if (req.chemin == "/api/planning/skip") {
       banc.moteur.sauter_prochaine();
       return repondre(fd, 200, "{\"saut_arme\":true}");

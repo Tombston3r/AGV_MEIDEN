@@ -6,6 +6,21 @@
 <title>AIO — Planning journalier AGV</title>
 <link rel="stylesheet" href="/theme.css">
 <style>
+/* Alerte d'arrêt de sécurité : elle doit être IMPOSSIBLE à manquer, et rester
+   jusqu'à un geste humain — comme le réarmement physique de la chaîne. */
+.alerte-collision {
+  background: var(--alerte); color: #fff; border-radius: 12px; padding: 1rem 1.2rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  flex-wrap: wrap; box-shadow: 0 4px 18px rgba(179,38,30,.35);
+}
+.alerte-collision .pictogramme { font-size: 2rem; line-height: 1; }
+.alerte-collision .corps { flex: 1 1 22rem; }
+.alerte-collision .quoi { font-size: 1.05rem; font-weight: 800; }
+.alerte-collision .detail { font-size: .9rem; opacity: .95; margin-top: .15rem; }
+.alerte-collision button { border-color: #fff; background: transparent; color: #fff; }
+.alerte-collision button:hover { background: rgba(255,255,255,.18); }
+.alerte-collision input { border: none; }
+
 /* Propre à cette page. La palette, l'en-tête, les boutons, les fenêtres
    et les tableaux viennent de theme.css (source : docs/theme/theme.css). */
 
@@ -63,6 +78,7 @@
 #drapeau-a-prendre { font-size: 1rem; }
 .etat-fait { color: var(--ok); font-weight: 700; }
 .etat-saute { color: var(--attention); font-weight: 600; }
+.etat-collision { color: var(--alerte); font-weight: 800; }
 .sim { background: #FAFAFC; }
 /* Barre d'onglets : deux pages servies par le même ESP32 sur la cible. */
 
@@ -83,6 +99,20 @@
 </header>
 
 <main>
+  <div id="alerte" class="alerte-collision" hidden>
+    <span class="pictogramme">⛔</span>
+    <span class="corps">
+      <span class="quoi">Arrêt de sécurité pendant un déplacement</span>
+      <span class="detail" id="alerte-detail"></span>
+      <span class="detail">Réarmement <strong>physique</strong> requis sur l'AGV.
+        Les départs programmés sont suspendus jusqu'à l'acquittement.</span>
+    </span>
+    <span class="ligne">
+      <input id="acquitte-par" placeholder="votre nom" size="12">
+      <button onclick="acquitter()">J'ai vérifié — acquitter</button>
+    </span>
+  </div>
+
   <div id="bandeau" class="bandeau rouge">
     <span id="bandeau-texte">…</span>
     <span class="ligne">
@@ -140,6 +170,9 @@
       <button onclick="basculerFiable()" id="btn-fiable">simuler heure douteuse</button>
       <button onclick="basculerPause()" id="btn-pause">Pause planning</button>
       <button onclick="skip()">Sauter le prochain</button>
+      <button onclick="simInterruption(true)">⛔ coupure EN déplacement</button>
+      <button onclick="simInterruption(false)">coupure à l'arrêt</button>
+      <button onclick="simArrivee()">arrivée confirmée</button>
     </div>
   </section>
 </main>
@@ -339,6 +372,13 @@ function rendreLogs() {
                   etat: `<span class="etat-fait">✓ effectué${m.id === 'appel' ? '' : ' (prévu ' + m.prevu.slice(11, 16) + ')'}</span>` });
   }
   for (const e of journal) {
+    if (e.motif.startsWith('ARRET DE SECURITE')) {
+      const entree = entrees.find((x) => x.id === e.id);
+      lignes.push({ quand: e.quand, nom: e.id || '—',
+                    station: entree ? entree.station : '—',
+                    etat: '<span class="etat-collision">⛔ arrêt de sécurité en déplacement</span>' });
+      continue;
+    }
     if (!e.motif.startsWith('sautee')) continue;
     const entree = entrees.find((x) => x.id === e.id);
     lignes.push({ quand: e.quand, nom: e.id, station: entree ? entree.station : '—',
@@ -362,8 +402,23 @@ async function rafraichir() {
   $('badge-pause').hidden = !etatTemps.pause;
   $('btn-pause').textContent = etatTemps.pause ? 'Reprendre le planning' : 'Pause planning';
 
+  // L'alerte prime sur tout le reste : c'est le seul message qui dise qu'un
+  // départ ne s'est PAS terminé.
+  const alerteActive = !!etatTemps.alerte;
+  $('alerte').hidden = !alerteActive;
+  $('alerte').style.display = alerteActive ? 'flex' : 'none';
+  if (alerteActive) {
+    $('alerte-detail').textContent =
+      `Départ « ${etatTemps.alerte_mission || '?'} » vers le poste ` +
+      `${etatTemps.alerte_station} — interrompu à ${(etatTemps.alerte_quand || '').slice(11, 19)}.`;
+  }
+
   const bandeau = $('bandeau');
-  if (etatTemps.journee_validee) {
+  if (alerteActive) {
+    bandeau.className = 'bandeau rouge';
+    $('bandeau-texte').textContent =
+      'Départs suspendus — arrêt de sécurité à acquitter ci-dessus';
+  } else if (etatTemps.journee_validee) {
     bandeau.className = 'bandeau vert';
     $('bandeau-texte').textContent =
       `Planning du ${aujourdhui()} validé par ${etatTemps.valide_par} — départs autorisés`;
@@ -479,6 +534,15 @@ async function valider() {
   rafraichir();
 }
 
+async function acquitter() {
+  const par = $('acquitte-par').value.trim() || $('valide-par').value.trim();
+  if (!par) { toast("Indiquez votre nom : l'acquittement est tracé."); return; }
+  const r = await api('POST', '/api/alerte/acquitter', { par });
+  toast(r.ok ? 'Alerte acquittée — les départs programmés reprennent.'
+             : (r.data.erreur || 'refusé'));
+  rafraichir();
+}
+
 async function appeler() {
   const r = await api('POST', '/api/appel', { station: posteChoisi });
   toast(r.ok ? `AGV appelé au poste ${posteChoisi}.` : r.data.erreur);
@@ -548,6 +612,10 @@ const basculerFiable = () =>
   api('POST', '/api/sim/fiable', { fiable: !etatTemps.fiable }).then(rafraichir);
 const basculerPause = () =>
   api('POST', '/api/planning/pause', { actif: !etatTemps.pause }).then(rafraichir);
+const simInterruption = (bouge) =>
+  api('POST', '/api/sim/interruption', { en_deplacement: bouge }).then(rafraichir);
+const simArrivee = () => api('POST', '/api/sim/arrivee').then(rafraichir);
+
 function allerA() {
   const v = $('aller-a').value;
   if (v) api('POST', '/api/sim/heure', { locale: v.replace('T', ' ') }).then(rafraichir);

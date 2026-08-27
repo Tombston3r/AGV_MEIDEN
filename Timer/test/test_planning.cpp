@@ -296,6 +296,75 @@ void invalidation_revoque_l_autorisation() {
   CHECK(!m.journee_validee(occ + 60));
 }
 
+// --- Arrêt de sécurité pendant un déplacement ------------------------------
+
+void interruption_en_deplacement_leve_une_alerte() {
+  const time_t occ = T(2026, 8, 27, 6, 0);
+  Moteur m = moteur_valide({entree_simple("mat", 6, 0)}, occ);
+  const auto mission = m.tick(occ);
+  CHECK(mission.has_value());
+  CHECK(m.mission_en_cours());
+
+  m.interruption_agv(/*en_deplacement=*/true, occ + 30);
+  CHECK(m.alerte().active);
+  CHECK(m.alerte().mission == "mat");
+  CHECK(m.alerte().station == 42);
+  CHECK(!m.mission_en_cours());
+  CHECK(m.journal().back().motif == Motif::MissionInterrompue);
+}
+
+void interruption_a_l_arret_ne_leve_rien() {
+  // LA règle demandée : hors déplacement, une coupure est banale — fin de
+  // poste, maintenance, quelqu'un devant un AGV à quai. Crier au loup à chaque
+  // fois viderait l'alerte de son sens.
+  const time_t occ = T(2026, 8, 27, 6, 0);
+  Moteur m = moteur_valide({entree_simple("mat", 6, 0)}, occ);
+  m.tick(occ);
+  m.interruption_agv(/*en_deplacement=*/false, occ + 30);
+  CHECK(!m.alerte().active);
+  CHECK(m.journal().back().motif == Motif::ArretHorsDeplacement);
+}
+
+void arrivee_confirmee_ferme_la_mission() {
+  const time_t occ = T(2026, 8, 27, 6, 0);
+  Moteur m = moteur_valide({entree_simple("mat", 6, 0)}, occ);
+  m.tick(occ);
+  m.mission_arrivee(occ + 200);
+  CHECK(!m.mission_en_cours());
+  CHECK(m.journal().back().motif == Motif::MissionArrivee);
+  // Une coupure APRÈS l'arrivée n'est plus une interruption de trajet.
+  m.interruption_agv(true, occ + 400);
+  CHECK(m.alerte().active);          // le drapeau se lève quand même…
+  CHECK(m.alerte().mission.empty()); // …mais sans mission à incriminer
+}
+
+void l_alerte_bloque_les_departs_autonomes() {
+  // Repartir seul vers l'obstacle qui vient d'arrêter l'AGV est une boucle
+  // que personne ne surveille.
+  const time_t occ1 = T(2026, 8, 27, 6, 0);
+  const time_t occ2 = T(2026, 8, 27, 7, 0);
+  Moteur m = moteur_valide({entree_simple("a", 6, 0), entree_simple("b", 7, 0)}, occ1);
+  m.tick(occ1);
+  m.interruption_agv(true, occ1 + 30);
+
+  CHECK(!m.tick(occ2).has_value());
+  CHECK(!m.tick(occ2 + 600).has_value());   // au-delà de la grâce : saut motivé
+  CHECK(m.journal().back().motif == Motif::SauteeAlerte);
+}
+
+void l_acquittement_rend_la_main() {
+  const time_t occ1 = T(2026, 8, 27, 6, 0);
+  const time_t occ2 = T(2026, 8, 27, 7, 0);
+  Moteur m = moteur_valide({entree_simple("a", 6, 0), entree_simple("b", 7, 0)}, occ1);
+  m.tick(occ1);
+  m.interruption_agv(true, occ1 + 30);
+
+  CHECK(!m.acquitter_alerte("", occ1 + 60));       // un nom est exigé
+  CHECK(m.acquitter_alerte("dupont", occ1 + 60));  // traçabilité
+  CHECK(!m.alerte().active);
+  CHECK(m.tick(occ2).has_value());                 // le planning repart
+}
+
 void chevauchement_signale_dans_la_liste() {
   // Un trajet dure au plus 5 min : deux départs à 3 min d'intervalle se
   // chevauchent, et le second sera refusé par le séquenceur (§5).
@@ -346,6 +415,11 @@ int main() {
   RUN(heure_non_fiable_gele_tout);
   RUN(entree_suspendue_ignoree);
   RUN(invalidation_revoque_l_autorisation);
+  RUN(interruption_en_deplacement_leve_une_alerte);
+  RUN(interruption_a_l_arret_ne_leve_rien);
+  RUN(arrivee_confirmee_ferme_la_mission);
+  RUN(l_alerte_bloque_les_departs_autonomes);
+  RUN(l_acquittement_rend_la_main);
   RUN(chevauchement_signale_dans_la_liste);
   RUN(liste_des_prochaines_occurrences);
 
