@@ -63,8 +63,11 @@ de 2026 (29 mars, 25 octobre). Le banc et son mode d'emploi :
 📍 **Déploiement sur la carte V5.0.1** : le chemin complet, ce qui manque et
 dans quel ordre — [`docs/CHEMIN_V5.md`](docs/CHEMIN_V5.md).
 
-Couche fichier de la persistance (§3.3 — le codec JSON existe), pilote DS3231
-et états de confiance (§2), portage ESP32 de l'API (le **contrat est fixé et
-testé** par le banc), intégration dans `A4_Wifi` — le séquenceur du §5
-**existe déjà, testé**, le moteur n'a qu'à produire des missions vers la
-liaison existante.
+Dans l'ordre : **client SNTP** — `set_wall_clock()` existe mais n'est appelé
+nulle part, l'heure vaut 0 et le moteur reste gelé —, puis **DS3231** (le
+Wi-Fi du site est saturé), puis la **persistance en NVS** (`NvsStore` existe,
+LittleFS est inutile), puis les **routes REST en permanence** sur l'interface
+cliente avec authentification, puis le **chaînage** vers le séquenceur — qui
+lui **existe déjà, testé**.
+
+Chemin détaillé et raccourcis : [`docs/CHEMIN_V5.md`](docs/CHEMIN_V5.md).
