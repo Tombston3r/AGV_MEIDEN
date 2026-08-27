@@ -1,0 +1,39 @@
+# Artefacts de build
+build/
+.pio/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# En-tête généré depuis profiles/*.yaml — reconstruit à chaque build.
+# Motif non ancré : il y a un dossier par architecture sous CarteComm/.
+**/config/generated_profile.h
+
+# Secrets : la clé AES ne doit JAMAIS être versionnée (voir tools/provision_key.py).
+*.key
+nvs_*.csv
+nvs_*.bin
+
+# Réglages locaux de l'outillage (propres au poste, pas au projet)
+.claude/settings.local.json
+
+# Fichiers temporaires KiCad
+*.lck
+_autosave-*
+
+# Sauvegardes automatiques et verrous KiCad : régénérés en permanence, ils
+# ajoutent des mégaoctets de binaire à chaque ouverture du projet.
+*-backups/
+*.kicad_prl
+~*.lck
+*.kicad_pcb-bak
+*.kicad_sch-bak
+_autosave-*
+
+# Caches Python des scripts d'essai
+__pycache__/
+*.pyc
+
+# Exports produits par outils/exporter_architecture.sh
+A?_*_20*.zip
