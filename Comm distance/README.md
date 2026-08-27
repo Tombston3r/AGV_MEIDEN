@@ -93,5 +93,5 @@ l'interface `ITransport`.
 ⚠️ Ce cœur est donc **dupliqué quatre fois**, pour que chaque architecture reste
 livrable seule. **Toute correction du cœur doit être reportée dans les quatre
 dossiers** ; un correctif appliqué à un seul crée une divergence silencieuse.
-[`docs/ORGANISATION.md`](docs/ORGANISATION.md) explique ce compromis et où poser
+[`../docs/ORGANISATION.md`](../docs/ORGANISATION.md) explique ce compromis et où poser
 une nouveauté.

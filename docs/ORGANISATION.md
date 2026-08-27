@@ -1,25 +1,51 @@
 # Organisation du dépôt — pourquoi, et où poser une nouveauté
 
-## La règle
+**Ce document vaut pour tout le dépôt**, les deux chantiers compris :
+`Comm distance/` et `Timer/`.
 
-**Tout ce qui sert à une chose vit avec elle.**
+## La règle, en une phrase
 
-Un banc porte sa documentation, son code, ses tests et sa procédure de
-déploiement dans le même dossier. Une architecture aussi. On ne cherche jamais
-la doc d'un composant ailleurs que dans son dossier.
+**Tout ce qui sert à une chose vit avec elle** — et *tout* comprend la
+documentation.
+
+## La paire obligatoire
+
+Tout dossier livrable — chantier, architecture, banc — porte **deux**
+documents. Pas un.
+
+| Fichier | Ce qu'il répond |
+|---|---|
+| `README.md` | à quoi ça sert, comment le lancer, **ce qu'on doit obtenir** |
+| `DEPLOY.md` | mise en service pas à pas, **relevés éliminatoires**, recette, diagnostic de panne |
+
+La séparation n'est pas cosmétique : le `README` s'adresse à qui découvre, le
+`DEPLOY` à qui a les mains dans la machine et veut savoir **ce qu'il doit voir**
+à chaque étape. Écrire l'un en croyant couvrir l'autre laisse toujours la
+recette de côté — celle qui dit qu'un appui EnOcean produisant trois fenêtres
+est un défaut, ou qu'un RSSI sous −115 dBm condamne une implantation.
+
+⚠️ **Un `DEPLOY.md` reste dû même quand rien n'est déployable.** Il décrit alors
+le chemin ordonné vers la mise en service et **ce qui l'interdit aujourd'hui** —
+voir [`../Timer/DEPLOY.md`](../Timer/DEPLOY.md), dont la phase 0 est faite de
+verrous non logiciels.
+
+S'y ajoute `docs/ETAT_PROJET.md` — état, kanban, journal — **tenu à jour à
+chaque modification**.
 
 ## Où poser une nouveauté
 
 | Ce que vous ajoutez | Où | Ce qu'il faut fournir avec |
 |---|---|---|
-| Une **solution complète** de bout en bout | `architectures/A<n>_<Nom>/` | `README.md`, `DEPLOY.md`, `BOM.md`, `docs/ETAT_PROJET.md`, tests |
-| Un **banc** qui valide un composant ou une liaison | `bancs/<techno>/` | `README.md`, `DEPLOY.md`, tests exécutables **sans matériel** |
-| Un **projet KiCad** | `materiel/<NOM_REV>/` | une entrée dans `materiel/README.md` |
-| Un **script partagé** | `outils/` | une entrée dans `outils/README.md` |
-| Un **document transverse** | `docs/` | un lien depuis le `README.md` racine |
+| Un **chantier** entier | `<Nom>/` à la racine | `README.md`, `DEPLOY.md`, `docs/ETAT_PROJET.md`, une ligne dans le `README.md` racine |
+| Une **solution complète** de bout en bout | `Comm distance/architectures/A<n>_<Nom>/` | `README.md`, `DEPLOY.md`, `BOM.md`, `docs/ETAT_PROJET.md`, tests |
+| Un **banc** qui valide un composant, une liaison ou un contrat | `<chantier>/bancs/<nom>/` ou `<chantier>/banc_<nom>/` | `README.md`, `DEPLOY.md`, tests exécutables **sans matériel** |
+| Un **projet KiCad** | `Comm distance/materiel/<NOM_REV>/` | une entrée dans `materiel/README.md` |
+| Un **script partagé** | `Comm distance/outils/` | une entrée dans `outils/README.md` |
+| Un **document transverse** | `docs/` (racine) | un lien depuis le `README.md` racine |
 
-Si l'on hésite entre `architectures/` et `bancs/` : un banc **prouve quelque
-chose sur du matériel**, une architecture **fait rouler l'AGV**.
+Si l'on hésite entre une architecture et un banc : un banc **prouve quelque
+chose** — sur du matériel, ou sur un contrat — une architecture **fait rouler
+l'AGV**.
 
 ## Trois choix expliqués
 
@@ -64,6 +90,7 @@ complet à lui seul. `outils/exporter_architecture.sh` reconstitue un ensemble
 autonome :
 
 ```bash
+cd "Comm distance"
 ./outils/exporter_architecture.sh A3_LoRa
 # -> A3_LoRa_2026-08-26.zip : l'architecture, sa carte, le brief, le comparatif
 ```

@@ -37,4 +37,4 @@ livrables seuls. **Toute correction du cœur doit être reportée quatre fois.**
 A2 et A3 sont les plus proches — même carte, même firmware AGV, même transport
 — et ne diffèrent que par la couche d'appel.
 
-Voir [`../docs/ORGANISATION.md`](../docs/ORGANISATION.md).
+Voir [`../../docs/ORGANISATION.md`](../../docs/ORGANISATION.md).
