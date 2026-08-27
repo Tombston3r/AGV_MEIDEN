@@ -4,4 +4,4 @@ Le banc ne dépend d'aucun dossier d'architecture : il sert à valider les
 boutons AVANT que le choix d'architecture ne soit tranché.
 """
 
-__version__ = "1.1.0"
+__version__ = "1.2.0"

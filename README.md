@@ -14,6 +14,10 @@ règle de rangement commune est dans
 [`docs/ORGANISATION.md`](docs/ORGANISATION.md) : *tout ce qui sert à une chose
 vit avec elle, documentation comprise.*
 
+Toutes les interfaces web du dépôt suivent le **même thème** — fond blanc,
+bleu outremer, logo AIO : [`docs/theme/`](docs/theme/), propagé par
+`outils/theme.sh`.
+
 Les deux partagent la même carte et le même cœur métier : le Timer produira
 ses missions vers le séquenceur déjà écrit dans
 [`Comm distance/architectures/A4_Wifi/`](Comm%20distance/architectures/A4_Wifi/).

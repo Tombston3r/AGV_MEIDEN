@@ -1,159 +1,70 @@
-/* Banc EnOcean — pensé pour un écran d'atelier : contrastes francs, gros
-   caractères, lisible à un mètre. Aucune police externe : la UniPi n'a pas
-   forcément accès à Internet. */
-:root {
-  --fond: #0f1419;
-  --carte: #1a2129;
-  --bord: #2b3540;
-  --texte: #e6edf3;
-  --discret: #8b98a5;
-  --vert: #2ea043;
-  --vert-clair: #3fb950;
-  --ambre: #d29922;
-  --rouge: #f85149;
-  --bleu: #316dca;
-  --rayon: 10px;
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-/* L'attribut `hidden` du HTML n'est qu'un `display: none` de la feuille par
-   défaut du navigateur : LA MOINDRE règle d'auteur déclarant `display` le bat.
-   `.voile` déclare `display: flex`, ce qui rendait la fenêtre d'ajout visible
-   en permanence. Cette règle rétablit l'attribut pour tout le document. */
-[hidden] { display: none !important; }
-
-body {
-  background: var(--fond);
-  color: var(--texte);
-  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  min-height: 100vh;
-}
-
-header {
-  border-bottom: 1px solid var(--bord);
-  padding: 1rem 1.5rem;
-  display: flex; align-items: center; justify-content: space-between;
-  flex-wrap: wrap; gap: .75rem;
-}
-h1 { font-size: 1.4rem; font-weight: 650; letter-spacing: -.01em; }
+/* Banc EnOcean — ce qui est PROPRE à cette page.
+ *
+ * La palette, l'en-tête, les boutons, les fenêtres et les notifications
+ * viennent de `theme.css` (source : docs/theme/theme.css). Ne rien redéfinir
+ * ici de ce qu'il apporte déjà : c'est ainsi que les interfaces du dépôt
+ * restent identiques.
+ *
+ * Pensé pour un écran d'atelier : contrastes francs, gros caractères, lisible
+ * à un mètre. Aucune police externe — la UniPi n'a pas forcément Internet.
+ */
 
 .etat { color: var(--discret); font-size: .9rem; display: flex; align-items: center; gap: .5rem; }
 .sep { opacity: .4; }
-.pastille {
-  width: 9px; height: 9px; border-radius: 50%;
-  background: var(--rouge); flex: 0 0 auto;
-}
-.pastille.ok { background: var(--vert-clair); box-shadow: 0 0 0 3px rgba(63,185,80,.18); }
-
-main { max-width: 900px; margin: 0 auto; padding: 1.5rem; }
 
 .barre { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
-h2 { font-size: 1.05rem; font-weight: 600; display: flex; align-items: center; gap: .6rem; }
 .compte {
-  background: var(--carte); border: 1px solid var(--bord);
-  border-radius: 999px; padding: .1rem .55rem; font-size: .82rem; color: var(--discret);
+  background: var(--outremer-pale); border: 1px solid var(--bord); border-radius: 999px;
+  padding: .1rem .55rem; font-size: .82rem; color: var(--outremer); font-weight: 700;
 }
 
-button {
-  font: inherit; cursor: pointer; border-radius: var(--rayon);
-  padding: .55rem 1rem; border: 1px solid transparent; transition: filter .15s;
+.vide {
+  color: var(--discret); padding: 2.5rem 1rem; text-align: center;
+  border: 1px dashed var(--bord); border-radius: var(--rayon);
 }
-button:hover:not(:disabled) { filter: brightness(1.12); }
-button:disabled { opacity: .45; cursor: not-allowed; }
-.primaire { background: var(--vert); color: #fff; font-weight: 600; }
-.secondaire { background: transparent; color: var(--texte); border-color: var(--bord); }
-.danger { background: transparent; color: var(--rouge); border-color: transparent; padding: .35rem .6rem; }
 
-.vide { color: var(--discret); padding: 2.5rem 1rem; text-align: center; border: 1px dashed var(--bord); border-radius: var(--rayon); }
-
+/* --- Liste des boutons enregistrés -------------------------------------- */
 .liste { list-style: none; display: grid; gap: .6rem; }
 .liste li {
-  background: var(--carte); border: 1px solid var(--bord); border-radius: var(--rayon);
+  background: #fff; border: 1px solid var(--bord); border-radius: var(--rayon);
   padding: .85rem 1rem; display: flex; align-items: center; gap: 1rem;
   transition: border-color .3s, background .3s;
 }
-.liste li.actif { border-color: var(--vert-clair); background: #14251a; }
+/* Un appui doit se voir depuis l'autre bout de l'atelier. */
+.liste li.actif { border-color: var(--ok); background: #EAF6EC; }
 .liste .nom { font-weight: 600; flex: 1 1 auto; }
-.liste .code {
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  color: var(--discret); font-size: .9rem; letter-spacing: .04em;
-}
+.liste .code { font-family: var(--mono); color: var(--discret); font-size: .9rem; letter-spacing: .04em; }
 .liste .vu { color: var(--discret); font-size: .82rem; min-width: 8ch; text-align: right; }
+.liste .danger { border-color: transparent; padding: .35rem .6rem; }
 
 /* --- Fenêtre d'ajout ---------------------------------------------------- */
-.voile {
-  position: fixed; inset: 0; background: rgba(0,0,0,.65);
-  /* `display` est posé EN LIGNE par app.js — voir afficherModale(). Le laisser
-     ici en `flex` inconditionnel écrasait l'attribut `hidden`. */
-  display: none; align-items: center; justify-content: center; padding: 1rem; z-index: 50;
+.onglets-ajout { display: flex; gap: .4rem; margin-bottom: 1.1rem; }
+.onglets-ajout .onglet {
+  flex: 1; border-radius: 8px; border-bottom: 1px solid var(--bord);
+  margin-bottom: 0; text-align: center; cursor: pointer; font-family: inherit;
 }
-.modale {
-  background: var(--carte); border: 1px solid var(--bord); border-radius: 14px;
-  padding: 1.5rem; width: 100%; max-width: 460px;
-}
-.modale h3 { font-size: 1.15rem; margin-bottom: 1rem; }
-.onglets { display: flex; gap: .4rem; margin-bottom: 1.1rem; }
-.onglet {
-  flex: 1; background: transparent; border: 1px solid var(--bord);
-  color: var(--discret); font-size: .9rem; padding: .5rem;
-}
-.onglet.actif { background: var(--bleu); color: #fff; border-color: var(--bleu); }
-
 .panneau { margin-bottom: 1rem; }
-label { display: block; font-size: .85rem; color: var(--discret); margin: .8rem 0 .3rem; }
-input {
-  width: 100%; font: inherit; padding: .6rem .75rem; border-radius: 8px;
-  background: var(--fond); border: 1px solid var(--bord); color: var(--texte);
-}
-input:focus { outline: 2px solid var(--bleu); outline-offset: -1px; }
 
 .attente { text-align: center; padding: 1.25rem 0; }
 .onde {
   width: 46px; height: 46px; margin: 0 auto .9rem; border-radius: 50%;
-  border: 3px solid var(--bleu); animation: pulse 1.4s ease-out infinite;
+  border: 3px solid var(--outremer); animation: onde-pulse 1.4s ease-out infinite;
 }
-@keyframes pulse {
+@keyframes onde-pulse {
   0%   { transform: scale(.7); opacity: 1; }
   100% { transform: scale(1.25); opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .onde { animation: none; opacity: .7; } }
 
-.capture { text-align: center; padding: 1.1rem; background: #14251a; border: 1px solid var(--vert); border-radius: var(--rayon); }
-.capture.maj { animation: flash .5s ease-out; }
-@keyframes flash { from { background: rgba(63,185,80,.35); } }
+.capture {
+  text-align: center; padding: 1.1rem; background: #EAF6EC;
+  border: 1px solid var(--ok); border-radius: var(--rayon);
+}
+.capture .code { font-size: 1.6rem; font-weight: 700; color: var(--ok); letter-spacing: .06em; }
+/* Un remplacement silencieux ferait nommer le mauvais bouton : on le montre. */
+.capture.maj { animation: capture-flash .5s ease-out; }
+@keyframes capture-flash { from { background: rgba(30,126,52,.28); } }
 @media (prefers-reduced-motion: reduce) { .capture.maj { animation: none; } }
 
-.capture .code {
-  font-family: ui-monospace, Menlo, Consolas, monospace;
-  font-size: 1.6rem; font-weight: 600; color: var(--vert-clair); letter-spacing: .06em;
-}
 .dernier { margin-top: .9rem; font-size: .86rem; color: var(--discret); text-align: center; }
 .dernier button { font-size: .84rem; padding: .3rem .6rem; margin-left: .4rem; }
-
-.discret { color: var(--discret); font-size: .85rem; }
-.erreur { color: var(--rouge); font-size: .88rem; margin-top: .7rem; }
-.actions { display: flex; justify-content: flex-end; gap: .6rem; margin-top: 1.2rem; }
-
-/* --- Fenêtres d'appui --------------------------------------------------- */
-.fenetres {
-  position: fixed; top: 1rem; right: 1rem; z-index: 100;
-  display: flex; flex-direction: column; gap: .6rem; max-width: 340px;
-}
-.fenetre {
-  background: var(--vert); color: #fff; border-radius: var(--rayon);
-  padding: .9rem 1.1rem; box-shadow: 0 8px 26px rgba(0,0,0,.45);
-  animation: entree .22s ease-out;
-}
-.fenetre.inconnu { background: var(--ambre); color: #1a1200; }
-.fenetre .titre { font-weight: 700; font-size: 1.05rem; }
-.fenetre .ligne {
-  font-family: ui-monospace, Menlo, Consolas, monospace;
-  font-size: .9rem; opacity: .92; margin-top: .2rem;
-}
-.fenetre.sortie { animation: sortie .25s ease-in forwards; }
-@keyframes entree { from { transform: translateX(18px); opacity: 0; } }
-@keyframes sortie { to { transform: translateX(18px); opacity: 0; } }
-@media (prefers-reduced-motion: reduce) {
-  .fenetre, .fenetre.sortie { animation: none; }
-}

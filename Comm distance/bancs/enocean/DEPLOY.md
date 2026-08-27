@@ -94,6 +94,7 @@ l'emplacement du poste fixe.
 
 | Symptôme | Cause probable |
 |---|---|
+| Page sans aucun style, ou fond noir | `theme.css` non déployé — relancer `outils/theme.sh --appliquer` puis `./deployer.sh` |
 | La fenêtre d'ajout reste affichée en permanence | **version déployée périmée** — relancer `./deployer.sh` et comparer la version du bandeau à celle du dépôt |
 | Fenêtre ambre alors que la boîte d'ajout est ouverte | l'écoute n'est plus armée : le navigateur ne joint plus le banc, vérifier la pastille |
 | `Permission denied` sur le port | l'utilisateur `banc` n'est pas dans `dialout` |

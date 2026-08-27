@@ -1,0 +1,181 @@
+/* Thème AIO — feuille commune à TOUTES les interfaces du dépôt.
+ *
+ * Fond blanc, texte noir, bleu outremer pour l'action. Une seule palette, un
+ * seul jeu de composants : une IHM d'architecture, un banc et le planning
+ * doivent se ressembler, sinon l'exploitant croit changer d'outil.
+ *
+ * ⚠ SOURCE UNIQUE : ce fichier vit dans `docs/theme/`. Chaque interface en
+ * porte une COPIE dans son `web/`, parce que les dossiers sont livrables seuls
+ * (voir docs/ORGANISATION.md). Ne jamais modifier une copie :
+ *
+ *     outils/theme.sh --verifier    signale les copies qui ont dérivé
+ *     outils/theme.sh --appliquer   repropage l'original
+ *
+ * Ce qui est propre à une page vit dans le `style.css` voisin, ou dans un
+ * <style> de la page. Ici, uniquement ce qui est COMMUN.
+ */
+
+:root {
+  --outremer: #1F2DB3;
+  --outremer-fonce: #16208A;
+  --outremer-pale: #ECEEFF;
+  --texte: #111111;
+  --discret: #5A5F6E;
+  --bord: #D9DCE6;
+  --fond-doux: #FAFBFF;
+  --ok: #1E7E34;
+  --alerte: #B3261E;
+  --attention: #C77700;
+  --rayon: 10px;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* L'attribut `hidden` n'est qu'un `display:none` de la feuille par défaut : la
+   moindre règle d'auteur déclarant `display` le bat. Cette règle le rétablit
+   pour tout le document — leçon du banc EnOcean, où une fenêtre modale restait
+   ouverte en permanence. */
+[hidden] { display: none !important; }
+
+body {
+  background: #fff;
+  color: var(--texte);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+}
+
+/* --- En-tête ------------------------------------------------------------ */
+header {
+  display: flex; align-items: flex-end; gap: 1rem; flex-wrap: wrap;
+  padding: .9rem 1rem; border-bottom: 2px solid var(--outremer); margin-bottom: 1rem;
+}
+.logo { font-size: 1.6rem; font-weight: 800; color: var(--outremer); letter-spacing: .04em; }
+.titre { font-size: 1.05rem; font-weight: 600; flex: 1 1 auto; }
+.horloge { font-family: var(--mono); font-size: 1.25rem; }
+
+/* Onglets de navigation entre pages servies par la même carte. */
+.onglets { display: flex; gap: .25rem; margin-left: auto; }
+.onglet {
+  text-decoration: none; font-weight: 600; font-size: .9rem; font-family: var(--mono);
+  color: var(--outremer); padding: .4rem .95rem; border-radius: 8px 8px 0 0;
+  border: 1px solid var(--bord); border-bottom: none; background: #fff; margin-bottom: -1px;
+}
+.onglet:hover { background: var(--outremer-pale); }
+.onglet.actif { background: var(--outremer); color: #fff; border-color: var(--outremer); }
+
+main { max-width: 1100px; margin: 0 auto; padding: 0 1rem 2rem; display: grid; gap: 1rem; }
+
+/* --- Blocs -------------------------------------------------------------- */
+section, .carte {
+  border: 1px solid var(--bord); border-radius: 12px; padding: 1rem; background: #fff;
+}
+h1 { font-size: 1.3rem; font-weight: 700; }
+h2 {
+  font-size: .92rem; color: var(--discret); text-transform: uppercase;
+  letter-spacing: .06em; margin-bottom: .7rem;
+}
+h3 { font-size: 1.1rem; color: var(--outremer); margin-bottom: .8rem; }
+
+/* --- Commandes ---------------------------------------------------------- */
+button {
+  font: inherit; cursor: pointer; border-radius: 8px; padding: .45rem .9rem;
+  border: 1px solid var(--outremer); background: #fff; color: var(--outremer);
+  font-weight: 600; transition: background .12s;
+}
+button:hover:not(:disabled) { background: var(--outremer-pale); }
+button:disabled { opacity: .45; cursor: not-allowed; }
+button.primaire, .primaire { background: var(--outremer); color: #fff; border-color: var(--outremer); }
+button.primaire:hover:not(:disabled) { background: var(--outremer-fonce); }
+button.secondaire, .secondaire { background: #fff; color: var(--texte); border-color: var(--bord); }
+button.danger, .danger { background: #fff; color: var(--alerte); border-color: var(--alerte); }
+button.danger:hover, .danger:hover { background: #FBEAE9; }
+
+input, select, textarea {
+  font: inherit; background: #fff; color: var(--texte);
+  border: 1px solid var(--bord); border-radius: 8px; padding: .4rem .6rem;
+}
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--outremer); outline-offset: -1px; }
+textarea { width: 100%; font-family: var(--mono); font-size: .85rem; }
+label { display: block; font-size: .85rem; color: var(--discret); margin: .8rem 0 .3rem; }
+
+/* --- Utilitaires -------------------------------------------------------- */
+.ligne { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+.discret { color: var(--discret); font-size: .85rem; }
+.mono, .code { font-family: var(--mono); }
+.erreur { color: var(--alerte); font-size: .88rem; }
+
+.badge {
+  border-radius: 999px; padding: .1rem .65rem; font-size: .8rem;
+  background: var(--outremer-pale); color: var(--outremer); font-weight: 600;
+}
+.badge.alerte { background: var(--alerte); color: #fff; }
+.badge.attention { background: var(--attention); color: #1a1200; }
+.badge.ok { background: var(--ok); color: #fff; }
+
+.pastille { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--alerte); }
+.pastille.ok { background: var(--ok); box-shadow: 0 0 0 3px rgba(30,126,52,.18); }
+
+table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+th, td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid var(--bord); }
+th { color: var(--discret); font-weight: 600; }
+
+/* --- Bandeau d'état ----------------------------------------------------- */
+.bandeau {
+  border-radius: 12px; padding: .9rem 1rem; font-weight: 600; color: #fff;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+}
+.bandeau.rouge { background: var(--alerte); }
+.bandeau.vert { background: var(--ok); }
+.bandeau input { border: none; }
+.bandeau button { border-color: #fff; background: transparent; color: #fff; }
+.bandeau button:hover { background: rgba(255,255,255,.15); }
+
+/* --- Fenêtre modale ----------------------------------------------------- */
+.voile {
+  position: fixed; inset: 0; background: rgba(17,17,17,.45); z-index: 50;
+  /* `display` est posé EN LIGNE par le script : une règle `flex` ici écraserait
+     l'attribut `hidden` et laisserait la fenêtre ouverte en permanence. */
+  display: none; align-items: center; justify-content: center; padding: 1rem;
+}
+.modale {
+  background: #fff; border-radius: 12px; padding: 1.3rem; width: 100%; max-width: 460px;
+  box-shadow: 0 12px 40px rgba(0,0,0,.25);
+}
+.modale ul { list-style: none; }
+.modale li {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .4rem .2rem; border-bottom: 1px solid var(--bord);
+}
+.actions { display: flex; justify-content: flex-end; gap: .6rem; margin-top: 1.2rem; }
+
+/* --- Notifications ------------------------------------------------------ */
+.fenetres {
+  /* Sous la barre d'en-tête : à 1rem, les notifications la recouvraient et
+     masquaient l'état de la liaison — vu au rendu du banc EnOcean. */
+  position: fixed; top: 4.6rem; right: 1rem; z-index: 100;
+  display: flex; flex-direction: column; gap: .6rem; max-width: 360px;
+}
+.fenetre {
+  background: var(--ok); color: #fff; border-radius: var(--rayon);
+  padding: .9rem 1.1rem; box-shadow: 0 8px 26px rgba(0,0,0,.25);
+  animation: aio-entree .22s ease-out;
+}
+.fenetre.inconnu { background: var(--attention); color: #1a1200; }
+.fenetre .titre { font-weight: 700; font-size: 1.05rem; }
+.fenetre .ligne { font-family: var(--mono); font-size: .9rem; opacity: .92; margin-top: .2rem; }
+.fenetre.sortie { animation: aio-sortie .25s ease-in forwards; }
+@keyframes aio-entree { from { transform: translateX(18px); opacity: 0; } }
+@keyframes aio-sortie { to { transform: translateX(18px); opacity: 0; } }
+
+#toast {
+  position: fixed; right: 1rem; bottom: 1rem; background: var(--texte); color: #fff;
+  border-radius: var(--rayon); padding: .7rem 1rem; max-width: 380px;
+  opacity: 0; transition: opacity .25s; z-index: 100;
+}
+#toast.visible { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fenetre, .fenetre.sortie { animation: none; }
+  * { transition: none !important; }
+}

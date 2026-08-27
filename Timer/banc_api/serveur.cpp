@@ -380,7 +380,15 @@ void route_statique(Banc& banc, int fd, const std::string& chemin) {
   }
   std::stringstream contenu;
   contenu << fichier.rdbuf();
-  repondre(fd, 200, contenu.str(), "text/html; charset=utf-8");
+  // Le type doit suivre l'extension : servi en text/html, un fichier .css est
+  // ignoré par le navigateur — la page s'affiche alors sans aucun style.
+  const char* type = "text/html; charset=utf-8";
+  if (nom.size() > 4 && nom.compare(nom.size() - 4, 4, ".css") == 0) {
+    type = "text/css; charset=utf-8";
+  } else if (nom.size() > 3 && nom.compare(nom.size() - 3, 3, ".js") == 0) {
+    type = "application/javascript; charset=utf-8";
+  }
+  repondre(fd, 200, contenu.str(), type);
 }
 
 void traiter(Banc& banc, int fd, const Requete& req) {

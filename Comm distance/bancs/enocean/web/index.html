@@ -4,12 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Banc EnOcean — AGV MEIDEN</title>
+<link rel="stylesheet" href="/theme.css">
 <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
 <header>
-  <h1>Banc EnOcean</h1>
+  <span class="logo">AIO</span>
+  <span class="titre">Banc d'essai EnOcean</span>
   <div class="etat">
     <span id="pastille" class="pastille" title="flux d'événements"></span>
     <span id="etat-texte">connexion…</span>
@@ -41,7 +43,7 @@
   <div class="modale" role="dialog" aria-modal="true" aria-labelledby="titre-modale">
     <h3 id="titre-modale">Ajouter un bouton</h3>
 
-    <div class="onglets" role="tablist">
+    <div class="onglets-ajout" role="tablist">
       <button class="onglet actif" data-onglet="detecter" role="tab">Détecter à l'appui</button>
       <button class="onglet" data-onglet="saisir" role="tab">Saisir l'identifiant</button>
     </div>

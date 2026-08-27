@@ -42,10 +42,21 @@ chaque modification**.
 | Un **projet KiCad** | `Comm distance/materiel/<NOM_REV>/` | une entrée dans `materiel/README.md` |
 | Un **script partagé** | `Comm distance/outils/` | une entrée dans `outils/README.md` |
 | Un **document transverse** | `docs/` (racine) | un lien depuis le `README.md` racine |
+| Une **interface web** | `<dossier>/web/` | une copie de `docs/theme/theme.css` — posée par `outils/theme.sh --appliquer` |
 
 Si l'on hésite entre une architecture et un banc : un banc **prouve quelque
 chose** — sur du matériel, ou sur un contrat — une architecture **fait rouler
 l'AGV**.
+
+### Le thème est commun à toutes les interfaces
+
+Fond blanc, texte noir, bleu outremer, logo AIO : une IHM d'architecture, un
+banc et le planning doivent se ressembler. La feuille vit une seule fois dans
+[`theme/theme.css`](theme/theme.css) et chaque interface en porte une copie —
+même raison que pour le reste, les dossiers sont livrables seuls.
+
+`outils/theme.sh` signale les copies qui ont dérivé et repropage l'original.
+**Ne jamais modifier une copie.**
 
 ## Trois choix expliqués
 

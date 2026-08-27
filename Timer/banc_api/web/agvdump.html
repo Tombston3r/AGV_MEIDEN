@@ -4,56 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AIO — agvdump</title>
+<link rel="stylesheet" href="/theme.css">
 <style>
+/* Propre à cette page. La palette, l'en-tête, les boutons, les fenêtres
+   et les tableaux viennent de theme.css (source : docs/theme/theme.css). */
 /* Thème : fond blanc, texte noir, bleu outremer pour l'action. */
-:root {
-  --outremer: #1F2DB3;
-  --outremer-fonce: #16208A;
-  --outremer-pale: #ECEEFF;
-  --texte: #111111;
-  --discret: #5A5F6E;
-  --bord: #D9DCE6;
-  --ok: #1E7E34;
-  --alerte: #B3261E;
-  --attention: #C77700;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-/* L'attribut hidden doit gagner contre toute règle display — leçon du banc
-   EnOcean : la moindre règle d'auteur le bat sinon. */
-[hidden] { display: none !important; }
-body { background: #fff; color: var(--texte);
-  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-main { max-width: 1100px; margin: 0 auto; padding: 0 1rem 2rem; display: grid; gap: 1rem; }
 
-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1rem;
-  border-bottom: 2px solid var(--outremer); margin-bottom: 1rem; flex-wrap: wrap; }
-.logo { font-size: 1.6rem; font-weight: 800; color: var(--outremer); letter-spacing: .04em; }
-.titre { font-size: 1.05rem; font-weight: 600; flex: 1 1 auto; }
-.horloge { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 1.25rem; }
-.badge { border-radius: 999px; padding: .1rem .65rem; font-size: .8rem;
-  background: var(--outremer-pale); color: var(--outremer); font-weight: 600; }
-.badge.alerte { background: var(--alerte); color: #fff; }
 
-section { border: 1px solid var(--bord); border-radius: 12px; padding: 1rem; }
-h2 { font-size: .92rem; color: var(--discret); text-transform: uppercase;
-  letter-spacing: .06em; margin-bottom: .7rem; }
-button { font: inherit; cursor: pointer; border-radius: 8px; padding: .45rem .9rem;
-  border: 1px solid var(--outremer); background: #fff; color: var(--outremer); font-weight: 600; }
-button:hover { background: var(--outremer-pale); }
-button.primaire { background: var(--outremer); color: #fff; }
-button.primaire:hover { background: var(--outremer-fonce); }
-input { font: inherit; border: 1px solid var(--bord); border-radius: 8px; padding: .4rem .6rem; }
-.ligne { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
-.discret { color: var(--discret); font-size: .85rem; }
 
-.bandeau { border-radius: 12px; padding: .9rem 1rem; font-weight: 600; color: #fff;
-  display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-.bandeau.rouge { background: var(--alerte); }
-.bandeau.vert { background: var(--ok); }
-.bandeau input { border: none; }
-.bandeau button { border-color: #fff; background: transparent; color: #fff; }
-.bandeau button:hover { background: rgba(255,255,255,.15); }
-
+.bandeau .bandeau .bandeau 
 /* --- La frise --------------------------------------------------------- */
 .frise-cadre { position: relative; margin-top: .5rem; }
 .frise { position: relative; border: 1px solid var(--bord); border-radius: 10px;
@@ -103,46 +62,20 @@ input { font: inherit; border: 1px solid var(--bord); border-radius: 8px; paddin
   padding: .35rem .9rem; cursor: pointer; font-weight: 700; background: #fff; }
 .poste.choisi { background: var(--outremer); color: #fff; }
 #drapeau-a-prendre { font-size: 1rem; }
-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
-th, td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid var(--bord); }
-th { color: var(--discret); font-weight: 600; }
 .etat-fait { color: var(--ok); font-weight: 700; }
 .etat-saute { color: var(--attention); font-weight: 600; }
-#toast { position: fixed; right: 1rem; bottom: 1rem; background: var(--texte); color: #fff;
-  border-radius: 10px; padding: .7rem 1rem; max-width: 380px; opacity: 0; transition: opacity .25s; }
-#toast.visible { opacity: 1; }
 .sim { background: #FAFAFC; }
 /* Barre d'onglets : deux pages servies par le même ESP32 sur la cible. */
-.onglets { display: flex; gap: .25rem; margin-left: auto; }
-.onglet { text-decoration: none; font-weight: 600; font-size: .9rem;
-  color: var(--outremer); padding: .4rem .95rem; border-radius: 8px 8px 0 0;
-  border: 1px solid var(--bord); border-bottom: none; background: #fff;
-  font-family: ui-monospace, Menlo, Consolas, monospace; margin-bottom: -1px; }
-.onglet:hover { background: var(--outremer-pale); }
-.onglet.actif { background: var(--outremer); color: #fff; border-color: var(--outremer); }
-header { align-items: flex-end; }
 
 
-.voile { position: fixed; inset: 0; background: rgba(17,17,17,.45);
-  display: none; align-items: center; justify-content: center; padding: 1rem; z-index: 50; }
-.modale { background: #fff; border-radius: 12px; padding: 1.3rem; width: 100%;
-  max-width: 420px; box-shadow: 0 12px 40px rgba(0,0,0,.25); }
-.modale h3 { color: var(--outremer); margin-bottom: .8rem; }
-.modale ul { list-style: none; margin-bottom: .9rem; }
-.modale li { display: flex; align-items: center; justify-content: space-between;
-  padding: .4rem .2rem; border-bottom: 1px solid var(--bord); }
-.modale .danger { border-color: var(--alerte); color: var(--alerte); }
-.modale .danger:hover { background: #FBEAE9; }
 </style>
 <style>
-main { max-width: 1100px; margin: 0 auto; padding: 0 1rem 2rem; display: grid; gap: 1rem; }
 .dump { background: #FAFBFF; border: 1px solid var(--bord); border-radius: 10px;
   padding: 1rem 1.2rem; font-family: ui-monospace, Menlo, Consolas, monospace;
   font-size: .88rem; overflow-x: auto; }
 /* `table { width:100% }` du thème écarterait les deux colonnes de toute la
    largeur : ici la clé et la valeur doivent rester lisibles ensemble. */
-.dump table { border-collapse: collapse; width: auto; }
-.dump td.cle { min-width: 15rem; }
+.dump .dump td.cle { min-width: 15rem; }
 .dump td { padding: .12rem .5rem .12rem 0; border: none; white-space: nowrap; }
 .dump td.cle { color: var(--discret); }
 .dump td.val { font-weight: 700; }
