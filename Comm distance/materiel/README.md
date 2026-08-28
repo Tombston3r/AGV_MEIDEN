@@ -8,7 +8,7 @@ savoir laquelle portait le travail réel. Un firmware dupliqué se compare par
 
 | Projet | Sert à | Empreintes | État |
 |---|---|---:|---|
-| [`AIO_AGV_Control_V5.0.1/`](AIO_AGV_Control_V5.0.1/) | **A4** : Wi-Fi | 57 | carte d'origine, **en service sur le chariot** |
+| [`AIO_AGV_Control_V5.0.1/`](AIO_AGV_Control_V5.0.1/) | **A3** : Wi-Fi | 57 | carte d'origine, **en service sur le chariot** |
 | [`AIO_AGV_Control_V6.0/`](AIO_AGV_Control_V6.0/) | **A2** et **A3** : LoRa | 59 | Gerbers exportés |
 
 ## Ce qui distingue la V6.0
@@ -50,4 +50,4 @@ contrairement à `IO0`, `IO2`, `IO12` ou `IO15`.
   protection. Le client a vérifié que les niveaux le permettent.
 
 Le relevé complet du câblage SUB-D vit dans
-[`../architectures/A4_Wifi/docs/subd25_atmega.md`](../architectures/A4_Wifi/docs/subd25_atmega.md).
+[`../architectures/A3_Wifi/docs/subd25_atmega.md`](../architectures/A3_Wifi/docs/subd25_atmega.md).

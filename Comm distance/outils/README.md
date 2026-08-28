@@ -25,7 +25,7 @@ que les composants déterminants.
 ## Exporter une architecture
 
 ```bash
-./outils/exporter_architecture.sh A3_LoRa
+./outils/exporter_architecture.sh A2_LoRa
 ```
 
 Produit un zip contenant l'architecture, **sa carte**, le brief et le

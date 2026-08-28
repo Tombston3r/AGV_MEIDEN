@@ -24,7 +24,7 @@ champs. `agvdump.html` ne fait que le **présenter** : elle va chercher ce
 même texte et le met en page. Le brut reste accessible, et téléchargeable.
 
 Le rendu est une **copie octet pour octet** de celui de
-`Comm distance/architectures/A4_Wifi/`, et `test/test_agvdump.cpp` **compare
+`Comm distance/architectures/A3_Wifi/`, et `test/test_agvdump.cpp` **compare
 la copie à son original** à chaque `make test`. Sans ce contrôle, une copie est
 une divergence en sursis.
 

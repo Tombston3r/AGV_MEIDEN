@@ -130,7 +130,7 @@ curl -s localhost:8081/api/missions
 | Drapeau gris alors que l'AGV devait partir | saut motivé : lire la ligne ✗ des logs (grâce dépassée, pause, non validé) |
 | Liseré ambre sur un drapeau | départ trop rapproché du précédent : l'AGV sera encore en route, le séquenceur refusera |
 | Étiquettes qui se recouvrent malgré tout | plus de dix rangées nécessaires : augmenter `GEO.rangsMax` dans `web/index.html` |
-| `make test` : « DIVERGENCE » sur `agvdump.cpp` | la copie du rendu d'atelier ne correspond plus à celle de A4, **reporter la correction**, ne pas la contourner |
+| `make test` : « DIVERGENCE » sur `agvdump.cpp` | la copie du rendu d'atelier ne correspond plus à celle de A3, **reporter la correction**, ne pas la contourner |
 | Page sans aucun style | `theme.css` absent ou servi en `text/html` : lancer `outils/theme.sh` depuis la racine |
 | Aucune mission alors que l'heure est passée | bandeau rouge (non validée), badge pause, ou occurrence déjà consommée |
 | Rien ne bouge après « Aller à » une date passée | l'horloge ne va que vers le futur : redémarrer le banc |

@@ -7,7 +7,7 @@ appui.
 
 Il ne dépend d'**aucun** dossier d'architecture : c'est un outil de bench, pas
 un livrable. Il sert autant à [`A1_Cellulaire/`](../../architectures/A1_Cellulaire/) qu'à
-[`A2_Hybride/`](../../architectures/A2_Hybride/) ou [`A4_Wifi/`](../../architectures/A4_Wifi/), qui utilisent tous
+[`A2_LoRa/`](../../architectures/A2_LoRa/) ou [`A3_Wifi/`](../../architectures/A3_Wifi/), qui utilisent tous
 des `PTM 210`.
 
 ## Ce qu'il fait
@@ -111,7 +111,7 @@ persistance et tolérance à un registre corrompu.
   dongle est en réception seule : l'opérateur ne saura jamais, depuis le
   bouton, si son appui a été reçu. C'est une limite du matériel, pas du banc,
   et c'est l'argument principal en faveur des boutons LoRa de
-  [`A3_LoRa/`](../../architectures/A3_LoRa/), qui rendent un accusé visuel.
+  [`A2_LoRa/`](../../architectures/A2_LoRa/), qui rendent un accusé visuel.
 - **Aucune authentification.** Un télégramme `PTM 210` est en clair et
   rejouable dans un rayon d'une trentaine de mètres. Ce banc affiche ce qu'il
   reçoit ; il ne prétend pas que l'émetteur est légitime.

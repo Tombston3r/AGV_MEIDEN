@@ -8,7 +8,7 @@ reposent sur un matériel qui n'est pas celui relevé.
 ## Le séquenceur du §5 existe déjà : ne pas le réécrire
 
 Le chaînon « mission → bus X/Y » décrit au §5 est **écrit et testé** dans
-`Comm distance/architectures/A4_Wifi/` (copies A2/A3) :
+`Comm distance/architectures/A3_Wifi/` (copies A2/A3) :
 
 | Exigence §5 | Réalisation existante |
 |---|---|
@@ -29,14 +29,14 @@ la même liaison série que la passerelle radio (`Cmd::Goto`), rien d'autre.
   (`IO21`/`IO22`, libres) ne porte **aucun** périphérique aujourd'hui : le
   DS3231 (`0x68`) y serait seul.
 - **`t_setup`** : des valeurs de profil existent et sont testées en natif ; la
-  **mesure physique** reste ouverte (kanban A4). La répartition ESP32/ATmega
+  **mesure physique** reste ouverte (kanban A3). La répartition ESP32/ATmega
   du §5 est déjà tranchée dans les architectures : séquenceur sur ATmega.
 - **Stations** : 10 bits, `0–1023` (`kStationMax`, brief §5.1), la spec dit
   « 1–1024 », s'aligner sur le code.
 
 ## Ce qui existe déjà côté ESP32
 
-- **IHM modèle `agvdump`** : serveur web + AP de maintenance dans A4 ; le
+- **IHM modèle `agvdump`** : serveur web + AP de maintenance dans A3 ; le
   REST/WebSocket et l'ETag du §6 sont à ajouter dessus, pas à créer de zéro.
 - **Horloge murale** : `EspClock::set_wall_clock()` existe (SNTP côté poste,
   contrôles de fraîcheur §8.1). L'état de confiance à trois niveaux (§2.3) est

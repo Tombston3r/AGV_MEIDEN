@@ -8,20 +8,14 @@ Toutes suivent la **même chaîne** : boutons d'appel optionnels, **poste centra
 qui héberge l'API de planning et reçoit les appels, carte AGV Control, AGV. Voir
 [`../../docs/ARCHITECTURE_COMMUNE.md`](../../docs/ARCHITECTURE_COMMUNE.md).
 
-| | Dossier | Bouton vers poste | Poste vers AGV | Carte | Coût 10 ans | Tests |
-|---|---|---|---|---|---:|---:|
-| **A1** | [`A1_Cellulaire/`](A1_Cellulaire/) | EnOcean | LTE-M / MQTT | neuve | 1 486 € | 112 |
-| **A2** | [`A2_Hybride/`](A2_Hybride/) | EnOcean sans pile | LoRa | V6.0 | 557 € | 130 |
-| **A3** | [`A3_LoRa/`](A3_LoRa/) | **LoRa sur pile** | LoRa | V6.0 | **538 €** | 119 |
-| **A4** | [`A4_Wifi/`](A4_Wifi/) | EnOcean | Wi-Fi d'entreprise | V5.0.1 | 692 € | 109 + 17 |
+| | Dossier | Poste vers AGV | Carte AGV | Coût 10 ans | Tests |
+|---|---|---|---|---:|---:|
+| **A1** | [`A1_Cellulaire/`](A1_Cellulaire/) | LTE-M / MQTT | neuve | 1 386 € | 112 |
+| **A2** | [`A2_LoRa/`](A2_LoRa/) | LoRa 868 MHz | V6.0 | **417 €** | 119 |
+| **A3** | [`A3_Wifi/`](A3_Wifi/) | Wi-Fi d'entreprise | V5.0.1 | 592 € | 109 + 17 |
 
-⚠️ **A2 et A3 ne sont plus séparées que par 19 €** et par la technologie du
-bouton, pile contre sans-pile. Depuis que le poste central est commun, leur
-liaison vers l'AGV est identique. La question de les garder toutes les deux est
-ouverte dans [`../../docs/COMPARAISON.md`](../docs/COMPARAISON.md).
-
-Coûts **HT sur dix ans, deux points d'appel, accessoires compris** : voir
-[`../docs/COMPARAISON.md`](../docs/COMPARAISON.md) pour l'arbitrage complet.
+Coûts **HT sur dix ans, accessoires compris, boutons exclus** : ceux-ci sont
+optionnels et leur choix ne dépend pas de l'architecture.
 
 ## Ce que chaque dossier contient
 
@@ -36,7 +30,7 @@ Coûts **HT sur dix ans, deux points d'appel, accessoires compris** : voir
 | `firmware/`, `sim/`, `test/native/`, `profiles/`, `tools/` | le logiciel |
 
 ```bash
-cd A3_LoRa && make test        # tests unitaires, aucun matériel requis
+cd A2_LoRa && make test        # tests unitaires, aucun matériel requis
 ```
 
 ## Le cœur est dupliqué

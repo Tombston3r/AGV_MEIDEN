@@ -267,53 +267,22 @@ def socle_poste(nom, carte, prix_carte, note=""):
     return s
 
 poste_lora = socle_poste(
-    "**[A3]** Poste central : UniPi Lite 1.1",
+    "**[A2]** Poste central : UniPi Lite 1.1",
     "UniPi 1.1 Lite + Raspberry Pi 4", 130.00,
     "Le poste reçoit les appels **en LoRa** depuis les boutons sur pile, et\n"
     "renvoie les missions **en LoRa** vers la carte AGV. Une seule radio suffit :\n"
     "le SX1276 est half-duplex, et `LoraTransport` ordonnance déjà les deux sens.\n\n"
     "⚠️ Nouveau depuis le 2026-08-28. A3 se définissait auparavant par l'absence\n"
-    "de poste : voir [`../../docs/ARCHITECTURE_COMMUNE.md`](../../docs/ARCHITECTURE_COMMUNE.md).")
+    "de poste : voir [`../../docs/ARCHITECTURE_COMMUNE.md`](../../../docs/ARCHITECTURE_COMMUNE.md).")
 poste_lora.add("Module LoRa SX1276 868 MHz sur le SPI du Raspberry Pi", "RFM95W-868S2 (HopeRF)", 1, "Amazon", 10.00)
 poste_lora.add("Carte fille : RFM95W vers le connecteur 40 broches", "PCB 2 couches + barrettes", 1, "PCB", 8.00)
 poste_lora.add("Pigtail U.FL vers SMA + antenne LoRa 2 dBi", "Amphenol + Siretta", 1, "RS", 9.00, core=False)
-
-bouton_pile = Section("**[A3]** Bouton d\'appel sur pile : l\'unité")
-bouton_pile.add("MCU ultra-basse consommation", "STM32L071KBU6 (ST)", 1, "RS", 3.50, core=True)
-bouton_pile.add("Module LoRa 868 MHz", "RFM95W-868S2 (HopeRF)", 1, "Amazon", 10.00, core=True)
-bouton_pile.add("Antenne 868 MHz + embase SMA", "Siretta ALPHA-1A ou équiv.", 1, "RS", 6.00, core=False)
-bouton_pile.add("Bouton poussoir Ø22 IP65", "Schneider XB4BA31 ou équiv.", 1, "RS", 12.00, core=False)
-bouton_pile.add("Pile Li-SOCl₂ 3,6 V 2,6 Ah + support", "ER14505 / Saft LS14500", 1, "RS", 6.00, core=True)
-bouton_pile.add("Réservoir d'impulsion pour l'émission LoRa", "220 µF tantale + 10 µF X7R", 1, "RS", 0.60, core=True)
-bouton_pile.add("LED bicolore verte/rouge + résistances", "Kingbright L-59EGW", 1, "RS", 1.00, core=False)
-bouton_pile.add("Diode Schottky de protection pile", "BAT54 ou équiv.", 1, "RS", 0.20, core=True)
-bouton_pile.add("PCB 2 couches ~50 × 50 mm", "Gerber projet", 1, "PCB", 3.00, core=True)
-bouton_pile.add("Boîtier IP65, presse-étoupe, embase antenne", "Fibox PC 095808 ou équiv.", 1, "RS", 18.00, core=False)
-
-poste_enocean = socle_poste(
-    "**[A2]** Poste central : UniPi Lite 1.1, EnOcean vers LoRa",
-    "UniPi 1.1 Lite + Raspberry Pi 4", 130.00,
-    "Le poste reçoit les appels **en EnOcean** et renvoie les missions **en\n"
-    "LoRa** vers la carte AGV.\n\n"
-    "⚠️ Depuis le 2026-08-28, ce poste héberge l'API de planning : il passe d'un\n"
-    "ESP32 à une machine Linux. Le décodeur ESP3 et le transport LoRa du dépôt\n"
-    "existent déjà en Python et en C++, rien n'est perdu.")
-poste_enocean.add("Récepteur EnOcean 868 MHz en dongle USB", "USB 300 (EnOcean)", 1, "Spécialiste", 40.00)
-poste_enocean.add("Module LoRa SX1276 sur le SPI du Raspberry Pi", "RFM95W-868S2 (HopeRF)", 1, "Amazon", 10.00)
-poste_enocean.add("Carte fille : RFM95W vers le connecteur 40 broches", "PCB 2 couches + barrettes", 1, "PCB", 8.00)
-poste_enocean.add("Antenne EnOcean 868 MHz déportée", "EnOcean ANT300 ou équiv.", 1, "Spécialiste", 8.00, core=False)
-poste_enocean.add("Pigtail U.FL vers SMA + antenne LoRa 2 dBi", "Amphenol + Siretta", 1, "RS", 9.00, core=False)
-
-bouton_enocean = Section("**[A2]** Bouton EnOcean sans pile : l'unité")
-bouton_enocean.add("Module émetteur auto-alimenté, **sans pile**", "PTM 210 (EnOcean, EU 868)", 1, "Spécialiste", 30.00)
-bouton_enocean.add("Enveloppe / poussoir mural compatible PTM 210", "Eltako, NodOn ou Trio2Sys", 1, "Spécialiste", 12.00, core=False)
-bouton_enocean.add("Plaque de repérage station gravée", "sur mesure", 1, "Amazon", 4.00, core=False)
 
 outil_lora = Section("Outillage : non récurrent")
 outil_lora.add("Dongle RTL-SDR + antenne : occupation de la bande 868 MHz", "RTL-SDR Blog V4", 1, "Amazon", 30.00)
 outil_lora.add("Analyseur logique 8 voies : chronogrammes X/Y", "clone Saleae 24 MHz", 1, "Amazon", 15.00)
 outil_lora.add("Adaptateur USB-série 3,3 V", "FTDI FT232RL ou CP2102", 1, "Amazon", 6.00)
-outil_lora.add("Mesure de courant µA : sommeil profond **[A3]**", "multimètre à faible burden voltage", 1, "Amazon", 9.00)
+outil_lora.add("Mesure de courant µA : sommeil profond **[A2]**", "multimètre à faible burden voltage", 1, "Amazon", 9.00)
 
 # LORA_SECTIONS n'existe plus : chaque architecture LoRa compose la sienne
 # près de son write(), la carte V6.0 dépendant de `w_carte` défini plus bas.
@@ -321,7 +290,7 @@ outil_lora.add("Mesure de courant µA : sommeil profond **[A3]**", "multimètre 
 # ===========================================================================
 #  Wi-Fi : carte V5.0.1 conservée
 # ===========================================================================
-w_carte = Section("**[A4]** Carte AGV : extraite du projet KiCad",
+w_carte = Section("**[A2]** Carte AGV : extraite du projet KiCad",
                   "**Nomenclature réelle**, extraite de\n"
                   "[`../../materiel/AIO_AGV_Control_V5.0.1/`](../../materiel/AIO_AGV_Control_V5.0.1/) :\n"
                   "57 composants placés au PCB. Ce n'est plus une estimation d'étude.\n\n"
@@ -343,7 +312,7 @@ w_carte.add("Supports et barrettes pour les deux modules", "barrettes tulipe 2,5
 w_carte.add("PCB ~150 × 100 mm (série de 5)", "Gerber projet", 1, "PCB", 15.00)
 w_carte.add("Boîtier, entretoises, presse-étoupes, visserie", "Hammond 1590 ou Fibox", 1, "RS", 28.00, core=False)
 
-w_harnais = Section("**[A4]** Harnais de raccordement",
+w_harnais = Section("**[A2]** Harnais de raccordement",
                     "La carte existe, mais son câblage vers l'automate est à refaire.\nDétail : [`docs/subd25_atmega.md`](docs/subd25_atmega.md).")
 w_harnais.add("Nappe 25 conducteurs, gaine souple, ~1 m", "3M 3365/25 ou équiv.", 2, "RS", 6.00)
 w_harnais.add("Connecteur IDC SUB-D 25 **mâle** (entrées)", "Amphenol L17D25P", 1, "RS", 4.00)
@@ -352,13 +321,13 @@ w_harnais.add("Capot métallisé SUB-D 25 avec serre-câble", "Amphenol 17E-1726
 w_harnais.add("Cosses à sertir côté AGV (CN61 à CN64)", "selon bornier automate", 50, "RS", 0.15)
 w_harnais.add("Gaine tressée, colliers, repérage des fils", "lot", 1, "RS", 7.50, core=False)
 
-w_antenne = Section("**[A4]** Antenne Wi-Fi déportée",
+w_antenne = Section("**[A2]** Antenne Wi-Fi déportée",
                     "L'antenne d'origine émet depuis l'intérieur d'un châssis métallique.\n⚠️ Vérifier au démontage que le module ESP32 dispose d'un connecteur U.FL.")
 w_antenne.add("Antenne 2,4 GHz 2 dBi, embase SMA, déportée", "Siretta DELTA-6A ou équiv.", 1, "RS", 18.00, core=False)
 w_antenne.add("Pigtail U.FL → SMA femelle + passe-cloison", "Amphenol 336312-24-0100", 1, "RS", 8.00, core=False)
 w_antenne.add("Support de fixation, visserie", "lot", 1, "RS", 4.00, core=False)
 
-w_poste = Section("**[A4]** Poste fixe : Unipi Gate G100",
+w_poste = Section("**[A2]** Poste fixe : Unipi Gate G100",
                   "Le poste porte le récepteur EnOcean, le broker MQTT et l'interface de\n"
                   "supervision. **Le Gate G100 remplace l'E413 initialement prévu** : voir\n"
                   "la justification en fin de document.")
@@ -370,12 +339,6 @@ w_poste.add("Alimentation rail DIN 230 V → 24 V 15 W", "MEAN WELL HDR-15-24", 
 w_poste.add("Coffret rail DIN, bornier, presse-étoupes", "Fibox ou Schneider", 1, "RS", 20.00, core=False)
 w_poste.add("Câble Ethernet blindé vers le réseau usine", "Cat 6 S/FTP, 5 m", 1, "RS", 6.00, core=False)
 
-w_boutons = Section("**[A4]** Boutons d'appel EnOcean : 2 stations")
-w_boutons.add("Module émetteur auto-alimenté, **sans pile**", "PTM 210 (EnOcean, EU 868)", 2, "Spécialiste", 30.00)
-w_boutons.add("Enveloppe / poussoir mural compatible PTM 210", "Eltako, NodOn ou Trio2Sys", 2, "Spécialiste", 12.00, core=False)
-w_boutons.add("Plaque de repérage station gravée", "sur mesure", 2, "Amazon", 4.00, core=False)
-w_boutons.add("Fixation, visserie, adhésif industriel", "3M VHB ou équiv.", 2, "RS", 4.00, core=False)
-
 w_outil = Section("Outillage : non récurrent")
 w_outil.add("Programmateur ISP : **sauvegarde puis flash de l'ATmega**", "USBasp ou USBtinyISP", 1, "Amazon", 8.00)
 w_outil.add("Adaptateur USB-série 3,3 V : ESP32 et liaison inter-MCU", "FTDI FT232RL ou CP2102", 1, "Amazon", 6.00)
@@ -383,7 +346,7 @@ w_outil.add("Analyseur logique 8 voies : chronogrammes X/Y", "clone Saleae 24 MH
 w_outil.add("Jeu de cosses + pince à sertir : confection du harnais", "Knipex ou Engineer PA-09", 1, "RS", 45.00)
 w_outil.add("Kit réseau : testeur RJ45, sertisseuse", "lot", 1, "Amazon", 31.00)
 
-WIFI_SECTIONS = [w_carte, w_harnais, w_antenne, w_poste, w_boutons, w_outil]
+WIFI_SECTIONS = [w_carte, w_harnais, w_antenne, w_poste, w_outil]
 
 # ===========================================================================
 #  SMS + EnOcean : variante B (LTE-M / MQTT)
@@ -438,18 +401,12 @@ s_poste_unipi.add("Récepteur EnOcean + antenne", "TCM 515 + ANT300", 1, "Spéci
 s_poste_unipi.add("Coffret rail DIN, alimentation, bornier", "Fibox + MEAN WELL HDR-15-24", 1, "RS", 34.00, core=False)
 s_poste_unipi.add("Câble Ethernet blindé", "Cat 6 S/FTP, 5 m", 1, "RS", 4.00, core=False)
 
-s_boutons = Section("**[A1]** Boutons d'appel EnOcean : 2 stations")
-s_boutons.add("Module émetteur auto-alimenté, **sans pile**", "PTM 210 (EnOcean, EU 868)", 2, "Spécialiste", 30.00)
-s_boutons.add("Enveloppe / poussoir mural compatible PTM 210", "Eltako, NodOn ou Trio2Sys", 2, "Spécialiste", 12.00, core=False)
-s_boutons.add("Plaque de repérage station gravée", "sur mesure", 2, "Amazon", 4.00, core=False)
-s_boutons.add("Fixation, visserie", "lot", 2, "RS", 4.00, core=False)
-
 s_outil = Section("Outillage : non récurrent")
 s_outil.add("Analyseur logique 8 voies : chronogrammes X/Y", "clone Saleae 24 MHz", 1, "Amazon", 15.00)
 s_outil.add("Adaptateur USB-série 3,3 V : mise au point pile AT", "FTDI FT232RL ou CP2102", 1, "Amazon", 6.00)
 s_outil.add("Jeu de cosses, pince à sertir, consommables", "Knipex ou Engineer PA-09", 1, "RS", 24.00)
 
-SMS_SECTIONS = [s_carte, s_poste_esp, s_poste_gate, s_poste_unipi, s_boutons, s_outil]
+SMS_SECTIONS = [s_carte, s_poste_esp, s_poste_gate, s_poste_unipi, s_outil]
 
 # ===========================================================================
 #  Émission
@@ -569,23 +526,10 @@ carte595 = carte.ht + bus595.ht
 opto_ht  = 11 * 0.60
 carteavr = carte.ht - opto_ht + busavr.ht
 carte_v6_ht = v6.ht
-ht_lora_pur = carte_v6_ht + poste_lora.ht + 2 * bouton_pile.ht + outil_lora.ht
-ht_hybride = carte_v6_ht + poste_enocean.ht + 2 * bouton_enocean.ht + outil_lora.ht
-r1, _ = recap([("Carte AGV `V6.0` (nomenclature KiCad)", carte_v6_ht, False),
-               ("Poste central UniPi Lite 1.1", poste_lora.ht, False),
-               ("2 boutons sur pile", 2 * bouton_pile.ht, False),
-               ("Outillage", outil_lora.ht, False)], "Récapitulatif : variante A3 (LoRa homogène)")
-r3, _ = recap([("Carte AGV `V6.0` (nomenclature KiCad)", carte_v6_ht, False),
-               ("Poste fixe EnOcean → LoRa", poste_enocean.ht, False),
-               ("2 boutons PTM 210", 2 * bouton_enocean.ht, False),
-               ("Outillage", outil_lora.ht, False)], "Récapitulatif : variante A2 (EnOcean + LoRa)")
-
-cross = []
-for n in (2, 4, 6, 8, 12):
-    a1 = (carte_v6_ht + poste_lora.ht_complet + outil_lora.ht + bouton_pile.ht_complet * n) * TVA
-    a3 = (carte_v6_ht + poste_enocean.ht_complet + outil_lora.ht + bouton_enocean.ht_complet * n) * TVA
-    win = "**A3**" if a1 < a3 else ("**A2**" if a3 < a1 else "égalité")
-    cross.append(f"| {n} | {eur(a1)} | {eur(a3)} | {win} |")
+ht_lora = carte_v6_ht + poste_lora.ht + outil_lora.ht
+recap_lora, _ = recap([("Carte AGV `V6.0` (nomenclature KiCad)", carte_v6_ht, False),
+                        ("Poste central UniPi Lite 1.1", poste_lora.ht, False),
+                        ("Outillage", outil_lora.ht, False)], "Récapitulatif")
 
 # Repères chiffrés cités dans l'analyse critique.
 gain = eur((2.00 - 0.60) * TVA)     # TPS62740 remplacé par un réservoir capacitif
@@ -646,16 +590,6 @@ Le driver `avr_port_bus.cpp` est déjà écrit et testé, et le relevé complet 
 dans `firmware/mega/src/board_ports.h`. Il n'y a rien à concevoir de ce côté.
 """
 
-def _bascule():
-    fixe_a1 = carte_v6_ht + poste_lora.ht_complet + outil_lora.ht
-    fixe_a3 = carte_v6_ht + poste_enocean.ht_complet + outil_lora.ht
-    for n in range(2, 100):
-        if fixe_a3 + bouton_enocean.ht_complet * n < fixe_a1 + bouton_pile.ht_complet * n:
-            return n
-    return None
-
-bascule = _bascule()
-
 c595   = eur(carte595)
 creemp = eur(carte_v6_ht)
 gainc  = eur(carte595 - carte_v6_ht)
@@ -705,7 +639,7 @@ hypothèse de travail ; la V6.0 la remplace, et **elle est plus chère** :
 |---|---:|---:|
 | Carte AGV | {eur(18.00)} HT *(greffe)* | **{eur(carte_v6_ht)} HT** *(fabriquée)* |
 
-La carte est à produire, comme celle de l'architecture A4. En contrepartie il
+La carte est à produire, comme celle de l'architecture A3. En contrepartie il
 n'y a **ni carte fille, ni câblage volant dans un chariot qui vibre** : ce qui,
 sur un équipement destiné à durer, vaut largement l'écart.
 
@@ -738,62 +672,25 @@ l'automate**. Le firmware passe donc en `SoftwareSerial` sur D52/D53, à
 
 ### Pourquoi pas un Unipi Gate pour ce poste ?
 
-La question se pose puisque le poste de l'architecture Wi-Fi a été ramené à une
-passerelle Unipi Gate G100. **Ici, non, et pour une raison de fond, pas de
-prix.**
+Le poste doit désormais héberger l'API de planning : il lui faut Linux, un
+système de fichiers et une horloge. La question devient donc **quel** Linux.
 
-Le Gate est un boîtier DIN fermé : Ethernet, RS485, un port USB. **Aucun
-connecteur SPI, aucun GPIO, aucune embase d'antenne.** Or un RFM95W est un
-composant SPI qu'il faut piloter au niveau du PHY.
+**Pas un Unipi Gate G100, et pour une raison de fond.** C'est un boîtier DIN
+fermé : Ethernet, RS485, un port USB. **Aucun connecteur SPI, aucun GPIO,
+aucune embase d'antenne.** Or le `RFM95W` est un composant SPI qu'il faut
+piloter au niveau du PHY.
 
-Les contournements existent, et ils coûtent tous plus cher que la carte
-spécifiée :
+Les contournements coûtent tous plus cher que le montage retenu :
 
 | Contournement | Coût | Ce qu'on y perd |
 |---|---:|---|
-| Dongle LoRa USB | ~{eur(25 * TVA)} + hub | L'unique port USB est déjà pris par le TCM 515 |
+| Dongle LoRa USB | ~{eur(25 * TVA)} + hub | L'unique port USB sert déjà si des boutons EnOcean sont installés |
 | Modem LoRa UART/RS485 (`E32-868T20D`, `RAK3172`) | ~{eur(15 * TVA)} | **Le module gère le PHY lui-même** : il faudrait réécrire `LoraTransport`, et surtout **abandonner le contrôle du budget de rapport cyclique** que le firmware applique et teste aujourd'hui. C'est une obligation réglementaire, pas un réglage |
-| Gate + carte ESP32 en frontal radio | ~{eur((200 + poste_enocean.ht) * TVA)} | On paie les deux |
 
-**Le poste LoRa n'a d'ailleurs pas besoin de Linux.** Son travail est une
-traduction de protocole : EnOcean entre, LoRa sort. Il n'héberge pas de broker,
-et l'AGV lui parle directement.
-
-L'asymétrie avec l'architecture Wi-Fi est donc logique :
-
-| | Poste Wi-Fi | Poste LoRa |
-|---|---|---|
-| Doit héberger un broker MQTT | **oui** | non |
-| Doit piloter une radio au niveau PHY | non (le réseau est Ethernet | **oui**) SX1276 sur SPI |
-| Matériel qui en découle | boîtier Linux industriel | microcontrôleur avec SPI |
-| Retenu | Unipi Gate G100 (~{eur(200 * TVA)} TTC) | carte ESP32 (~{eur(poste_enocean.ht * TVA)} TTC) |
-
-⚠️ **Deux antennes 868 MHz sur le même boîtier** : EnOcean et LoRa. Les espacer
-d'au moins 20 cm, ou en déporter une. Une désensibilisation du récepteur EnOcean
-par l'émetteur LoRa se traduirait par des appuis perdus, silencieusement.
-
-### Où se croisent les deux courbes
-
-| Stations | A3 (TTC) | A2 (TTC) | Moins cher |
-|---:|---:|---:|---|
-{chr(10).join(cross)}
-
-Le point de bascule est à **{bascule} stations**. En dessous, A3 coûte moins
-**et** rend un accusé visuel à l'opérateur. Au-delà, A2 prend l'avantage grâce
-à des boutons à {eur(bouton_enocean.ht_complet * TVA)} au lieu de
-{eur(bouton_pile.ht_complet * TVA)}, et supprime les piles.
-
-⚠️ Ce tableau raisonne **accessoires compris** : boîtier IP65 et poussoir Ø22
-du bouton A3, enveloppe murale du bouton A2. C'est une comparaison économique,
-pas une liste d'achat : les retirer inverserait artificiellement le classement,
-puisque c'est précisément l'enveloppe du bouton A3 qui le rend cher.
-
-### Coût par station supplémentaire
-
-| | TTC | HT |
-|---|---:|---:|
-| **[A3]** bouton sur pile | **{eur(bouton_pile.ht * TVA)}** | {eur(bouton_pile.ht)} |
-| **[A2]** bouton PTM 210 | **{eur(bouton_enocean.ht * TVA)}** | {eur(bouton_enocean.ht)} |
+L'**UniPi Lite 1.1** est un Raspberry Pi avec sa carte d'extension : le SPI y
+est libre, les GPIO aussi, et
+[`../../bancs/lora/linux/`](../../bancs/lora/linux/) pilote déjà ce montage avec
+la trame du projet.
 
 ### Coûts récurrents
 
@@ -801,7 +698,7 @@ puisque c'est précisément l'enveloppe du bouton A3 qui le rend cher.
 |---|---:|
 | Abonnement opérateur | **0 €** : bande ISM libre |
 | Infrastructure | **0 €** : aucune |
-| **[A3]** Remplacement des piles | ~{eur(6 * TVA)} par bouton tous les 5 à 8 ans |
+| **[A2]** Remplacement des piles | ~{eur(6 * TVA)} par bouton tous les 5 à 8 ans |
 | **[A2]** Piles | **0 €** : PTM 210 auto-alimentés |
 
 **C'est l'architecture la moins chère des trois sur dix ans.**
@@ -813,7 +710,7 @@ puisque c'est précisément l'enveloppe du bouton A3 qui le rend cher.
 | Élément | Délai typique | Risque |
 |---|---|---|
 | PCB 4 couches + assemblage | 3 à 5 semaines | **Chemin critique matériel** |
-| **[A3]** PCB bouton + boîtiers IP65 | 3 à 5 semaines | En parallèle de la carte AGV |
+| **[A2]** PCB bouton + boîtiers IP65 | 3 à 5 semaines | En parallèle de la carte AGV |
 | `RFM95W-868S2` | 1 à 3 semaines | **Contrefaçons fréquentes** : acheter chez un distributeur référencé, pas sur une place de marché |
 | `PTM 210` / `TCM 515` | 1 à 2 semaines | Peu distribués par RS : prévoir un distributeur EnOcean |
 | `ER14505` Li-SOCl₂ | 1 à 2 semaines | **Restrictions de transport aérien** sur le lithium |
@@ -840,25 +737,18 @@ l'antenne, la puissance d'émission et le nombre de nœuds.
 # répétées dans les deux, comme le reste du dossier autonome.
 COMMUN_LORA = [v6]
 
-write(RACINE / "architectures/A3_LoRa/BOM.md",
-      "A3 : LoRa P2P homogène, boutons sur pile", "../../docs/COMPARAISON.md",
-      COMMUN_LORA + [poste_lora, bouton_pile, outil_lora], lora_extra(r1) + ANALYSE_LORA,
-      totaux=[("A3 : LoRa homogène, 2 boutons sur pile", ht_lora_pur,
-               acc_de(v6, poste_lora, outil_lora) + 2 * bouton_pile.ht_accessoires)])
-
-write(RACINE / "architectures/A2_Hybride/BOM.md",
-      "A2 : Hybride EnOcean + LoRa", "../../docs/COMPARAISON.md",
-      COMMUN_LORA + [poste_enocean, bouton_enocean, outil_lora], lora_extra(r3) + ANALYSE_LORA,
-      totaux=[("A2 : EnOcean + LoRa, 2 boutons sans pile", ht_hybride,
-               acc_de(v6, poste_enocean, outil_lora) + 2 * bouton_enocean.ht_accessoires)])
-print(f"A3 = {ht_lora_pur:.2f} HT / {ht_lora_pur*TVA:.2f} TTC ; A2 = {ht_hybride:.2f} HT / {ht_hybride*TVA:.2f} TTC")
+write(RACINE / "architectures/A2_LoRa/BOM.md",
+      "A2 : LoRa 868 MHz", "../../docs/COMPARAISON.md",
+      COMMUN_LORA + [poste_lora, outil_lora], lora_extra(recap_lora) + ANALYSE_LORA,
+      totaux=[("A2 : LoRa, poste central compris", ht_lora,
+               acc_de(v6, poste_lora, outil_lora))])
+print(f"A2 LoRa = {ht_lora:.2f} HT / {ht_lora*TVA:.2f} TTC")
 
 # --- Wi-Fi ------------------------------------------------------------------
 wifi_ht = sum(s.ht for s in WIFI_SECTIONS)
 rw, _ = recap([("Carte AGV (nomenclature KiCad)", w_carte.ht, True),
                ("Harnais de raccordement", w_harnais.ht, False),
                ("Poste fixe UniPi", w_poste.ht, False),
-               ("2 boutons EnOcean", w_boutons.ht, False),
                ("Outillage", w_outil.ht, False)])
 
 # Alternatives à l'étage de sortie de la carte routée.
@@ -991,13 +881,6 @@ Dans le troisième cas, il faut aussi **router une carte fille** : plusieurs
 semaines de délai, pas seulement un coût.
 
 {rw}
-### Coût par station supplémentaire
-
-| | TTC | HT |
-|---|---:|---:|
-| Bouton PTM 210 complet | **{eur(w_boutons.ht_complet / 2 * TVA)}** | {eur(w_boutons.ht_complet / 2)} |
-| Avec accusé EnOcean par station | {eur(130 * TVA)} | {eur(130)} |
-
 ### Coûts récurrents
 
 | Poste | Annuel |
@@ -1039,7 +922,7 @@ Trois gains au-delà du prix :
 
 Ce raisonnement ne vaut que pour **cette** architecture : le poste LoRa, lui,
 doit piloter une radio SX1276 en SPI, ce qu'un boîtier DIN fermé ne permet pas.
-Voir [`../A3_LoRa/BOM.md`](../A3_LoRa/BOM.md), section « Pourquoi pas un Unipi Gate
+Voir [`../A2_LoRa/BOM.md`](../A2_LoRa/BOM.md), section « Pourquoi pas un Unipi Gate
 pour ce poste ? ».
 
 Le seul port USB est à surveiller : il est pris par l'adaptateur série du
@@ -1086,25 +969,24 @@ change la nomenclature.
   de rechange devient une assurance à chiffrer avec le client.
 """
 
-write(RACINE / "architectures/A4_Wifi/BOM.md",
-      "A4 : Wi-Fi + EnOcean (carte V5.0.1 conservée)", "../../docs/COMPARAISON.md",
+write(RACINE / "architectures/A3_Wifi/BOM.md",
+      "A3 : Wi-Fi + EnOcean (carte V5.0.1 conservée)", "../../docs/COMPARAISON.md",
       WIFI_SECTIONS, WIFI_EXTRA + ANALYSE_WIFI,
       equivalences=EQUIV_V5,
-      totaux=[("A4 : Wi-Fi + EnOcean", wifi_ht,
-               acc_de(w_carte, w_harnais, w_antenne, w_poste, w_boutons, w_outil))])
+      totaux=[("A3 : Wi-Fi + EnOcean", wifi_ht,
+               acc_de(w_carte, w_harnais, w_antenne, w_poste, w_outil))])
 
 # --- SMS + EnOcean ----------------------------------------------------------
 s_carte595 = s_carte.ht + bus595.ht
-sms_esp_ht = s_carte595 + s_poste_esp.ht + s_boutons.ht + s_outil.ht
-sms_uni_ht  = s_carte595 + s_poste_unipi.ht + s_boutons.ht + s_outil.ht
-sms_gate_ht = s_carte595 + s_poste_gate.ht  + s_boutons.ht + s_outil.ht
+sms_esp_ht = s_carte595 + s_poste_esp.ht + s_outil.ht
+sms_uni_ht  = s_carte595 + s_poste_unipi.ht + s_outil.ht
+sms_gate_ht = s_carte595 + s_poste_gate.ht  + s_outil.ht
 # Comparaison au SMS : celui-ci est chiffré accessoires compris, il faut donc
 # les réintégrer ici pour que l'écart annoncé soit à base comparable.
 sms_esp_complet = sms_esp_ht + sum(x.ht_accessoires for x in
-                                   (s_carte, s_poste_esp, s_boutons))
+                                   (s_carte, s_poste_esp))
 rs_, _ = recap([("Carte AGV (variante `shift595`)", s_carte595, False),
                 ("Poste fixe ESP32 (option A)", s_poste_esp.ht, False),
-                ("2 boutons EnOcean", s_boutons.ht, False),
                 ("Outillage", s_outil.ht, False)],
                "Récapitulatif : variante B (LTE-M / MQTT), poste ESP32")
 
@@ -1193,26 +1075,6 @@ Face à l'option A (ESP32, {eur(s_poste_esp.ht * TVA)}), l'écart restant est de
 **{eur((s_poste_gate.ht - s_poste_esp.ht) * TVA)}** : c'est le prix de
 l'historique long terme et d'un matériel référencé.
 
-### Coût par station supplémentaire
-
-| | TTC | HT |
-|---|---:|---:|
-| Bouton PTM 210 complet | **{eur(s_boutons.ht_complet / 2 * TVA)}** | {eur(s_boutons.ht_complet / 2)} |
-
----
-
-## Abonnements et infrastructure
-
-| Poste | HT | TTC |
-|---|---:|---:|
-| 2 SIM M2M data LTE-M, ~1,50 €/mois | 36 €/an | {eur(36 * TVA)}/an |
-| Broker MQTT : VPS mutualisé | 60 €/an | {eur(60 * TVA)}/an |
-| *Alternative* : Mosquitto sur un serveur usine existant | 0 €/an | 0 €/an |
-| **Total récurrent** | **{eur(96)}/an** | **{eur(96 * TVA)}/an** |
-
-Héberger le broker sur un serveur du client supprime le poste VPS **et** la
-dépendance à un tiers. À proposer systématiquement.
-
 ### Coût sur 10 ans : variante B
 
 | | Poste ESP32 | Poste UniPi |
@@ -1280,15 +1142,15 @@ d'interface bus conditionne le routage du PCB.
 
 write(RACINE / "architectures/A1_Cellulaire/BOM.md",
       "A1 : Cellulaire + EnOcean (SMS ou LTE-M)", "../../docs/COMPARAISON.md",
-      [s_carte, bus595, busmcp, s_poste_esp, s_poste_gate, s_poste_unipi, s_boutons, s_outil],
+      [s_carte, bus595, busmcp, s_poste_esp, s_poste_gate, s_poste_unipi, s_outil],
       SMS_EXTRA + ANALYSE_SMS,
       equivalences=EQUIV_CARTE_NEUVE,
       totaux=[("A1 : poste ESP32 (recommandé)", sms_esp_ht,
-               acc_de(s_carte, s_poste_esp, s_boutons, s_outil)),
+               acc_de(s_carte, s_poste_esp, s_outil)),
               ("A1 : poste Unipi Gate G100", sms_gate_ht,
-               acc_de(s_carte, s_poste_gate, s_boutons, s_outil)),
+               acc_de(s_carte, s_poste_gate, s_outil)),
               ("A1 : poste UniPi E413 LTE", sms_uni_ht,
-               acc_de(s_carte, s_poste_unipi, s_boutons, s_outil))])
+               acc_de(s_carte, s_poste_unipi, s_outil))])
 
 print()
 def _acc(*sections):
@@ -1297,22 +1159,19 @@ def _acc(*sections):
 # Totaux « complets », accessoires compris. Ce sont EUX qui alimentent
 # README.md et COMPARAISON.md : on y compare des architectures entre elles, et
 # une comparaison amputée des boîtiers et des antennes fausserait le classement.
-complet_lora_pur   = ht_lora_pur   + _acc(v6, poste_lora, outil_lora) + 2 * bouton_pile.ht_accessoires
-complet_hybride   = ht_hybride   + _acc(v6, poste_enocean, outil_lora) + 2 * bouton_enocean.ht_accessoires
-wifi_complet = wifi_ht + _acc(w_carte, w_harnais, w_antenne, w_poste, w_boutons, w_outil)
-sms_complet  = sms_esp_ht  + _acc(s_carte, s_poste_esp, s_boutons, s_outil)
-gate_complet = sms_gate_ht + _acc(s_carte, s_poste_gate, s_boutons, s_outil)
-uni_complet  = sms_uni_ht  + _acc(s_carte, s_poste_unipi, s_boutons, s_outil)
+complet_lora   = ht_lora   + _acc(v6, poste_lora, outil_lora)
+wifi_complet = wifi_ht + _acc(w_carte, w_harnais, w_antenne, w_poste, w_outil)
+sms_complet  = sms_esp_ht  + _acc(s_carte, s_poste_esp, s_outil)
+gate_complet = sms_gate_ht + _acc(s_carte, s_poste_gate, s_outil)
+uni_complet  = sms_uni_ht  + _acc(s_carte, s_poste_unipi, s_outil)
 
 print("=== COMPLETS : accessoires compris, HT (pour README/COMPARAISON) ===")
-for nom, v in (("LoRa A3", complet_lora_pur), ("LoRa A2", complet_hybride),
-               ("Wi-Fi", wifi_complet), ("LTE-M ESP32", sms_complet),
+for nom, v in (("LoRa A2", complet_lora), ("Wi-Fi", wifi_complet), ("LTE-M ESP32", sms_complet),
                ("LTE-M Gate", gate_complet), ("LTE-M UniPi", uni_complet)):
     print(f"{nom:14} {v:8.2f}")
 print()
 print("=== TOTAUX BOM : composants déterminants seuls (HT / TTC) ===")
-print(f"LoRa A3      {ht_lora_pur:8.2f} / {ht_lora_pur*TVA:8.2f}")
-print(f"LoRa A2      {ht_hybride:8.2f} / {ht_hybride*TVA:8.2f}")
+print(f"LoRa A2      {ht_lora:8.2f} / {ht_lora*TVA:8.2f}")
 print(f"Wi-Fi        {wifi_ht:8.2f} / {wifi_ht*TVA:8.2f}")
 print(f"LTE-M ESP32  {sms_esp_ht:8.2f} / {sms_esp_ht*TVA:8.2f}  (10 ans {(sms_esp_ht+960):8.2f} / {(sms_esp_ht+960)*TVA:8.2f})")
 print(f"LTE-M Gate   {sms_gate_ht:8.2f} / {sms_gate_ht*TVA:8.2f}")

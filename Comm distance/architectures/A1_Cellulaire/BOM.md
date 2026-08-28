@@ -4,9 +4,9 @@
 
 | | HT | TTC | *Accessoires écartés* |
 |---|---:|---:|---:|
-| **A1 : poste ESP32 (recommandé)** | **399,70 €** | **479,64 €** | *+ 126,00 € HT* |
-| **A1 : poste Unipi Gate G100** | **428,70 €** | **514,44 €** | *+ 116,00 € HT* |
-| **A1 : poste UniPi E413 LTE** | **564,70 €** | **677,64 €** | *+ 133,00 € HT* |
+| **A1 : poste ESP32 (recommandé)** | **339,70 €** | **407,64 €** | *+ 86,00 € HT* |
+| **A1 : poste Unipi Gate G100** | **368,70 €** | **442,44 €** | *+ 76,00 € HT* |
+| **A1 : poste UniPi E413 LTE** | **504,70 €** | **605,64 €** | *+ 93,00 € HT* |
 
 Ces totaux ne comptent que les **composants déterminants**.
 
@@ -152,13 +152,6 @@ modem intégré est alors la raison d'être du modèle, et son surcoût.
 | Récepteur EnOcean + antenne | `TCM 515 + ANT300` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TCM+515+%2B+ANT300) · [Mouser](https://www.mouser.fr/c/?q=TCM+515+%2B+ANT300) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=TCM+515+%2B+ANT300) | ☐ | ☐ | ☐ | *43,20 €* |
 | **Sous-total** | | | | | | **☐** | ***463,20 €*** |
 
-### **[A1]** Boutons d'appel EnOcean : 2 stations
-
-| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
-|---|---|---:|---|---|---:|---:|---:|
-| Module émetteur auto-alimenté, **sans pile** | `PTM 210 (EnOcean, EU 868)` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=PTM+210) · [Mouser](https://www.mouser.fr/c/?q=PTM+210) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=PTM+210) | ☐ | ☐ | ☐ | *72,00 €* |
-| **Sous-total** | | | | | | **☐** | ***72,00 €*** |
-
 ### Outillage : non récurrent
 
 | Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
@@ -182,16 +175,15 @@ ici : `shift595` est retenue par défaut. Sous-total carte AGV complète :
 |---|---:|---:|---:|
 | Carte AGV (variante `shift595`) | ☐ | *88,44 €* | *73,70 €* |
 | Poste fixe ESP32 (option A) | ☐ | *265,20 €* | *221,00 €* |
-| 2 boutons EnOcean | ☐ | *72,00 €* | *60,00 €* |
 | Outillage | ☐ | *54,00 €* | *45,00 €* |
-| **TOTAL** | **☐** | ***479,64 €*** | ***399,70 €*** |
+| **TOTAL** | **☐** | ***407,64 €*** | ***339,70 €*** |
 
 ### Avec un poste UniPi : laquelle des deux options ?
 
 | Poste | *Repère TTC* | *Repère HT* | Récurrent |
 |---|---:|---:|---|
-| **B : Unipi Gate G100** *(si Ethernet)* | ***514,44 €*** | ***428,70 €*** | **1 SIM** |
-| **C : UniPi E413 LTE** *(sans Ethernet)* | *677,64 €* | *564,70 €* | 2 SIM |
+| **B : Unipi Gate G100** *(si Ethernet)* | ***442,44 €*** | ***368,70 €*** | **1 SIM** |
+| **C : UniPi E413 LTE** *(sans Ethernet)* | *605,64 €* | *504,70 €* | 2 SIM |
 
 **163,20 € d'écart de matériel, et la
 moitié du récurrent.** Le Gate n'a pas de modem cellulaire ; c'est précisément ce
@@ -209,34 +201,14 @@ Face à l'option A (ESP32, 265,20 €), l'écart restant est de
 **34,80 €** : c'est le prix de
 l'historique long terme et d'un matériel référencé.
 
-### Coût par station supplémentaire
-
-| | TTC | HT |
-|---|---:|---:|
-| Bouton PTM 210 complet | **60,00 €** | 50,00 € |
-
----
-
-## Abonnements et infrastructure
-
-| Poste | HT | TTC |
-|---|---:|---:|
-| 2 SIM M2M data LTE-M, ~1,50 €/mois | 36 €/an | 43,20 €/an |
-| Broker MQTT : VPS mutualisé | 60 €/an | 72,00 €/an |
-| *Alternative* : Mosquitto sur un serveur usine existant | 0 €/an | 0 €/an |
-| **Total récurrent** | **96,00 €/an** | **115,20 €/an** |
-
-Héberger le broker sur un serveur du client supprime le poste VPS **et** la
-dépendance à un tiers. À proposer systématiquement.
-
 ### Coût sur 10 ans : variante B
 
 | | Poste ESP32 | Poste UniPi |
 |---|---:|---:|
-| Matériel et outillage (TTC) | 479,64 € | 677,64 € |
+| Matériel et outillage (TTC) | 407,64 € | 605,64 € |
 | Récurrent sur 10 ans (TTC) | 1 152,00 € | 1 152,00 € |
-| **Total 10 ans (TTC)** | **1 631,64 €** | **1 829,64 €** |
-| *pour mémoire, en HT* | *1 359,70 €* | *1 524,70 €* |
+| **Total 10 ans (TTC)** | **1 559,64 €** | **1 757,64 €** |
+| *pour mémoire, en HT* | *1 299,70 €* | *1 464,70 €* |
 
 ---
 
@@ -264,7 +236,7 @@ grandeur du récurrent, qui est l'argument décisif.
 | **Total** | **~1 500 €/an** | **~1 800,00 €/an** |
 | **Sur 10 ans, tout compris** | **~15 625,00 €** | **~18 750,00 €** |
 
-Le surcoût sur dix ans face à la variante B est de **~14 139,30 € HT**,
+Le surcoût sur dix ans face à la variante B est de **~14 239,30 € HT**,
 pour un service strictement inférieur. C'est l'argument chiffré à opposer si le
 SMS est demandé.
 

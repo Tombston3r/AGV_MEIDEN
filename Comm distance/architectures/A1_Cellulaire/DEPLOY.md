@@ -108,7 +108,7 @@ de l'AGV.
 - [ ] RSRP minimum relevé : ______ dBm
 
 **Un seul point sous −110 dBm disqualifie l'architecture.** Arrêter ici et
-basculer sur `../A3_LoRa/` ou `../A4_Wifi/`.
+basculer sur `../A2_LoRa/` ou `../A3_Wifi/`.
 
 ### 1.2 Essai de latence réel
 
@@ -414,12 +414,12 @@ Seuils à faire fixer **par le client, avant les essais** :
 | Situation | Action |
 |---|---|
 | Carte neuve défaillante | Reposer la carte V5.0.1 d'origine, conservée intacte |
-| Couverture cellulaire insuffisante | Basculer sur `../A3_LoRa/` (aucun opérateur) ou `../A4_Wifi/` |
+| Couverture cellulaire insuffisante | Basculer sur `../A2_LoRa/` (aucun opérateur) ou `../A3_Wifi/` |
 | Coût récurrent refusé | Idem |
 
 La carte d'origine **n'est pas modifiée** par cette architecture : le retour
 arrière consiste à la reposer. C'est un avantage réel par rapport à l'architecture
-`../A4_Wifi/`, qui réécrit ses firmwares.
+`../A3_Wifi/`, qui réécrit ses firmwares.
 
 ---
 

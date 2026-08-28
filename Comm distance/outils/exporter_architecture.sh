@@ -16,10 +16,10 @@ if [[ -z "$ARCHI" || ! -d "$RACINE/architectures/$ARCHI" ]]; then
   exit 1
 fi
 
-# La carte dépend de l'architecture : A4 tourne sur la V5.0.1, A2 et A3 sur la V6.0.
+# La carte dépend de l'architecture : A3 tourne sur la V5.0.1, A2 et A3 sur la V6.0.
 case "$ARCHI" in
-  A4_Wifi) CARTE="AIO_AGV_Control_V5.0.1" ;;
-  A2_Hybride|A3_LoRa) CARTE="AIO_AGV_Control_V6.0" ;;
+  A3_Wifi) CARTE="AIO_AGV_Control_V5.0.1" ;;
+  A2_LoRa|A2_LoRa) CARTE="AIO_AGV_Control_V6.0" ;;
   *) CARTE="" ;;                     # A1 : carte neuve, pas encore de projet
 esac
 

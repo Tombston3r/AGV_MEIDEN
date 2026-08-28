@@ -5,7 +5,7 @@
 // procédures d'atelier les lisent. Le format ne se modernise pas, il se
 // conserve.
 //
-// Le rendu est donc une COPIE OCTET POUR OCTET de celui de l'architecture A4.
+// Le rendu est donc une COPIE OCTET POUR OCTET de celui de l'architecture A3.
 // Ce fichier vérifie deux choses :
 //   1. que la copie n'a pas dérivé de son original ;
 //   2. que le format rendu contient bien les champs attendus, aux bons noms.
@@ -48,7 +48,7 @@ std::string lire(const std::string& chemin) {
 }
 
 // Le chemin de l'original, relatif à la racine du dépôt.
-const char* kRacineA4 = "../Comm distance/architectures/A4_Wifi/firmware/common/";
+const char* kRacineA4 = "../Comm distance/architectures/A3_Wifi/firmware/common/";
 
 void la_copie_n_a_pas_derive_de_l_original() {
   struct Paire {
@@ -64,7 +64,7 @@ void la_copie_n_a_pas_derive_de_l_original() {
     const std::string copie = lire(p.copie);
     const std::string origine = lire(std::string(kRacineA4) + p.origine);
     if (origine.empty()) {
-      // Dossier A4 absent (export du seul chantier Timer) : on ne peut pas
+      // Dossier A3 absent (export du seul chantier Timer) : on ne peut pas
       // comparer, mais on le DIT plutôt que de faire passer le test en vert.
       std::printf("    (original introuvable : %s%s, comparaison sautée)\n",
                   kRacineA4, p.origine);

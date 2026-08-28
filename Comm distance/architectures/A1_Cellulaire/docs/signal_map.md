@@ -55,7 +55,7 @@ Convention Meiden/Mitsubishi : les repères sont en **octal**. Après `Y27` vien
 Le câblage signal ↔ broche SUB-D 25 ↔ connecteur AGV est connu : **CN61 à CN64**
 (la divergence CN61/62/63 vs CN62/63/64 est levée). La table complète, avec les
 libellés constructeur, est dans
-[`../../A4_Wifi/docs/subd25_atmega.md`](../../A4_Wifi/docs/subd25_atmega.md) : elle
+[`../../A3_Wifi/docs/subd25_atmega.md`](../../A3_Wifi/docs/subd25_atmega.md) : elle
 décrit le côté AGV, donc elle vaut pour toutes les architectures.
 
 Ce relevé confirme aussi **l'ordre des bits** : `Station/Marker ×1` … `×512` sur

@@ -4,49 +4,33 @@
 > AIO AGV Control V5.0.1, critère par critère, pour permettre un arbitrage
 > argumenté avec le client.
 >
-> Chiffres issus des nomenclatures du dépôt : [`LoRa/BOM.md`](../architectures/A3_LoRa/BOM.md),
-> [`A1_Cellulaire/BOM.md`](../architectures/A1_Cellulaire/BOM.md), [`Wifi/BOM.md`](../architectures/A4_Wifi/BOM.md).
+> Chiffres issus des nomenclatures du dépôt : [`LoRa/BOM.md`](../architectures/A2_LoRa/BOM.md),
+> [`A1_Cellulaire/BOM.md`](../architectures/A1_Cellulaire/BOM.md), [`Wifi/BOM.md`](../architectures/A3_Wifi/BOM.md).
 
-## ⚠️ Révision du 2026-08-28 : le poste central devient commun
+## ⚠️ Révision du 2026-08-28 : trois architectures, boutons optionnels
 
-Les quatre architectures adoptent la même chaîne : **boutons d'appel optionnels,
-poste central hébergeant l'API de planning, carte AGV Control, AGV**. Voir
+Deux décisions ont resserré ce comparatif.
+
+**Le poste central devient commun.** Toutes les architectures suivent la même
+chaîne : boutons optionnels, poste central hébergeant l'API de planning, carte
+AGV Control, AGV. Voir
 [`../../docs/ARCHITECTURE_COMMUNE.md`](../../docs/ARCHITECTURE_COMMUNE.md).
 
-Deux conséquences pour cette comparaison :
+**Les deux variantes LoRa fusionnent.** Elles ne se distinguaient que par la
+technologie du bouton, sur pile contre EnOcean. Les boutons étant devenus
+optionnels, cette distinction ne définit plus une architecture : `A2_LoRa` les
+remplace, et l'ancienne A4 Wi-Fi devient **A3**.
 
-- **A3 perd son argument principal.** Elle se définissait par l'absence
-  d'infrastructure, les boutons parlant directement à l'AGV. Elle gagne un poste
-  et **209 € HT**. Ce qu'elle conserve : le bouton authentifié et l'accusé
-  visuel, que l'EnOcean ne sait pas rendre ;
-- **les postes à base d'ESP32 laissent la place à des machines Linux**, un
-  microcontrôleur ne pouvant héberger l'API sans un coût logiciel disproportionné.
-  A1 et A2 s'en trouvent renchéries.
+**Les boutons sortent des nomenclatures.** Le planning seul fait rouler l'AGV.
+Leur choix reste ouvert et **indépendant de l'architecture** :
 
-Les quatre solutions se tiennent désormais dans une fourchette de **525 à
-700 € HT** hors récurrent, là où elles s'étalaient de 329 à 692. **Le coût cesse
-d'être le critère discriminant** : la latence, la portée et les dépendances le
-deviennent.
-
-### ❓ Question ouverte : faut-il garder A2 *et* A3 ?
-
-Elles partagent désormais le même poste, la même liaison vers l'AGV et la même
-carte V6.0. **Leur seule différence est la technologie du bouton**, pile contre
-sans-pile, pour **19 € HT** d'écart à deux stations.
-
-Le vrai arbitrage n'est plus entre deux architectures mais entre deux boutons :
-
-| | Bouton LoRa sur pile (A3) | Bouton EnOcean (A2) |
+| | Ce qu'elle apporte | Ce qu'elle coûte |
 |---|---|---|
-| Pile | `ER14505`, 5 à 8 ans | **aucune** |
-| Authentification | **AES de bout en bout** | aucune, télégramme en clair |
-| Accusé à l'opérateur | **LED verte / rouge** | aucun |
-| Coût par station | 60 € | **46 €** |
-| Approvisionnement | à fabriquer | catalogue |
+| **EnOcean** `PTM 210` | aucune pile, jamais | en clair, aucun accusé, dongle USB au poste |
+| **LoRa sur pile** | bouton authentifié AES, accusé visuel | pile tous les 5 à 8 ans, carte à fabriquer |
 
-À trancher avec le client. Garder les deux ne se justifie que si l'exigence
-« sans pile » et l'exigence « accusé visuel » coexistent sur des postes
-différents.
+Il ne reste donc qu'**un seul critère de choix d'architecture** : la liaison du
+poste vers l'AGV. Le comparatif ci-dessous se lit à cette aune.
 
 ## Note de lecture : ce qui est mesuré et ce qui ne l'est pas
 
@@ -74,7 +58,7 @@ aujourd'hui ; **un seul relevé défavorable peut en disqualifier une**.
 
 **Le SMS est à écarter** : il cumule la plus mauvaise latence, la seule latence
 non bornée, l'absence de garantie d'ordre, et un coût récurrent de ~1 500 €/an
-- soit 15 625 € sur dix ans contre 550 € pour le LoRa pur.
+- soit 15 625 € sur dix ans contre 429 € pour le LoRa.
 
 ---
 
@@ -127,7 +111,7 @@ Notation : `++` très favorable · `+` favorable · `~` acceptable · `−` déf
 
 | Critère | LoRa pur | LoRa + EnOcean | Wi-Fi + EnOcean | SMS | LTE-M/MQTT |
 |---|:---:|:---:|:---:|:---:|:---:|
-| **Coût sur 10 ans** | `+` 550 € | `+` 557 € | `+` 692 € | `−−` 15 625 € | `~` 1 486 € |
+| **Coût sur 10 ans** | `++` 429 € |  | `+` 592 € | `−−` 15 625 € | `~` 1 386 € |
 | **Latence** | `+` ~330 ms | `+` ~380 ms | `++` ~50 ms | `−−` non bornée | `~` 0,5–2 s |
 | **Déterminisme** | `++` borné | `++` borné | `~` handover | `−−` aucun | `−` reconnexion |
 | **Portée / pénétration** | `++` sub-GHz | `+` limité par EnOcean | `−` 2,4 GHz | `~` opérateur | `~` opérateur |
@@ -150,21 +134,20 @@ Notation : `++` très favorable · `+` favorable · `~` acceptable · `−` déf
 
 ### 4.1 Coût : ✅ établi (prix catalogue 📐)
 
-Base 2 stations, outillage inclus, prix **HT** 2026. Les nomenclatures
+Outillage inclus, poste central compris, boutons exclus, prix **HT** 2026. Les nomenclatures
 détaillées sont en **TTC** (TVA 20 %, récupérable pour une entreprise) :
 multiplier par 1,20 pour retrouver leurs totaux.
 
-| | Matériel | Récurrent | **10 ans** | Par station |
-|---|---:|---:|---:|---:|
-| LoRa pur (A3) | 538 € | 0 €/an | **550 €** | +60 € |
-| LoRa + EnOcean (A2) | 557 € | 0 €/an | **557 €** | +46 € |
-| Wi-Fi + EnOcean (A4) | 692 € | 0 €/an | **692 €** | +50 € |
-| LTE-M / MQTT (A1) | 526 € | 96 €/an | **1 486 €** | +50 € |
-| SMS (A1) | 625 € | 1 500 €/an | **15 625 €** | +50 € |
+| | Matériel | Récurrent | **10 ans** |
+|---|---:|---:|---:|
+| **A2** LoRa | 417 € | 0 €/an | **429 €** |
+| **A3** Wi-Fi | 592 € | 0 €/an | **592 €** |
+| **A1** LTE-M / MQTT | 426 € | 96 €/an | **1 386 €** |
+| **A1** SMS *(déconseillé)* | 625 € | 1 500 €/an | **15 625 €** |
 
-Chiffres du 2026-08-28, poste central compris. Les écarts entre A1, A2 et A3
-sont désormais **inférieurs à 35 € hors récurrent** : c'est le récurrent
-cellulaire, et non le matériel, qui sépare A1 des autres.
+Chiffres du 2026-08-28, poste central compris, **boutons exclus** puisque
+optionnels. A2 et A1 se tiennent à 9 € en matériel : c'est le **récurrent
+cellulaire**, et non le matériel, qui les sépare vraiment.
 
 Trois observations qui ne sautent pas aux yeux :
 
@@ -195,7 +178,7 @@ ESP32 (~148 €) économise ~300 €, au prix de l'historique long terme.
 Le temps d'antenne LoRa est calculé par le code (formule Semtech AN1200.13) et
 vérifié par test. **SF9 ne tient pas la cible de 200 ms** annoncée au brief ;
 SF7 la tient, au prix de la portée. C'est un arbitrage à trancher : voir
-[`LoRa/docs/latence_lora.md`](../architectures/A3_LoRa/docs/latence_lora.md).
+[`LoRa/docs/latence_lora.md`](../architectures/A2_LoRa/docs/latence_lora.md).
 
 Le SMS n'a pas seulement une mauvaise latence : **il n'a aucun ordre de remise**.
 Un `STOP` peut arriver avant le `GOTO` qu'il annule. Sur un engin mobile, c'est
@@ -349,7 +332,7 @@ laissent la carte d'origine intacte comme filet de sécurité. Le Wi-Fi l'écras
 
 Si les bits de protection interdisent la relecture des flash, **le retour arrière
 n'existe plus**. La procédure impose une décision écrite du client à ce stade
-(phase 2 de [`Wifi/DEPLOY.md`](../architectures/A4_Wifi/DEPLOY.md)), et une carte de rechange devient
+(phase 2 de [`Wifi/DEPLOY.md`](../architectures/A3_Wifi/DEPLOY.md)), et une carte de rechange devient
 une assurance à chiffrer.
 
 ### 4.8 Maintenance et diagnostic
@@ -428,7 +411,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 
 **Points forts**
 
-- **Le moins cher des quatre**, de peu : 550 € sur dix ans, poste compris.
+- **Le moins cher des quatre**, de peu : 429 € sur dix ans, poste compris.
 - **Aucune dépendance** : ni opérateur, ni service informatique, ni infrastructure.
 - **Latence bornée**, et la seule à pouvoir être ajustée par un paramètre.
 - **Portée sub-GHz**, la plus adaptée à une structure métallique.
@@ -450,7 +433,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 **Points forts**
 
 - **Boutons sans pile, sans maintenance**, à vie.
-- Coût : 557 € sur dix ans, et **le moins cher par station ajoutée**.
+- Coût : 429 € sur dix ans, et **le moins cher par station ajoutée**.
 - Indépendance totale, comme A3.
 - Latence bornée, portée sub-GHz sur le tronçon long.
 - Boutons du commerce disponibles, pas de PCB bouton à faire.
@@ -489,7 +472,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 - **Réversibilité incertaine** : les firmwares d'origine sont écrasés, et rien ne
   garantit qu'ils soient relisibles.
 - **Handover** entre points d'accès : 2 à 5 s de coupure en mouvement.
-- **Plus chère que le LoRa** : 692 € contre 550 €. L'écart tient au poste fixe,
+- **Plus chère que le LoRa** : 592 € contre 429 €. L'écart tient au poste fixe,
   pas à la carte AGV : la V6.0 du LoRa est la même carte plus un `RFM95W`.
 - Une maintenance IT non notifiée peut arrêter la production.
 - Bouton rejouable, pas d'accusé opérateur.
@@ -510,7 +493,7 @@ logiciellement sont celles qui sortent le moins bien du comparatif technique.
 
 **Points faibles**
 
-- **Coût récurrent** : 15 625 € sur dix ans en SMS, 1 486 € en LTE-M, contre 550 €
+- **Coût récurrent** : 15 625 € sur dix ans en SMS, 1 386 € en LTE-M, contre 429 €
   en LoRa.
 - **Couverture intérieure incertaine et non corrigeable.**
 - **Dépendance à un tiers** : panne, saturation, résiliation, changement tarifaire.
@@ -593,7 +576,7 @@ choisir une architecture qui ne fonctionnera pas sur ce site.
 6. **Combien de points d'appel à terme ?** C'est ce qui place le curseur entre
    A3 et A2.
 7. **Le coût récurrent du cellulaire est-il accepté ?** 15 625 € sur dix ans en
-   SMS, 1 486 € en LTE-M, contre 550 € sans opérateur.
+   SMS, 1 386 € en LTE-M, contre 429 € sans opérateur.
 
 ---
 

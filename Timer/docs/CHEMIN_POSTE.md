@@ -75,7 +75,7 @@ Le poste doit désormais **émettre** les missions. Selon l'architecture :
 |---|---|
 | **A2, A3** | `RFM95W` sur le SPI du Raspberry Pi. [`../../Comm distance/bancs/lora/linux/`](../../Comm%20distance/bancs/lora/linux/) pilote déjà ce montage, avec la trame du projet |
 | **A1** | modem LTE-M en USB, MQTT |
-| **A4** | MQTT sur le réseau d'entreprise |
+| **A3** | MQTT sur le réseau d'entreprise |
 
 Le banc LoRa côté Linux a été écrit pour un poste fixe : il devient la base du
 transport de A2 et A3, sans réécriture.
@@ -87,7 +87,7 @@ comme le fait déjà `POST /api/appel`.
 
 | | Comment le poste entend les boutons |
 |---|---|
-| **A1, A2, A4** | dongle EnOcean USB. [`../../Comm distance/bancs/enocean/`](../../Comm%20distance/bancs/enocean/) fait exactement cela, déployé et éprouvé |
+| **A1, A2, A3** | dongle EnOcean USB. [`../../Comm distance/bancs/enocean/`](../../Comm%20distance/bancs/enocean/) fait exactement cela, déployé et éprouvé |
 | **A3** | la même radio LoRa que pour l'émission, le SX1276 étant half-duplex |
 
 ### 5. Authentification et service

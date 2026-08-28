@@ -86,7 +86,7 @@ dupliqué se compare par `diff` ; deux schémas KiCad divergents, non.
 
 ### Les bancs sont sortis des architectures
 
-Les bancs LoRa vivaient dans `A3_LoRa/test/esp32/` et `A3_LoRa/test/unipi/`,
+Les bancs LoRa vivaient dans `A2_LoRa/test/esp32/` et `A2_LoRa/test/unipi/`,
 tandis que le banc EnOcean était à la racine. Deux choses de même nature à deux
 endroits différents : personne ne pouvait deviner où chercher.
 
@@ -102,8 +102,8 @@ autonome :
 
 ```bash
 cd "Comm distance"
-./outils/exporter_architecture.sh A3_LoRa
-# -> A3_LoRa_2026-08-26.zip : l'architecture, sa carte, le brief, le comparatif
+./outils/exporter_architecture.sh A2_LoRa
+# -> A2_LoRa_2026-08-26.zip : l'architecture, sa carte, le brief, le comparatif
 ```
 
 C'est le même résultat qu'avant, mais payé **au moment de l'export** plutôt que

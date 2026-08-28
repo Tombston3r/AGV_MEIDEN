@@ -4,7 +4,7 @@ Copie du décodeur des dossiers d'architecture, pour que ce banc reste autonome
 et déployable seul sur une UniPi. Il n'a aucune dépendance vers eux.
 
 ⚠ Toute correction faite ici doit être reportée dans `A1_Cellulaire/`,
-`A2_Hybride/` et `A4_Wifi/`, et réciproquement.
+`A2_LoRa/` et `A3_Wifi/`, et réciproquement.
 
 Trame ESP3 :
     0x55 | DataLen(2, BE) | OptLen(1) | PacketType(1) | CRC8H |

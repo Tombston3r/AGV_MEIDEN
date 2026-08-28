@@ -24,9 +24,9 @@ ailleurs.
 | | Dossier | Carte AGV | Liaison | Boutons | Tests |
 |---|---|---|---|---|---|
 | **A1** | [`A1_Cellulaire/`](architectures/A1_Cellulaire/) | neuve | SMS ou LTE-M/MQTT, réseau opérateur | EnOcean au poste | 112 |
-| **A2** | [`A2_Hybride/`](architectures/A2_Hybride/) | **V6.0** | LoRa 868 MHz + poste relais | EnOcean **sans pile** | 130 |
-| **A3** | [`A3_LoRa/`](architectures/A3_LoRa/) | **V6.0** | LoRa 868 MHz direct | **LoRa sur pile**, accusé visuel | 119 |
-| **A4** | [`A4_Wifi/`](architectures/A4_Wifi/) | V5.0.1 | Wi-Fi d'entreprise / MQTT | EnOcean au poste | 109 + 17 |
+| **A2** | [`A2_LoRa/`](architectures/A2_LoRa/) | **V6.0** | LoRa 868 MHz + poste relais | EnOcean **sans pile** | 130 |
+| **A3** | [`A2_LoRa/`](architectures/A2_LoRa/) | **V6.0** | LoRa 868 MHz direct | **LoRa sur pile**, accusé visuel | 119 |
+| **A3** | [`A3_Wifi/`](architectures/A3_Wifi/) | V5.0.1 | Wi-Fi d'entreprise / MQTT | EnOcean au poste | 109 + 17 |
 
 La numérotation suit l'**ordre chronologique d'étude**, pas un classement.
 
@@ -48,7 +48,7 @@ les éprouver avant d'aller en atelier.
 
 | Projet KiCad | Sert à | Ce qui la distingue |
 |---|---|---|
-| [`AIO_AGV_Control_V5.0.1`](materiel/AIO_AGV_Control_V5.0.1/) | **A4** | Mega2560 Pro + ESP32, étage à 23 MOSFET : 57 empreintes |
+| [`AIO_AGV_Control_V5.0.1`](materiel/AIO_AGV_Control_V5.0.1/) | **A3** | Mega2560 Pro + ESP32, étage à 23 MOSFET : 57 empreintes |
 | [`AIO_AGV_Control_V6.0`](materiel/AIO_AGV_Control_V6.0/) | **A2** et **A3** | La même **plus un `RFM95W-868S2`** et son embase d'antenne : 59 empreintes |
 
 Le diff des deux projets ne montre aucun autre écart : la V6.0 est la V5.0.1
@@ -62,7 +62,7 @@ possible. `IO27` est libre et conviendrait.
 
 ```bash
 # Travailler sur une architecture
-cd architectures/A3_LoRa && make test
+cd architectures/A2_LoRa && make test
 
 # Éprouver un banc sans matériel
 cd bancs/enocean && python3 -m banc_enocean --simulation

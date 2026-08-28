@@ -8,7 +8,7 @@
 //
 // Hôte uniquement : sockets POSIX, un seul fil d'exécution (aucun verrou à
 // avoir juste). Le portage ESP32 reprendra les mêmes routes sur le serveur
-// web de l'architecture A4 : voir docs/ALIGNEMENT_COMM_DISTANCE.md.
+// web de l'architecture A3 : voir docs/ALIGNEMENT_COMM_DISTANCE.md.
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <poll.h>

@@ -7,7 +7,7 @@
 //
 // Ce que ce moteur NE fait pas, à dessein :
 //   - il ne parle pas au bus X/Y : il émet des `Mission`, consommées par le
-//     séquenceur EXISTANT (Comm distance/architectures/A4_Wifi, testé) ;
+//     séquenceur EXISTANT (Comm distance/architectures/A3_Wifi, testé) ;
 //   - il ne lit pas l'heure : l'appelant fournit `now` et dit si elle est
 //     fiable (§2.3 : une heure fausse est pire qu'une absence d'heure).
 #pragma once

@@ -85,7 +85,7 @@ Promener le bouton le long du parcours, en regardant le niveau reçu.
 
 **Attendu** : au-delà de **−90 dBm**, la marge devient faible. L'EnOcean porte
 une trentaine de mètres en intérieur, et c'est **le maillon court** des
-architectures A1, A2 et A4 : pas la liaison LoRa ni le Wi-Fi.
+architectures A1, A2 et A3 : pas la liaison LoRa ni le Wi-Fi.
 
 Noter les points où les appuis se perdent : ce sont eux qui décideront de
 l'emplacement du poste fixe.

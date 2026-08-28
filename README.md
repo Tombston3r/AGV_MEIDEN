@@ -11,7 +11,8 @@ Boutons d'appel (optionnels) -> Poste Central -> Carte AGV Control -> AGV
                                 appels
 ```
 
-Elles ne diffèrent plus que par la technologie de chaque liaison :
+Les boutons sont **optionnels** : le planning seul fait rouler l'AGV. Les trois
+architectures ne diffèrent plus que par la **liaison du poste vers l'AGV** :
 [`docs/ARCHITECTURE_COMMUNE.md`](docs/ARCHITECTURE_COMMUNE.md).
 
 | Dossier | Chantier | État |
@@ -31,4 +32,4 @@ bleu outremer, logo AIO : [`docs/theme/`](docs/theme/), propagé par
 
 Les deux partagent la même carte et le même cœur métier : le Timer produira
 ses missions vers le séquenceur déjà écrit dans
-[`Comm distance/architectures/A4_Wifi/`](Comm%20distance/architectures/A4_Wifi/).
+[`Comm distance/architectures/A3_Wifi/`](Comm%20distance/architectures/A3_Wifi/).

@@ -1,7 +1,7 @@
-# Le modèle commun aux quatre architectures
+# Le modèle commun aux trois architectures
 
 Décidé le 2026-08-28. Toutes les architectures adoptent la même chaîne, et ne
-se distinguent plus que par la **technologie de chaque maillon**.
+se distinguent plus que par **la liaison entre le poste et l'AGV**.
 
 ```
    Boutons d'appel            Poste Central              Carte AGV Control        AGV
@@ -10,7 +10,7 @@ se distinguent plus que par la **technologie de chaque maillon**.
         ○  ────────────► │  Réception des appels│         │  X/Y        │      MEIDEN
                          │  Journal, validation │         └─────────────┘
                          └──────────────────────┘
-         liaison A                  liaison B
+        (optionnelle)         liaison poste vers AGV
 ```
 
 ## Ce que fait chaque maillon
@@ -22,14 +22,28 @@ se distinguent plus que par la **technologie de chaque maillon**.
 | **Carte AGV Control** | Traduit une mission en séquence sur le bus X/Y, porte le repli de sécurité | Non |
 | **AGV** | Exécute | Non |
 
-Deux liaisons distinctes, et c'est là que les architectures diffèrent :
+**Une seule liaison distingue les architectures** : celle du poste vers l'AGV.
 
-| | Liaison A, bouton vers poste | Liaison B, poste vers AGV |
+| | Poste vers AGV | Dossier |
 |---|---|---|
-| **A1** Cellulaire | EnOcean 868 MHz | LTE-M / MQTT (réseau opérateur) |
-| **A2** Hybride | EnOcean 868 MHz | LoRa 868 MHz |
-| **A3** LoRa | **LoRa 868 MHz** (boutons sur pile) | LoRa 868 MHz |
-| **A4** Wi-Fi | EnOcean 868 MHz | Wi-Fi d'entreprise / MQTT |
+| **A1** Cellulaire | LTE-M / MQTT, réseau opérateur | [`A1_Cellulaire/`](../Comm%20distance/architectures/A1_Cellulaire/) |
+| **A2** LoRa | LoRa 868 MHz, bande libre | [`A2_LoRa/`](../Comm%20distance/architectures/A2_LoRa/) |
+| **A3** Wi-Fi | Wi-Fi d'entreprise / MQTT | [`A3_Wifi/`](../Comm%20distance/architectures/A3_Wifi/) |
+
+## Les boutons d'appel sont optionnels
+
+Le planning seul suffit à faire rouler l'AGV. Les boutons ne figurent donc plus
+dans les nomenclatures : ils s'ajoutent si l'exploitation les demande, et le
+choix de leur technologie est **indépendant** de celui de l'architecture.
+
+| Technologie | Ce qu'elle apporte | Ce qu'elle coûte |
+|---|---|---|
+| **EnOcean** `PTM 210` | aucune pile, jamais | télégramme en clair, aucun accusé à l'opérateur, dongle USB au poste |
+| **LoRa sur pile** | bouton **authentifié** AES, **accusé visuel** vert/rouge | pile `ER14505` tous les 5 à 8 ans, carte à fabriquer |
+
+Le banc [`bancs/enocean/`](../Comm%20distance/bancs/enocean/) reste en place : il
+valide les `PTM 210` le jour où l'option est retenue. Le firmware du bouton LoRa
+vit dans `A2_LoRa/firmware/bouton-lora/`.
 
 ## Ce que ce modèle change
 

@@ -15,7 +15,7 @@ bancs/lora/
 ```
 
 Les tests unitaires du transport LoRa, eux, restent dans
-[`../../architectures/A3_LoRa/test/native/`](../../architectures/A3_LoRa/test/native/) :
+[`../../architectures/A2_LoRa/test/native/`](../../architectures/A2_LoRa/test/native/) :
 ils n'ont besoin d'aucun matériel et tournent avec `make test`.
 
 ## Ce qui tourne sans matériel
@@ -126,7 +126,7 @@ sudo apt install python3-spidev python3-libgpiod
 connecteur SPI ni GPIO. Ces scripts demandent une machine qui expose un bus
 SPI : un modèle UniPi à base de Raspberry Pi, ou un adaptateur USB-SPI. C'est
 la raison pour laquelle la nomenclature retient une carte ESP32 pour le poste
-LoRa, et non une passerelle : voir `../../architectures/A2_Hybride/BOM.md`, « Pourquoi pas un Unipi
+LoRa, et non une passerelle : voir `../../architectures/A2_LoRa/BOM.md`, « Pourquoi pas un Unipi
 Gate pour ce poste ? ».
 
 ## Lire les résultats
@@ -147,7 +147,7 @@ Ce n'est pas un réglage : c'est l'EN 300 220 / ERC 70-03.
 
 **`--sf 7` change tout** : ~41 ms au lieu de ~145, donc 3,5 fois plus
 d'émissions possibles et une latence bien plus basse, au prix de la portée.
-C'est l'arbitrage décrit dans [`../../architectures/A3_LoRa/docs/latence_lora.md`](../../architectures/A3_LoRa/docs/latence_lora.md),
+C'est l'arbitrage décrit dans [`../../architectures/A2_LoRa/docs/latence_lora.md`](../../architectures/A2_LoRa/docs/latence_lora.md),
 et ces essais sont faits pour le trancher sur le terrain plutôt qu'au bureau.
 
 ## La T-Beam peut-elle servir de télécommande finale ?

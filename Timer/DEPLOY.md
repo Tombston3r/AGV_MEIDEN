@@ -60,7 +60,7 @@ la chaîne : il en **rapporte l'effet**, voir §0.4.
 ### 0.2 Mesure de `t_setup` : éliminatoire
 
 Non mesurée à ce jour. Elle conditionne la répartition ESP32/ATmega du §5, et
-figure déjà au kanban de l'architecture A4 : **c'est la même mesure**, à ne
+figure déjà au kanban de l'architecture A3 : **c'est la même mesure**, à ne
 pas refaire deux fois.
 
 ### 0.3 Capacité du bus I²C
@@ -100,7 +100,7 @@ Trois décisions derrière ce bandeau :
 
 ⚠️ **Ce que le firmware devra fournir** (chantier T6) : le drapeau
 `en_deplacement` au moment de la coupure. Il se déduit de l'état du séquenceur
-existant (`SeqState::Transit` et `state_flag::kMoving`) sur la carte A4. Le
+existant (`SeqState::Transit` et `state_flag::kMoving`) sur la carte A3. Le
 banc le simule (`POST /api/sim/interruption`).
 
 ## Phase 1 : Éprouver sans matériel *(faisable aujourd'hui)*
@@ -169,7 +169,7 @@ d'heure.
 ## Phase 3 : Persistance *(chantiers T1 puis T2)*
 
 **`NvsStore` suffit : pas besoin de LittleFS.** La spec §3.3 parle de fichiers ;
-le stockage clé/valeur en flash existe déjà dans A4, le document de planning
+le stockage clé/valeur en flash existe déjà dans A3, le document de planning
 fait 1 à 2 ko en JSON, et **l'écriture atomique est assurée par la NVS**. Restent
 utiles : le CRC32 et la version de schéma.
 
@@ -190,7 +190,7 @@ documenté au kanban plutôt que masqué.
 Le contrat REST est **figé et testé** par [`banc_api/`](banc_api/) :
 `ETag`/`409`/`428`, validation, pause, saut, appel, acquittement d'alerte. Le
 portage consiste à câbler ces routes sur le serveur `esp_http_server`
-**existant** de `Comm distance/architectures/A4_Wifi/`, pas à en créer un.
+**existant** de `Comm distance/architectures/A3_Wifi/`, pas à en créer un.
 
 ⚠️ **Mais ce serveur ne tourne aujourd'hui que pendant la fenêtre de
 maintenance** : 600 s, ouverte au contact ILS, sur le point d'accès. Le planning
@@ -211,7 +211,7 @@ valider le comportement.
 **Rien à écrire côté séquenceur.** La pose sur les signaux X, le respect du
 `t_setup`, l'attente d'acquittement Y, les retries bornés, le refus d'empiler
 sans accusé et le heartbeat ESP32↔ATmega **existent, écrits et testés** dans
-`A4_Wifi`. Le moteur produit une `Mission` ; elle part en `Cmd::Goto` sur la
+`A3_Wifi`. Le moteur produit une `Mission` ; elle part en `Cmd::Goto` sur la
 liaison série existante.
 
 Trois branchements, tous courts :
