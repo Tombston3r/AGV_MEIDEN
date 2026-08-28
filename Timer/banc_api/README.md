@@ -176,6 +176,14 @@ Le scénario du contrat (`tests/test_api.py`) déroule : verrou optimiste
 expiration à minuit, saut sur demande, gel heure non fiable, révocation à la
 modification.
 
+## Le même banc, sur la carte
+
+`esp32/` fait tourner ce serveur **sur l'ESP32 de l'AGV Control V5.0.1**, qui
+ouvre un point d'accès `agv-atelier`. Ce n'est pas une copie : le même
+`serveur.cpp` y est compilé, deux points seulement divergent sous
+`ESP_PLATFORM`. Voir [esp32/README.md](esp32/README.md), et son `DEPLOY.md`
+avant de flasher quoi que ce soit.
+
 ## Limites assumées
 
 - **Horloge vers le futur uniquement** : revenir en arrière ne « dé-consomme »

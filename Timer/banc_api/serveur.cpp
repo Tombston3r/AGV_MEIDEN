@@ -6,9 +6,12 @@
 // temps réel est inutilisable, il faut pouvoir se placer à 05:59, accélérer,
 // franchir minuit.
 //
-// Hôte uniquement : sockets POSIX, un seul fil d'exécution (aucun verrou à
-// avoir juste). Le portage ESP32 reprendra les mêmes routes sur le serveur
-// web de l'architecture A3 : voir docs/ALIGNEMENT_COMM_DISTANCE.md.
+// Sockets POSIX, un seul fil d'exécution (aucun verrou à avoir juste). Le
+// même corps sert sur l'hôte et sur ESP32 : lwIP fournit les mêmes appels
+// (socket, bind, poll, accept). Ne divergent que deux points, isolés sous
+// ESP_PLATFORM : les pages web (embarquées faute de système de fichiers) et
+// l'adresse d'écoute (127.0.0.1 sur l'hôte, le point d'accès sur la carte).
+// Voir esp32/README.md et docs/ALIGNEMENT_COMM_DISTANCE.md.
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <poll.h>
@@ -25,6 +28,10 @@
 #include <string>
 #include <vector>
 
+#ifdef ESP_PLATFORM
+#include "web_embarque.h"
+#endif
+
 #include "app/agvdump.h"
 #include "moteur/planning.h"
 #include "moteur/serialisation.h"
@@ -34,7 +41,9 @@ namespace {
 using namespace agv::planning;
 
 volatile std::sig_atomic_t g_stop = 0;
+#ifndef ESP_PLATFORM
 void sur_signal(int) { g_stop = 1; }
+#endif
 
 // --- Horloge simulée -------------------------------------------------------
 // now = base + (réel écoulé) × facteur. Tout est pilotable par l'API.
@@ -85,7 +94,15 @@ struct Banc {
   Config cfg;
   Moteur moteur{cfg};
   HorlogeSimulee horloge;
+#ifdef ESP_PLATFORM
+  // Une carte nue démarre en 1970 : ni RTC, ni NTP sur un point d'accès sans
+  // internet. Partir de `false` fait geler le moteur (spec §2.5) jusqu'à ce
+  // qu'un opérateur pose l'heure par /api/sim/heure : sinon la carte tirerait
+  // les départs du 1er janvier 1970.
+  bool heure_fiable = false;
+#else
   bool heure_fiable = true;
+#endif
   int version = 1;  // ETag du planning
   std::vector<MissionEmise> missions;
   std::string dossier_web;
@@ -382,6 +399,20 @@ void route_statique(Banc& banc, int fd, const std::string& chemin) {
     repondre(fd, 404, json_erreur("introuvable"));
     return;
   }
+#ifdef ESP_PLATFORM
+  (void)banc;  // le dossier web n'existe pas ici : tout est dans le binaire
+  // Pas de système de fichiers sur le banc embarqué : les pages sont dans le
+  // binaire, et leur type est fixé à la génération (web_embarque.h).
+  for (size_t i = 0; i < banc_web::kNbFichiers; ++i) {
+    const auto& f = banc_web::kFichiers[i];
+    if (nom != f.nom) continue;
+    repondre(fd, 200, std::string(reinterpret_cast<const char*>(f.octets), f.taille),
+             f.type);
+    return;
+  }
+  repondre(fd, 404, json_erreur("introuvable"));
+  return;
+#else
   std::ifstream fichier(banc.dossier_web + "/" + nom, std::ios::binary);
   if (!fichier) {
     repondre(fd, 404, json_erreur("introuvable"));
@@ -398,6 +429,7 @@ void route_statique(Banc& banc, int fd, const std::string& chemin) {
     type = "application/javascript; charset=utf-8";
   }
   repondre(fd, 200, contenu.str(), type);
+#endif
 }
 
 void traiter(Banc& banc, int fd, const Requete& req) {
@@ -534,21 +566,10 @@ void traiter(Banc& banc, int fd, const Requete& req) {
 
 }  // namespace
 
-int main(int argc, char** argv) {
-  int port = 8081;
-  std::string dossier_web = "banc_api/web";
-  for (int i = 1; i < argc - 1; ++i) {
-    if (std::strcmp(argv[i], "--port") == 0) port = std::atoi(argv[i + 1]);
-    if (std::strcmp(argv[i], "--web") == 0) dossier_web = argv[i + 1];
-  }
-
-  // Même fuseau que la cible (§2.4) : transitions été/hiver comprises.
-  setenv("TZ", "CET-1CEST,M3.5.0,M10.5.0/3", 1);
-  tzset();
-  std::signal(SIGINT, sur_signal);
-  std::signal(SIGTERM, sur_signal);
-  std::signal(SIGPIPE, SIG_IGN);
-
+// Corps commun hôte/ESP32. `adresse_bind` est en ordre hôte : INADDR_LOOPBACK
+// pour le banc local, INADDR_ANY pour le banc embarqué qui doit répondre aux
+// clients du point d'accès.
+int banc_api_executer(int port, const std::string& dossier_web, uint32_t adresse_bind) {
   Banc banc;
   banc.dossier_web = dossier_web;
   banc.demarre_le = ::time(nullptr);
@@ -558,17 +579,17 @@ int main(int argc, char** argv) {
   setsockopt(ecoute, SOL_SOCKET, SO_REUSEADDR, &oui, sizeof(oui));
   sockaddr_in adresse{};
   adresse.sin_family = AF_INET;
-  adresse.sin_addr.s_addr = htonl(INADDR_LOOPBACK);  // banc local, jamais exposé
+  adresse.sin_addr.s_addr = htonl(adresse_bind);
   adresse.sin_port = htons(static_cast<uint16_t>(port));
   if (bind(ecoute, reinterpret_cast<sockaddr*>(&adresse), sizeof(adresse)) != 0 ||
       listen(ecoute, 8) != 0) {
-    std::fprintf(stderr, "impossible d'ecouter sur 127.0.0.1:%d\n", port);
+    std::fprintf(stderr, "impossible d'ecouter sur le port %d\n", port);
     return 1;
   }
   socklen_t taille = sizeof(adresse);
   getsockname(ecoute, reinterpret_cast<sockaddr*>(&adresse), &taille);
   std::printf("BANC_API PORT=%d\n", ntohs(adresse.sin_port));
-  std::printf("banc API planning sur http://127.0.0.1:%d : horloge simulee x1\n",
+  std::printf("banc API planning sur le port %d : horloge simulee x1\n",
               ntohs(adresse.sin_port));
   std::fflush(stdout);
 
@@ -597,3 +618,24 @@ int main(int argc, char** argv) {
   std::puts("arret du banc");
   return 0;
 }
+
+#ifndef ESP_PLATFORM
+int main(int argc, char** argv) {
+  int port = 8081;
+  std::string dossier_web = "banc_api/web";
+  for (int i = 1; i < argc - 1; ++i) {
+    if (std::strcmp(argv[i], "--port") == 0) port = std::atoi(argv[i + 1]);
+    if (std::strcmp(argv[i], "--web") == 0) dossier_web = argv[i + 1];
+  }
+
+  // Même fuseau que la cible (§2.4) : transitions été/hiver comprises.
+  setenv("TZ", "CET-1CEST,M3.5.0,M10.5.0/3", 1);
+  tzset();
+  std::signal(SIGINT, sur_signal);
+  std::signal(SIGTERM, sur_signal);
+  std::signal(SIGPIPE, SIG_IGN);
+
+  // Banc local : jamais exposé au réseau.
+  return banc_api_executer(port, dossier_web, INADDR_LOOPBACK);
+}
+#endif

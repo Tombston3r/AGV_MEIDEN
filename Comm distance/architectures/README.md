@@ -8,11 +8,11 @@ Toutes suivent la **même chaîne** : boutons d'appel optionnels, **poste centra
 qui héberge l'API de planning et reçoit les appels, carte AGV Control, AGV. Voir
 [`../../docs/ARCHITECTURE_COMMUNE.md`](../../docs/ARCHITECTURE_COMMUNE.md).
 
-| | Dossier | Poste vers AGV | Carte AGV | Coût 10 ans | Tests |
+| | Dossier | Poste vers AGV | Carte AGV | Coût 10 ans |
 |---|---|---|---|---:|---:|
-| **A1** | [`A1_Cellulaire/`](A1_Cellulaire/) | LTE-M / MQTT | neuve | 1 386 € | 112 |
-| **A2** | [`A2_LoRa/`](A2_LoRa/) | LoRa 868 MHz | V6.0 | **417 €** | 119 |
-| **A3** | [`A3_Wifi/`](A3_Wifi/) | Wi-Fi d'entreprise | V5.0.1 | 592 € | 109 + 17 |
+| **A1** | [`A1_Cellulaire/`](A1_Cellulaire/) | LTE-M / MQTT | à réaliser | 1 386 € |
+| **A2** | [`A2_LoRa/`](A2_LoRa/) | LoRa 868 MHz | V6.0 | **417 €** |
+| **A3** | [`A3_Wifi/`](A3_Wifi/) | Wi-Fi d'entreprise | V5.0.1 | 592 € |
 
 Coûts **HT sur dix ans, accessoires compris, boutons exclus** : ceux-ci sont
 optionnels et leur choix ne dépend pas de l'architecture.
