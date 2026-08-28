@@ -10,11 +10,32 @@
 > **Matériel** : le projet KiCad vit dans [`../../materiel/AIO_AGV_Control_V6.0/`](../../materiel/AIO_AGV_Control_V6.0/), une seule copie pour tout le dépôt.
 > **Bancs** : [`../../bancs/lora/`](../../bancs/lora/) valide la liaison de cette architecture sur table.
 
+
+## La chaîne
+
+```
+Boutons d'appel (optionnels) -> Poste Central -> Carte AGV Control -> AGV
+```
+
+| Liaison | Technologie |
+|---|---|
+| Bouton vers poste | LoRa 868 MHz, boutons sur pile |
+| Poste vers AGV | LoRa 868 MHz |
+
+Le **poste central** héberge l'API de planning quotidien et reçoit les
+appels : c'est lui qui décide des départs. Modèle commun aux quatre
+architectures : [`../../docs/ARCHITECTURE_COMMUNE.md`](../../../docs/ARCHITECTURE_COMMUNE.md).
+
 ## Ce que fait cette architecture
 
-Des boutons d'appel muraux **sur pile** émettent directement en **LoRa
-868 MHz** vers la carte embarquée sur le chariot. Pas de poste fixe, pas de
-point d'accès, pas d'abonnement : deux nœuds radio qui se parlent.
+Des boutons d'appel muraux **sur pile** émettent en **LoRa 868 MHz** vers un
+**poste central**, qui héberge le planning quotidien et renvoie les missions à
+la carte embarquée, en LoRa également. Pas de point d'accès, pas d'abonnement :
+tout tient sur une bande libre.
+
+⚠️ **Changement du 2026-08-28.** A3 se définissait auparavant par l'absence de
+poste, les boutons parlant directement à l'AGV. Le poste central devient commun
+aux quatre architectures parce qu'il héberge l'API de planning.
 
 C'est la seule des quatre architectures où **le bouton est authentifié de bout
 en bout** (chiffrement AES-128-CTR et fenêtre anti-rejeu jusqu'à l'AGV) et la
@@ -22,9 +43,13 @@ seule qui rende un **accusé visuel à l'opérateur** : LED verte quand l'ordre 
 acquitté, rouge sinon.
 
 ```
-Bouton LoRa sur pile ──LoRa 868 MHz──▶ Carte V6.0 ──43 lignes──▶ automate MEIDEN
-   AES + anti-rejeu          ACK                 SUB-D 25 × 2
+Bouton LoRa    ──LoRa──▶  Poste central  ──LoRa──▶  Carte V6.0 ──▶ automate
+sur pile                  UniPi Lite 1.1            43 lignes      MEIDEN
+AES + anti-rejeu          planning + appels         SUB-D 25 × 2
 ```
+
+Une seule radio suffit au poste : le SX1276 est half-duplex, et `LoraTransport`
+ordonnance déjà les deux sens.
 
 ## Matériel
 

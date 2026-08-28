@@ -4,12 +4,21 @@ Chaque dossier est une **solution complète** : firmware, simulateur, tests,
 nomenclature chiffrée et procédure de mise en service. La numérotation suit
 l'**ordre chronologique d'étude**, pas un classement.
 
-| | Dossier | Carte | Liaison | Boutons | Coût 10 ans | Tests |
+Toutes suivent la **même chaîne** : boutons d'appel optionnels, **poste central**
+qui héberge l'API de planning et reçoit les appels, carte AGV Control, AGV. Voir
+[`../../docs/ARCHITECTURE_COMMUNE.md`](../../docs/ARCHITECTURE_COMMUNE.md).
+
+| | Dossier | Bouton vers poste | Poste vers AGV | Carte | Coût 10 ans | Tests |
 |---|---|---|---|---|---:|---:|
-| **A1** | [`A1_Cellulaire/`](A1_Cellulaire/) | neuve | SMS ou LTE-M/MQTT | EnOcean au poste | 1 366 € | 112 |
-| **A2** | [`A2_Hybride/`](A2_Hybride/) | V6.0 | LoRa + poste relais | EnOcean sans pile | 428 € | 130 |
-| **A3** | [`A3_LoRa/`](A3_LoRa/) | V6.0 | LoRa direct | LoRa sur pile | **341 €** | 119 |
-| **A4** | [`A4_Wifi/`](A4_Wifi/) | V5.0.1 | Wi-Fi d'entreprise | EnOcean au poste | 692 € | 109 + 17 |
+| **A1** | [`A1_Cellulaire/`](A1_Cellulaire/) | EnOcean | LTE-M / MQTT | neuve | 1 486 € | 112 |
+| **A2** | [`A2_Hybride/`](A2_Hybride/) | EnOcean sans pile | LoRa | V6.0 | 557 € | 130 |
+| **A3** | [`A3_LoRa/`](A3_LoRa/) | **LoRa sur pile** | LoRa | V6.0 | **538 €** | 119 |
+| **A4** | [`A4_Wifi/`](A4_Wifi/) | EnOcean | Wi-Fi d'entreprise | V5.0.1 | 692 € | 109 + 17 |
+
+⚠️ **A2 et A3 ne sont plus séparées que par 19 €** et par la technologie du
+bouton, pile contre sans-pile. Depuis que le poste central est commun, leur
+liaison vers l'AGV est identique. La question de les garder toutes les deux est
+ouverte dans [`../../docs/COMPARAISON.md`](../docs/COMPARAISON.md).
 
 Coûts **HT sur dix ans, deux points d'appel, accessoires compris** : voir
 [`../docs/COMPARAISON.md`](../docs/COMPARAISON.md) pour l'arbitrage complet.

@@ -4,7 +4,7 @@
 
 | | HT | TTC | *Accessoires écartés* |
 |---|---:|---:|---:|
-| **A2 : EnOcean + LoRa, 2 boutons sans pile** | **310,15 €** | **372,18 €** | *+ 117,50 € HT* |
+| **A2 : EnOcean + LoRa, 2 boutons sans pile** | **445,15 €** | **534,18 €** | *+ 112,00 € HT* |
 
 Ces totaux ne comptent que les **composants déterminants**.
 
@@ -105,19 +105,24 @@ le chariot : c'est le retour arrière de cette architecture.
 | **Module LoRa SX1276 868 MHz** : l'unique écart avec la V5.0.1 | `RFM95W-868S2 (HopeRF, U2)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RFM95W-868S2) · [Amazon](https://www.amazon.fr/s?k=RFM95W-868S2) | ☐ | ☐ | ☐ | *12,00 €* |
 | **Sous-total** | | | | | | **☐** | ***133,38 €*** |
 
-### **[A2]** Poste fixe EnOcean → LoRa
+### **[A2]** Poste central : UniPi Lite 1.1, EnOcean vers LoRa
+
+Le poste reçoit les appels **en EnOcean** et renvoie les missions **en
+LoRa** vers la carte AGV.
+
+⚠️ Depuis le 2026-08-28, ce poste héberge l'API de planning : il passe d'un
+ESP32 à une machine Linux. Le décodeur ESP3 et le transport LoRa du dépôt
+existent déjà en Python et en C++, rien n'est perdu.
 
 | Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Module MCU, 8 Mo flash (LittleFS + pages web) | `ESP32-WROOM-32E-N8` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ESP32-WROOM-32E-N8) | ☐ | ☐ | ☐ | *6,00 €* |
-| Récepteur EnOcean 868 MHz, UART ESP3 | `TCM 515 (EnOcean)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TCM+515) · [Mouser](https://www.mouser.fr/c/?q=TCM+515) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=TCM+515) | ☐ | ☐ | ☐ | *33,60 €* |
-| Module LoRa SX1276 | `RFM95W-868S2 (HopeRF)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RFM95W-868S2) · [Amazon](https://www.amazon.fr/s?k=RFM95W-868S2) | ☐ | ☐ | ☐ | *12,00 €* |
-| Contrôleur Ethernet SPI + RJ45 magnétique | `WIZnet WIZ850io (W5500)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=WIZnet+WIZ850io) | ☐ | ☐ | ☐ | *7,20 €* |
-| Bouton d'appairage + bouton reset | `Omron B3F-1000` | 2 | [RS](https://fr.rs-online.com/web/c/?searchTerm=Omron+B3F-1000) | ☐ | ☐ | ☐ | *2,40 €* |
-| Alimentation rail DIN 230 V → 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MEAN+WELL+HDR-15-24) | ☐ | ☐ | ☐ | *16,80 €* |
-| 24 V → 5 V → 3,3 V | `TSR 1-2450 + AP2112K-3.3` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TSR+1-2450+%2B+AP2112K-3.3) | ☐ | ☐ | ☐ | *9,60 €* |
-| PCB 2 couches ~100 × 80 mm | `Gerber projet` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *7,20 €* |
-| **Sous-total** | | | | | | **☐** | ***94,80 €*** |
+| Poste central Linux : hébergement de l'API de planning | `UniPi 1.1 Lite + Raspberry Pi 4` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=UniPi+1.1+Lite+%2B+Raspberry+Pi+4) | ☐ | ☐ | ☐ | *156,00 €* |
+| Carte microSD 16 Go qualité industrielle | `SanDisk Industrial ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SanDisk+Industrial) | ☐ | ☐ | ☐ | *14,40 €* |
+| Alimentation rail DIN 230 V vers 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MEAN+WELL+HDR-15-24) | ☐ | ☐ | ☐ | *16,80 €* |
+| Récepteur EnOcean 868 MHz en dongle USB | `USB 300 (EnOcean)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=USB+300) · [Mouser](https://www.mouser.fr/c/?q=USB+300) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=USB+300) | ☐ | ☐ | ☐ | *48,00 €* |
+| Module LoRa SX1276 sur le SPI du Raspberry Pi | `RFM95W-868S2 (HopeRF)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RFM95W-868S2) · [Amazon](https://www.amazon.fr/s?k=RFM95W-868S2) | ☐ | ☐ | ☐ | *12,00 €* |
+| Carte fille : RFM95W vers le connecteur 40 broches | `PCB 2 couches + barrettes` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *9,60 €* |
+| **Sous-total** | | | | | | **☐** | ***256,80 €*** |
 
 ### **[A2]** Bouton EnOcean sans pile : l'unité
 
@@ -143,10 +148,10 @@ le chariot : c'est le retour arrière de cette architecture.
 | Poste | Total TTC relevé | *Repère TTC* | *Repère HT* |
 |---|---:|---:|---:|
 | Carte AGV `V6.0` (nomenclature KiCad) | ☐ | *133,38 €* | *111,15 €* |
-| Poste fixe EnOcean → LoRa | ☐ | *94,80 €* | *79,00 €* |
+| Poste fixe EnOcean → LoRa | ☐ | *256,80 €* | *214,00 €* |
 | 2 boutons PTM 210 | ☐ | *72,00 €* | *60,00 €* |
 | Outillage | ☐ | *72,00 €* | *60,00 €* |
-| **TOTAL** | **☐** | ***372,18 €*** | ***310,15 €*** |
+| **TOTAL** | **☐** | ***534,18 €*** | ***445,15 €*** |
 
 ⚠️ La version **EU 868 MHz** du `PTM 210` est impérative : les déclinaisons
 902 et 928 MHz ne sont pas utilisables en France, et rien dans la désignation
@@ -235,7 +240,7 @@ spécifiée :
 |---|---:|---|
 | Dongle LoRa USB | ~30,00 € + hub | L'unique port USB est déjà pris par le TCM 515 |
 | Modem LoRa UART/RS485 (`E32-868T20D`, `RAK3172`) | ~18,00 € | **Le module gère le PHY lui-même** : il faudrait réécrire `LoraTransport`, et surtout **abandonner le contrôle du budget de rapport cyclique** que le firmware applique et teste aujourd'hui. C'est une obligation réglementaire, pas un réglage |
-| Gate + carte ESP32 en frontal radio | ~334,80 € | On paie les deux |
+| Gate + carte ESP32 en frontal radio | ~496,80 € | On paie les deux |
 
 **Le poste LoRa n'a d'ailleurs pas besoin de Linux.** Son travail est une
 traduction de protocole : EnOcean entre, LoRa sort. Il n'héberge pas de broker,
@@ -248,7 +253,7 @@ L'asymétrie avec l'architecture Wi-Fi est donc logique :
 | Doit héberger un broker MQTT | **oui** | non |
 | Doit piloter une radio au niveau PHY | non (le réseau est Ethernet | **oui**) SX1276 sur SPI |
 | Matériel qui en découle | boîtier Linux industriel | microcontrôleur avec SPI |
-| Retenu | Unipi Gate G100 (~240,00 € TTC) | carte ESP32 (~94,80 € TTC) |
+| Retenu | Unipi Gate G100 (~240,00 € TTC) | carte ESP32 (~256,80 € TTC) |
 
 ⚠️ **Deux antennes 868 MHz sur le même boîtier** : EnOcean et LoRa. Les espacer
 d'au moins 20 cm, ou en déporter une. Une désensibilisation du récepteur EnOcean
@@ -258,13 +263,13 @@ par l'émetteur LoRa se traduirait par des appuis perdus, silencieusement.
 
 | Stations | A3 (TTC) | A2 (TTC) | Moins cher |
 |---:|---:|---:|---|
-| 2 | 350,10 € | 468,78 € | **A3** |
-| 4 | 494,82 € | 579,18 € | **A3** |
-| 6 | 639,54 € | 689,58 € | **A3** |
-| 8 | 784,26 € | 799,98 € | **A3** |
-| 12 | 1 073,70 € | 1 020,78 € | **A2** |
+| 2 | 600,90 € | 624,18 € | **A3** |
+| 4 | 745,62 € | 734,58 € | **A2** |
+| 6 | 890,34 € | 844,98 € | **A2** |
+| 8 | 1 035,06 € | 955,38 € | **A2** |
+| 12 | 1 324,50 € | 1 176,18 € | **A2** |
 
-Le point de bascule est à **9 stations**. En dessous, A3 coûte moins
+Le point de bascule est à **4 stations**. En dessous, A3 coûte moins
 **et** rend un accusé visuel à l'opérateur. Au-delà, A2 prend l'avantage grâce
 à des boutons à 55,20 € au lieu de
 72,36 €, et supprime les piles.

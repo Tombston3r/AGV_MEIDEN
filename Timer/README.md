@@ -5,7 +5,8 @@ jour par un opérateur. Cadrage complet :
 [`Spec Planning Journalier.md`](Spec%20Planning%20Journalier.md).
 
 > ⚠️ Changement de nature : on passe d'un appel à la demande à un déclenchement
-> autonome sur horloge. La sécurité machine (§9 de la spec, EN ISO 3691-4) est
+> autonome sur horloge. Le Timer vit sur le **poste central**, commun aux quatre
+> architectures : [`../docs/ARCHITECTURE_COMMUNE.md`](../docs/ARCHITECTURE_COMMUNE.md). La sécurité machine (§9 de la spec, EN ISO 3691-4) est
 > à traiter **avant** la mise en service : sélecteur physique d'autorisation,
 > authentification de l'IHM.
 
@@ -60,14 +61,14 @@ de 2026 (29 mars, 25 octobre). Le banc et son mode d'emploi :
 
 ## Ce qui reste (voir le kanban)
 
-📍 **Déploiement sur la carte V5.0.1** : le chemin complet, ce qui manque et
-dans quel ordre : [`docs/CHEMIN_V5.md`](docs/CHEMIN_V5.md).
+📍 **Déploiement sur le poste central**, sous Linux : le chemin complet, ce qui
+manque et dans quel ordre : [`docs/CHEMIN_POSTE.md`](docs/CHEMIN_POSTE.md).
 
-Dans l'ordre : **client SNTP**, `set_wall_clock()` existe mais n'est appelé
-nulle part, l'heure vaut 0 et le moteur reste gelé -, puis **DS3231** (le
-Wi-Fi du site est saturé), puis la **persistance en NVS** (`NvsStore` existe,
-LittleFS est inutile), puis les **routes REST en permanence** sur l'interface
-cliente avec authentification, puis le **chaînage** vers le séquenceur, qui
-lui **existe déjà, testé**.
+Depuis le 2026-08-28, le Timer tourne sur le **poste central** sous Linux, et
+non plus sur l'ESP32 embarqué : **le banc devient la cible**. Dans l'ordre :
+**persister les occurrences consommées** puis le planning, brancher l'**horloge
+système** à la place de l'horloge simulée, **écouter sur le réseau avec
+authentification**, puis raccorder le **transport vers l'AGV** et la
+**réception des appels**, tous deux déjà écrits dans les bancs.
 
-Chemin détaillé et raccourcis : [`docs/CHEMIN_V5.md`](docs/CHEMIN_V5.md).
+Chemin détaillé : [`docs/CHEMIN_POSTE.md`](docs/CHEMIN_POSTE.md).

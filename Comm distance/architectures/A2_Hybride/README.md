@@ -10,6 +10,22 @@
 > **Matériel** : le projet KiCad vit dans [`../../materiel/AIO_AGV_Control_V6.0/`](../../materiel/AIO_AGV_Control_V6.0/), une seule copie pour tout le dépôt.
 > **Bancs** : [`../../bancs/enocean/`](../../bancs/enocean/) valide la liaison de cette architecture sur table.
 
+
+## La chaîne
+
+```
+Boutons d'appel (optionnels) -> Poste Central -> Carte AGV Control -> AGV
+```
+
+| Liaison | Technologie |
+|---|---|
+| Bouton vers poste | EnOcean 868 MHz, sans pile |
+| Poste vers AGV | LoRa 868 MHz |
+
+Le **poste central** héberge l'API de planning quotidien et reçoit les
+appels : c'est lui qui décide des départs. Modèle commun aux quatre
+architectures : [`../../docs/ARCHITECTURE_COMMUNE.md`](../../../docs/ARCHITECTURE_COMMUNE.md).
+
 ## Ce que fait cette architecture
 
 Des boutons **EnOcean sans pile** : l'énergie vient de l'appui lui-même :

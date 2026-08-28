@@ -4,7 +4,7 @@
 
 | | HT | TTC | *Accessoires écartés* |
 |---|---:|---:|---:|
-| **A1 : poste ESP32 (recommandé)** | **266,70 €** | **320,04 €** | *+ 139,50 € HT* |
+| **A1 : poste ESP32 (recommandé)** | **399,70 €** | **479,64 €** | *+ 126,00 € HT* |
 | **A1 : poste Unipi Gate G100** | **428,70 €** | **514,44 €** | *+ 116,00 € HT* |
 | **A1 : poste UniPi E413 LTE** | **564,70 €** | **677,64 €** | *+ 133,00 € HT* |
 
@@ -111,21 +111,21 @@ Carte neuve à fabriquer. La V5.0.1 d'origine est **conservée intacte**.
 | Expandeur I²C 16 GPIO | `MCP23017-E/SP (Microchip)` | 4 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MCP23017-E%2FSP) | ☐ | ☐ | ☐ | *12,00 €* |
 | **Sous-total** | | | | | | **☐** | ***12,00 €*** |
 
-### **[A1]** Poste fixe, option A : ESP32 (recommandée)
+### **[A1]** Poste central, option A : UniPi Lite 1.1 (recommandée)
 
-Suffit dès lors que l'historique long terme n'est pas exigé.
+⚠️ Depuis le 2026-08-28, ce poste héberge l'API de planning : il passe d'un
+ESP32 à une machine Linux. Le modem LTE-M se raccorde en USB plutôt qu'en
+UART, et le récepteur EnOcean devient un dongle : plus de carte à router.
 
 | Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
 |---|---|---:|---|---|---:|---:|---:|
-| Module MCU, 8 Mo flash (LittleFS + pages web) | `ESP32-WROOM-32E-N8` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=ESP32-WROOM-32E-N8) | ☐ | ☐ | ☐ | *6,00 €* |
-| Modem LTE-M / NB-IoT | `SIM7080G (SIMCom)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SIM7080G) · [Amazon](https://www.amazon.fr/s?k=SIM7080G) | ☐ | ☐ | ☐ | *21,60 €* |
-| Récepteur EnOcean 868 MHz, UART ESP3 | `TCM 515 (EnOcean)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TCM+515) · [Mouser](https://www.mouser.fr/c/?q=TCM+515) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=TCM+515) | ☐ | ☐ | ☐ | *33,60 €* |
-| Ethernet SPI + RJ45 : **liaison filaire** | `WIZnet WIZ850io (W5500)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=WIZnet+WIZ850io) | ☐ | ☐ | ☐ | *7,20 €* |
-| Alimentation rail DIN 230 V → 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MEAN+WELL+HDR-15-24) | ☐ | ☐ | ☐ | *16,80 €* |
-| 24 V → 5 V → 3,3 V | `TSR 1-2450 + AP2112K-3.3` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=TSR+1-2450+%2B+AP2112K-3.3) | ☐ | ☐ | ☐ | *9,60 €* |
-| PCB 2 couches ~100 × 80 mm | `Gerber projet` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *7,20 €* |
-| Support SIM, passifs | `Molex 785900001 + lot` | 1 | - | ☐ | ☐ | ☐ | *3,60 €* |
-| **Sous-total** | | | | | | **☐** | ***105,60 €*** |
+| Poste central Linux : hébergement de l'API de planning | `UniPi 1.1 Lite + Raspberry Pi 4` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=UniPi+1.1+Lite+%2B+Raspberry+Pi+4) | ☐ | ☐ | ☐ | *156,00 €* |
+| Carte microSD 16 Go qualité industrielle | `SanDisk Industrial ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SanDisk+Industrial) | ☐ | ☐ | ☐ | *14,40 €* |
+| Alimentation rail DIN 230 V vers 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MEAN+WELL+HDR-15-24) | ☐ | ☐ | ☐ | *16,80 €* |
+| Modem LTE-M / NB-IoT en clé USB | `SIM7080G (SIMCom) ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SIM7080G) · [Amazon](https://www.amazon.fr/s?k=SIM7080G) | ☐ | ☐ | ☐ | *30,00 €* |
+| Récepteur EnOcean 868 MHz en dongle USB | `USB 300 (EnOcean)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=USB+300) · [Mouser](https://www.mouser.fr/c/?q=USB+300) · [Digi-Key](https://www.digikey.fr/fr/products/result?keywords=USB+300) | ☐ | ☐ | ☐ | *48,00 €* |
+| Support SIM intégré au modem | `nano-SIM M2M` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=nano-SIM+M2M) | ☐ | ☐ | ☐ | *0,00 €* |
+| **Sous-total** | | | | | | **☐** | ***265,20 €*** |
 
 ### **[A1]** Poste fixe, option B : Unipi Gate G100 (**si Ethernet disponible**)
 
@@ -181,10 +181,10 @@ ici : `shift595` est retenue par défaut. Sous-total carte AGV complète :
 | Poste | Total TTC relevé | *Repère TTC* | *Repère HT* |
 |---|---:|---:|---:|
 | Carte AGV (variante `shift595`) | ☐ | *88,44 €* | *73,70 €* |
-| Poste fixe ESP32 (option A) | ☐ | *105,60 €* | *88,00 €* |
+| Poste fixe ESP32 (option A) | ☐ | *265,20 €* | *221,00 €* |
 | 2 boutons EnOcean | ☐ | *72,00 €* | *60,00 €* |
 | Outillage | ☐ | *54,00 €* | *45,00 €* |
-| **TOTAL** | **☐** | ***320,04 €*** | ***266,70 €*** |
+| **TOTAL** | **☐** | ***479,64 €*** | ***399,70 €*** |
 
 ### Avec un poste UniPi : laquelle des deux options ?
 
@@ -205,8 +205,8 @@ là où le poste sera fixé ?** Si oui, l'option C n'a plus de justification.
 ⚠️ L'unique port USB du Gate est pris par l'adaptateur série du `TCM 515`.
 Prévoir un concentrateur si un autre périphérique USB devient nécessaire.
 
-Face à l'option A (ESP32, 105,60 €), l'écart restant est de
-**194,40 €** : c'est le prix de
+Face à l'option A (ESP32, 265,20 €), l'écart restant est de
+**34,80 €** : c'est le prix de
 l'historique long terme et d'un matériel référencé.
 
 ### Coût par station supplémentaire
@@ -233,10 +233,10 @@ dépendance à un tiers. À proposer systématiquement.
 
 | | Poste ESP32 | Poste UniPi |
 |---|---:|---:|
-| Matériel et outillage (TTC) | 320,04 € | 677,64 € |
+| Matériel et outillage (TTC) | 479,64 € | 677,64 € |
 | Récurrent sur 10 ans (TTC) | 1 152,00 € | 1 152,00 € |
-| **Total 10 ans (TTC)** | **1 472,04 €** | **1 829,64 €** |
-| *pour mémoire, en HT* | *1 226,70 €* | *1 524,70 €* |
+| **Total 10 ans (TTC)** | **1 631,64 €** | **1 829,64 €** |
+| *pour mémoire, en HT* | *1 359,70 €* | *1 524,70 €* |
 
 ---
 
@@ -264,7 +264,7 @@ grandeur du récurrent, qui est l'argument décisif.
 | **Total** | **~1 500 €/an** | **~1 800,00 €/an** |
 | **Sur 10 ans, tout compris** | **~15 625,00 €** | **~18 750,00 €** |
 
-Le surcoût sur dix ans face à la variante B est de **~14 258,80 € HT**,
+Le surcoût sur dix ans face à la variante B est de **~14 139,30 € HT**,
 pour un service strictement inférieur. C'est l'argument chiffré à opposer si le
 SMS est demandé.
 
@@ -321,7 +321,7 @@ alors éligible.
 
 D'où la scission en deux options : **B, Unipi Gate G100** dès qu'une prise
 réseau existe, **C : E413 LTE** seulement sinon. L'option A (ESP32 à
-105,60 €) reste la moins chère dans les deux cas.
+265,20 €) reste la moins chère dans les deux cas.
 
 ### ⚠️ À vérifier : la limitation de courant des optocoupleurs
 

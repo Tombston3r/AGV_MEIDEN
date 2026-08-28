@@ -14,6 +14,22 @@ MEIDEN.
 > **Matériel** : le projet KiCad vit dans [`../../materiel/AIO_AGV_Control_V5.0.1/`](../../materiel/AIO_AGV_Control_V5.0.1/), une seule copie pour tout le dépôt.
 > **Bancs** : [`../../bancs/enocean/`](../../bancs/enocean/) valide la liaison de cette architecture sur table.
 
+
+## La chaîne
+
+```
+Boutons d'appel (optionnels) -> Poste Central -> Carte AGV Control -> AGV
+```
+
+| Liaison | Technologie |
+|---|---|
+| Bouton vers poste | EnOcean 868 MHz |
+| Poste vers AGV | Wi-Fi d'entreprise / MQTT |
+
+Le **poste central** héberge l'API de planning quotidien et reçoit les
+appels : c'est lui qui décide des départs. Modèle commun aux quatre
+architectures : [`../../docs/ARCHITECTURE_COMMUNE.md`](../../../docs/ARCHITECTURE_COMMUNE.md).
+
 ## Démarrage rapide
 
 ```bash

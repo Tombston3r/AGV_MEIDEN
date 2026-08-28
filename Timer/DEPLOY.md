@@ -11,9 +11,14 @@
 >
 > État à jour : [`docs/ETAT_PROJET.md`](docs/ETAT_PROJET.md).
 >
-> 📍 **Cible retenue : la carte `V5.0.1`** (celle de l'architecture A4). Le
-> chemin détaillé, ce qui manque et dans quel ordre :
-> [`docs/CHEMIN_V5.md`](docs/CHEMIN_V5.md).
+> 📍 **Cible depuis le 2026-08-28 : le poste central**, sous Linux, commun aux
+> quatre architectures. Le Timer ne tourne plus sur l'ESP32 embarqué : la carte
+> AGV redevient un exécutant. Chemin détaillé :
+> [`docs/CHEMIN_POSTE.md`](docs/CHEMIN_POSTE.md), modèle d'ensemble :
+> [`../docs/ARCHITECTURE_COMMUNE.md`](../docs/ARCHITECTURE_COMMUNE.md).
+>
+> ⚠️ Les phases 2 à 4 ci-dessous décrivent encore la cible ESP32. Elles sont
+> **caduques** : `CHEMIN_POSTE.md` les remplace.
 
 ## Phase 0, À trancher avant la mise en service
 

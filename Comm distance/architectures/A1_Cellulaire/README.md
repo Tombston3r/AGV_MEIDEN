@@ -14,6 +14,22 @@ architectures vivent dans des dossiers frères : voir [`../README.md`](../README
 > bumpers et le scrutateur laser restent dans une chaîne indépendante conforme à
 > l'ISO 3691-4.
 
+
+## La chaîne
+
+```
+Boutons d'appel (optionnels) -> Poste Central -> Carte AGV Control -> AGV
+```
+
+| Liaison | Technologie |
+|---|---|
+| Bouton vers poste | EnOcean 868 MHz |
+| Poste vers AGV | LTE-M / MQTT, réseau opérateur |
+
+Le **poste central** héberge l'API de planning quotidien et reçoit les
+appels : c'est lui qui décide des départs. Modèle commun aux quatre
+architectures : [`../../docs/ARCHITECTURE_COMMUNE.md`](../../../docs/ARCHITECTURE_COMMUNE.md).
+
 ## Démarrage rapide
 
 ```bash

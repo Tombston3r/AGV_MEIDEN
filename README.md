@@ -3,6 +3,17 @@
 Deux chantiers sur le même chariot filoguidé MEIDEN (carte d'origine
 `AIO AGV Control V5.0.1`) :
 
+Toutes les architectures suivent la **même chaîne** depuis le 2026-08-28 :
+
+```
+Boutons d'appel (optionnels) -> Poste Central -> Carte AGV Control -> AGV
+                                API planning
+                                appels
+```
+
+Elles ne diffèrent plus que par la technologie de chaque liaison :
+[`docs/ARCHITECTURE_COMMUNE.md`](docs/ARCHITECTURE_COMMUNE.md).
+
 | Dossier | Chantier | État |
 |---|---|---|
 | [`Comm distance/`](Comm%20distance/) | **Remplacement du système d'appel** : 4 architectures étudiées (cellulaire, hybride, LoRa, Wi-Fi), bancs d'essai, matériel KiCad | 470 tests verts, choix client non tranché |

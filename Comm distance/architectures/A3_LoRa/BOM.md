@@ -4,7 +4,7 @@
 
 | | HT | TTC | *Accessoires écartés* |
 |---|---:|---:|---:|
-| **A3 : LoRa homogène, 2 boutons sur pile** | **217,75 €** | **261,30 €** | *+ 111,00 € HT* |
+| **A3 : LoRa homogène, 2 boutons sur pile** | **391,75 €** | **470,10 €** | *+ 146,00 € HT* |
 
 Ces totaux ne comptent que les **composants déterminants**.
 
@@ -105,6 +105,24 @@ le chariot : c'est le retour arrière de cette architecture.
 | **Module LoRa SX1276 868 MHz** : l'unique écart avec la V5.0.1 | `RFM95W-868S2 (HopeRF, U2)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RFM95W-868S2) · [Amazon](https://www.amazon.fr/s?k=RFM95W-868S2) | ☐ | ☐ | ☐ | *12,00 €* |
 | **Sous-total** | | | | | | **☐** | ***133,38 €*** |
 
+### **[A3]** Poste central : UniPi Lite 1.1
+
+Le poste reçoit les appels **en LoRa** depuis les boutons sur pile, et
+renvoie les missions **en LoRa** vers la carte AGV. Une seule radio suffit :
+le SX1276 est half-duplex, et `LoraTransport` ordonnance déjà les deux sens.
+
+⚠️ Nouveau depuis le 2026-08-28. A3 se définissait auparavant par l'absence
+de poste : voir [`../../docs/ARCHITECTURE_COMMUNE.md`](../../../docs/ARCHITECTURE_COMMUNE.md).
+
+| Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
+|---|---|---:|---|---|---:|---:|---:|
+| Poste central Linux : hébergement de l'API de planning | `UniPi 1.1 Lite + Raspberry Pi 4` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=UniPi+1.1+Lite+%2B+Raspberry+Pi+4) | ☐ | ☐ | ☐ | *156,00 €* |
+| Carte microSD 16 Go qualité industrielle | `SanDisk Industrial ou équiv.` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=SanDisk+Industrial) | ☐ | ☐ | ☐ | *14,40 €* |
+| Alimentation rail DIN 230 V vers 24 V 15 W | `MEAN WELL HDR-15-24` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=MEAN+WELL+HDR-15-24) | ☐ | ☐ | ☐ | *16,80 €* |
+| Module LoRa SX1276 868 MHz sur le SPI du Raspberry Pi | `RFM95W-868S2 (HopeRF)` | 1 | [RS](https://fr.rs-online.com/web/c/?searchTerm=RFM95W-868S2) · [Amazon](https://www.amazon.fr/s?k=RFM95W-868S2) | ☐ | ☐ | ☐ | *12,00 €* |
+| Carte fille : RFM95W vers le connecteur 40 broches | `PCB 2 couches + barrettes` | 1 | [JLCPCB](https://jlcpcb.com/quote) · [PCBWay](https://www.pcbway.com/orderonline.aspx) | ☐ | ☐ | ☐ | *9,60 €* |
+| **Sous-total** | | | | | | **☐** | ***208,80 €*** |
+
 ### **[A3]** Bouton d'appel sur pile : l'unité
 
 | Désignation | Réf. fabricant | Qté | Lien d'achat | Réf. catalogue | PU TTC | Total TTC | *Repère TTC* |
@@ -134,9 +152,10 @@ le chariot : c'est le retour arrière de cette architecture.
 | Poste | Total TTC relevé | *Repère TTC* | *Repère HT* |
 |---|---:|---:|---:|
 | Carte AGV `V6.0` (nomenclature KiCad) | ☐ | *133,38 €* | *111,15 €* |
+| Poste central UniPi Lite 1.1 | ☐ | *208,80 €* | *174,00 €* |
 | 2 boutons sur pile | ☐ | *55,92 €* | *46,60 €* |
 | Outillage | ☐ | *72,00 €* | *60,00 €* |
-| **TOTAL** | **☐** | ***261,30 €*** | ***217,75 €*** |
+| **TOTAL** | **☐** | ***470,10 €*** | ***391,75 €*** |
 
 ⚠️ La version **EU 868 MHz** du `PTM 210` est impérative : les déclinaisons
 902 et 928 MHz ne sont pas utilisables en France, et rien dans la désignation
@@ -225,7 +244,7 @@ spécifiée :
 |---|---:|---|
 | Dongle LoRa USB | ~30,00 € + hub | L'unique port USB est déjà pris par le TCM 515 |
 | Modem LoRa UART/RS485 (`E32-868T20D`, `RAK3172`) | ~18,00 € | **Le module gère le PHY lui-même** : il faudrait réécrire `LoraTransport`, et surtout **abandonner le contrôle du budget de rapport cyclique** que le firmware applique et teste aujourd'hui. C'est une obligation réglementaire, pas un réglage |
-| Gate + carte ESP32 en frontal radio | ~334,80 € | On paie les deux |
+| Gate + carte ESP32 en frontal radio | ~496,80 € | On paie les deux |
 
 **Le poste LoRa n'a d'ailleurs pas besoin de Linux.** Son travail est une
 traduction de protocole : EnOcean entre, LoRa sort. Il n'héberge pas de broker,
@@ -238,7 +257,7 @@ L'asymétrie avec l'architecture Wi-Fi est donc logique :
 | Doit héberger un broker MQTT | **oui** | non |
 | Doit piloter une radio au niveau PHY | non (le réseau est Ethernet | **oui**) SX1276 sur SPI |
 | Matériel qui en découle | boîtier Linux industriel | microcontrôleur avec SPI |
-| Retenu | Unipi Gate G100 (~240,00 € TTC) | carte ESP32 (~94,80 € TTC) |
+| Retenu | Unipi Gate G100 (~240,00 € TTC) | carte ESP32 (~256,80 € TTC) |
 
 ⚠️ **Deux antennes 868 MHz sur le même boîtier** : EnOcean et LoRa. Les espacer
 d'au moins 20 cm, ou en déporter une. Une désensibilisation du récepteur EnOcean
@@ -248,13 +267,13 @@ par l'émetteur LoRa se traduirait par des appuis perdus, silencieusement.
 
 | Stations | A3 (TTC) | A2 (TTC) | Moins cher |
 |---:|---:|---:|---|
-| 2 | 350,10 € | 468,78 € | **A3** |
-| 4 | 494,82 € | 579,18 € | **A3** |
-| 6 | 639,54 € | 689,58 € | **A3** |
-| 8 | 784,26 € | 799,98 € | **A3** |
-| 12 | 1 073,70 € | 1 020,78 € | **A2** |
+| 2 | 600,90 € | 624,18 € | **A3** |
+| 4 | 745,62 € | 734,58 € | **A2** |
+| 6 | 890,34 € | 844,98 € | **A2** |
+| 8 | 1 035,06 € | 955,38 € | **A2** |
+| 12 | 1 324,50 € | 1 176,18 € | **A2** |
 
-Le point de bascule est à **9 stations**. En dessous, A3 coûte moins
+Le point de bascule est à **4 stations**. En dessous, A3 coûte moins
 **et** rend un accusé visuel à l'opérateur. Au-delà, A2 prend l'avantage grâce
 à des boutons à 55,20 € au lieu de
 72,36 €, et supprime les piles.
